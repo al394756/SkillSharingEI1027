@@ -27,9 +27,9 @@ public class SkillDao {
         jbdcTemplate.update("DELETE FROM Skill WHERE idSkill=?", idSkill);
     }
 
-    //Actualiza los datos de la Skill menos su Id, que es clave primaria
+    //Actualiza la dscripción de la Skill
     public void updateSkill(Skill skill){
-        jbdcTemplate.update("UPDATE Skill SET name=?, description=?, skillLevel=?", skill.getName(),skill.getDescription(), skill.getLevel());
+        jbdcTemplate.update("UPDATE Skill SET description=?", skill.getDescription());
     }
 
     public Skill getSkill(String idSkill){

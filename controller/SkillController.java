@@ -20,12 +20,14 @@ public class SkillController {
     @Autowired
     public void setSkillDao(SkillDao skillDao){ this.skillDao=skillDao;}
 
+    //Métodos para listar todas las skills
     @RequestMapping("/list")
     public String listSkills(Model model){
         model.addAttribute("skills", skillDao.getSkills());
         return "skill/list";
     }
 
+    //Métodos para añadir nuevas skills
     @RequestMapping(value="/add")
     public String addSkill(Model model){
         model.addAttribute("skill", new Skill());
@@ -40,9 +42,25 @@ public class SkillController {
         return "redirect:list";
     }
 
+    //Métodos para borrar skills
     @RequestMapping(value="/delete/{idSkill}")
     public String processDelete(@PathVariable String idSkill){
         skillDao.deleteSkill(idSkill);
         return "redirect:../list";
+    }
+
+    //Métodos para cambiar la descripción de la skill (según requisitos se supone que solo se quiere cambiar esto)
+    @RequestMapping(value="/update/{idSkill}", method = RequestMethod.GET)
+    public String editDescripcionSkill(Model model, @PathVariable String idSkill){
+        model.addAttribute("skill", skillDao.getSkill(idSkill));
+        return "skill/update";
+    }
+
+    @RequestMapping(value="/update", method=RequestMethod.POST)
+    public String procssUpdateSubmit(@ModelAttribute("skill") Skill skill, BindingResult bindingResult){
+        if (bindingResult.hasErrors())
+            return "skill/update";
+        skillDao.updateSkill(skill);
+        return "redirect:list";
     }
 }
