@@ -8,7 +8,7 @@ public class Skill {
     String idSkill;
     String name;
     String description;
-    String level;
+    int level;
 
     public Skill() {
     }
@@ -25,7 +25,7 @@ public class Skill {
         return description;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
@@ -42,9 +42,8 @@ public class Skill {
     }
 
     public void setLevel(int valor) {
-
         if (valor >= 0 && valor < SkillLevel.values().length){
-            this.level=SkillLevel.values()[valor].toString();
+            level=valor;
         }
     }
 
