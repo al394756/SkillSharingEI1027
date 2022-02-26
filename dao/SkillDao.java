@@ -23,8 +23,8 @@ public class SkillDao {
     }
 
     //Elimina una skill de la base de datos
-    public void deleteSkill(Skill skill){
-        jbdcTemplate.update("DELETE FROM Skill WHERE idSkill=?", skill.getIdSkill());
+    public void deleteSkill(String idSkill){
+        jbdcTemplate.update("DELETE FROM Skill WHERE idSkill=?", idSkill);
     }
 
     //Actualiza los datos de la Skill menos su Id, que es clave primaria
