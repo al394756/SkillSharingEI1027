@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Modificar skill</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Modificar skill </h2>
+<form action="#" th:action="@{/skill/update}"
+      th:object="${skill}" method="post">
+  <table>
+    <tr>
+      <td><label>Descripción</label></td>
+      <td><input type="text" th:field="*{description}" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><input type="submit" value="Actualiza Skill" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Gestionar Skills</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+</head>
+<body>
+<h1>Lista de Skills</h1>
+<table>
+  <thead>
+  <tr>
+    <th scope="col">idSkill</th>
+    <th scope="col">Nombre</th>
+    <th scope="col">Descripción</th>
+    <th scope="col">Nivel</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="skill: ${skills}">
+    <td th:text="${skill.idSkill}"></td>
+    <td th:text="${skill.name}"></td>
+    <td th:text="${skill.description}"></td>
+    <td th:text="${skill.level}"></td>
+    <td><a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"><button type="button" class="btn btn-warning">Editar</button></a>
+    </td>
+    <td><a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="add"><button type="button" class="btn btn-success">Añadir skill</button></a>
+<a href=".."><button type="button" class="btn btn-danger">Atrás</button></a>
+
+</body>
+</html>

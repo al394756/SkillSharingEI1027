@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Crear nueva skill</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Nou nadador</h2>
+<form action="#" th:action="@{/skill/add}"
+      th:object="${skill}" method="post">
+  <table>
+    <tr>
+      <td><label>idSkill</label></td>
+      <td><input type="text" th:field="*{idSkill}" /></td>
+    </tr>
+    <tr>
+      <td><label>Nombre</label></td>
+      <td><input type="text" th:field="*{name}" /></td>
+    </tr>
+    <tr>
+      <td><label>Descripción</label></td>
+      <td><input type="text" th:field="*{description}" /></td>
+    </tr>
+    <tr>
+      <td><label>Nivel</label></td>
+      <td><input type="number" th:field="*{level}" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><input type="submit" value="Añadir Skill" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
