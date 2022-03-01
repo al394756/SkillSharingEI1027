@@ -22,7 +22,7 @@ public class RequestDao {
                 request.getStartDate(), request.getEndDate(), request.getDescription(),request.getIdStudent());
     }
 
-    public void cancelRequest(String idRequest){
+    public void deleteRequest(String idRequest){
         jdbcTemplate.update("UPDATE Request SET idEndDate=? WHERE idSRequest=?", java.time.LocalDate.now(),idRequest);
     }
 

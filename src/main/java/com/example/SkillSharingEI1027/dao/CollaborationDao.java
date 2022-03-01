@@ -27,6 +27,10 @@ public class CollaborationDao {
         jdbcTemplate.update("DELETE FROM Collaboration WHERE idCollaboration =?",collab.getIdCollaboration());
     }
 
+    public void deleteCollaboration(String collab){
+        jdbcTemplate.update("DELETE FROM Collaboration WHERE idCollaboration =?", collab);
+    }
+
     public void updateCollaboration(Collaboration collab){
         jdbcTemplate.update("UPDATE Collaboration SET assessmentScore=?, collaborationState=?, idOffer=?, " +
                         "idRequest=?, hours=? WHERE idCollaboration=?", collab.getAssessmentScore(),

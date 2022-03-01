@@ -56,7 +56,7 @@ public class RequestController {
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)
-    public String procssUpdateSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult){
+    public String processUpdateSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return "request/update";
         requestDao.updateRequest(request);
@@ -64,8 +64,8 @@ public class RequestController {
     }
 
     @RequestMapping(value = "/delete/{idRequest}")
-    public String processDeleteClassif(@PathVariable String idRequest) {
-        requestDao.cancelRequest(idRequest);
+    public String processDelete(@PathVariable String idRequest) {
+        requestDao.deleteRequest(idRequest);
         return "redirect:../../list";
     }
 }
