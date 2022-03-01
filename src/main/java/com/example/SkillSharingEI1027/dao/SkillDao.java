@@ -29,7 +29,7 @@ public class SkillDao {
 
     //Actualiza la dscripción de la Skill
     public void updateSkill(Skill skill){
-        jbdcTemplate.update("UPDATE Skill SET description=?", skill.getDescription());
+        jbdcTemplate.update("UPDATE Skill SET description=? WHERE idSkill=?", skill.getDescription(),skill.getIdSkill());
     }
 
     public Skill getSkill(String idSkill){

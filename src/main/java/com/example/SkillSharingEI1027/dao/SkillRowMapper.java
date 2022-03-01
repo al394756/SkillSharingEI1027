@@ -20,5 +20,6 @@ public final class SkillRowMapper implements RowMapper<Skill>{
 
         //Que os parece si cambiamos la tabla de bbdd de skill y la ponemos como integer?
         skill.setLevel(rs.getInt("skillLevel"));
-        return skill;    }
+        return skill;
+    }
 }

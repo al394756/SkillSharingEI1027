@@ -1,17 +1,12 @@
 package com.example.SkillSharingEI1027.modelo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Skill {
-    String idSkill;
-    String name;
-    String description;
-    int level;
+    private String idSkill;
+    private String name;
+    private String description;
+    private int level;
 
-    public Skill() {
-    }
+    public Skill() {}
 
     public String getIdSkill() {
         return idSkill;
