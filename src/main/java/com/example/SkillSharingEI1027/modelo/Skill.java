@@ -52,14 +52,4 @@ public class Skill {
                 '}';
     }
 
-    public static void main(String[] args) {
-        Skill skill = new Skill();
-        System.out.println(skill);
-        skill.setIdSkill("prueba");
-        skill.setDescription("esto es un prueba");
-        skill.setName("pruebaaaa");
-        skill.setLevel(2);
-        System.out.println(skill);
-
-    }
 }
