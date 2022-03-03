@@ -6,6 +6,7 @@ public class Student {
     private String name;
     private String email;
     private int phoneNumber;
+    private String password;
     private String degree;
     private int course;
     private int balanceHours;
@@ -54,6 +55,10 @@ public class Student {
         return activeAccount;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setIdStudent(String idStudent) {
         this.idStudent = idStudent;
     }
@@ -92,6 +97,10 @@ public class Student {
 
     public void setActiveAccount(boolean activeAccount) {
         this.activeAccount = activeAccount;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
