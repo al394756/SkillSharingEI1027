@@ -22,9 +22,13 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="skill">Skill:</label>
             <div class="col-sm-4">
-                <select th:each="skill: ${skills}" required>
-                    <option th:text="${skill}" id="skill"></option>
+                <!--
+                <select  required>
+                    <option th:field="*{idSkill}" id="skill2">Skill1</option>
+                    <option th:each="skill: ${skills}" th:field="*{idSkill}" id="skill"></option>
                 </select>
+                -->
+                <input type="text" maxlength="10" class="form-control" id="idSkill" th:field="*{idSkill}" required/>
             </div>
         </div>
 

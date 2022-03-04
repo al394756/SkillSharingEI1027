@@ -57,7 +57,7 @@ public class SkillController {
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)
-    public String procssUpdateSubmit(@ModelAttribute("skill") Skill skill, BindingResult bindingResult){
+    public String processUpdateSubmit(@ModelAttribute("skill") Skill skill, BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return "skill/update";
         skillDao.updateSkill(skill);

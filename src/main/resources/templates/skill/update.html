@@ -12,10 +12,21 @@
       th:object="${skill}" method="post">
   <table>
     <tr>
+      <td><label>idSkill</label></td>
+      <td><input type="text" th:field="*{idSkill}"readonly/></td>
+    </tr>
+    <tr>
+      <td><label>Nombre</label></td>
+      <td><input type="text" th:field="*{name}" readonly/></td>
+    </tr>
+    <tr>
       <td><label>Descripción</label></td>
       <td><input type="text" th:field="*{description}" /></td>
     </tr>
     <tr>
+      <td><label>Nivel</label></td>
+      <td><input type="number" max="2" min="0" th:field="*{level}" readonly/></td>
+    </tr>
       <td colspan="2"><input type="submit" value="Actualiza Skill" /></td>
     </tr>
   </table>

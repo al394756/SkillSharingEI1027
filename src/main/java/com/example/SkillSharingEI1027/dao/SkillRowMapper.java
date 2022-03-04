@@ -16,9 +16,6 @@ public final class SkillRowMapper implements RowMapper<Skill>{
         skill.setIdSkill(rs.getString("idSkill"));
         skill.setName(rs.getString("name"));
         skill.setDescription(rs.getString("description"));
-
-
-        //Que os parece si cambiamos la tabla de bbdd de skill y la ponemos como integer?
         skill.setLevel(rs.getInt("skillLevel"));
         return skill;
     }
