@@ -89,7 +89,7 @@ public class StudentController {
         studentValidator.validate(student, bindingResult);
         if (bindingResult.hasErrors()) {
             System.out.println("b");
-            return "register";
+            return "redirect:/register";
         }
         studentDao.registerStudent(student);
         System.out.println("a");
