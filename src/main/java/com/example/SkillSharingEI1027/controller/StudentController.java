@@ -87,9 +87,18 @@ public class StudentController {
     public String processRegister(@ModelAttribute("student") Student student, BindingResult bindingResult){
         StudentValidator studentValidator = new StudentValidator();
         studentValidator.validate(student, bindingResult);
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
+            System.out.println("b");
             return "register";
+        }
         studentDao.registerStudent(student);
+        System.out.println("a");
         return "redirect:/";
+    }
+
+    @RequestMapping("/student/list")
+    public String listStudents(Model model){
+        model.addAttribute("students", studentDao.getStudentsActivos());
+        return "student/list";
     }
 }

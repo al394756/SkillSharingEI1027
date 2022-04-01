@@ -9,7 +9,7 @@
 </head>
 <body>
 <h2>Nuevo usuario</h2>
-<form action="#" th:action="@{/student/register}"
+<form action="#" th:action="@{/register}"
       th:object="${student}" method="post">
     <table>
         <tr>
@@ -64,7 +64,7 @@
             <td th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Register" /></td>
+            <td colspan="2"><input type="submit" value="Register"/></td>
         </tr>
         <tr>
             <a href=".."><button type="button" class="btn btn-danger">Atrás</button></a>

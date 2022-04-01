@@ -31,8 +31,9 @@ public class StudentDao {
     public void registerStudent(Student student){
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         String passw = passwordEncryptor.encryptPassword(student.getPassword());
+        System.out.println(passw);
         String id = idGenerator(student.getName());
-        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True",id,student.getDni(),student.getName(),student.getEmail(),
+        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True)",id,student.getDni(),student.getName(),student.getEmail(),
         student.getPhoneNumber(),passw,student.getDegree(),student.getCourse());
     }
 
@@ -42,7 +43,8 @@ public class StudentDao {
     // por ejemplo si alguien se registra como Pepe que hacemos? opcion: seguimos igual y rellenamos con # u otro simbolo (Pe###30)
     private String idGenerator(String name){
         String[] nombre = name.split(" ");
-        String id = nombre[0].substring(0,2)+nombre[1].substring(0,3)+contadorStudents.incrementAndGet();
+        contadorStudents = new AtomicInteger(getStudentsActivos().size());
+        String id = nombre[0].substring(0,2)+nombre[1].substring(0,3)+contadorStudents.get();
         return id.toLowerCase(Locale.ROOT);
     }
     //No se puede borrar estudiante, solo podemos cancelar su cuenta poniendo activeAccount a false

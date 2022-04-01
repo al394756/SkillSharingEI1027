@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gestionar Nadadors</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Llista de Nadadors</h1>
+    <div th:if="${#lists.isEmpty(students)}">
+        No hi ha students en la base de dades
+    </div>
+    <table th:unless="${#lists.isEmpty(students)}" class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">dni</th>
+            <th scope="col">email</th>
+            <th scope="col">phoneNumber</th>
+            <th scope="col">degree</th>
+            <th scope="col">course</th>
+            <th scope="col">balanceHours</th>
+            <th scope="col">skp</th>
+            <th scope="col">active</th>
+
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student: ${students}">
+            <td th:text="${student.idStudent}"></td>
+            <td th:text="${student.name}"
+                th:class="${student.dni}"></td>
+            <td th:text="${student.email}"></td>
+            <td th:text="${student.phoneNumber}"></td>
+            <td th:text="${student.degree}"></td>
+            <td th:text="${student.course}"></td>
+            <td th:text="${student.balanceHours}"></td>
+            <td th:text="${student.skp}"></td>
+            <td th:text="${student.active}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
