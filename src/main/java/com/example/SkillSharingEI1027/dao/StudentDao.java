@@ -9,18 +9,14 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 //Contiene métodos para acceder a usuarios YA registrados
 @Repository
-public class StudentDao implements UserDao{
+public class StudentDao {
     private JdbcTemplate jdbcTemplate;
-    final Map<String, Student> knownUsers = new HashMap<>();
+    private AtomicInteger contadorStudents;
 
-    public StudentDao(){
-
-        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
-        //ACABAR
-    }
     //Obtiene el jdbc a partir de Data Source
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -29,10 +25,22 @@ public class StudentDao implements UserDao{
 
     //Añade el Student a la BBDD
     public void registerStudent(Student student){
-        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,?,?,?",student.getIdStudent(),student.getDni(),student.getName(),student.getEmail(),
-        student.getPhoneNumber(),student.getPassword(),student.getDegree(),student.getCourse(),student.getBalanceHours(),student.isSkpMember(),student.isActiveAccount());
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        String passw = passwordEncryptor.encryptPassword(student.getPassword());
+        String id = idGenerator(student.getName());
+        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True",id,student.getDni(),student.getName(),student.getEmail(),
+        student.getPhoneNumber(),passw,student.getDegree(),student.getCourse());
     }
 
+
+    //Genera un id a partir del nombre y el contador de usuarios registrados por ejemplo Pepe Fernández si se registra el número 20 se almacena como PeFer20 (2 letras nombre + 3 apellido)
+    //DUDA: ¿hacemos que los usuarios sigan el esquema de 5 letras + contador? problema con gente que se registre con solo el nombre
+    // por ejemplo si alguien se registra como Pepe que hacemos? opcion: seguimos igual y rellenamos con # u otro simbolo (Pe###30)
+    private String idGenerator(String name){
+        String[] nombre = name.split(" ");
+        String id = nombre[0].substring(0,2)+nombre[1].substring(0,3)+contadorStudents.incrementAndGet();
+        return id.toLowerCase(Locale.ROOT);
+    }
     //No se puede borrar estudiante, solo podemos cancelar su cuenta poniendo activeAccount a false
     public void cancelStudent(Student student){
         jdbcTemplate.update("UPDATE Student SET activeAccount=false WHERE idStudent=?",student.getIdStudent());
@@ -57,9 +65,8 @@ public class StudentDao implements UserDao{
         }
     }
 
-    @Override
     public Student loadUserByUsername(String username, String password) {
-        Student user = knownUsers.get(username.trim());
+        Student user = getStudent(username.trim());
         if (user == null)
             return null; // Usuari no trobat
         // Contrasenya
@@ -73,8 +80,4 @@ public class StudentDao implements UserDao{
         }
     }
 
-    @Override
-    public Collection<Student> listAllUsers() {
-        return knownUsers.values();
-    }
 }

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Crear nou Nadador</title>
+    <title>Register</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet"     href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"
           th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
-<h2>Nou nadador</h2>
+<h2>Nuevo usuario</h2>
 <form action="#" th:action="@{/student/register}"
       th:object="${student}" method="post">
     <table>
@@ -40,9 +40,9 @@
             <td><label>Degree</label></td>
             <td> <select class="form_control" type="text" th:field="*{degree}">
                 <!--option value="No seleccionat">Selecciona el gènere</option-->
-                <option th:each="gendervalue : ${genderList}"
-                        th:value="${gendervalue}"
-                        th:text="${gendervalue}"></option>
+                <option th:each="degreevalue : ${degreeList}"
+                        th:value="${degreevalue}"
+                        th:text="${degreevalue}"></option>
             </select>
             </td>
             <td th:if="${#fields.hasErrors('degree')}" th:errors="*{degree}"></td>
