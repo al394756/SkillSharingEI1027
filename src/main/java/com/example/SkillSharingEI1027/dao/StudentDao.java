@@ -33,7 +33,7 @@ public class StudentDao {
     }
 
 
-    //Genera un id a partir del nombre y el contador de usuarios registrados por ejemplo Pepe Fernández si se registra el número 20 se almacena como PeFer20 (2 letras nombre + 3 apellido)
+    //Genera un id a partir del nombre y el contador de usuarios registrados por ejemplo Pepe Fernández si se registra el número 20 se almacena como pefer20 (2 letras nombre + 3 apellido)
     //DUDA: ¿hacemos que los usuarios sigan el esquema de 5 letras + contador? problema con gente que se registre con solo el nombre
     // por ejemplo si alguien se registra como Pepe que hacemos? opcion: seguimos igual y rellenamos con # u otro simbolo (Pe###30)
     private String idGenerator(String name){
