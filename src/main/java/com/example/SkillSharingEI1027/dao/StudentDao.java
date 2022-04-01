@@ -28,7 +28,7 @@ public class StudentDao implements UserDao{
     }
 
     //Añade el Student a la BBDD
-    public void addStudent(Student student){
+    public void registerStudent(Student student){
         jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,?,?,?",student.getIdStudent(),student.getDni(),student.getName(),student.getEmail(),
         student.getPhoneNumber(),student.getPassword(),student.getDegree(),student.getCourse(),student.getBalanceHours(),student.isSkpMember(),student.isActiveAccount());
     }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear nou Nadador</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"     href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<h2>Nou nadador</h2>
+<form action="#" th:action="@{/student/register}"
+      th:object="${student}" method="post">
+    <table>
+        <tr>
+            <td><label>Name</label></td>
+            <td><input type="text" th:field="*{name}"
+                       placeholder="Name and surname" maxlength="50" th:errorclass="needcorrection"/></td>
+
+            <td th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error"  ></td>
+        </tr>
+        <tr>
+            <td><label>DNI</label></td>
+            <td><input type="text" th:field="*{dni}" maxlength="9"/></td>
+        </tr>
+        <tr>
+            <td><label>Password</label></td>
+            <td><input type="text" th:field="*{password}" maxlength="20"/></td>
+        </tr>
+        <tr>
+            <td><label>Email</label></td>
+            <td><input type="text" th:field="*{email}" maxlength="50"/></td>
+        </tr>
+        <tr>
+            <td><label>Phone Number</label></td>
+            <td><input type="number" th:field="*{phoneNumber}" minlength="9" maxlength="9" th:errorclass="needcorrection" /></td>
+            <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error">
+        </tr>
+        <tr>
+            <td><label>Degree</label></td>
+            <td> <select class="form_control" type="text" th:field="*{degree}">
+                <!--option value="No seleccionat">Selecciona el gènere</option-->
+                <option th:each="gendervalue : ${genderList}"
+                        th:value="${gendervalue}"
+                        th:text="${gendervalue}"></option>
+            </select>
+            </td>
+            <td th:if="${#fields.hasErrors('degree')}" th:errors="*{degree}"></td>
+        </tr>
+        <tr>
+            <td><label>Course</label></td>
+            <td> <select class="form_control" type="number" th:field="*{couse}">
+                <!--option value="No seleccionat">Selecciona el gènere</option-->
+                <option th:each="course : ${courseList}"
+                        th:value="${course}"
+                        th:text="${course} year"></option>
+            </select>
+            </td>
+            <td th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Afegeix nadador" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
