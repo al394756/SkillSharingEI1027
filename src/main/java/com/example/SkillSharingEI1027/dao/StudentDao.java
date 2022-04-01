@@ -1,19 +1,26 @@
 package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.Student;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+//Contiene métodos para acceder a usuarios YA registrados
 @Repository
-public class StudentDao {
+public class StudentDao implements UserDao{
     private JdbcTemplate jdbcTemplate;
+    final Map<String, Student> knownUsers = new HashMap<>();
 
+    public StudentDao(){
+
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        //ACABAR
+    }
     //Obtiene el jdbc a partir de Data Source
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -48,5 +55,26 @@ public class StudentDao {
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public Student loadUserByUsername(String username, String password) {
+        Student user = knownUsers.get(username.trim());
+        if (user == null)
+            return null; // Usuari no trobat
+        // Contrasenya
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        if (passwordEncryptor.checkPassword(password, user.getPassword())) {
+            // Es deuria esborrar de manera segura el camp password abans de tornar-lo
+            return user;
+        }
+        else {
+            return null; // bad login!
+        }
+    }
+
+    @Override
+    public Collection<Student> listAllUsers() {
+        return knownUsers.values();
     }
 }
