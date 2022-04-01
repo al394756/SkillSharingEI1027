@@ -6,16 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import javax.sql.DataSource;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 //Contiene métodos para acceder a usuarios YA registrados
 @Repository
 public class StudentDao {
     private JdbcTemplate jdbcTemplate;
     private AtomicInteger contadorStudents;
+
 
     //Obtiene el jdbc a partir de Data Source
     @Autowired

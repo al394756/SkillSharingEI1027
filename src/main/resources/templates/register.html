@@ -17,23 +17,28 @@
             <td><input type="text" th:field="*{name}"
                        placeholder="Name and surname" maxlength="50" th:errorclass="needcorrection"/></td>
 
-            <td th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error"  ></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"  ></td>
         </tr>
         <tr>
             <td><label>DNI</label></td>
             <td><input type="text" th:field="*{dni}" maxlength="9"/></td>
+            <td th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="error"  ></td>
         </tr>
         <tr>
             <td><label>Password</label></td>
-            <td><input type="text" th:field="*{password}" maxlength="20"/></td>
+            <td><input type="password" th:field="*{password}" maxlength="20"/></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"  ></td>
+
         </tr>
         <tr>
             <td><label>Email</label></td>
             <td><input type="text" th:field="*{email}" maxlength="50"/></td>
+            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"  ></td>
+
         </tr>
         <tr>
             <td><label>Phone Number</label></td>
-            <td><input type="number" th:field="*{phoneNumber}" minlength="9" maxlength="9" th:errorclass="needcorrection" /></td>
+            <td><input type="tel" th:field="*{phoneNumber}" pattern="[0-9]{9}" th:errorclass="needcorrection"/></td>
             <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error">
         </tr>
         <tr>
@@ -49,17 +54,20 @@
         </tr>
         <tr>
             <td><label>Course</label></td>
-            <td> <select class="form_control" type="number" th:field="*{couse}">
+            <td> <select class="form_control" type="number" th:field="*{course}">
                 <!--option value="No seleccionat">Selecciona el gènere</option-->
                 <option th:each="course : ${courseList}"
                         th:value="${course}"
-                        th:text="${course} year"></option>
+                        th:text="${course}"></option>
             </select>
             </td>
             <td th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Afegeix nadador" /></td>
+            <td colspan="2"><input type="submit" value="Register" /></td>
+        </tr>
+        <tr>
+            <a href=".."><button type="button" class="btn btn-danger">Atrás</button></a>
         </tr>
     </table>
 </form>
