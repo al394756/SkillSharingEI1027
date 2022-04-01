@@ -65,8 +65,8 @@ public class StudentDao {
         }
     }
 
-    public Student loadUserByUsername(String username, String password) {
-        Student user = getStudent(username.trim());
+    public Student loadUserById(String id, String password) {
+        Student user = getStudent(id.trim());
         if (user == null)
             return null; // Usuari no trobat
         // Contrasenya
