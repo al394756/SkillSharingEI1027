@@ -20,6 +20,18 @@
             <th>Estudiant</th>
         </tr>
         </thead>
+        <tbody>
+        <tr th:each="offer: ${offers}">
+            <td th:text="${offer.idOffer}"></td>
+            <td th:text="${offer.idSkill}"></td>
+            <td th:text="${offer.startDate}"></td>
+            <td th:text="${offer.endDate}"></td>
+            <td th:text="${offer.description}"></td>
+            <td th:text="${offer.idStudent}"></td>
+            <td> <a th:href="@{/offer/update/{idRequest}}" class="btn btn-warning" role="button">Edita</a></td>
+            <td><a th:href="@{/offer/delete/{idRequest}}" class="btn btn-danger" role="button">Esborra</a></td>
+        </tr>
+        </tbody>
     </table>
     <a href="add" class="btn btn-success" role="button">Afegeix oferta</a>
 </div>
