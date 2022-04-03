@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Gestionar ofertes</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
+<div class="container">
+    <h2>Nova oferta</h2>
+    <form class="form-horizontal" action="#" th:action="@{/offer/add}"
+          th:object="${offer}" method="post">
 
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-4">
+                <button type="submit" class="btn btn-primary">Afegeix oferta</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
 </body>
 </html>
