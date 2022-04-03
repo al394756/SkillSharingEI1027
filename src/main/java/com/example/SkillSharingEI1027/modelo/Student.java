@@ -13,7 +13,11 @@ public class Student {
     private boolean skpMember;
     private boolean activeAccount;
 
-    public Student(){}
+    public Student(){
+        balanceHours=0;
+        skpMember=false;
+        activeAccount=true;
+    }
 
     public String getIdStudent() {
         return idStudent;

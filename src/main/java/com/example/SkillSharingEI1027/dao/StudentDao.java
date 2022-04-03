@@ -47,6 +47,7 @@ public class StudentDao {
         String id = nombre[0].substring(0,2)+nombre[1].substring(0,3)+contadorStudents.get();
         return id.toLowerCase(Locale.ROOT);
     }
+
     //No se puede borrar estudiante, solo podemos cancelar su cuenta poniendo activeAccount a false
     public void cancelStudent(Student student){
         jdbcTemplate.update("UPDATE Student SET activeAccount=false WHERE idStudent=?",student.getIdStudent());
