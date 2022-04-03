@@ -14,15 +14,25 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>Skill</th>
-            <th>Inici</th>
-            <th>Fi</th>
-            <th>Descripció</th>
-            <th>Estudiant</th>
+            <th>idRequest</th>
+            <th>idOffer</th>
+            <th>AssessmentScore</th>
+            <th>Hours</th>
+
         </tr>
         </thead>
+        <tbody>
+        <tr th:each="collaboration: ${collaborations}">
+            <td th:text="${collaboration.idCollaboration}"></td>
+            <td th:text="${collaboration.idRequest}"></td>
+            <td th:text="${collaboration.idOffer}"></td>
+            <td th:text="${collaboration.assessmentScore}"></td>
+            <td th:text="${collaboration.hours}"></td>
+
+        </tr>
+        </tbody>
     </table>
-    <a href="add" class="btn btn-success" role="button">Afegeix colaboració</a>
+
 </div>
 </body>
 
