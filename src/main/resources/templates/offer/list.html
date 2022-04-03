@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Gestionar ofertes</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
-
+<div class="container">
+    <h1>Llista d'Ofertes</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Skill</th>
+            <th>Inici</th>
+            <th>Fi</th>
+            <th>Descripció</th>
+            <th>Estudiant</th>
+        </tr>
+        </thead>
+    </table>
+    <a href="add" class="btn btn-success" role="button">Afegeix oferta</a>
+</div>
 </body>
 </html>
