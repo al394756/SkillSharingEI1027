@@ -17,6 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 
 class StudentValidator extends StudentController implements Validator {
+    private List<Integer> courseValues = Arrays.asList(1,2,3,4);
+    private List<String> degreeValues = Arrays.asList("Ingeniería Informática","Diseño y Desarrollo de Videojuegos","Ingeniería Eléctrica","Arquitectura Técnica","Ingeniería en Diseño Industrial",
+            "Ingeniería Industrial","Ingeniería Mecánica", "Ingeniería Química","Matemática Computacional", "Química");
+
     @Override
     public boolean supports(Class<?> clazz) {
         return Student.class.equals(clazz);
@@ -26,11 +30,15 @@ class StudentValidator extends StudentController implements Validator {
     public void validate(Object obj, Errors errors) {
         Student student = (Student) obj;
         if (student.getName().trim().equals(""))
-            errors.rejectValue("name","compulsory","Name must be introduced");
-        if (student.getPassword().trim().equals(""))
-            errors.rejectValue("password","compulsory","Password must be introduced");
+            errors.rejectValue("name", "compulsory", "Introduce a valid name");
 
-        if (student.getDegree().equals("Select a degree") || ! degreeValues.contains(student.getDegree()))
+        if (student.getDni().trim().equals("") || ! dniValidator(student.getDni()) )
+            errors.rejectValue("dni","compulsory", "Introduce a valid DNI");
+
+        if (student.getPassword().trim().equals(""))
+            errors.rejectValue("password","compulsory","Introduce a valid password");
+
+        if (! degreeValues.contains(student.getDegree()))
             errors.rejectValue("degree","Incorrect value", "Select one of the degrees");
 
         if (!courseValues.contains(student.getCourse()))
@@ -39,14 +47,29 @@ class StudentValidator extends StudentController implements Validator {
         if (student.getEmail().trim().equals("") || !student.getEmail().contains("@"))
             errors.rejectValue("email","Incorrect value", "Introduce a valid email");
 
+
+    }
+
+    public boolean dniValidator(String dni){
+        if (dni.length()!=9)
+            return false;
+        try {
+            int parteNumerica = Integer.parseInt(dni.substring(0, 8));
+        } catch (Exception ex){
+            return false;
+        }
+        char letra = dni.charAt(8);
+        if (! ( (letra >= 'a' && letra<='z') || (letra >= 'A' && letra <= 'Z'))){
+            return false;
+        }
+        return true;
     }
 }
 @Controller
 public class StudentController {
 
-    protected List<String> degreeValues = Arrays.asList("Select a degree","Ingeniería Informática","Diseño y Desarrollo de Videojuegos","Ingeniería Eléctrica","Arquitectura Técnica","Ingeniería en Diseño Industrial",
-            "Ingeniería Industrial","Ingeniería Mecánica", "Ingeniería Química","Matemática Computacional", "Química");
-    protected List<Integer> courseValues = Arrays.asList(1,2,3,4);
+
+
 
 
     @Autowired
@@ -79,20 +102,17 @@ public class StudentController {
     @RequestMapping(value = "/register")
     public String register(Model model){
         model.addAttribute("student", new Student());
-        model.addAttribute("courseList", courseValues);
-        model.addAttribute("degreeList", degreeValues);
         return "register";
     }
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processRegister(@ModelAttribute("student") Student student, BindingResult bindingResult){
+
         StudentValidator studentValidator = new StudentValidator();
         studentValidator.validate(student, bindingResult);
         if (bindingResult.hasErrors()) {
-            System.out.println("b");
-            return "redirect:/register";
+            return "/register";
         }
         studentDao.registerStudent(student);
-        System.out.println("a");
         return "redirect:/";
     }
 

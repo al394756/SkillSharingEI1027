@@ -20,44 +20,56 @@
         </tr>
         <tr>
             <td><label>DNI</label></td>
-            <td><input type="text" th:field="*{dni}" maxlength="9"/></td>
+            <td><input type="text" th:field="*{dni}" maxlength="9" placeholder="12345678A"/></td>
             <td th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="error"  ></td>
         </tr>
         <tr>
             <td><label>Password</label></td>
             <td><input type="password" th:field="*{password}" maxlength="20"/></td>
-            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"  ></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></td>
 
         </tr>
         <tr>
             <td><label>Email</label></td>
-            <td><input type="text" th:field="*{email}" maxlength="50"/></td>
+            <td><input type="text" th:field="*{email}" maxlength="50" placeholder="example@example.org"/></td>
             <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"  ></td>
 
         </tr>
         <tr>
             <td><label>Phone Number</label></td>
-            <td><input type="tel" th:field="*{phoneNumber}" pattern="[0-9]{9}" th:errorclass="needcorrection"/></td>
+            <td><input type="tel" th:field="*{phoneNumber}" placeholder="123456789" th:errorclass="needcorrection"/></td>
             <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error">
         </tr>
         <tr>
             <td><label>Degree</label></td>
             <td> <select class="form_control" type="text" th:field="*{degree}">
                 <!--option value="No seleccionat">Selecciona el gènere</option-->
-                <option th:each="degreevalue : ${degreeList}"
-                        th:value="${degreevalue}"
-                        th:text="${degreevalue}"></option>
+                <option value="null">Select one of the degrees</option>
+                <option value="Ingeniería Informática">Ingeniería Informática</option>
+                <option value="Diseño y Desarrollo de Videojuegos">Diseño de Videojuegos</option>
+                <option value="Ingeniería Eléctrica">Ingeniería Eléctrica</option>
+                <option value="Arquitectura Técnica">Arquitectura Técnica</option>
+                <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                <option value="Ingeniería en Diseño Industrial">Ingeniería en Diseño Industrial</option>
+                <option value="Ingeniería Mecánica">Ingeniería Mecánica</option>
+                <option value="Ingeniería Química">Ingeniería Química</option>
+                <option value="Matemática Computacional">Matemática Computacional</option>
+                <option value="Química">Química</option>
+
             </select>
             </td>
-            <td th:if="${#fields.hasErrors('degree')}" th:errors="*{degree}"></td>
+            <td th:if="${#fields.hasErrors('degree')}" th:errors="*{degree}" class="error"></td>
         </tr>
+
         <tr>
             <td><label>Course</label></td>
             <td> <select class="form_control" type="number" th:field="*{course}">
                 <!--option value="No seleccionat">Selecciona el gènere</option-->
-                <option th:each="course : ${courseList}"
-                        th:value="${course}"
-                        th:text="${course}"></option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+
             </select>
             </td>
             <td th:if="${#fields.hasErrors('course')}" th:errors="*{course}"></td>

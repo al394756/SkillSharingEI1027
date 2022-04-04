@@ -32,15 +32,15 @@
         <tbody>
         <tr th:each="student: ${students}">
             <td th:text="${student.idStudent}"></td>
-            <td th:text="${student.name}"
-                th:class="${student.dni}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.dni}"></td>
             <td th:text="${student.email}"></td>
             <td th:text="${student.phoneNumber}"></td>
             <td th:text="${student.degree}"></td>
             <td th:text="${student.course}"></td>
             <td th:text="${student.balanceHours}"></td>
-            <td th:text="${student.skp}"></td>
-            <td th:text="${student.active}"></td>
+            <td th:text="${student.skpMember}"></td>
+            <td th:text="${student.activeAccount}"></td>
         </tr>
         </tbody>
     </table>
