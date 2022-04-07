@@ -19,9 +19,13 @@
         <tr>
             <td><label>Name</label></td>
             <td><input type="text" th:field="*{name}"
-                       placeholder="Name and surname" maxlength="50" th:errorclass="needcorrection"/></td>
-
+                       placeholder="Name" maxlength="15" th:errorclass="needcorrection"/></td>
             <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"  ></td>
+
+            <td><label>Surname</label></td>
+            <td><input type="text" th:field="*{surname}"
+                       placeholder="Surname" maxlength="35" th:errorclass="needcorrection"/></td>
+            <td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error"  ></td>
         </tr>
         <tr>
             <td><label>DNI</label></td>
@@ -42,7 +46,7 @@
         </tr>
         <tr>
             <td><label>Phone Number</label></td>
-            <td><input type="tel" th:field="*{phoneNumber}" placeholder="123456789" th:errorclass="needcorrection"/></td>
+            <td><input type="number" placeholder=123456789 th:field="*{phoneNumber}" /></td>
             <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error">
         </tr>
         <tr>

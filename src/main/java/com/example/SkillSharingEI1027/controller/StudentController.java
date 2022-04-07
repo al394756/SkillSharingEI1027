@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 class StudentValidator extends StudentController implements Validator {
     private List<Integer> courseValues = Arrays.asList(1,2,3,4);
@@ -32,7 +33,14 @@ class StudentValidator extends StudentController implements Validator {
         if (student.getName().trim().equals(""))
             errors.rejectValue("name", "compulsory", "Introduce a valid name");
 
-        if (student.getDni().trim().equals("") || ! dniValidator(student.getDni()) )
+        if (student.getSurname().trim().equals(""))
+            errors.rejectValue("surname", "compulsory", "Introduce a valid surname");
+
+        String telefono =student.getPhoneNumber()+"";
+        if (telefono.trim().equals("") || telefono.length()!=8)
+            errors.rejectValue("phoneNumber", "compulsory", "Introduce a valid phone number");
+
+        if (student.getDni().trim().equals("") || ! dniValidator(student.getDni().toUpperCase(Locale.ROOT)) )
             errors.rejectValue("dni","compulsory", "Introduce a valid DNI");
 
         if (student.getPassword().trim().equals(""))
@@ -53,14 +61,31 @@ class StudentValidator extends StudentController implements Validator {
     public boolean dniValidator(String dni){
         if (dni.length()!=9)
             return false;
-        try {
-            int parteNumerica = Integer.parseInt(dni.substring(0, 8));
-        } catch (Exception ex){
-            return false;
+
+        //Comprobamos formato NIE válido
+        if (dni.charAt(0) == 'X' || dni.charAt(0) == 'T' ){
+            try{
+                Integer.parseInt(dni.substring(1, 8));
+            } catch (Exception ex){
+                return false;
+            }
+            char letra = dni.charAt(8);
+            if (! (letra >= 'A' && letra <= 'Z')){
+                return false;
+            }
         }
-        char letra = dni.charAt(8);
-        if (! ( (letra >= 'a' && letra<='z') || (letra >= 'A' && letra <= 'Z'))){
-            return false;
+        //Comprobamos formato DNI válido
+        else{
+            try {
+                Integer.parseInt(dni.substring(0, 8));
+            } catch (Exception ex){
+                return false;
+            }
+            char letra = dni.charAt(8);
+            if (! (letra >= 'A' && letra <= 'Z')){
+                return false;
+            }
+
         }
         return true;
     }

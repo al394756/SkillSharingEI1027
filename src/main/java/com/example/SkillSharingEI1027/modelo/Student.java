@@ -4,6 +4,7 @@ public class Student {
     private String idStudent;
     private String dni;
     private String name;
+    private String surname;
     private String email;
     private int phoneNumber;
     private String password;
@@ -18,6 +19,8 @@ public class Student {
         skpMember=false;
         activeAccount=true;
     }
+
+    public String getSurname() { return surname; }
 
     public String getIdStudent() {
         return idStudent;
@@ -107,12 +110,14 @@ public class Student {
         this.password = password;
     }
 
+    public void setSurname(String surname){ this.surname=surname;}
+
     @Override
     public String toString() {
         return "Student{" +
                 "idStudent='" + idStudent + '\'' +
                 ", dni='" + dni + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + name + surname+ '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", degree='" + degree + '\'' +

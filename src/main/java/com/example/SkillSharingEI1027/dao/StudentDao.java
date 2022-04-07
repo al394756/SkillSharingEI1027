@@ -31,23 +31,45 @@ public class StudentDao {
     public void registerStudent(Student student){
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         String passw = passwordEncryptor.encryptPassword(student.getPassword());
+        String nombre = formatoNombre(student.getName());
+        String apellido = formatoNombre(student.getSurname());
+        String nombreCompleto = nombre + " " + apellido;
         System.out.println(passw);
-        String id = idGenerator(student.getName());
-        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True)",id,student.getDni(),student.getName(),student.getEmail(),
+        String id = idGenerator();
+        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True)",id,student.getDni().toUpperCase(Locale.ROOT),nombreCompleto,student.getEmail(),
         student.getPhoneNumber(),passw,student.getDegree(),student.getCourse());
     }
 
 
-    //Genera un id a partir del nombre y el contador de usuarios registrados por ejemplo Pepe Fernández si se registra el número 20 se almacena como pefer20 (2 letras nombre + 3 apellido)
-    //DUDA: ¿hacemos que los usuarios sigan el esquema de 5 letras + contador? problema con gente que se registre con solo el nombre
-    // por ejemplo si alguien se registra como Pepe que hacemos? opcion: seguimos igual y rellenamos con # u otro simbolo (Pe###30)
-    private String idGenerator(String name){
-        String[] nombre = name.split(" ");
+    //Genera un id de formato "id000000", id + 6 cifras (permite tener hasta 1000000 usuarios registrados)
+    private String idGenerator(){
         contadorStudents = new AtomicInteger(getStudentsActivos().size());
-        String id = nombre[0].substring(0,2)+nombre[1].substring(0,3)+contadorStudents.get();
-        return id.toLowerCase(Locale.ROOT);
+        StringBuilder id= new StringBuilder("id");
+        int numeroId = contadorStudents.get();
+        int numeroCifras = Integer.toString(numeroId).length();
+        for( int x = numeroCifras; x!=6;x++){
+            id.append("0");
+        }
+
+        return id.toString() +numeroId;
     }
 
+    private String formatoNombre(String nombre){
+        nombre = nombre.toLowerCase(Locale.ROOT);
+        StringBuilder nombreFormato= new StringBuilder();
+        String[] arrayNombres = nombre.split(" ");
+        boolean primerNombre = false;
+        for (String x: arrayNombres){
+            if (primerNombre){
+                nombreFormato.append(" ");
+            }
+            String inicial = x.substring(0, 1).toUpperCase(Locale.ROOT);
+            String resto = x.substring(1);
+            nombreFormato.append(inicial).append(resto);
+            primerNombre=true;
+        }
+        return nombreFormato.toString();
+    }
     //No se puede borrar estudiante, solo podemos cancelar su cuenta poniendo activeAccount a false
     public void cancelStudent(Student student){
         jdbcTemplate.update("UPDATE Student SET activeAccount=false WHERE idStudent=?",student.getIdStudent());
