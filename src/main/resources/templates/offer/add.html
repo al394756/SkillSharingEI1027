@@ -23,12 +23,11 @@
             <label class="control-label col-sm-2" for="idSkill">Skill:</label>
             <div class="col-sm-4">
 
-                <select  required>
-                    <option th:field="*{idSkill}" id="skill2">Skill1</option>
-                    <option th:each="skill: ${skills}" th:field="*{idSkill}" id="skill"></option>
+                <select class="form-control" type="text" th:field="*{idSkill}">
+                    <option th:each="skill:${skills}"
+                            th:value="${skill}"
+                            th:text="${skill}"></option>
                 </select>
-
-                <input type="text" maxlength="10" class="form-control" id="idSkill" th:field="*{idSkill}" required/>
             </div>
         </div>
 

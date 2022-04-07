@@ -3,6 +3,7 @@ package com.example.SkillSharingEI1027.controller;
 import com.example.SkillSharingEI1027.dao.OfferDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.modelo.Offer;
+import com.example.SkillSharingEI1027.modelo.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +13,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/Offer")
 public class OfferController {
     private OfferDao offerDao;
+    private SkillDao skillDao;
 
     @Autowired
-    public void setOfferDao(OfferDao offerDao) {
+    public void setOfferDao(OfferDao offerDao,SkillDao skillDao) {
         this.offerDao = offerDao;
+        this.skillDao=skillDao;
     }
 
     @RequestMapping("/list")
@@ -28,16 +34,13 @@ public class OfferController {
         return "offer/list";
     }
 
-    @RequestMapping("/skills")
-    public String listSkills(Model model) {
-        SkillDao skillDao=new SkillDao();
-        model.addAttribute("skills",skillDao.getSkills());
-        return "offer/add";
-    }
-
     @RequestMapping(value = "add")
     public String addOffer(Model model){
         model.addAttribute("offer",new Offer());
+        List<String> skills=new ArrayList<>();
+        for (Skill skill:skillDao.getSkills())
+            skills.add(skill.getName());
+        model.addAttribute("skills",skills);
         return "offer/add";
     }
 

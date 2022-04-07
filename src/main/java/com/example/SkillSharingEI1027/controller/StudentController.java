@@ -92,11 +92,6 @@ class StudentValidator extends StudentController implements Validator {
 }
 @Controller
 public class StudentController {
-
-
-
-
-
     @Autowired
     private StudentDao studentDao;
 

@@ -14,7 +14,7 @@ public final class RequestRowMapper implements RowMapper<Request>{
         request.setStartDate(rs.getDate("startDate"));
         request.setEndDate(rs.getDate("endDate"));
         request.setDescription(rs.getString("description"));
-        request.setIdStudent(rs.getString("idStudent"));
+        //request.setIdStudent(rs.getString("idStudent"));
         request.setIdSkill(rs.getString("idSkill"));
         return request;
     }
