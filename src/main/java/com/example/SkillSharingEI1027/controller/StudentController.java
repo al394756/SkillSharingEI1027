@@ -139,9 +139,7 @@ public class StudentController {
         }
         studentDao.registerStudent(student);
         session.setAttribute("user",student);
-        if (session.getAttribute("user") != null){
-            System.out.println("AAAA");
-        }
+
         return "index";
     }
 

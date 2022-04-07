@@ -34,7 +34,6 @@ public class StudentDao {
         String nombre = formatoNombre(student.getName());
         String apellido = formatoNombre(student.getSurname());
         String nombreCompleto = nombre + " " + apellido;
-        System.out.println(passw);
         String id = idGenerator();
         jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True)",id,student.getDni().toUpperCase(Locale.ROOT),nombreCompleto,student.getEmail(),
         student.getPhoneNumber(),passw,student.getDegree(),student.getCourse());
