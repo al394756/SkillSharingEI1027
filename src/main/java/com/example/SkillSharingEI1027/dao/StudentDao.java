@@ -18,7 +18,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class StudentDao {
     private JdbcTemplate jdbcTemplate;
-    private AtomicInteger contadorStudents;
 
 
     //Obtiene el jdbc a partir de Data Source
@@ -42,7 +41,7 @@ public class StudentDao {
 
     //Genera un id de formato "id000000", id + 6 cifras (permite tener hasta 1000000 usuarios registrados)
     private String idGenerator(){
-        contadorStudents = new AtomicInteger(getCantidadStudents());
+        AtomicInteger contadorStudents = new AtomicInteger(getCantidadStudents());
         StringBuilder id= new StringBuilder("id");
         int numeroId = contadorStudents.get();
         int numeroCifras = Integer.toString(numeroId).length();
@@ -75,7 +74,7 @@ public class StudentDao {
     //Obtenemos Student con su id. Devuelve null si no existe o si la cuenta está inactiva
     public Student getStudent(String idStudent){
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE idStudent = ?, activeAccount=true", new StudentRowMapper(), idStudent);
+            return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE idStudent = ? AND activeAccount=true", new StudentRowMapper(), idStudent);
         } catch (EmptyResultDataAccessException e){
             return null;
         }

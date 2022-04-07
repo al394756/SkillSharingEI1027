@@ -22,9 +22,11 @@ class StudentValidator extends StudentController implements Validator {
     private final List<String> degreeValues = Arrays.asList("Ingeniería Informática","Diseño y Desarrollo de Videojuegos","Ingeniería Eléctrica","Arquitectura Técnica","Ingeniería en Diseño Industrial",
             "Ingeniería Industrial","Ingeniería Mecánica", "Ingeniería Química","Matemática Computacional", "Química");
 
+    private StudentDao studentDao;
 
-
-    private StudentDao studentDao = new StudentDao();
+    public void setStudentDao(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -113,9 +115,11 @@ public class StudentController {
         return "login";
     }
 
+
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String checkLogin(@ModelAttribute("user") Student student, BindingResult bindingResult, HttpSession session){
         StudentValidator validator = new StudentValidator();
+        validator.setStudentDao(studentDao);
         validator.validate(student, bindingResult);
         if (bindingResult.hasErrors())
             return "login";
@@ -140,6 +144,7 @@ public class StudentController {
     public String processRegister(@ModelAttribute("student") Student student, BindingResult bindingResult,HttpSession session){
 
         StudentValidator studentValidator = new StudentValidator();
+        studentValidator.setStudentDao(studentDao);
         studentValidator.validate(student, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/register";
