@@ -18,7 +18,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class StudentDao {
     private JdbcTemplate jdbcTemplate;
-    private AtomicInteger contadorStudents;
 
 
     //Obtiene el jdbc a partir de Data Source
@@ -42,13 +41,11 @@ public class StudentDao {
 
     //Genera un id de formato "id000000", id + 6 cifras (permite tener hasta 1000000 usuarios registrados)
     private String idGenerator(){
-        contadorStudents = new AtomicInteger(getStudentsActivos().size());
+        AtomicInteger contadorStudents = new AtomicInteger(getCantidadStudents());
         StringBuilder id= new StringBuilder("id");
         int numeroId = contadorStudents.get();
         int numeroCifras = Integer.toString(numeroId).length();
-        for( int x = numeroCifras; x!=6;x++){
-            id.append("0");
-        }
+        id.append("0".repeat(Math.max(0, 6 - numeroCifras)));
 
         return id.toString() +numeroId;
     }
@@ -77,11 +74,31 @@ public class StudentDao {
     //Obtenemos Student con su id. Devuelve null si no existe o si la cuenta está inactiva
     public Student getStudent(String idStudent){
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE idStudent = ?, activeAccount=true", new StudentRowMapper(), idStudent);
+            return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE idStudent = ? AND activeAccount=true", new StudentRowMapper(), idStudent);
         } catch (EmptyResultDataAccessException e){
             return null;
         }
     }
+
+    //Comprobamos si existe alguna entrada en la BBDD que contenga algún dato único (Evitamos errores)
+    public boolean checkExistingStudentDNI(Student student){
+        try {
+            jdbcTemplate.queryForObject("SELECT * FROM Student WHERE dni = ?", new StudentRowMapper(), student.getDni());
+            return true;
+        } catch (EmptyResultDataAccessException e){
+            return false;
+        }
+    }
+
+    public boolean checkExistingStudentEmail(Student student){
+        try {
+            jdbcTemplate.queryForObject("SELECT * FROM Student WHERE email = ?", new StudentRowMapper(), student.getEmail());
+            return true;
+        } catch (EmptyResultDataAccessException e){
+            return false;
+        }
+    }
+
 
     //Obtenemos todos los students con cuentas activas o null si no hay ninguno
 
@@ -93,6 +110,10 @@ public class StudentDao {
         }
     }
 
+    private Integer getCantidadStudents(){
+        return jdbcTemplate.queryForObject("SELECT COUNT(name) FROM Student",new IntegerRowMapper());
+
+    }
     public Student loadUserById(String id, String password) {
         Student user = getStudent(id.trim());
         if (user == null)

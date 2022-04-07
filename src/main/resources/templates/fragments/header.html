@@ -8,9 +8,25 @@
         </nav>
         <nav class="navigation">
             <ul>
-                <li><a href="/register" class="color_text">Sign up</a></li>
-                <li><a href="/" class="color_text" >Log in</a></li>
-                <li><a href="/"><img src="imagenes/user.ico" class="user-icon" ></a></li>
+                <li><a href="/register" class="color_text" >Sing in</a></li>
+                <li>
+                    <div class="ifs " th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
+                            <a href="/register" class="color_text"  th:if="*{user == null}">Sign up</a>
+                             <a class="color_text" href="/logout"
+                                th:href="@{/logout}" th:unless="*{user == null}">Log out</span>
+                             </a>
+                    </div>
+                </li>
+                <li>
+                    <div th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
+                        <a href="/login" class="color_text userName" th:if="*{user == null}">
+                            <img src="imagenes/user.ico" class="user-icon" >
+                        </a>
+                        <a class="color_text userName" href="/porfile"  th:unless="*{user == null}">
+                            <span  class="userName " th:text="*{user.name}"></span>
+                            <img src="imagenes/user.ico" class="user-icon" >
+                        </a>
+                    </div></li>
             </ul>
         </nav>
     </div>
@@ -19,13 +35,12 @@
 <input type="checkbox" class="checkbox" id="check">
 
 <div class="left-pane">
-
+    <div class="elementos_iz"><label class="color_text tam" for="check">✖</label></div>
+    <img SRC="imagenes/logo.png" class="logo">
     <ul>
-        <li class="elementos_iz"><label class="color_text tam" for="check">✖</label><li >
-        <li ><img SRC="imagenes/logo.png" class="logo"></li>
         <li ><a href="" class="color_text interlimeado">Add Skill</a></li>
-        <li ><a href="" class="color_text interlimeado">ito chocho</a></li>
-        <li ><a href="" class="color_text interlimeado">Tetas culo</a></li>
+        <li ><a href="" class="color_text interlimeado">Add collaboration</a></li>
+        <li ><a href="" class="color_text interlimeado">Add ...</a></li>
     </ul>
 </div>
 

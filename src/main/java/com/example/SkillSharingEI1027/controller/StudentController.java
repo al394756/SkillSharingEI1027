@@ -18,9 +18,15 @@ import java.util.List;
 import java.util.Locale;
 
 class StudentValidator extends StudentController implements Validator {
-    private List<Integer> courseValues = Arrays.asList(1,2,3,4);
-    private List<String> degreeValues = Arrays.asList("Ingeniería Informática","Diseño y Desarrollo de Videojuegos","Ingeniería Eléctrica","Arquitectura Técnica","Ingeniería en Diseño Industrial",
+    private final List<Integer> courseValues = Arrays.asList(1,2,3,4);
+    private final List<String> degreeValues = Arrays.asList("Ingeniería Informática","Diseño y Desarrollo de Videojuegos","Ingeniería Eléctrica","Arquitectura Técnica","Ingeniería en Diseño Industrial",
             "Ingeniería Industrial","Ingeniería Mecánica", "Ingeniería Química","Matemática Computacional", "Química");
+
+    private StudentDao studentDao;
+
+    public void setStudentDao(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -37,7 +43,7 @@ class StudentValidator extends StudentController implements Validator {
             errors.rejectValue("surname", "compulsory", "Introduce a valid surname");
 
         String telefono =student.getPhoneNumber()+"";
-        if (telefono.trim().equals("") || telefono.length()!=8)
+        if (telefono.trim().equals("") || telefono.length()!=9)
             errors.rejectValue("phoneNumber", "compulsory", "Introduce a valid phone number");
 
         if (student.getDni().trim().equals("") || ! dniValidator(student.getDni().toUpperCase(Locale.ROOT)) )
@@ -55,6 +61,11 @@ class StudentValidator extends StudentController implements Validator {
         if (student.getEmail().trim().equals("") || !student.getEmail().contains("@"))
             errors.rejectValue("email","Incorrect value", "Introduce a valid email");
 
+        if (studentDao.checkExistingStudentDNI(student))
+            errors.rejectValue("dni", "Incorrect value", "This DNI is already registered");
+
+        if (studentDao.checkExistingStudentEmail(student))
+            errors.rejectValue("email", "Incorrect value", "This email is already registered");
 
     }
 
@@ -104,6 +115,7 @@ public class StudentController {
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String checkLogin(@ModelAttribute("user") Student student, BindingResult bindingResult, HttpSession session){
         StudentValidator validator = new StudentValidator();
+        validator.setStudentDao(studentDao);
         validator.validate(student, bindingResult);
         if (bindingResult.hasErrors())
             return "login";
@@ -128,11 +140,13 @@ public class StudentController {
     public String processRegister(@ModelAttribute("student") Student student, BindingResult bindingResult,HttpSession session){
 
         StudentValidator studentValidator = new StudentValidator();
+        studentValidator.setStudentDao(studentDao);
         studentValidator.validate(student, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/register";
         }
         studentDao.registerStudent(student);
+        student = studentDao.getStudent(student.getIdStudent());
         session.setAttribute("user",student);
 
         return "index";
