@@ -3,10 +3,15 @@
 <head>
     <title>Register</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet"     href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/skillsharing.css"/>
+    <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+    <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+
 </head>
+
+<div th:replace="fragments/header" ></div>
+
 <body>
+<main class="main con" >
 <h2>Nuevo usuario</h2>
 <form action="#" th:action="@{/register}"
       th:object="${student}" method="post">
@@ -82,5 +87,6 @@
         </tr>
     </table>
 </form>
+</main>
 </body>
 </html>

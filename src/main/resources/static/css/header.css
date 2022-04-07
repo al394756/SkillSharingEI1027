@@ -1,0 +1,144 @@
+.header {
+     background: #7d9abb;
+     padding: 0.1rem 0;
+     position: fixed;
+     left:0;
+     top:0;
+     right:0;
+     box-shadow: 0 0 0.7rem #333333;
+}
+.user-icon{
+     height: 1.9rem;
+     display: block;
+     margin: auto;
+}
+.home-icon{
+     height: 1.5rem;
+     display: block;
+     padding: 0.1rem;
+}
+.color_text{
+     text-decoration:none;
+     font-family: Arial;
+     font-weight: bold;
+     font-style: normal;
+     color: white;
+     font-size: 1.2rem;
+}
+.navL{
+     display: flex;
+     justify-content: space-between;
+     align-items: end;
+     flex-wrap: wrap;
+
+}
+
+.navigation ul {
+     margin: 0;
+     padding-left: 0.3rem;;
+     list-style: none;
+}
+
+.navigation ul li {
+     display: inline-block;
+     vertical-align: top;
+
+}
+
+.navigation ul li a {
+     display: block;
+     padding: 0.2rem 0.3rem;
+     transition: all 0.4s linear;
+     border-radius: 5px;
+     margin: auto;
+}
+
+.navigation ul li a:hover {
+     background: #ccc;
+}
+
+.fondoOscuro{
+     width: 100%;
+     height: 100%;
+     background: -webkit-linear-gradient(#333333,#333333,#5b5b5b);
+     background: -o-linear-gradient(#333333,#333333,#5b5b5b);
+     background: linear-gradient(#333333,#333333,#5b5b5b);
+     position: fixed;
+     z-index: 2;
+     display: none;
+     opacity: 75%;
+}
+
+.left-pane{
+     width: 12rem;
+     height: 100%;
+     background: -webkit-linear-gradient(#7d9abb,#7d9abb,#c0d6ee);
+     background: -o-linear-gradient(#7d9abb,#7d9abb,#c0d6ee);
+     background: linear-gradient(#7d9abb,#7d9abb,#c0d6ee);
+     position: fixed;
+     /*top: 2.3rem;*/
+     left: -12rem;
+     display: flex;
+     justify-content: left;
+     transition: left 0.4s;
+     flex-wrap: wrap;
+     z-index: 3;
+
+}
+.left-pane ul{
+     width: 100%;
+     margin: 0;
+     padding-left: 0.3rem;;
+     list-style: none;
+}
+
+.left-pane ul li{
+     display: block;
+     vertical-align: top;
+
+}
+
+.left-pane ul li a{
+     display: block;
+     padding: 0.2rem 0.3rem;
+     transition: all 0.4s linear;
+     border-radius: 5px;
+     margin: auto;
+
+}
+.left-pane ul li a:hover{
+     background: #ccc;
+}
+
+.checkbox:checked ~ .left-pane{
+     left: 0;
+}
+
+.checkbox:checked ~.fondoOscuro{
+     display: flex;
+}
+
+.checkbox{
+     display: none;
+}
+.interlimeado{
+     line-height: 2.5rem;
+}
+.tam{
+     height: 1.9rem;
+     weight: 1.9rem;
+     font-size: 1.4rem;
+     margin: auto;
+     padding: 0.2rem 0.3rem;
+     transition: all 0.4s linear;
+     border-radius: 5px;
+
+}
+
+.elementos_iz {
+     padding-top: 0.3rem;
+     text-align: right;
+}
+.tam:hover{
+     background: #ccc;
+}
