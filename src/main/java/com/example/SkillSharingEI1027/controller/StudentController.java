@@ -18,9 +18,13 @@ import java.util.List;
 import java.util.Locale;
 
 class StudentValidator extends StudentController implements Validator {
-    private List<Integer> courseValues = Arrays.asList(1,2,3,4);
-    private List<String> degreeValues = Arrays.asList("Ingeniería Informática","Diseño y Desarrollo de Videojuegos","Ingeniería Eléctrica","Arquitectura Técnica","Ingeniería en Diseño Industrial",
+    private final List<Integer> courseValues = Arrays.asList(1,2,3,4);
+    private final List<String> degreeValues = Arrays.asList("Ingeniería Informática","Diseño y Desarrollo de Videojuegos","Ingeniería Eléctrica","Arquitectura Técnica","Ingeniería en Diseño Industrial",
             "Ingeniería Industrial","Ingeniería Mecánica", "Ingeniería Química","Matemática Computacional", "Química");
+
+
+
+    private StudentDao studentDao = new StudentDao();
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -30,6 +34,7 @@ class StudentValidator extends StudentController implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         Student student = (Student) obj;
+
         if (student.getName().trim().equals(""))
             errors.rejectValue("name", "compulsory", "Introduce a valid name");
 
@@ -37,7 +42,7 @@ class StudentValidator extends StudentController implements Validator {
             errors.rejectValue("surname", "compulsory", "Introduce a valid surname");
 
         String telefono =student.getPhoneNumber()+"";
-        if (telefono.trim().equals("") || telefono.length()!=8)
+        if (telefono.trim().equals("") || telefono.length()!=9)
             errors.rejectValue("phoneNumber", "compulsory", "Introduce a valid phone number");
 
         if (student.getDni().trim().equals("") || ! dniValidator(student.getDni().toUpperCase(Locale.ROOT)) )
@@ -55,6 +60,11 @@ class StudentValidator extends StudentController implements Validator {
         if (student.getEmail().trim().equals("") || !student.getEmail().contains("@"))
             errors.rejectValue("email","Incorrect value", "Introduce a valid email");
 
+        if (studentDao.checkExistingStudentDNI(student))
+            errors.rejectValue("dni", "Incorrect value", "This DNI is already registered");
+
+        if (studentDao.checkExistingStudentEmail(student))
+            errors.rejectValue("email", "Incorrect value", "This email is already registered");
 
     }
 
@@ -92,9 +102,6 @@ class StudentValidator extends StudentController implements Validator {
 }
 @Controller
 public class StudentController {
-
-
-
 
 
     @Autowired
@@ -138,6 +145,7 @@ public class StudentController {
             return "/register";
         }
         studentDao.registerStudent(student);
+        student = studentDao.getStudent(student.getIdStudent());
         session.setAttribute("user",student);
 
         return "index";
