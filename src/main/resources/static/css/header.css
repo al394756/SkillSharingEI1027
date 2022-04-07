@@ -17,6 +17,9 @@
      display: block;
      padding: 0.1rem;
 }
+.logo{
+     height: 6.5rem;
+}
 .color_text{
      text-decoration:none;
      font-family: Arial;
@@ -105,6 +108,7 @@
      border-radius: 5px;
      margin: auto;
 
+
 }
 .left-pane ul li a:hover{
      background: #ccc;
@@ -122,7 +126,7 @@
      display: none;
 }
 .interlimeado{
-     line-height: 2.5rem;
+     line-height: 2rem;
 }
 .tam{
      height: 1.9rem;
@@ -136,7 +140,8 @@
 }
 
 .elementos_iz {
-     padding-top: 0.3rem;
+     padding-top: 0.5rem;
+     padding-right: 0.5rem;
      text-align: right;
 }
 .tam:hover{
