@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>EI1027</title>
@@ -10,8 +10,17 @@
 <div th:replace="fragments/header" ></div>
 
 <body>
-<main class="main">
 
+<main class="main">
+    <div class="loggeduser" th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
+        <p th:if="*{user == null}">
+            No autenticat <a href="/login" th:href="@{/login}">Entrar</a>
+        </p>
+        <p th:unless="*{user == null}">
+            Autenticat com <span th:text="*{user.name}"></span> <a
+                href="/logout" th:href="@{/logout}">Eixir</a>
+        </p>
+    </div>
     <div class="container">
         <h1> titulo </h1>
         <a href="register">Registrarse</a></li>

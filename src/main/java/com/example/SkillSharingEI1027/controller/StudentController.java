@@ -130,7 +130,7 @@ public class StudentController {
         return "register";
     }
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute("student") Student student, BindingResult bindingResult){
+    public String processRegister(@ModelAttribute("student") Student student, BindingResult bindingResult,HttpSession session){
 
         StudentValidator studentValidator = new StudentValidator();
         studentValidator.validate(student, bindingResult);
@@ -138,7 +138,11 @@ public class StudentController {
             return "/register";
         }
         studentDao.registerStudent(student);
-        return "redirect:/";
+        session.setAttribute("user",student);
+        if (session.getAttribute("user") != null){
+            System.out.println("AAAA");
+        }
+        return "index";
     }
 
     @RequestMapping("/student/list")
