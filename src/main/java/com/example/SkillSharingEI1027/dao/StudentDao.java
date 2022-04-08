@@ -26,8 +26,8 @@ public class StudentDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    //Añade el Student a la BBDD
-    public void registerStudent(Student student){
+    //Añade el Student a la BBDD y devuelve la id que se genera para ese estudiante
+    public String registerStudent(Student student){
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         String passw = passwordEncryptor.encryptPassword(student.getPassword());
         String nombre = formatoNombre(student.getName());
@@ -36,6 +36,7 @@ public class StudentDao {
         String id = idGenerator();
         jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True)",id,student.getDni().toUpperCase(Locale.ROOT),nombreCompleto,student.getEmail(),
         student.getPhoneNumber(),passw,student.getDegree(),student.getCourse());
+        return id;
     }
 
 
@@ -72,7 +73,7 @@ public class StudentDao {
     }
 
     //Obtenemos Student con su id. Devuelve null si no existe o si la cuenta está inactiva
-    public Student getStudent(String idStudent){
+    public Student getStudentUsingId(String idStudent){
         try{
             return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE idStudent = ? AND activeAccount=true", new StudentRowMapper(), idStudent);
         } catch (EmptyResultDataAccessException e){
@@ -80,6 +81,13 @@ public class StudentDao {
         }
     }
 
+    public Student getStudentUsingEmail(String email){
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE email = ? AND activeAccount=true", new StudentRowMapper(), email);
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
     //Comprobamos si existe alguna entrada en la BBDD que contenga algún dato único (Evitamos errores)
     public boolean checkExistingStudentDNI(Student student){
         try {
@@ -114,8 +122,13 @@ public class StudentDao {
         return jdbcTemplate.queryForObject("SELECT COUNT(name) FROM Student",new IntegerRowMapper());
 
     }
-    public Student loadUserById(String id, String password) {
-        Student user = getStudent(id.trim());
+    public Student loadUser(String userInput, String password) {
+        Student user;
+        if (userInput.contains("@")){
+            user = getStudentUsingEmail(userInput.trim());
+        } else{
+            user = getStudentUsingId(userInput.trim());
+        }
         if (user == null)
             return null; // Usuari no trobat
         // Contrasenya

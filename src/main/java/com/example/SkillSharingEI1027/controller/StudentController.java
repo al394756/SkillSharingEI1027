@@ -38,6 +38,16 @@ class StudentValidator extends StudentController implements Validator {
         Student student = (Student) obj;
         if (student.getName().trim().equals(""))
             errors.rejectValue("name", "compulsory", "Introduce a valid name");
+        if (student.getPassword().trim().equals(""))
+            errors.rejectValue("password","compulsory","Introduce a valid password");
+    }
+
+
+    public void validateRegister(Object obj, Errors errors) {
+        Student student = (Student) obj;
+
+        if (student.getName().trim().equals(""))
+            errors.rejectValue("name", "compulsory", "Introduce a valid name");
 
         if (student.getSurname().trim().equals(""))
             errors.rejectValue("surname", "compulsory", "Introduce a valid surname");
@@ -103,27 +113,29 @@ class StudentValidator extends StudentController implements Validator {
 }
 @Controller
 public class StudentController {
+
+
     @Autowired
     private StudentDao studentDao;
 
     @RequestMapping("/login")
     public String login(Model model){
-        model.addAttribute("user", new StudentDao());
+        model.addAttribute("user", new Student());
         return "login";
     }
+
 
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String checkLogin(@ModelAttribute("user") Student student, BindingResult bindingResult, HttpSession session){
         StudentValidator validator = new StudentValidator();
-        validator.setStudentDao(studentDao);
         validator.validate(student, bindingResult);
         if (bindingResult.hasErrors())
             return "login";
 
-        student = studentDao.loadUserById(student.getIdStudent(),student.getPassword());
+        student = studentDao.loadUser(student.getName(),student.getPassword());
 
         if (student == null){
-            bindingResult.rejectValue("password","badpw","Incorrect Password");
+            bindingResult.rejectValue("password","badpw","There are not any student registered with that combination of id or email and password");
             return "login";
         }
         session.setAttribute("user",student);
@@ -141,20 +153,27 @@ public class StudentController {
 
         StudentValidator studentValidator = new StudentValidator();
         studentValidator.setStudentDao(studentDao);
-        studentValidator.validate(student, bindingResult);
+        studentValidator.validateRegister(student, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/register";
         }
-        studentDao.registerStudent(student);
-        student = studentDao.getStudent(student.getIdStudent());
+        String id=studentDao.registerStudent(student);
+        student = studentDao.getStudentUsingId(id);
+
         session.setAttribute("user",student);
 
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping("/student/list")
     public String listStudents(Model model){
         model.addAttribute("students", studentDao.getStudentsActivos());
         return "student/list";
+    }
+
+    @RequestMapping("/logout")
+    public String logOut(HttpSession session){
+        session.removeAttribute("user");
+        return "index";
     }
 }
