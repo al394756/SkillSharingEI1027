@@ -8,7 +8,11 @@
         </nav>
         <nav class="navigation">
             <ul>
-                <li><a href="/register" class="color_text" >Log in</a></li>
+                <li>
+                    <div th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
+                        <a href="/register" class="color_text" th:if="*{user == null}">Log in</a>
+                    </div>
+                </li>
                 <li>
                     <div class="ifs " th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
                             <a href="/register" class="color_text"  th:if="*{user == null}">Sign up</a>
