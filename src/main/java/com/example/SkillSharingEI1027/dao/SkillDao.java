@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class SkillDao {
@@ -19,7 +20,7 @@ public class SkillDao {
 
     //Añade nueva Skill a la base de datos
     public void addSkill(Skill skill){
-        jbdcTemplate.update("INSERT INTO Skill VALUES(?,?,?,?)", skill.getIdSkill(), skill.getName(), skill.getDescription(), skill.getLevel());
+        jbdcTemplate.update("INSERT INTO Skill VALUES(?,?,?,?)", idGenerator(), skill.getName(), skill.getDescription(), skill.getLevel());
     }
 
     //Elimina una skill de la base de datos
@@ -40,9 +41,9 @@ public class SkillDao {
         }
     }
 
-    public String getId(String skill){
+    public Skill getSkillById(String skill){
         try{
-            return jbdcTemplate.queryForObject("SELECT * FROM Skill WHERE name=?", new StringRowMapper(),skill);
+            return jbdcTemplate.queryForObject("SELECT * FROM Skill WHERE name=?", new SkillRowMapper(),skill);
         } catch (EmptyResultDataAccessException ex){
             return null;
         }
@@ -56,4 +57,19 @@ public class SkillDao {
         }
     }
 
+    private Integer getCantidadSkills(){
+        return jbdcTemplate.queryForObject("SELECT COUNT(name) FROM Skill",new IntegerRowMapper());
+
+    }
+    //Genera un id de formato "sk000000", sk + 6 cifras (permite tener hasta 1000000 usuarios registrados)
+    private String idGenerator(){
+        AtomicInteger contadorStudents = new AtomicInteger(getCantidadSkills());
+        StringBuilder id= new StringBuilder("sk");
+        int maximo0 = 6;
+        int numeroId = contadorStudents.get();
+        int numeroCifras = Integer.toString(numeroId).length();
+        id.append("0".repeat(Math.max(0, maximo0 - numeroCifras)));
+
+        return id.toString() +numeroId;
+    }
 }

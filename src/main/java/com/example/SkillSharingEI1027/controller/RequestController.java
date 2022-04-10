@@ -2,7 +2,6 @@ package com.example.SkillSharingEI1027.controller;
 
 import com.example.SkillSharingEI1027.dao.RequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
-import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.Request;
 import com.example.SkillSharingEI1027.modelo.Skill;
 import com.example.SkillSharingEI1027.modelo.Student;
@@ -53,7 +52,7 @@ public class RequestController {
             return "redirect:add";
         Student student=(Student) session.getAttribute("user");
         request.setIdStudent(student.getIdStudent());
-        request.setIdSkill(skillDao.getId(request.getIdSkill()));
+        request.setIdSkill(skillDao.getSkillById(request.getIdSkill()).getIdSkill());
         requestDao.addRequest(request);
         return "redirect:list";
     }

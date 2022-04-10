@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+
 
 import javax.sql.DataSource;
 import java.util.*;
@@ -44,9 +43,10 @@ public class StudentDao {
     private String idGenerator(){
         AtomicInteger contadorStudents = new AtomicInteger(getCantidadStudents());
         StringBuilder id= new StringBuilder("id");
+        int maximo0 = 6;
         int numeroId = contadorStudents.get();
         int numeroCifras = Integer.toString(numeroId).length();
-        id.append("0".repeat(Math.max(0, 6 - numeroCifras)));
+        id.append("0".repeat(Math.max(0, maximo0 - numeroCifras)));
 
         return id.toString() +numeroId;
     }
@@ -108,7 +108,7 @@ public class StudentDao {
     }
 
 
-    //Obtenemos todos los students con cuentas activas o null si no hay ninguno
+    //Obtenemos todos los students con cuentas activas o lista vacia si no hay ninguno
 
     public List<Student> getStudentsActivos(){
         try{

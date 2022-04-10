@@ -52,7 +52,7 @@ public class OfferController {
             return "redirect/add";
         Student student=(Student) session.getAttribute("user");
         offer.setIdStudent(student.getIdStudent());
-        offer.setIdSkill(skillDao.getId(offer.getIdSkill()));
+        offer.setIdSkill(skillDao.getSkillById(offer.getIdSkill()).getIdSkill());
         offerDao.addOffer(offer);
         return "redirect:list";
     }

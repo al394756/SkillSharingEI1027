@@ -26,7 +26,7 @@
                         <a href="/login" class="color_text userName" th:if="*{user == null}">
                             <img src="imagenes/user.ico" class="user-icon" >
                         </a>
-                        <a class="color_text userName" href="/porfile"  th:unless="*{user == null}">
+                        <a class="color_text userName" th:href="@{/profile/{id}(id=*{user.idStudent})}"  th:unless="*{user == null}">
                             <span  class="userName" th:text="*{user.name}"></span>
                             <img src="imagenes/user.ico" class="user-icon" >
                         </a>
