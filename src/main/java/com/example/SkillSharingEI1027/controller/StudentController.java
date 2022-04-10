@@ -38,6 +38,7 @@ class StudentValidator extends StudentController implements Validator {
             errors.rejectValue("name", "compulsory", "Introduce a valid name");
         if (student.getPassword().trim().equals(""))
             errors.rejectValue("password","compulsory","Introduce a valid password");
+
     }
 
 
@@ -54,7 +55,7 @@ class StudentValidator extends StudentController implements Validator {
         if (telefono.trim().equals("") || telefono.length()!=9)
             errors.rejectValue("phoneNumber", "compulsory", "Introduce a valid phone number");
 
-        if (student.getDni().trim().equals("") || ! dniValidator(student.getDni().toUpperCase(Locale.ROOT)) )
+        if (student.getDni().trim().equals("") || ! dniValidator(student.getDni().toUpperCase(Locale.ROOT).trim()) )
             errors.rejectValue("dni","compulsory", "Introduce a valid DNI");
 
         if (student.getPassword().trim().equals(""))
@@ -85,6 +86,8 @@ class StudentValidator extends StudentController implements Validator {
         if (student.getBanReason().trim().equals("") || student.getBanReason()==null){
             errors.rejectValue("banReason","Incorrect value", "Introduce a reason");
         }
+        if (student.isSkpMember())
+            errors.rejectValue("banReason","Imposible","You can't ban a SKP member");
     }
 
     public boolean dniValidator(String dni){

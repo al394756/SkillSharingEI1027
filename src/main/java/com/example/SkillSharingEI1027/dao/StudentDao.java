@@ -29,11 +29,11 @@ public class StudentDao {
     public String registerStudent(Student student){
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         String passw = passwordEncryptor.encryptPassword(student.getPassword());
-        String nombre = formatoNombre(student.getName());
-        String apellido = formatoNombre(student.getSurname());
+        String nombre = formatoNombre(student.getName().trim());
+        String apellido = formatoNombre(student.getSurname().trim());
         String nombreCompleto = nombre + " " + apellido;
         String id = idGenerator();
-        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True,Null)",id,student.getDni().toUpperCase(Locale.ROOT),nombreCompleto,student.getEmail(),
+        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True,Null)",id,student.getDni().toUpperCase(Locale.ROOT).trim(),nombreCompleto.trim(),student.getEmail().trim(),
         student.getPhoneNumber(),passw,student.getDegree(),student.getCourse());
         return id;
     }

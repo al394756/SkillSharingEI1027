@@ -46,7 +46,7 @@
         </tr>
         <tr>
             <td><label>Phone Number</label></td>
-            <td><input type="number" placeholder=123456789 th:field="*{phoneNumber}" /></td>
+            <td><input type="number" placeholder=123456789 th:field="*{phoneNumber}" value=1 /></td>
             <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error">
         </tr>
         <tr>
