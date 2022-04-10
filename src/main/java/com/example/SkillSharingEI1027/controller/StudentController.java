@@ -91,9 +91,7 @@ class StudentValidator extends StudentController implements Validator {
                 return false;
             }
             char letra = dni.charAt(8);
-            if (! (letra >= 'A' && letra <= 'Z')){
-                return false;
-            }
+            return letra >= 'A' && letra <= 'Z';
         }
         //Comprobamos formato DNI válido
         else{
@@ -103,12 +101,9 @@ class StudentValidator extends StudentController implements Validator {
                 return false;
             }
             char letra = dni.charAt(8);
-            if (! (letra >= 'A' && letra <= 'Z')){
-                return false;
-            }
+            return letra >= 'A' && letra <= 'Z';
 
         }
-        return true;
     }
 }
 @Controller
@@ -161,7 +156,7 @@ public class StudentController {
         student = studentDao.getStudentUsingId(id);
 
         session.setAttribute("user",student);
-
+        System.out.println("sesion2:"+session.getId());
         return "redirect:/";
     }
 

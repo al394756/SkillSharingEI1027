@@ -49,10 +49,12 @@ public class RequestController {
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult,HttpSession session){
+        System.out.println(request);
         if (bindingResult.hasErrors())
-            return "request/add";
+            return "redirect:add";
         Student student=(Student) session.getAttribute("user");
         request.setIdStudent(student.getIdStudent());
+        request.setIdSkill(skillDao.getId(request.getIdSkill()));
         requestDao.addRequest(request);
         return "redirect:list";
     }
@@ -74,6 +76,6 @@ public class RequestController {
     @RequestMapping(value = "/delete/{idRequest}")
     public String processDelete(@PathVariable String idRequest) {
         requestDao.deleteRequest(idRequest);
-        return "redirect:../../list";
+        return "redirect:../list";
     }
 }

@@ -24,7 +24,7 @@ public class OfferDao {
     }
 
     public void deleteOffer(String idOffer){
-        jdbcTemplate.update("UPDATE Offer SET idEndDate=? WHERE idSOffer=?", java.time.LocalDate.now(),idOffer);
+        jdbcTemplate.update("UPDATE Offer SET endDate=? WHERE idSOffer=?", java.time.LocalDate.now(),idOffer);
     }
 
     public void updateOffer(Offer offer){

@@ -40,6 +40,14 @@ public class SkillDao {
         }
     }
 
+    public String getId(String skill){
+        try{
+            return jbdcTemplate.queryForObject("SELECT * FROM Skill WHERE name=?", new StringRowMapper(),skill);
+        } catch (EmptyResultDataAccessException ex){
+            return null;
+        }
+    }
+
     public List<Skill> getSkills(){
         try{
             return jbdcTemplate.query("SELECT * FROM Skill", new SkillRowMapper());
