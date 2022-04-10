@@ -44,9 +44,8 @@
             <td th:text="${student.balanceHours}"></td>
             <td th:text="${student.skpMember}"></td>
             <td th:text="${student.activeAccount}"></td>
-            <td><a th:field="banPerson" th:href="@{/student/ban/{id}(id=${student.idStudent})}"><button type="button" class="btn btn-danger" id="demo">Esborra</button></a></td>
+            <td th:object="${session}" th:if="not *{user == null} and *{user.skpMember}"><a th:field="banPerson" th:href="@{/student/ban/{id}(id=${student.idStudent})}"><button type="button" class="btn btn-danger" >Ban</button></a></td>
 <!--            <td th:if="${#fields.hasErrors('banPerson')}" th:errors="*{banPerson}"></td>-->
-
         </tr>
 
         </tbody>

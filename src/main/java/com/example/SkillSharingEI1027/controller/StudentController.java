@@ -83,7 +83,7 @@ class StudentValidator extends StudentController implements Validator {
     public void validateBan(Object obj, Errors errors, Student skp){
         Student student = (Student) obj;
         if (student.getIdStudent().equals(skp.getIdStudent())){
-            errors.rejectValue("banPerson", "Imposible", "You can't ban yourself");
+            errors.rejectValue("banReason", "Imposible", "You can't ban yourself");
         }
         if (student.getBanReason().trim().equals("") || student.getBanReason()==null){
             errors.rejectValue("banReason","Incorrect value", "Introduce a reason");
@@ -130,7 +130,7 @@ public class StudentController {
         return "login";
     }
 
-
+//Al intentar hacer login no sabemos si ha metido email o id. Por esto metemos ese input (sea lo que sea) en el campo name. Después comprobamos si el input es el email o el id y validamos
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String checkLogin(@ModelAttribute("user") Student student, BindingResult bindingResult, HttpSession session){
         StudentValidator validator = new StudentValidator();
@@ -171,8 +171,9 @@ public class StudentController {
     }
 
     @RequestMapping("/student/list")
-    public String listStudents(Model model){
+    public String listStudents(Model model, HttpSession session){
         model.addAttribute("students", studentDao.getStudentsActivos());
+        model.addAttribute("user", session.getAttribute("user"));
         return "student/list";
     }
 
