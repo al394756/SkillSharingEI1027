@@ -12,18 +12,18 @@
 
 <body>
 <main>
-    <table class="atributes">
+    <table class="contenedor">
         <tr>
             <td>Name:</td>
-            <td>   </td>
+            <td><label th:text="${session.user.getName()}" ></label></td>
             <td>Email:</td>
-            <td>   </td>
+            <td><label th:text="${session.user.getEmail()}" ></label></td>
         </tr>
         <tr>
             <td>Student ID:</td>
-            <td>   </td>
+            <td><label th:text="${session.user.getIdStudent()}" ></label></td>
             <td>Hours:</td>
-            <td>   </td>
+            <td><label th:text="${session.user.getBalanceHours()}" ></label></td>
         </tr>
     </table>
     <div class="contenedor">
