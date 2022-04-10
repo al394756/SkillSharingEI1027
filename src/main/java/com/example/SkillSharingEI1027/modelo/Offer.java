@@ -1,11 +1,16 @@
 package com.example.SkillSharingEI1027.modelo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Offer {
     private String idOffer;
-    private Date startDate;
-    private Date endDate;
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    private LocalDate startDate;
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    private LocalDate endDate;
     private String description;
     private String idSkill;
     private String idStudent;
@@ -14,11 +19,11 @@ public class Offer {
         this.idOffer = idOffer;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -38,11 +43,11 @@ public class Offer {
         return idOffer;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -56,5 +61,17 @@ public class Offer {
 
     public String getIdStudent() {
         return idStudent;
+    }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "idOffer='" + idOffer + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", description='" + description + '\'' +
+                ", idSkill='" + idSkill + '\'' +
+                ", idStudent='" + idStudent + '\'' +
+                '}';
     }
 }
