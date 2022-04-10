@@ -34,7 +34,7 @@ public class StudentDao {
         String apellido = formatoNombre(student.getSurname());
         String nombreCompleto = nombre + " " + apellido;
         String id = idGenerator();
-        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True)",id,student.getDni().toUpperCase(Locale.ROOT),nombreCompleto,student.getEmail(),
+        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True,Null)",id,student.getDni().toUpperCase(Locale.ROOT),nombreCompleto,student.getEmail(),
         student.getPhoneNumber(),passw,student.getDegree(),student.getCourse());
         return id;
     }
@@ -69,7 +69,7 @@ public class StudentDao {
     }
     //No se puede borrar estudiante, solo podemos cancelar su cuenta poniendo activeAccount a false
     public void cancelStudent(Student student){
-        jdbcTemplate.update("UPDATE Student SET activeAccount=false WHERE idStudent=?",student.getIdStudent());
+        jdbcTemplate.update("UPDATE Student SET activeAccount=false, banReason=? WHERE idStudent=?", student.getBanReason(),student.getIdStudent());
     }
 
     //Obtenemos Student con su id. Devuelve null si no existe o si la cuenta está inactiva

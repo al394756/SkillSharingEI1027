@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Banear</title>
+    <meta charset="UTF-8" />
+
+</head>
+<body>
+<h2 Banear a th:text="${nom}"></h2>
+<form action="#" th:action="@{/student/ban}"
+      th:object="${student}" method="post">
+    <table>
+        <tr>
+            <td><label>Name</label></td>
+            <td><input type="text" th:field="*{name}" readonly="readonly"/></td>
+        </tr>
+        <tr>
+            <td><label>id</label></td>
+            <td><input type="text" th:field="*{idStudent}" readonly="readonly"/></td>
+        </tr>
+        <tr>
+            <td><label>reason</label></td>
+            <td><input type="text" th:field="*{banReason}" /></td>
+            <td th:if="${#fields.hasErrors('banReason')}" th:errors="*{banReason}"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Ban Student" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

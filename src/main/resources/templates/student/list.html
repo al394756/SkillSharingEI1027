@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 </head>
+
+
 <body>
 <div layout:fragment="content">
     <h1>Llista de Nadadors</h1>
@@ -24,9 +26,10 @@
             <th scope="col">balanceHours</th>
             <th scope="col">skp</th>
             <th scope="col">active</th>
+            <th scope="col"></th>
 
-            <th></th>
-            <th></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -41,7 +44,11 @@
             <td th:text="${student.balanceHours}"></td>
             <td th:text="${student.skpMember}"></td>
             <td th:text="${student.activeAccount}"></td>
+            <td><a th:field="banPerson" th:href="@{/student/ban/{id}(id=${student.idStudent})}"><button type="button" class="btn btn-danger" id="demo">Esborra</button></a></td>
+<!--            <td th:if="${#fields.hasErrors('banPerson')}" th:errors="*{banPerson}"></td>-->
+
         </tr>
+
         </tbody>
     </table>
 </div>

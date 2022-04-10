@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -77,6 +78,16 @@ class StudentValidator extends StudentController implements Validator {
         if (studentDao.checkExistingStudentEmail(student))
             errors.rejectValue("email", "Incorrect value", "This email is already registered");
 
+    }
+
+    public void validateBan(Object obj, Errors errors, Student skp){
+        Student student = (Student) obj;
+        if (student.getIdStudent().equals(skp.getIdStudent())){
+            errors.rejectValue("banPerson", "Imposible", "You can't ban yourself");
+        }
+        if (student.getBanReason().trim().equals("") || student.getBanReason()==null){
+            errors.rejectValue("banReason","Incorrect value", "Introduce a reason");
+        }
     }
 
     public boolean dniValidator(String dni){
@@ -156,7 +167,6 @@ public class StudentController {
         student = studentDao.getStudentUsingId(id);
 
         session.setAttribute("user",student);
-        System.out.println("sesion2:"+session.getId());
         return "redirect:/";
     }
 
@@ -170,5 +180,26 @@ public class StudentController {
     public String logOut(HttpSession session){
         session.removeAttribute("user");
         return "index";
+    }
+
+    @RequestMapping(value="/student/ban/{id}", method = RequestMethod.GET)
+    public String banStudent(Model model, @PathVariable String id){
+        model.addAttribute("student", studentDao.getStudentUsingId(id));
+        return "student/ban";
+    }
+
+    @RequestMapping(value = "/student/ban", method = RequestMethod.POST)
+    public String processBanSubmit(@ModelAttribute("student") Student student, BindingResult bindingResult, HttpSession session){
+
+        Student user = (Student) session.getAttribute("user");
+        StudentValidator studentValidator= new StudentValidator();
+        studentValidator.validateBan(student, bindingResult, user);
+        if (bindingResult.hasErrors())
+            return "student/ban";
+
+        String msg = "Our SKP: "+user.getName()+"("+user.getIdStudent()+") has banned you from this service because:\n"+student.getBanReason();
+        student.setBanReason(msg);
+        studentDao.cancelStudent(student);
+        return "redirect:/";
     }
 }

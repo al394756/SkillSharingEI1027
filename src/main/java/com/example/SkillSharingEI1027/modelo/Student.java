@@ -13,11 +13,13 @@ public class Student {
     private int balanceHours;
     private boolean skpMember;
     private boolean activeAccount;
+    private String banReason;
 
     public Student(){
         balanceHours=0;
         skpMember=false;
         activeAccount=true;
+        banReason=null;
     }
 
     public String getSurname() { return surname; }
@@ -112,6 +114,14 @@ public class Student {
 
     public void setSurname(String surname){ this.surname=surname;}
 
+    public void setBanReason(String banReason) {
+        this.banReason = banReason;
+    }
+
+    public String getBanReason() {
+        return banReason;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -125,6 +135,7 @@ public class Student {
                 ", balanceHours=" + balanceHours +
                 ", skpMember=" + skpMember +
                 ", activeAccount=" + activeAccount +
+                ", banReason="+banReason+
                 '}';
     }
 }
