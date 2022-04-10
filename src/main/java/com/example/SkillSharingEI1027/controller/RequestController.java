@@ -33,7 +33,7 @@ public class RequestController {
 
     @RequestMapping("/list")
     public String listRequests(Model model){
-        model.addAttribute("requests",requestDao.getRequests());
+        model.addAttribute("requests",requestDao.getActiveRequests());
         return "request/list";
     }
 
@@ -49,7 +49,6 @@ public class RequestController {
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult,HttpSession session){
-        System.out.println(request);
         if (bindingResult.hasErrors())
             return "redirect:add";
         Student student=(Student) session.getAttribute("user");
@@ -61,7 +60,7 @@ public class RequestController {
 
     @RequestMapping(value="/update/{idRequest}", method = RequestMethod.GET)
     public String editDescripcionSkill(Model model, @PathVariable String idRequest){
-        model.addAttribute("skill", requestDao.getRequest(idRequest));
+        model.addAttribute("request", requestDao.getRequest(idRequest));
         return "request/update";
     }
 

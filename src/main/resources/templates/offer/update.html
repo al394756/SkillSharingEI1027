@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <h2>Nova demanda</h2>
-    <form class="form-horizontal" action="#" th:action="@{/offer/add}"
+    <form class="form-horizontal" action="#" th:action="@{/offer/update}"
           th:object="${offer}" method="post">
 
         <div class="form-group row">
@@ -36,7 +36,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="endDate">Fi:</label>
             <div class="col-sm-4">
-                <input type="date" class="form-control" id="endDate" th:field="*{startDate}" required/>
+                <input type="date" class="form-control" id="endDate" th:field="*{endDate}" required/>
             </div>
         </div>
 

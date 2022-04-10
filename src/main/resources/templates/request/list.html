@@ -30,8 +30,8 @@
             <td th:text="${request.endDate}"></td>
             <td th:text="${request.description}"></td>
             <td th:text="${request.idStudent}"></td>
-            <td> <a th:href="@{/request/update/{idRequest}}" class="btn btn-warning" role="button">Edita</a></td>
-            <td><a th:href="@{/request/delete/{idRequest}}" class="btn btn-danger" role="button">Esborra</a></td>
+            <td> <a th:href="@{/request/update/{idRequest}(idRequest=${request.idRequest})}" class="btn btn-warning" role="button">Edita</a></td>
+            <td><a th:href="@{/request/delete/{idRequest}(idRequest=${request.idRequest})}" class="btn btn-danger" role="button">Esborra</a></td>
         </tr>
         </tbody>
     </table>

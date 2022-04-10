@@ -20,17 +20,16 @@ public class RequestDao {
 
     public void addRequest(Request request){
         request.setIdRequest(idGenerator());
-        System.out.println(request);
         jdbcTemplate.update("INSERT INTO Request VALUES(?,?,?,?,?,?)", request.getIdRequest(),request.getIdSkill(),
                 request.getStartDate(), request.getEndDate(), request.getDescription(),request.getIdStudent());
     }
 
     public void deleteRequest(String idRequest){
-        System.out.println("id "+idRequest);
         jdbcTemplate.update("UPDATE Request SET endDate=? WHERE idRequest=?", java.time.LocalDate.now(),idRequest);
     }
 
     public void updateRequest(Request request){
+        System.out.println(request);
         jdbcTemplate.update("UPDATE Request SET description=?, startDate=?, endDate=? WHERE idRequest=?",
                 request.getDescription(),request.getStartDate(),request.getEndDate(),request.getIdRequest());
     }
@@ -52,6 +51,14 @@ public class RequestDao {
         }
     }
 
+    public List<Request> getActiveRequests(){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Request WHERE endDate>?", new RequestRowMapper(),java.time.LocalDate.now());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
+
     private String idGenerator(){
         AtomicInteger contadorRequests = new AtomicInteger(getCantidadRequests());
         StringBuilder id= new StringBuilder("rq");
@@ -64,6 +71,5 @@ public class RequestDao {
 
     private Integer getCantidadRequests(){
         return jdbcTemplate.queryForObject("SELECT COUNT(idSkill) FROM Request",new IntegerRowMapper());
-
     }
 }

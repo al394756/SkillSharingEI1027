@@ -13,13 +13,6 @@
           th:object="${offer}" method="post">
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="idOffer">id:</label>
-            <div class="col-sm-4">
-                <input type="text" maxlength="10" class="form-control" id="idOffer" th:field="*{idOffer}" required/>
-            </div>
-        </div>
-
-        <div class="form-group row">
             <label class="control-label col-sm-2" for="idSkill">Skill:</label>
             <div class="col-sm-4">
 
@@ -32,21 +25,21 @@
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="startDate">Inici:</label>
+            <label class="control-label col-sm-2" for="startDate">Start date:</label>
             <div class="col-sm-4">
                 <input type="date" class="form-control" id="startDate" th:field="*{startDate}" required/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="endDate">Fi:</label>
+            <label class="control-label col-sm-2" for="endDate">End date:</label>
             <div class="col-sm-4">
-                <input type="date" class="form-control" id="endDate" th:field="*{startDate}" required/>
+                <input type="date" class="form-control" id="endDate" th:field="*{endDate}" required/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="idDescription">Descripció:</label>
+            <label class="control-label col-sm-2" for="idDescription">Description:</label>
             <div class="col-sm-4">
                 <input type="text" maxlength="100" class="form-control" id="idDescription" th:field="*{description}" required/>
             </div>
@@ -54,7 +47,7 @@
 
         <div class="form-group row">
             <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-primary">Afegeix oferta</button>
+                <button type="submit" class="btn btn-primary">Create offer</button>
             </div>
         </div>
     </form>
