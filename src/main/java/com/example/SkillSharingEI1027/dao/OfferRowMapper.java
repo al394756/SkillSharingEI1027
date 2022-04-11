@@ -1,4 +1,4 @@
-package com.example.SkillSharingEI1027.dao;
+/*package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.Offer;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,7 +11,7 @@ public final class OfferRowMapper implements RowMapper<Offer>{
     @Override
     public Offer mapRow(ResultSet rs, int rowNum) throws SQLException {
         Offer offer=new Offer();
-        offer.setIdOffer(rs.getString("idOffer"));
+        offer.setId(rs.getString("idOffer"));
         offer.setStartDate(rs.getObject("startDate", LocalDate.class));
         offer.setEndDate(rs.getObject("endDate",LocalDate.class));
         offer.setDescription(rs.getString("description"));
@@ -19,4 +19,4 @@ public final class OfferRowMapper implements RowMapper<Offer>{
         offer.setIdSkill(rs.getString("idSkill"));
         return offer;
     }
-}
+}*/

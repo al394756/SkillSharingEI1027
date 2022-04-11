@@ -1,5 +1,6 @@
 package com.example.SkillSharingEI1027.dao;
 
+import com.example.SkillSharingEI1027.modelo.OffeRequest;
 import com.example.SkillSharingEI1027.modelo.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,64 +13,26 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
-public class RequestDao {
-    private JdbcTemplate jdbcTemplate;
+public class RequestDao extends OffeRequestDao{
 
     @Autowired
-    public void setDataSource(DataSource dataSource){ jdbcTemplate = new JdbcTemplate(dataSource);}
-
-    public void addRequest(Request request){
-        request.setIdRequest(idGenerator());
-        jdbcTemplate.update("INSERT INTO Request VALUES(?,?,?,?,?,?)", request.getIdRequest(),request.getIdSkill(),
-                request.getStartDate(), request.getEndDate(), request.getDescription(),request.getIdStudent());
+    public void setDataSource(DataSource dataSource){
+        setJdbcTemplate(new JdbcTemplate(dataSource));
     }
 
-    public void deleteRequest(String idRequest){
-        jdbcTemplate.update("UPDATE Request SET endDate=? WHERE idRequest=?", java.time.LocalDate.now(),idRequest);
-    }
-
-    public void updateRequest(Request request){
-        System.out.println(request);
-        jdbcTemplate.update("UPDATE Request SET description=?, startDate=?, endDate=? WHERE idRequest=?",
-                request.getDescription(),request.getStartDate(),request.getEndDate(),request.getIdRequest());
-    }
-
-    public Request getRequest(String idRequest){
+    public List<OffeRequest> getRequests(){
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM Request WHERE idRequest=?",
-                    new RequestRowMapper(),idRequest);
-        } catch (EmptyResultDataAccessException ex){
-            return null;
-        }
-    }
-
-    public List<Request> getRequests(){
-        try{
-            return jdbcTemplate.query("SELECT * FROM Request", new RequestRowMapper());
+            return getJdbcTemplate().query("SELECT * FROM Request", new OffeRequestRowMapper());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
     }
 
-    public List<Request> getActiveRequests(){
+    public List<OffeRequest> getActiveOffeRequests(){
         try{
-            return jdbcTemplate.query("SELECT * FROM Request WHERE endDate>?", new RequestRowMapper(),java.time.LocalDate.now());
+            return getJdbcTemplate().query("SELECT * FROM Request WHERE endDate>?", new OffeRequestRowMapper(),java.time.LocalDate.now());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
-    }
-
-    private String idGenerator(){
-        AtomicInteger contadorRequests = new AtomicInteger(getCantidadRequests());
-        StringBuilder id= new StringBuilder("rq");
-        int numeroId = contadorRequests.get();
-        int numeroCifras = Integer.toString(numeroId).length();
-        id.append("0".repeat(Math.max(0, 6 - numeroCifras)));
-
-        return id.toString() +numeroId;
-    }
-
-    private Integer getCantidadRequests(){
-        return jdbcTemplate.queryForObject("SELECT COUNT(idSkill) FROM Request",new IntegerRowMapper());
     }
 }

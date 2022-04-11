@@ -1,7 +1,9 @@
 package com.example.SkillSharingEI1027.controller;
 
+import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.RequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
+import com.example.SkillSharingEI1027.modelo.OffeRequest;
 import com.example.SkillSharingEI1027.modelo.Request;
 import com.example.SkillSharingEI1027.modelo.Skill;
 import com.example.SkillSharingEI1027.modelo.Student;
@@ -21,7 +23,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/request")
 public class RequestController {
-    private RequestDao requestDao;
+    private OffeRequestDao requestDao;
     private SkillDao skillDao;
 
     @Autowired
@@ -32,17 +34,14 @@ public class RequestController {
 
     @RequestMapping("/list")
     public String listRequests(Model model){
-        model.addAttribute("requests",requestDao.getActiveRequests());
+        model.addAttribute("requests",requestDao.getActiveOffeRequests());
         return "request/list";
     }
 
     @RequestMapping(value = "add")
     public String addRequest(Model model){
         model.addAttribute("request",new Request());
-        List<String> skills=new ArrayList<>();
-        for (Skill skill:skillDao.getSkills())
-            skills.add(skill.getName());
-        model.addAttribute("skills",skills);
+        model.addAttribute("skills",skillDao.getSkillsName());
         return "request/add";
     }
 
@@ -51,15 +50,20 @@ public class RequestController {
         if (bindingResult.hasErrors())
             return "redirect:add";
         Student student=(Student) session.getAttribute("user");
-        request.setIdStudent(student.getIdStudent());
-        request.setIdSkill(skillDao.getSkillById(request.getIdSkill()).getIdSkill());
-        requestDao.addRequest(request);
+        request.setStudent(student);
+        request.setSkill(skillDao.getIdBySkill(request.getSkill().getIdSkill()));
+        requestDao.add(request);
         return "redirect:list";
     }
 
-    @RequestMapping(value="/update/{idRequest}", method = RequestMethod.GET)
-    public String editDescripcionSkill(Model model, @PathVariable String idRequest){
-        model.addAttribute("request", requestDao.getRequest(idRequest));
+    @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
+    public String editDescripcionSkill(Model model, @PathVariable String id,HttpSession session){
+        OffeRequest request=requestDao.getOffeRequest(id);
+        Student student=(Student) session.getAttribute("user");
+        request.setStudent(student);
+        System.out.println("id "+request.getSkill().getIdSkill());
+        request.setSkill(skillDao.getSkill(request.getSkill().getIdSkill()));
+        model.addAttribute("request", request);
         return "request/update";
     }
 
@@ -67,13 +71,13 @@ public class RequestController {
     public String processUpdateSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return "request/update";
-        requestDao.updateRequest(request);
+        requestDao.update(request);
         return "redirect:list";
     }
 
-    @RequestMapping(value = "/delete/{idRequest}")
-    public String processDelete(@PathVariable String idRequest) {
-        requestDao.deleteRequest(idRequest);
+    @RequestMapping(value = "/delete/{id}")
+    public String processDelete(@PathVariable String id) {
+        requestDao.delete(id);
         return "redirect:../list";
     }
 }

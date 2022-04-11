@@ -15,7 +15,7 @@
         <div class="form-group row">
             <label class="control-label col-sm-2" for="skill">Skill:</label>
             <div class="col-sm-4">
-                <select class="form-control" type="text" th:field="*{idSkill}">
+                <select class="form-control" type="text" id="skill" th:field="*{skill.idSkill}">
                     <option th:each="skill:${skills}"
                             th:value="${skill}"
                             th:text="${skill}"></option>

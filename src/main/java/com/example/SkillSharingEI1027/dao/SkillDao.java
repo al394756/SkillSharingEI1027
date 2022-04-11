@@ -41,7 +41,7 @@ public class SkillDao {
         }
     }
 
-    public Skill getSkillById(String skill){
+    public Skill getIdBySkill(String skill){
         try{
             return jbdcTemplate.queryForObject("SELECT * FROM Skill WHERE name=?", new SkillRowMapper(),skill);
         } catch (EmptyResultDataAccessException ex){
@@ -52,6 +52,16 @@ public class SkillDao {
     public List<Skill> getSkills(){
         try{
             return jbdcTemplate.query("SELECT * FROM Skill", new SkillRowMapper());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
+
+    public List<String> getSkillsName(){
+        try{
+            List<String> skills=new ArrayList<>();
+            for (Skill skill:getSkills()) skills.add(skill.getName());
+            return skills;
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }

@@ -32,7 +32,7 @@ public class OfferController {
 
     @RequestMapping("/list")
     public String listOffers(Model model){
-        model.addAttribute("offers",offerDao.getActiveOffers());
+        model.addAttribute("offers",offerDao.getActiveOffeRequests());
         return "offer/list";
     }
 
@@ -51,15 +51,15 @@ public class OfferController {
         if (bindingResult.hasErrors())
             return "redirect/add";
         Student student=(Student) session.getAttribute("user");
-        offer.setIdStudent(student.getIdStudent());
-        offer.setIdSkill(skillDao.getSkillById(offer.getIdSkill()).getIdSkill());
-        offerDao.addOffer(offer);
+        offer.getStudent().setIdStudent(student.getIdStudent());
+        offer.getSkill().setIdSkill(skillDao.getSkill(offer.getSkill().getIdSkill()).getIdSkill());
+        offerDao.add(offer);
         return "redirect:list";
     }
 
     @RequestMapping(value="/update/{idOffer}", method = RequestMethod.GET)
     public String editDescripcionSkill(Model model, @PathVariable String idOffer){
-        model.addAttribute("offer", offerDao.getOffer(idOffer));
+        model.addAttribute("offer", offerDao.getOffeRequest(idOffer));
         return "offer/update";
     }
 
@@ -67,13 +67,13 @@ public class OfferController {
     public String processUpdateSubmit(@ModelAttribute("offer") Offer offer, BindingResult bindingResult){
         if (bindingResult.hasErrors())
             return "offer/update";
-        offerDao.updateOffer(offer);
+        offerDao.update(offer);
         return "redirect:list";
     }
 
     @RequestMapping(value = "/delete/{idOffer}")
     public String processDelete(@PathVariable String idOffer) {
-        offerDao.deleteOffer(idOffer);
+        offerDao.delete(idOffer);
         return "redirect:../list";
     }
 }
