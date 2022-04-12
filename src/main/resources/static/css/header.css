@@ -23,6 +23,10 @@
      z-index: 3;
      vertical-align: top;
 }
+.logo-plano{
+     height: 2.3rem;
+     padding-left: 6rem;
+}
 .color_text{
      text-decoration:none;
      font-family: Arial;
