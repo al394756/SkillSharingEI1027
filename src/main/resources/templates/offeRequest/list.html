@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title th:text="${type}+'s'"></title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${type}+'s'"></h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Skill</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Description</th>
+            <th>Student</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="offeRequest: ${list}">
+            <td th:text="${offeRequest.id}"></td>
+            <td th:text="${offeRequest.skill.idSkill}"></td>
+            <td th:text="${offeRequest.startDate}"></td>
+            <td th:text="${offeRequest.endDate}"></td>
+            <td th:text="${offeRequest.description}"></td>
+            <td th:text="${offeRequest.student.idStudent}"></td>
+            <td> <a th:href="'update/'+${offeRequest.id}" class="btn btn-warning" role="button">Edit</a></td>
+            <td><a th:href="'delete/'+${offeRequest.id}" class="btn btn-danger" role="button">Cancel</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="add" class="btn btn-success" role="button" th:text="'Add '+${type}"></a>
+</div>
+</body>
+</html>
+

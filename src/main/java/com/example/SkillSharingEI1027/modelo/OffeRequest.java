@@ -13,6 +13,9 @@ public abstract class OffeRequest {
     private LocalDate endDate;
     private String description;
     private Student student=new Student();
+    private String type;
+    private String start;
+    private String url;
 
     public String getId() {
         return id;
@@ -71,6 +74,29 @@ public abstract class OffeRequest {
                 ", endDate=" + endDate +
                 ", description='" + description + '\'' +
                 ", student=" + student +
+                ", type='" + type + '\'' +
+                ", start='" + start + '\'' +
+                ", url='" + url + '\'' +
                 '}';
+    }
+
+    public String getType(){
+        return type;
+    }
+    public String getStart(){
+        return start;
+    }
+    public String getUrl(){
+        return url;
+    }
+    public void setType(String type){
+        System.out.println(type);
+        this.type=type;
+    }
+    public void setStart(String start){
+        this.start=start;
+    }
+    public void setUrl(String url){
+        this.url=url;
     }
 }

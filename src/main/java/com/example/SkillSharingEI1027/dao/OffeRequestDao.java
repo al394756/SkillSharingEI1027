@@ -1,45 +1,26 @@
 package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.OffeRequest;
-import com.example.SkillSharingEI1027.modelo.Offer;
-import com.example.SkillSharingEI1027.modelo.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
-public abstract class OffeRequestDao {
+public class OffeRequestDao {
     private JdbcTemplate jdbcTemplate;
-
-    public JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
-    }
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate=jdbcTemplate;
-    }
 
     @Autowired
     public void setDataSource(DataSource dataSource){ jdbcTemplate = new JdbcTemplate(dataSource);}
 
     public void add(OffeRequest offeRequest){
-        String table="";
-        if (offeRequest.getClass().equals(Request.class)){
-            table="Request";
-            offeRequest.setId(idGenerator("rq"));
-        }
-
-        else if (offeRequest.getClass().equals(Offer.class)){
-            table="Offer";
-            offeRequest.setId(idGenerator("of"));
-        }
-
-        jdbcTemplate.update("INSERT INTO "+table+" VALUES(?,?,?,?,?,?)", offeRequest.getId(),offeRequest.getSkill().getIdSkill(),
+        offeRequest.setId(idGenerator(offeRequest));
+        jdbcTemplate.update("INSERT INTO "+offeRequest.getType()+" VALUES(?,?,?,?,?,?)", offeRequest.getId(),offeRequest.getSkill().getIdSkill(),
                 offeRequest.getStartDate(), offeRequest.getEndDate(), offeRequest.getDescription(),offeRequest.getStudent().getIdStudent());
     }
 
@@ -51,10 +32,7 @@ public abstract class OffeRequestDao {
     }
 
     public void update(OffeRequest offeRequest){
-        String table="";
-        if (offeRequest.getClass().equals(Request.class)) table="Request";
-        else if (offeRequest.getClass().equals(Offer.class)) table="Offer";
-        jdbcTemplate.update("UPDATE "+table+" SET description=?, startDate=?, endDate=? WHERE id=?",
+        jdbcTemplate.update("UPDATE "+offeRequest.getType()+" SET description=?, startDate=?, endDate=? WHERE id=?",
                 offeRequest.getDescription(),offeRequest.getStartDate(),offeRequest.getEndDate(),offeRequest.getId());
     }
 
@@ -64,22 +42,18 @@ public abstract class OffeRequestDao {
             if (id.startsWith("rq")) table="Request";
             else if (id.startsWith("of")) table="Offer";
             return jdbcTemplate.queryForObject("SELECT * FROM "+table+" WHERE id=?",
-                    new OffeRequestRowMapper(),id);
+                    new OffeRequestRowMapper(table),id);
         } catch (EmptyResultDataAccessException ex){
             return null;
         }
     }
 
-    private String idGenerator(String start){
-        String table="";
-        if (start.startsWith("rq")) table="Request";
-        else if (start.startsWith("of")) table="Offer";
-        AtomicInteger contadorRequests = new AtomicInteger(getCantidad(table));
-        StringBuilder id= new StringBuilder(start);
+    private String idGenerator(OffeRequest offeRequest){
+        AtomicInteger contadorRequests = new AtomicInteger(getCantidad(offeRequest.getType()));
+        StringBuilder id= new StringBuilder(offeRequest.getStart());
         int numeroId = contadorRequests.get();
         int numeroCifras = Integer.toString(numeroId).length();
         id.append("0".repeat(Math.max(0, 6 - numeroCifras)));
-
         return id.toString() +numeroId;
     }
 
@@ -87,5 +61,19 @@ public abstract class OffeRequestDao {
         return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM "+table,new IntegerRowMapper());
     }
 
-    public abstract List<OffeRequest> getActiveOffeRequests();
+    public List<OffeRequest> getActiveOffeRequests(String table) {
+        try{
+            return jdbcTemplate.query("SELECT * FROM "+table+" WHERE endDate>?", new OffeRequestRowMapper(table),java.time.LocalDate.now());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
+
+    public List<OffeRequest> getOfferRequests(String table){
+        try{
+            return jdbcTemplate.query("SELECT * FROM "+table, new OffeRequestRowMapper(table));
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
 }

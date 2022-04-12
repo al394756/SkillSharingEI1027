@@ -1,10 +1,9 @@
 package com.example.SkillSharingEI1027.controller;
 
-import com.example.SkillSharingEI1027.dao.OfferDao;
+import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
+import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.Offer;
-import com.example.SkillSharingEI1027.modelo.Skill;
-import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,65 +14,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/offer")
 public class OfferController {
-    private OfferDao offerDao;
-    private SkillDao skillDao;
+    private final OffeRequestMethods<Offer> offeRequestMethods=new OffeRequestMethods<>();
+    private final String type="Offer";
 
     @Autowired
-    public void setOfferDao(OfferDao offerDao,SkillDao skillDao) {
-        this.offerDao = offerDao;
-        this.skillDao=skillDao;
+    public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
+        offeRequestMethods.setOffeRequestDao(offeRequestDao,skillDao,studentDao);
     }
 
     @RequestMapping("/list")
     public String listOffers(Model model){
-        model.addAttribute("offers",offerDao.getActiveOffeRequests());
-        return "offer/list";
+        return offeRequestMethods.list(model,type);
     }
 
-    @RequestMapping(value = "add")
+    @RequestMapping(value = "/add")
     public String addOffer(Model model){
-        model.addAttribute("offer",new Offer());
-        List<String> skills=new ArrayList<>();
-        for (Skill skill:skillDao.getSkills())
-            skills.add(skill.getName());
-        model.addAttribute("skills",skills);
-        return "offer/add";
+        model.addAttribute("offeRequest",new Offer());
+        return offeRequestMethods.add(model,type);
     }
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("offer") Offer offer, BindingResult bindingResult, HttpSession session){
-        if (bindingResult.hasErrors())
-            return "redirect/add";
-        Student student=(Student) session.getAttribute("user");
-        offer.getStudent().setIdStudent(student.getIdStudent());
-        offer.getSkill().setIdSkill(skillDao.getSkill(offer.getSkill().getIdSkill()).getIdSkill());
-        offerDao.add(offer);
-        return "redirect:list";
+        return offeRequestMethods.processAddSubmit(offer,bindingResult,session);
     }
 
-    @RequestMapping(value="/update/{idOffer}", method = RequestMethod.GET)
-    public String editDescripcionSkill(Model model, @PathVariable String idOffer){
-        model.addAttribute("offer", offerDao.getOffeRequest(idOffer));
-        return "offer/update";
+    @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
+    public String edit(Model model, @PathVariable String id){
+        return offeRequestMethods.edit(model, id,type);
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)
     public String processUpdateSubmit(@ModelAttribute("offer") Offer offer, BindingResult bindingResult){
-        if (bindingResult.hasErrors())
-            return "offer/update";
-        offerDao.update(offer);
-        return "redirect:list";
+        return offeRequestMethods.processUpdateSubmit(offer,bindingResult);
     }
 
-    @RequestMapping(value = "/delete/{idOffer}")
-    public String processDelete(@PathVariable String idOffer) {
-        offerDao.delete(idOffer);
-        return "redirect:../list";
+    @RequestMapping(value = "/delete/{id}")
+    public String processDelete(@PathVariable String id) {
+        return offeRequestMethods.processDelete(id);
     }
 }
