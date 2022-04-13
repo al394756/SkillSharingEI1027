@@ -5,27 +5,46 @@
   <meta charset="UTF-8"/>
   <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
   <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+  <link href="../static/css/login.css" rel="stylesheet" th:href="@{/css/login.css}"/>
 
 </head>
 
 <div th:replace="fragments/header" ></div>
 
 <body>
-<main class="main con" >
-  <h2>Accés</h2>
-  <form action="#" th:action="@{/login}"
-        th:object="${user}" method="post">
-    <p>
-      <label>Email/Student's id:</label>
-      <input type="text" th:field="*{name}"/>
-    </p>
-    <p>
-      <label>Password:</label>
-      <input type="password" th:field="*{password}"/>
-    <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-    </p>
-    <input type="submit" value="Accedir" />
-  </form>
+<main>
+  <div class="caja">
+    <div class="caja-interno">
+      <h2>Log in</h2>
+      <hr>
+      <form action="#" th:action="@{/login}" th:object="${user}" method="post">
+        <table>
+
+          <tr class="iz">
+            <td><label>Email/Student's id:</label></td>
+          </tr>
+
+          <tr>
+            <td><input type="text" th:field="*{name}"/></td>
+          </tr>
+
+          <tr class="iz">
+            <td><label>Password:</label></td>
+          </tr>
+
+          <tr>
+            <td><input type="password" th:field="*{password}"/>
+            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div></td>
+          </tr>
+
+        </table>
+        <br>
+        <input class="sumit" type="submit" value="Submit"/>
+        <hr>
+
+      </form>
+    </div>
+  </div>
 </main>
 </body>
 </html>

@@ -42,7 +42,7 @@
                     <td><input type="text" th:field="*{dni}" maxlength="9" placeholder="12345678A"/></td>
                     <td th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="error"  ></td>
 
-                    <td><input type="number" placeholder=123456789 th:field="*{phoneNumber}" value=1 /></td>
+                    <td><input type="number" th:field="*{phoneNumber}" value="" /></td>
                     <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error">
                 </tr>
                 <tr class="iz">
@@ -100,8 +100,6 @@
         </form>
         </div>
     </div>
-
-
 </main>
 </body>
 </html>
