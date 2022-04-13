@@ -2,8 +2,9 @@
     border-radius: 20px;
     background: #7d9abb;
     width: 22rem;
-    height: 20rem;
+    height: 25rem;
     margin: 0 auto;
+    box-shadow: 0 0 0.7rem #333333;
 }
 .caja-interno{
     margin: auto;
