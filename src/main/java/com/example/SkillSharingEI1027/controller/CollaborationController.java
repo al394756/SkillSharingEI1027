@@ -2,7 +2,9 @@ package com.example.SkillSharingEI1027.controller;
 
 
 import com.example.SkillSharingEI1027.dao.CollaborationDao;
+import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.modelo.Collaboration;
+import com.example.SkillSharingEI1027.modelo.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/collaboration")
@@ -31,6 +36,10 @@ public class CollaborationController {
     @RequestMapping(value = "add")
     public String addCollaboration(Model model){
         model.addAttribute("collaboration",new Collaboration());
+        List<String> offers = new ArrayList<>();
+        for (Skill skill : OffeRequestMethods.list)
+            skills.add(skill.getName());
+        model.addAttribute("skills", skills);
         return "collaboration/add"; //falta html
     }
 

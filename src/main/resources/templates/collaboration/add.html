@@ -11,28 +11,40 @@
 <form action="#" th:action="@{/collaboration/add}"
       th:object="${collaboration}" method="post">
     <table>
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="offer">Offer:</label>
+            <div class="col-sm-4">
+                <select class="form-control" type="text" id="offer" th:field="*{idOffer}">
+                    <option th:each="offer:${offers}"
+                            th:value="${offer}"
+                            th:text="${offer}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="request">Request:</label>
+            <div class="col-sm-4">
+                <select class="form-control" type="request" id="request" th:field="*{idRequest}">
+                    <option th:each="req:${request}"
+                            th:value="${req}"
+                            th:text="${req}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="assessmentScore">Assessment Score:</label>
+            <div class="col-sm-4">
+                <input type="number" min="0" class="form-control" id="assessmentScore" th:field="*{assessmentScore}" readonly/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="hours">Hours:</label>
+            <div class="col-sm-4">
+                <input type="number" min="0" class="form-control" id="hours" th:field="*{hours}" readonly/>
+            </div>
+        </div>
         <tr>
-            <td><label>idCollaboration</label></td>
-            <td><input type="text" th:field="*{idCollaboration}" /></td>
-        </tr>
-        <tr>
-            <td><label>idOffer</label></td>
-            <td><input type="text" th:field="*{idOffer}" /></td>
-        </tr>
-        <tr>
-            <td><label>idRequest</label></td>
-            <td><input type="text" th:field="*{idRequest}" /></td>
-        </tr>
-        <tr>
-            <td><label>Assessment Score</label></td>
-            <td><input type="number" min="0" th:field="*{assessmentScore}" readonly/></td>
-        </tr>
-        <tr>
-            <td><label>Hours</label></td>
-            <td><input type="number" min="0" th:field="*{hours}" readonly /></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Añadir Collaboration" /></td>
+            <td colspan="2"><input type="submit" value="Add Collaboration" /></td>
         </tr>
     </table>
 </form>
