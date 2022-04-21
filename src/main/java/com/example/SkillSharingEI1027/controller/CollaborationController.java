@@ -29,6 +29,7 @@ public class CollaborationController {
     private SkillDao skillDao;
     private StudentDao studentDao;
 
+    @Autowired
     public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
         this.offeRequestDao = offeRequestDao;
         this.skillDao = skillDao;
