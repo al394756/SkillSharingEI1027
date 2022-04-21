@@ -25,7 +25,10 @@
           </tr>
 
           <tr>
-            <td><input type="text" th:field="*{name}"/></td>
+            <td>
+              <input type="text" th:field="*{name}" class="error" th:if="${#fields.hasErrors('name')}" />
+              <input type="text" th:field="*{name}" th:unless="${#fields.hasErrors('name')}" />
+            </td>
           </tr>
 
           <tr class="iz">
@@ -33,8 +36,10 @@
           </tr>
 
           <tr>
-            <td><input type="password" th:field="*{password}"/>
-            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div></td>
+            <td>
+              <input type="password" class="error" th:field="*{password}" th:if="${#fields.hasErrors('password')}"/>
+              <input type="password"  th:field="*{password}" th:unless="${#fields.hasErrors('password')}"/>
+            </td>
           </tr>
 
         </table>

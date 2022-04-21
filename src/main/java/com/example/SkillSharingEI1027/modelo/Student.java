@@ -1,6 +1,6 @@
 package com.example.SkillSharingEI1027.modelo;
 
-public class Student {
+public class Student implements Comparable<Student>{
     private String idStudent;
     private String dni;
     private String name;
@@ -137,5 +137,35 @@ public class Student {
                 ", activeAccount=" + activeAccount +
                 ", banReason="+banReason+
                 '}';
+    }
+
+
+    public int compareTo(Student o, Sorter sorter) {
+        if (sorter.getType().equals("idStudent")) {
+            if (sorter.isFromTopToBot())
+                return -(this.getIdStudent().compareTo(o.getIdStudent()));
+            return this.getIdStudent().compareTo(o.getIdStudent());
+        } else if (sorter.getType().equals("balanceHours")){
+
+                if (sorter.isFromTopToBot()){
+                    if (o.getBalanceHours() >= this.getBalanceHours())
+                        return -1;
+                    else
+                        return 1;
+                } else{
+                    if (o.getBalanceHours() >= this.getBalanceHours())
+                        return 1;
+                    else
+                        return -1;
+                }
+
+        }
+        return 0;
+
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return this.getIdStudent().compareTo(o.getIdStudent());
     }
 }

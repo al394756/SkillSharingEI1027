@@ -1,7 +1,7 @@
 .caja{
     border-radius: 20px;
     background: #7d9abb;
-    width: 40rem;
+    width: 42rem;
     height: 35rem;
     margin: 0 auto;
     box-shadow: 0 0 0.7rem #333333;
@@ -31,13 +31,6 @@ tr {
 td{
     padding: 0.2rem;
 }
-input{
-    width: 15rem;
-    height: 1.5rem;
-    border: white;
-    border-radius: 5px;
-    background: white;
-}
 
 .register{
     width: 8rem;
@@ -48,13 +41,49 @@ input{
     color: #7d9abb;
     font-weight: bold;
 }
+.rellena{
+     width: 15rem;
+     height: 1.5rem;
+     border: white;
+     border-radius: 5px;
+     background: white;
+ }
 
-select{
+.rellena2{
     border: white;
     border-radius: 5px;
     width: 15.4rem;
     height: 1.85rem;
 }
+.rellena:hover{
+    background: #eee;
+}
+.rellena2:hover{
+    background: #eee;
+}
+
+
+.error{
+    width: 15rem;
+    height: 1.5rem;
+    border-radius: 5px;
+    background: #FFC2C2;
+    border: red;
+}
+.error2 {
+    background: #FFC2C2;
+    border: red;
+    border-radius: 5px;
+    width: 15.4rem;
+    height: 1.85rem;
+}
+.error:hover{
+    background: white;
+}
+.error2:hover{
+    background: white;
+}
+
 .iz{
     text-align: left
 }
