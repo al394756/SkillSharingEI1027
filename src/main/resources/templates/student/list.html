@@ -13,6 +13,24 @@
     <div th:if="${#lists.isEmpty(students)}">
         No hi ha students en la base de dades
     </div>
+    <p>Ordenar por: </p>
+    <form  action="#" th:action="@{/student/list/sorted}" th:object="${sorter}" >
+        <select type="text" th:field="*{type}">
+
+        <option value="BalanceHours">Balance Hours</option>
+        <option value="Id">Student Id</option>
+        </select>
+
+        <select type="text" th:field="*{texto}">
+
+            <option value="TopToBot">↓</option>
+            <option value="BotToTop">↑</option>
+        </select>
+        <input class="register" type="submit" value="Submit"/>
+
+    </form>
+
+    <p th:text="${sorter}">AAAA</p>
     <table th:unless="${#lists.isEmpty(students)}" class="table table-striped">
         <thead>
         <tr>
@@ -33,7 +51,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="student: ${students}">
+        <tr th:each="student: ${#lists.sort(students)}">
             <td th:text="${student.idStudent}"></td>
             <td th:text="${student.name}"></td>
             <td th:text="${student.dni}"></td>

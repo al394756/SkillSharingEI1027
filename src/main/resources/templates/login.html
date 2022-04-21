@@ -25,7 +25,10 @@
           </tr>
 
           <tr>
-            <td><input type="text" th:field="*{name}" /></td>
+            <td>
+              <input type="text" th:field="*{name}" class="error" th:if="${#fields.hasErrors('name')}" />
+              <input type="text" th:field="*{name}" th:unless="${#fields.hasErrors('name')}" />
+            </td>
           </tr>
 
           <tr class="iz">

@@ -1,6 +1,7 @@
 package com.example.SkillSharingEI1027.controller;
 
 import com.example.SkillSharingEI1027.dao.StudentDao;
+import com.example.SkillSharingEI1027.modelo.Sorter;
 import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ class StudentValidator extends StudentController implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         Student student = (Student) obj;
-        if (student.getName().trim().equals(""))
+        if (student.getName().trim().equals("") || student.getName() == null)
             errors.rejectValue("name", "compulsory", "Introduce a valid name");
         if (student.getPassword().trim().equals(""))
             errors.rejectValue("password","compulsory","Introduce a valid password");
@@ -174,8 +175,17 @@ public class StudentController {
     public String listStudents(Model model, HttpSession session){
         model.addAttribute("students", studentDao.getStudentsActivos());
         model.addAttribute("user", session.getAttribute("user"));
+        model.addAttribute("sorter", new Sorter());
         return "student/list";
     }
+
+    @RequestMapping("/student/list/sorted")
+    public String listStudentsSortered(Model model, HttpSession session, @ModelAttribute("sorter") Sorter sorter){
+        model.addAttribute("students", studentDao.getStudentsActivos());
+        model.addAttribute("user", session.getAttribute("user"));
+        return "student/list";
+    }
+
 
     @RequestMapping("/logout")
     public String logOut(HttpSession session){
