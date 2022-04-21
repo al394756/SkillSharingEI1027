@@ -1,8 +1,7 @@
 package com.example.SkillSharingEI1027.controller;
 
 import com.example.SkillSharingEI1027.dao.StudentDao;
-import com.example.SkillSharingEI1027.modelo.Sorter;
-import com.example.SkillSharingEI1027.modelo.Student;
+import com.example.SkillSharingEI1027.modelo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -176,11 +175,18 @@ public class StudentController {
         model.addAttribute("students", studentDao.getStudentsActivos());
         model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("sorter", new Sorter());
+        model.addAttribute("comparator", new StudentComparatorById());
         return "student/list";
     }
 
     @RequestMapping("/student/list/sorted")
     public String listStudentsSortered(Model model, HttpSession session, @ModelAttribute("sorter") Sorter sorter){
+        StudentComparator comparator;
+        if (sorter.getType().equals("Id"))
+            comparator= new StudentComparatorById(sorter);
+        else
+            comparator= new StudentComparatorByBalanceHours(sorter);
+        model.addAttribute("comparator",comparator);
         model.addAttribute("students", studentDao.getStudentsActivos());
         model.addAttribute("user", session.getAttribute("user"));
         return "student/list";

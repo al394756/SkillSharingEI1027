@@ -17,8 +17,8 @@
     <form  action="#" th:action="@{/student/list/sorted}" th:object="${sorter}" >
         <select type="text" th:field="*{type}">
 
-        <option value="BalanceHours">Balance Hours</option>
-        <option value="Id">Student Id</option>
+            <option value="Id">Student Id</option>
+            <option value="BalanceHours">Balance Hours</option>
         </select>
 
         <select type="text" th:field="*{texto}">
@@ -51,7 +51,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="student: ${#lists.sort(students)}">
+        <tr th:each="student: ${#lists.sort(students, comparator)}">
             <td th:text="${student.idStudent}"></td>
             <td th:text="${student.name}"></td>
             <td th:text="${student.dni}"></td>
