@@ -25,9 +25,9 @@
             <label class="control-label col-sm-2" for="request">Request:</label>
             <div class="col-sm-4">
                 <select class="form-control" type="request" id="request" th:field="*{idRequest}">
-                    <option th:each="req:${request}"
-                            th:value="${req}"
-                            th:text="${req}"></option>
+                    <option th:each="request:${requests}"
+                            th:value="${request}"
+                            th:text="${request}"></option>
                 </select>
             </div>
         </div>

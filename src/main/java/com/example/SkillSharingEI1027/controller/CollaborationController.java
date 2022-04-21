@@ -3,8 +3,12 @@ package com.example.SkillSharingEI1027.controller;
 
 import com.example.SkillSharingEI1027.dao.CollaborationDao;
 import com.example.SkillSharingEI1027.dao.OffeRequestDao;
+import com.example.SkillSharingEI1027.dao.SkillDao;
+import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.Collaboration;
-import com.example.SkillSharingEI1027.modelo.Skill;
+import com.example.SkillSharingEI1027.modelo.OffeRequest;
+
+import com.example.SkillSharingEI1027.modelo.Offer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +25,15 @@ import java.util.List;
 @RequestMapping("/collaboration")
 public class CollaborationController {
     private CollaborationDao collaborationDao;
+    private OffeRequestDao offeRequestDao;
+    private SkillDao skillDao;
+    private StudentDao studentDao;
+
+    public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
+        this.offeRequestDao = offeRequestDao;
+        this.skillDao = skillDao;
+        this.studentDao=studentDao;
+    }
 
     @Autowired
     public void setCollaborationDao(CollaborationDao collaborationDao){
@@ -35,11 +48,17 @@ public class CollaborationController {
 
     @RequestMapping(value = "add")
     public String addCollaboration(Model model){
+        setOffeRequestDao(offeRequestDao,skillDao,studentDao);
         model.addAttribute("collaboration",new Collaboration());
-        List<String> offers = new ArrayList<>();
-        for (Skill skill : OffeRequestMethods.list)
-            skills.add(skill.getName());
-        model.addAttribute("skills", skills);
+        List<String> requestList = new ArrayList<>();
+        for (OffeRequest request : offeRequestDao.getActiveOffeRequests("Request"))
+            requestList.add(request.getId());
+        model.addAttribute("requests", requestList);
+
+        List<String> offersList = new ArrayList<>();
+        for (OffeRequest offer : offeRequestDao.getActiveOffeRequests("Offer"))
+            offersList.add(offer.getId());
+        model.addAttribute("offers", offersList);
         return "collaboration/add"; //falta html
     }
 
