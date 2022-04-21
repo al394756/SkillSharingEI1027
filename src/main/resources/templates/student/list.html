@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Gestionar Nadadors</title>
+    <title>Students list</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 </head>
@@ -9,7 +9,7 @@
 
 <body>
 <div layout:fragment="content">
-    <h1>Llista de Nadadors</h1>
+    <h1>List of Students</h1>
     <div th:if="${#lists.isEmpty(students)}">
         No hi ha students en la base de dades
     </div>

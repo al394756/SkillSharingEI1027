@@ -9,18 +9,28 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class CollaborationDao {
     private JdbcTemplate jdbcTemplate;
+    private AtomicInteger idAtomic = new AtomicInteger(1);
 
     @Autowired
     public void setDataSource(DataSource dataSource){ jdbcTemplate = new JdbcTemplate(dataSource);}
 
     public void addCollaboration(Collaboration collab){
+        collab.setIdCollaboration(idGenerator());
         jdbcTemplate.update("INSERT INTO Collaboration VALUES(?,?,?,?,?,?)",
                 collab.getIdCollaboration(),collab.getAssessmentScore(), collab.isCollaborationState(),
                 collab.getIdOffer(), collab.getIdRequest(), collab.getHours());
+    }
+    private String idGenerator(){
+        Integer contador = idAtomic.getAndIncrement();
+        StringBuilder id= new StringBuilder("co");
+        int numeroCifras = Integer.toString(contador).length();
+        id.append("0".repeat(Math.max(0, 6 - numeroCifras)));
+        return id.toString() + contador;
     }
 
     public void deleteCollaboration(Collaboration collab){
