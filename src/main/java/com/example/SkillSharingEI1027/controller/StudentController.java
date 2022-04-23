@@ -186,6 +186,7 @@ public class StudentController {
             comparator= new StudentComparatorById(sorter);
         else
             comparator= new StudentComparatorByBalanceHours(sorter);
+        model.addAttribute("sorter",sorter);
         model.addAttribute("comparator",comparator);
         model.addAttribute("students", studentDao.getStudentsActivos());
         model.addAttribute("user", session.getAttribute("user"));

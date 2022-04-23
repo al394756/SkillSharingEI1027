@@ -56,7 +56,6 @@ public class OffeRequestMethods <T> {
         offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
         offeRequest.setStudent(studentDao.getStudentUsingId(offeRequest.getStudent().getIdStudent()));
         model.addAttribute("offeRequest",offeRequest);
-        System.out.println(offeRequest);
         return "offeRequest/update";
     }
 

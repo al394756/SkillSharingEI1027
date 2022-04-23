@@ -7,8 +7,8 @@ public class StudentComparatorByBalanceHours  extends StudentComparator implemen
     @Override
     public int compare(Student a, Student b) {
         if (getSorter().isFromTopToBot())
-            return Integer.compare(a.getBalanceHours(), b.getBalanceHours());
-        return -(Integer.compare(a.getBalanceHours(), b.getBalanceHours()));
+            return -(Integer.compare(a.getBalanceHours(), b.getBalanceHours()));
+        return Integer.compare(a.getBalanceHours(), b.getBalanceHours());
     }
     public StudentComparatorByBalanceHours() {
         super();

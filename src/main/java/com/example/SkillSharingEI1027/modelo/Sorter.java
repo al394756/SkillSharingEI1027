@@ -27,6 +27,7 @@ public class Sorter {
     }
 
     public void setTexto(String texto) {
+        this.texto = texto;
         this.fromTopToBot = texto.equals("TopToBot");
 
     }

@@ -19,6 +19,9 @@ public class StudentDao {
     private JdbcTemplate jdbcTemplate;
 
 
+    public void  StudentDao(){
+        jdbcTemplate=new JdbcTemplate();
+    }
     //Obtiene el jdbc a partir de Data Source
     @Autowired
     public void setDataSource(DataSource dataSource) {
