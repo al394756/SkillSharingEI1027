@@ -167,3 +167,11 @@ background: red
 .tamanyo100{
      width: 100%;
 }
+.color_textprueba2{
+     text-decoration:none;
+     font-family: Arial;
+     font-weight: bold;
+     font-style: normal;
+     color: green;
+     font-size: 1.2rem;
+}

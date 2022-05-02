@@ -55,6 +55,22 @@ td{
     width: 15.4rem;
     height: 1.85rem;
 }
+
+.rellenaGrande{
+     width: 37rem;
+     height: 6.5rem;
+     border: white;
+     border-radius: 5px;
+     background: white;
+ }
+
+.errorGrande{
+    width: 37rem;
+    height: 6.5rem;
+    border-radius: 5px;
+    background: #FFC2C2;
+    border: red;
+}
 .rellena:hover{
     background: #eee;
 }

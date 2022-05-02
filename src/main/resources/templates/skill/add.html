@@ -1,36 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Crear nueva skill</title>
+  <title>Add a New Skill</title>
   <meta charset="UTF-8" />
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+  <link type="text/css"  rel="stylesheet" th:href="@{../../css/skillsharing.css}"/>
+
+  <link  type="text/css" rel="stylesheet" th:href="@{../../css/header.css}"/>
+  <link  type="text/css" rel="stylesheet" th:href="@{../../css/registro.css}"/>
+
+
 </head>
+
+<div th:replace="fragments/header" ></div>
+
 <body>
-<h2>New Skill</h2>
+<main>
+<div class="caja">
+  <div class="caja-interno">
+    <h2 >Create a Skill</h2>
+    <hr/>
 <form action="#" th:action="@{/skill/add}"
       th:object="${skill}" method="post">
   <table>
-    <tr>
-      <td><label>idSkill</label></td>
-      <td><input type="text" th:field="*{idSkill}" /></td>
+    <tr class="iz">
+      <td><label>Name</label></td>
+      <td><label>Level</label></td>
     </tr>
-    <tr>
-      <td><label>Nombre</label></td>
-      <td><input type="text" th:field="*{name}" /></td>
+    <tr class="iz">
+      <td>
+        <input type="text" class="error"  th:field="*{name}"
+            placeholder="Name" maxlength="20" th:errorclass="needcorrection"
+                 th:if="${#fields.hasErrors('name')}"/>
+        <input type="text" class="rellena"  th:field="*{name}"
+                 placeholder="Name" maxlength="20" th:errorclass="needcorrection"
+                 th:unless="${#fields.hasErrors('name')}"/>
+
+      </td>
+
+      <td>
+
+        <select class="rellena" th:field="*{level}">
+          <option value="0">Beginner</option>
+          <option value="1">Intermediate</option>
+          <option value="2">Expert</option>
+        </select>
+      </td>
     </tr>
-    <tr>
-      <td><label>Descripción</label></td>
-      <td><input type="text" th:field="*{description}" /></td>
+  </table>
+  <table>
+    <tr class="iz">
+      <td><label>Description</label></td>
     </tr>
-    <tr>
-      <td><label>Nivel</label></td>
-      <td><input type="number" max="2" min="0" th:field="*{level}" /></td>
+    <tr class="iz">
+      <td>
+        <input th:if="${#fields.hasErrors('description')}" th type="text" class="errorGrande" th:field="*{description}" placeholder="Description" maxlength="100" th:errorclass="needcorrection">
+
+      <input th:unless="${#fields.hasErrors('description')}" th type="text"  class="rellenaGrande" th:field="*{description}" placeholder="Description" maxlength="100" th:errorclass="needcorrection" >
+      </td>
     </tr>
+
+
+  </table>
+  <br>
+  <table>
     <tr>
-      <td colspan="2"><input type="submit" value="Añadir Skill" /></td>
+      <td><a href="/skill/list"><button type="button" class="register">Back</button></a></td>
+
+
+      <td><input type="submit" class="register" value="Add Skill" > </td>
     </tr>
   </table>
 </form>
+  </div>
+</div>
+</main>
 </body>
 </html>

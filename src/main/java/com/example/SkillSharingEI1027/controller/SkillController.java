@@ -7,11 +7,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+class SkillValidator implements Validator{
 
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return Skill.class.equals(clazz);
+    }
+
+    @Override
+    public void validate(Object obj, Errors errors) {
+        Skill skill = (Skill) obj;
+        if (skill.getDescription().trim().equals("")){
+            errors.rejectValue("description","compulsory","Introduce a Description");
+        }
+        if (skill.getName().trim().equals("")){
+            errors.rejectValue("name","compulsory","Introduce a Name");
+        }
+    }
+}
 @Controller
 @RequestMapping("/skill")
 public class SkillController {
@@ -36,6 +55,8 @@ public class SkillController {
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("skill") Skill skill, BindingResult bindingResult){
+        SkillValidator skillValidator= new SkillValidator();
+        skillValidator.validate(skill,bindingResult);
         if (bindingResult.hasErrors())
             return "skill/add";
         skillDao.addSkill(skill);
