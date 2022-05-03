@@ -35,9 +35,17 @@ public class OffeRequestMethods <T> {
         List<OffeRequest> lista1 = new ArrayList<>();
         List<OffeRequest> lista2 = new ArrayList<>();
         List<OffeRequest> lista3= new ArrayList<>();
-        int len = lista.size()/3;
-        for (int i=0;i<len;i++){
-
+        int i = 1;
+        for (OffeRequest r : lista){
+            if (i==1)
+                lista1.add(r);
+            if (i==2)
+                lista2.add(r);
+            if (i==3){
+                lista3.add(r);
+                i=0;
+            }
+            i++;
         }
         model.addAttribute("list1", lista1);
         model.addAttribute("list2", lista2);

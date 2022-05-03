@@ -21,7 +21,7 @@
     margin: auto;
     border-radius: 20px;
     background: #7d9abb;
-    width: 10rem;
+    width: 16rem;
     height: 20rem;
     box-shadow: 0 0 0.7rem #333333;
 }
@@ -42,4 +42,13 @@
 }
 .texto{
     padding: 0 0.5rem;
+}
+
+.tablaRequest td {
+    vertical-align: top;
+}
+.tablaRequest li {
+    vertical-align: top;
+    list-style-type: none;
+    margin-bottom: 1rem;
 }
