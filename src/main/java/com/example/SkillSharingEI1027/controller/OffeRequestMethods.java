@@ -35,13 +35,15 @@ public class OffeRequestMethods <T> {
         List<OffeRequest> lista1 = new ArrayList<>();
         List<OffeRequest> lista2 = new ArrayList<>();
         List<OffeRequest> lista3= new ArrayList<>();
+
         int i = 1;
         for (OffeRequest r : lista){
+            r.setSkill(skillDao.getSkill(r.getSkill().getIdSkill()));
             if (i==1)
                 lista1.add(r);
-            if (i==2)
+            else if (i==2)
                 lista2.add(r);
-            if (i==3){
+            else{
                 lista3.add(r);
                 i=0;
             }
