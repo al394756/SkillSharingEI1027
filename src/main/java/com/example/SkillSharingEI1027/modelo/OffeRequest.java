@@ -90,7 +90,6 @@ public abstract class OffeRequest {
         return url;
     }
     public void setType(String type){
-        System.out.println(type);
         this.type=type;
     }
     public void setStart(String start){

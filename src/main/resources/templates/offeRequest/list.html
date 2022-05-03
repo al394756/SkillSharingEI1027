@@ -3,13 +3,16 @@
 <head>
     <title th:text="${type}+'s'"></title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+    <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link href="../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
+<div th:replace="fragments/header" ></div>
 <body>
 <div class="container">
     <h1 th:text="${type}+'s'"></h1>
-    <table class="table table-striped">
+    <table>
         <thead>
         <tr>
             <th>id</th>
@@ -30,8 +33,8 @@
             <td th:text="${offeRequest.endDate}"></td>
             <td th:text="${offeRequest.description}"></td>
             <td th:text="${offeRequest.student.idStudent}"></td>
-            <td> <a th:href="'update/'+${offeRequest.id}" class="btn btn-warning" role="button">Edit</a></td>
-            <td><a th:href="'delete/'+${offeRequest.id}" class="btn btn-danger" role="button">Cancel</a></td>
+            <td><a th:href="'update/'+${offeRequest.id}" role="button"><i style='font-size:24px' class='far'>&#xf044;</i></a></td>
+            <td><a th:href="'delete/'+${offeRequest.id}" role="button"><button class="btn"><i style='font-size:24px' class="fa fa-trash"></i></button></a></td>
         </tr>
         </tbody>
     </table>

@@ -9,10 +9,14 @@ import com.example.SkillSharingEI1027.modelo.Skill;
 import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class OffeRequestMethods <T> {
     private OffeRequestDao offeRequestDao;
@@ -34,6 +38,7 @@ public class OffeRequestMethods <T> {
     public String add(Model model,String type) {
         model.addAttribute("type",type);
         List<String> skills = new ArrayList<>();
+        skills.add("Select one option");
         for (Skill skill : skillDao.getSkills())
             skills.add(skill.getName());
         model.addAttribute("skills", skills);
@@ -41,12 +46,15 @@ public class OffeRequestMethods <T> {
     }
 
     public String processAddSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session) {
+        OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
+        offeRequestValidator.validate(offeRequest,bindingResult);
         if (bindingResult.hasErrors())
-            return "redirect/add";
+            return "offeRequest/add";
         Student student = (Student) session.getAttribute("user");
         offeRequest.setStudent(student);
         offeRequest.setSkill(skillDao.getIdBySkill(offeRequest.getSkill().getIdSkill()));
         offeRequestDao.add(offeRequest);
+        System.out.println(offeRequest.getSkill() );
         return "redirect:list";
     }
 
@@ -60,6 +68,8 @@ public class OffeRequestMethods <T> {
     }
 
     public String processUpdateSubmit(OffeRequest offeRequest, BindingResult bindingResult){
+        OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
+        offeRequestValidator.validateUpdate(offeRequest,bindingResult);
         if (bindingResult.hasErrors())
             return "offeRequest/update";
         System.out.println(offeRequest);
@@ -70,5 +80,39 @@ public class OffeRequestMethods <T> {
     public String processDelete(String idOffer) {
         offeRequestDao.delete(idOffer);
         return "redirect:../list";
+    }
+}
+
+class OffeRequestValidator extends OffeRequestMethods implements Validator {
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return OffeRequest.class.equals(clazz);
+    }
+
+    @Override
+    public void validate(Object obj, Errors errors) {
+        OffeRequest offeRequest=(OffeRequest) obj;
+        if (offeRequest.getSkill().getIdSkill().trim().equals("Select one option"))
+            errors.rejectValue("skill.idSkill", "compulsory", "Introduce a valid Skill");
+        if (offeRequest.getStartDate()==null)
+            errors.rejectValue("startDate","compulsory","Introduce a date");
+        if (offeRequest.getEndDate()==null)
+            errors.rejectValue("endDate","compulsory","Introduce a date");
+        else if (offeRequest.getStartDate()!=null&&offeRequest.getStartDate().compareTo(offeRequest.getEndDate())>0)
+            errors.rejectValue("endDate","compulsory","End Date must be bigger than Start Date");
+        if (offeRequest.getSkill().getIdSkill().trim().equals(""))
+            errors.rejectValue("description", "compulsory", "Introduce a description");
+    }
+
+    public void validateUpdate(Object obj, Errors errors) {
+        OffeRequest offeRequest=(OffeRequest) obj;
+        if (offeRequest.getStartDate()==null)
+            errors.rejectValue("startDate","compulsory","Introduce a date");
+        if (offeRequest.getEndDate()==null)
+            errors.rejectValue("endDate","compulsory","Introduce a date");
+        else if (offeRequest.getStartDate()!=null&&offeRequest.getStartDate().compareTo(offeRequest.getEndDate())<0)
+            errors.rejectValue("endDate","compulsory","End Date must be bigger than Start Date");
+        if (offeRequest.getSkill().getIdSkill().trim().equals(""))
+            errors.rejectValue("description", "compulsory", "Introduce a description");
     }
 }
