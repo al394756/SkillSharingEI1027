@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-
+<link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+<link href="../static/css/welcome.css" rel="stylesheet" th:href="@{/css/welcome.css}"/>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,18 +13,21 @@
 
 <body>
 <main class="main">
-  <h1>Where you can learn teaching</h1>
-  <h2>Join the SkillSharing community and teach your skills to students like you.</h2>
-    <h3>Create an account to offer your knowledge to the community and start learning</h3>
+    <table>
+        <tr><td><h1>Where you can learn teaching</h1></td><td><img src="/imagenes/logo.png"></td></tr>
+        <tr><td><h2>Join the SkillSharing community and show your skills to students like you.</h2></td></tr>
+  
+        <tr><td><h3>Create an account to offer your knowledge to the community and start learning</h3></td></tr>
     <table>
         <tr>
-            <td><a>Log in</a></td>  <td><p><a>Sign up</a></td>
+            <td><a th:href="@{/login}">Log in</a></td>  <td><p><a th:href="@{/register}">Sign up</a></td>
         </tr>
+        <tr><td><a th:href="@{/request/list}">Continue as guest</a>
+            <p class="texto_pequeño">As a guest you can see which skills are the students requesting</p></td></tr>
+    </table>
     </table>
 
 
-  <p><a>Continue as guest</a></p>
-    <p>As a guest you can see which skills are the students requesting</p>
 
 
 
