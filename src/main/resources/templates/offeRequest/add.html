@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="'Create a '+${type}"></title>
+    <title th:text="'Create '+${type}"></title>
     <meta charset="UTF-8" />
     <link type="text/css"  rel="stylesheet" th:href="@{../../css/skillsharing.css}"/>
     <link  type="text/css" rel="stylesheet" th:href="@{../../css/header.css}"/>
@@ -13,7 +13,7 @@
 <main>
 <div class="caja">
     <div class="caja-interno">
-    <h2 th:text="'Create a '+${type}"></h2>
+    <h2 th:text="'Create '+${type}"></h2>
         <hr/>
     <form class="form-horizontal" action="#" th:href="@{/{url}(url=${offeRequest.url})/add}"
           th:object="${offeRequest}" method="post">
@@ -48,18 +48,15 @@
                     <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p></td>
             </tr>
         </table>
-
-        </table>
         <br>
         <table>
             <tr>
                 <td><a href="list"><button type="button" class="register">Back</button></a></td>
-
-                <td><input type="submit" class="register" value="Create"> </td>
+                <td><button type="submit" class="register" th:text="'Create a '+${type}"></button></td>
             </tr>
         </table>
-
     </form>
+</div>
 </div>
 </main>
 </body>

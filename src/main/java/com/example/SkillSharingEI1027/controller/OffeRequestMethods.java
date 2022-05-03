@@ -54,7 +54,6 @@ public class OffeRequestMethods <T> {
         offeRequest.setStudent(student);
         offeRequest.setSkill(skillDao.getIdBySkill(offeRequest.getSkill().getIdSkill()));
         offeRequestDao.add(offeRequest);
-        System.out.println(offeRequest.getSkill() );
         return "redirect:list";
     }
 
@@ -72,7 +71,6 @@ public class OffeRequestMethods <T> {
         offeRequestValidator.validateUpdate(offeRequest,bindingResult);
         if (bindingResult.hasErrors())
             return "offeRequest/update";
-        System.out.println(offeRequest);
         offeRequestDao.update(offeRequest);
         return "redirect:list";
     }

@@ -8,7 +8,6 @@ thead {
     background-color: #7d9abb;
 }
 tbody tr:nth-child(even){
-    padding: 0.2rem;
     background-color: #ffffff;
 }
 

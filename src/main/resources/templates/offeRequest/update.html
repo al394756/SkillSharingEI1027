@@ -7,62 +7,58 @@
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
     <link href="../static/css/registro.css" rel="stylesheet" th:href="@{/css/registro.css}"/>
 </head>
+<div th:replace="fragments/header" ></div>
 <body>
-<div class="container">
-    <h2 th:text="'Edit '+${type}"></h2>
-    <form action="#" th:action="@{/__${offeRequest.url}__/update}"
-          th:object="${offeRequest}" method="post">
+<main>
+    <div class="caja">
+        <div class="caja-interno">
+            <hr/>
+            <form action="#" th:action="@{/__${offeRequest.url}__/update}"
+                  th:object="${offeRequest}" method="post">
+                <h2 th:text="'Edit '+${id}"></h2>
+                <table>
+                    <tr class="iz">
+                        <td><label>Skill:</label></td>
+                        <td><label>Description:</label></td>
+                    </tr>
+                    <tr class="iz">
+                        <td><input type="text" maxlength="100" id="idSkill" th:field="*{skill.name}" readonly/></td>
+                        <td><input type="text" maxlength="100" class="form-control" id="description" th:field="*{description}"/>
+                            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr class="iz">
+                        <td><label>Start date:</label></td>
+                        <td><label>End date:</label></td>
+                    </tr>
 
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="id">id:</label>
-            <div class="col-sm-4">
-                <input type="text" maxlength="100" class="form-control" id="id" th:field="*{id}" readonly/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="idSkill">Skill:</label>
-            <div class="col-sm-4">
-                <input type="text" maxlength="100" class="form-control" id="idSkill" th:field="*{skill.name}" readonly/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="startDate">Start date:</label>
-            <div class="col-sm-4">
-                <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="endDate">End date:</label>
-            <div class="col-sm-4">
-                <input type="date" class="form-control" id="endDate" th:field="*{endDate}"/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="description">Description:</label>
-            <div class="col-sm-4">
-                <input type="text" maxlength="100" class="form-control" id="description" th:field="*{description}"/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="idStudent">Student:</label>
-            <div class="col-sm-4">
-                <input type="text" maxlength="100" class="form-control" id="idStudent" th:field="*{student.name}" readonly/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-primary">Apply</button>
-            </div>
-        </div>
-
-    </form>
+                    <tr class="iz">
+                        <td><input type="date" id="startDate" th:field="*{startDate}"/>
+                            <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+                        </td>
+                        <td><input type="date" id="endDate" th:field="*{endDate}"/>
+                            <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><label>Student:</label></td>
+                    </tr>
+                    <tr><td><input type="text" maxlength="100" id="idStudent" th:field="*{student.name}" readonly/></td></tr>
+                </table>
+                <br>
+                <table>
+                    <tr>
+                        <td><a href="list"><button type="button" class="register">Back</button></a></td>
+                        <td><button type="submit" class="register">Apply</button></td>
+                    </tr>
+                </table>
+            </form>
 </div>
+    </div>
+    </main>
 </body>
 </html>
 

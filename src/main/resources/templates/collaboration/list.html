@@ -3,14 +3,17 @@
 <head>
     <title>Gestionar colaboracions</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+    <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link href="../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
-
+<div th:replace="fragments/header" ></div>
 <body>
-<div class="container">
+<main>
     <h1>List of Collaborations</h1>
-    <table class="table table-striped">
+    <div th:if="${#lists.isEmpty(collaborations)}" th:text="'There are not collaborations registered'"></div>
+    <table th:unless="${#lists.isEmpty(collaborations)}">
         <thead>
         <tr>
             <th>id</th>
@@ -18,7 +21,6 @@
             <th>idOffer</th>
             <th>AssessmentScore</th>
             <th>Hours</th>
-
         </tr>
         </thead>
         <tbody>
@@ -28,12 +30,10 @@
             <td th:text="${collaboration.idOffer}"></td>
             <td th:text="${collaboration.assessmentScore}"></td>
             <td th:text="${collaboration.hours}"></td>
-
         </tr>
         </tbody>
     </table>
-
-</div>
+    <a href=".."><button type="button">Atrás</button></a>
+</main>
 </body>
-
 </html>

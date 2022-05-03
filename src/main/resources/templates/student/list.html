@@ -3,12 +3,14 @@
 <head>
     <title>Students list</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+    <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link href="../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
-
-
+<div th:replace="fragments/header" ></div>
 <body>
-<div layout:fragment="content">
+<main>
     <h1>List of Students</h1>
     <div th:if="${#lists.isEmpty(students)}">
         There are not Students registered
@@ -42,10 +44,6 @@
             <th scope="col">balanceHours</th>
             <th scope="col">skp</th>
             <th scope="col">active</th>
-            <th scope="col"></th>
-
-            <th scope="col"></th>
-            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -60,12 +58,11 @@
             <td th:text="${student.balanceHours}"></td>
             <td th:text="${student.skpMember}"></td>
             <td th:text="${student.activeAccount}"></td>
-            <td th:field="banReason" th:object="${session}" th:if="not *{user == null} and *{user.skpMember} and not *{student.skpMember}"><a th:href="@{/student/ban/{id}(id=${student.idStudent})}"><button type="button" class="btn btn-danger" >Ban</button></a></td>
-
+            <td th:field="banReason" th:object="${session}" th:if="not *{user == null} and *{user.skpMember} and not *{student.skpMember}"><a th:href="@{/student/ban/{id}(id=${student.idStudent})}"><button type="button">Ban</button></a></td>
         </tr>
-
         </tbody>
     </table>
-</div>
+    <a href=".."><button type="button">Atrás</button></a>
+</main>
 </body>
 </html>
