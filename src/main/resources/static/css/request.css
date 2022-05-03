@@ -1,0 +1,54 @@
+.titulo{
+    color: #7d9abb;
+}
+.centrado{
+    text-align: center;
+    margin: 0 auto;
+    align-items: center;
+}
+.izquierda{
+    text-align: left;
+}
+.add{
+    width: 20rem;
+    height: 2rem;
+    border: white;
+    padding: 0.3rem 0.5rem;
+    border-radius: 5px;
+    background: #7d9abb;
+}
+.caja{
+    margin: auto;
+    border-radius: 20px;
+    background: #7d9abb;
+    width: 10rem;
+    height: 20rem;
+    box-shadow: 0 0 0.7rem #333333;
+}
+.caja-interno{
+    margin: auto;
+    padding: 0 2rem;
+    padding-bottom: 2rem;
+    padding-top: 0.5rem;
+    text-align: center;
+}
+.descripcion{
+    text-align: left;
+    background: white;
+    color: #7d9abb;
+    width: 18rem;
+    height: 6rem;
+    border-radius: 5px;
+}
+.texto{
+    padding: 0 0.5rem;
+}
+.horizontalUl{
+    display:inline;
+}
+.lista{
+    margin: auto;
+
+    columns: 2;
+
+}

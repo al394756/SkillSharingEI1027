@@ -10,7 +10,6 @@ body{
 
 .container{
      width: 85%;
-     max-width: 850px;
      margin: 0 auto
 }
 
@@ -38,4 +37,10 @@ main{
 }
 
 
-
+table{
+     margin: auto;
+     background: darkblue;
+}
+.listado{
+     display: inline-block;
+}

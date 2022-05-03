@@ -5,6 +5,7 @@
     <title>EI1027</title>
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link href="../static/css/request.css" rel="stylesheet" th:href="@{/css/request.css}"/>
 </head>
 
 <div th:replace="fragments/header" ></div>
@@ -12,53 +13,25 @@
 <body>
 
 <main class="main">
-    <div class="container">
-        <h1> titulo </h1>
-        <a href="register">Registrarse</a></li>
-        <li><a href="student/list">Listar usuarios</a></li>
-        <li><a href="request/list">Request</a></li>
-        <li><a href="offer/list">Offers</a></li>
-        <li><a href="skill/list">Skills</a></li>
-        <li><a href="collaboration/list">Collaborations</a></li>
-        <li><a href="chat/list">Comprobar chats</a></li>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-        <p>.</p>
-
-
-
-
-
-
-
-
+    <div class="container centrado ">
+        <h1 class="titulo" th:text="${type}+'s'"></h1>
+        <table>
+            <tr th:each="offeRequest: ${list}">
+                <td class="caja color_text">
+                    <div class="caja-interno">
+                        <label th:text="${offeRequest.skill.idSkill}"></label>
+                        <div class="texto">
+                            <label class="start">Start</label>
+                            <label>End</label>
+                            <label class="start" th:text="${offeRequest.startDate}"></label>
+                            <label class="end" th:text="${offeRequest.endDate}"></label>
+                            <p class="texto"  th:text="${offeRequest.description}"></p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
-
 </main>
 
 <!--<footer class="footer">-->
@@ -70,3 +43,4 @@
 
 </body>
 </html>
+

@@ -15,6 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 
+
+/***
+ =======================================================
+ Esta clase es inutil, lo he pasado al index controller
+ =======================================================
+ ***/
+
 @Controller
 @RequestMapping("/request")
 public class RequestController {
