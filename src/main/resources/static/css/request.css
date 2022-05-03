@@ -10,7 +10,7 @@
     text-align: left;
 }
 .add{
-    width: 20rem;
+    width: 5rem;
     height: 2rem;
     border: white;
     padding: 0.3rem 0.5rem;
@@ -42,13 +42,4 @@
 }
 .texto{
     padding: 0 0.5rem;
-}
-.horizontalUl{
-    display:inline;
-}
-.lista{
-    margin: auto;
-
-    columns: 2;
-
 }

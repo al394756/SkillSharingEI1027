@@ -31,7 +31,17 @@ public class OffeRequestMethods <T> {
 
     public String list(Model model, String type) {
         model.addAttribute("type",type);
-        model.addAttribute("list", offeRequestDao.getActiveOffeRequests(type));
+        List<OffeRequest> lista = offeRequestDao.getActiveOffeRequests(type);
+        List<OffeRequest> lista1 = new ArrayList<>();
+        List<OffeRequest> lista2 = new ArrayList<>();
+        List<OffeRequest> lista3= new ArrayList<>();
+        int len = lista.size()/3;
+        for (int i=0;i<len;i++){
+
+        }
+        model.addAttribute("list1", lista1);
+        model.addAttribute("list2", lista2);
+        model.addAttribute("list3", lista3);
         return "offeRequest/list";
     }
 

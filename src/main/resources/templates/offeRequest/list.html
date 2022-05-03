@@ -5,41 +5,65 @@
     <meta charset="UTF-8" />
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
-    <link href="../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}"/>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="../static/css/request.css" rel="stylesheet" th:href="@{/css/request.css}"/>
 </head>
+
 <div th:replace="fragments/header" ></div>
 <body>
 <main>
-    <h1 th:text="${type}+'s'"></h1>
-    <div th:if="${#lists.isEmpty(offeRequest)}" th:text="'There are not '+${type}+'s registered'"></div>
-    <table th:unless="${#lists.isEmpty(offeRequest)}">
-        <thead>
+    <h1 class="titulo" th:text="${type}+'s'"></h1>
+    <div th:if="${#lists.isEmpty(list)}" th:text="'There are not '+${type}+'s registered'"></div>
+    <table th:unless="${#lists.isEmpty(list)}">
         <tr>
-            <th>id</th>
-            <th>Skill</th>
-            <th>Start date</th>
-            <th>End date</th>
-            <th>Description</th>
-            <th>Student</th>
+            <td class="caja color_text" th:each="offeRequest: ${list}">
+                <div class="caja-interno">
+                    <label th:text="${offeRequest.skill.idSkill}"></label>
+                    <div class="texto">
+                        <label class="start">Start</label>
+                        <label>End</label>
+                        <label class="start" th:text="${offeRequest.startDate}"></label>
+                        <label class="end" th:text="${offeRequest.endDate}"></label>
+                        <p class="texto"  th:text="${offeRequest.description}"></p>
+                    </div>
+                    <a th:href="'update/'+${offeRequest.id}" role="button"><i style='font-size:24px' class='far'>&#xf044;</i></a>
+                    <a th:href="'delete/'+${offeRequest.id}" role="button">
+                        <button class="btn"><i style='font-size:24px' class="fa fa-trash"></i></button></a>
+                </div>
+            </td>
+            <td class="caja color_text" th:each="offeRequest: ${list}">
+                <div class="caja-interno">
+                    <label th:text="${offeRequest.skill.idSkill}"></label>
+                    <div class="texto">
+                        <label class="start">Start</label>
+                        <label>End</label>
+                        <label class="start" th:text="${offeRequest.startDate}"></label>
+                        <label class="end" th:text="${offeRequest.endDate}"></label>
+                        <p class="texto"  th:text="${offeRequest.description}"></p>
+                    </div>
+                    <a th:href="'update/'+${offeRequest.id}" role="button"><i style='font-size:24px' class='far'>&#xf044;</i></a>
+                    <a th:href="'delete/'+${offeRequest.id}" role="button">
+                        <button class="btn"><i style='font-size:24px' class="fa fa-trash"></i></button></a>
+                </div>
+            </td>
+            <td class="caja color_text" th:each="offeRequest: ${list}">
+                <div class="caja-interno">
+                    <label th:text="${offeRequest.skill.idSkill}"></label>
+                    <div class="texto">
+                        <label class="start">Start</label>
+                        <label>End</label>
+                        <label class="start" th:text="${offeRequest.startDate}"></label>
+                        <label class="end" th:text="${offeRequest.endDate}"></label>
+                        <p class="texto"  th:text="${offeRequest.description}"></p>
+                    </div>
+                    <a th:href="'update/'+${offeRequest.id}" role="button"><i style='font-size:24px' class='far'>&#xf044;</i></a>
+                    <a th:href="'delete/'+${offeRequest.id}" role="button">
+                        <button class="btn"><i style='font-size:24px' class="fa fa-trash"></i></button></a>
+                </div>
+            </td>
         </tr>
-        </thead>
-        <tbody>
-        <tr th:each="offeRequest: ${list}">
-            <td th:text="${offeRequest.id}"></td>
-            <td th:text="${offeRequest.skill.idSkill}"></td>
-            <td th:text="${offeRequest.startDate}"></td>
-            <td th:text="${offeRequest.endDate}"></td>
-            <td th:text="${offeRequest.description}"></td>
-            <td th:text="${offeRequest.student.idStudent}"></td>
-            <td>
-                <a th:href="'update/'+${offeRequest.id}" role="button"><i style='font-size:24px' class='far'>&#xf044;</i></a>
-                <a th:href="'delete/'+${offeRequest.id}" role="button"><button class="btn"><i style='font-size:24px' class="fa fa-trash"></i></button></a></td>
-        </tr>
-        </tbody>
     </table>
-    <a href="add"><button type="button" th:text="'Add '+${type}"></button></a>
-    <a href=".."><button type="button">Atrás</button></a>
+    <a  href="add"><button class="add color_text" type="button" th:text="'Add '"></button></a>
+    <a href=".."><button type="button" class="add color_text">Atrás</button></a>
 </main>
 </body>
 </html>
