@@ -25,7 +25,7 @@ public class IndexController {
     @RequestMapping("/")
     public String indexPage(Model model){
         model.addAttribute("offeRequest",offeRequestMethods.list(model,type));
-        return "index";
+        return "welcome";
     }
 
     @Autowired
