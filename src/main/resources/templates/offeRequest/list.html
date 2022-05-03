@@ -10,9 +10,10 @@
 </head>
 <div th:replace="fragments/header" ></div>
 <body>
-<div class="container">
+<main>
     <h1 th:text="${type}+'s'"></h1>
-    <table>
+    <div th:if="${#lists.isEmpty(offeRequest)}" th:text="'There are not '+${type}+'s registered'"></div>
+    <table th:unless="${#lists.isEmpty(offeRequest)}">
         <thead>
         <tr>
             <th>id</th>
@@ -21,8 +22,6 @@
             <th>End date</th>
             <th>Description</th>
             <th>Student</th>
-            <th></th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -33,13 +32,15 @@
             <td th:text="${offeRequest.endDate}"></td>
             <td th:text="${offeRequest.description}"></td>
             <td th:text="${offeRequest.student.idStudent}"></td>
-            <td><a th:href="'update/'+${offeRequest.id}" role="button"><i style='font-size:24px' class='far'>&#xf044;</i></a></td>
-            <td><a th:href="'delete/'+${offeRequest.id}" role="button"><button class="btn"><i style='font-size:24px' class="fa fa-trash"></i></button></a></td>
+            <td>
+                <a th:href="'update/'+${offeRequest.id}" role="button"><i style='font-size:24px' class='far'>&#xf044;</i></a>
+                <a th:href="'delete/'+${offeRequest.id}" role="button"><button class="btn"><i style='font-size:24px' class="fa fa-trash"></i></button></a></td>
         </tr>
         </tbody>
     </table>
-    <a href="add" class="btn btn-success" role="button" th:text="'Add '+${type}"></a>
-</div>
+    <a href="add"><button type="button" th:text="'Add '+${type}"></button></a>
+    <a href=".."><button type="button">Atrás</button></a>
+</main>
 </body>
 </html>
 
