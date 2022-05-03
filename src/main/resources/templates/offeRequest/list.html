@@ -10,8 +10,12 @@
 
 <div th:replace="fragments/header" ></div>
 <body>
-<main>
-    <h1 class="titulo centrado" th:text="${type}+'s'"></h1>
+<main class="centrado" >
+    <div>
+        <h1 class="titulo centrado" th:text="${type}+'s'"></h1>
+        <a  href="add" class="add color_text">Add</a>
+    </div>
+
     <div th:if="${#lists.isEmpty(list1)}" th:text="'There are not '+${type}+'s registered'"></div>
     <table class="tablaRequest" th:unless="${#lists.isEmpty(list1)}">
         <tr>
@@ -19,13 +23,13 @@
                 <ul>
                     <li class="caja color_text" th:each="offeRequest: ${list1}">
                         <div class="caja-interno">
-                            <label th:text="${offeRequest.skill.name}"></label>
-                            <div class="texto">
+                            <label th:text="${offeRequest.skill.idSkill}"></label>
+                            <div>
                                 <label class="start">Start</label>
                                 <label>End</label>
                                 <label class="start" th:text="${offeRequest.startDate}"></label>
                                 <label class="end" th:text="${offeRequest.endDate}"></label>
-                                <p class="texto"  th:text="${offeRequest.description}"></p>
+                                <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
                             </div>
                         </div>
                     </li>
@@ -36,12 +40,12 @@
                     <li class="caja color_text" th:each="offeRequest: ${list2}">
                         <div class="caja-interno">
                             <label th:text="${offeRequest.skill.idSkill}"></label>
-                            <div class="texto">
+                            <div>
                                 <label class="start">Start</label>
                                 <label>End</label>
                                 <label class="start" th:text="${offeRequest.startDate}"></label>
                                 <label class="end" th:text="${offeRequest.endDate}"></label>
-                                <p class="texto"  th:text="${offeRequest.description}"></p>
+                                <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
                             </div>
                         </div>
                     </li>
@@ -52,12 +56,12 @@
                     <li class="caja color_text" th:each="offeRequest: ${list3}">
                         <div class="caja-interno">
                             <label th:text="${offeRequest.skill.idSkill}"></label>
-                            <div class="texto">
+                            <div>
                                 <label class="start">Start</label>
                                 <label>End</label>
                                 <label class="start" th:text="${offeRequest.startDate}"></label>
                                 <label class="end" th:text="${offeRequest.endDate}"></label>
-                                <p class="texto"  th:text="${offeRequest.description}"></p>
+                                <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
                             </div>
                         </div>
                     </li>
@@ -65,8 +69,7 @@
             </td>
         </tr>
     </table>
-    <a  href="add"><button class="add color_text" type="button" th:text="'Add '"></button></a>
-    <a href=".."><button type="button" class="add color_text">Atrás</button></a>
+
 </main>
 </body>
 </html>
