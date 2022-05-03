@@ -26,11 +26,16 @@ public class CollaborationDao {
                 collab.getIdOffer(), collab.getIdRequest(), collab.getHours());
     }
     private String idGenerator(){
-        Integer contador = idAtomic.getAndIncrement();
+        AtomicInteger contador = new AtomicInteger(getCantidadCollaborations());
         StringBuilder id= new StringBuilder("co");
-        int numeroCifras = Integer.toString(contador).length();
+        int maximo0 = 6;
+        int numeroId = contador.get();
+        int numeroCifras = Integer.toString(numeroId).length();
         id.append("0".repeat(Math.max(0, 6 - numeroCifras)));
-        return id.toString() + contador;
+        return id.toString() + numeroId;
+    }
+    private Integer getCantidadCollaborations(){
+        return jdbcTemplate.queryForObject("SELECT COUNT(idCollaboration) FROM Collaboration",new IntegerRowMapper());
     }
 
     public void deleteCollaboration(Collaboration collab){
