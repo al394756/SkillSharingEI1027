@@ -2,12 +2,14 @@ package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.Chat;
 import com.example.SkillSharingEI1027.modelo.Message;
+import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -24,6 +26,11 @@ public class MessageDao {
 
     }
 
+    public void banMessage(String chat , Student student){
+        jdbcTemplate.update("INSERT INTO Message VALUES(?,?,?,?,?)",chat,0,"id000000",student.getBanReason(), LocalDate.now());
+
+
+    }
     public List<Message> getMessagesFromChat(String idChat){
         try{
             return jdbcTemplate.query("SELECT * FROM Message WHERE idChat=?", new MessageRowMapper(), idChat);

@@ -22,7 +22,7 @@ public class CollaborationDao {
     public void addCollaboration(Collaboration collab){
         collab.setIdCollaboration(idGenerator());
         jdbcTemplate.update("INSERT INTO Collaboration VALUES(?,?,?,?,?,?)",
-                collab.getIdCollaboration(),collab.getAssessmentScore(), collab.isCollaborationState(),
+                collab.getIdCollaboration(),collab.getAssessmentScore(), collab.getCollaborationState(),
                 collab.getIdOffer(), collab.getIdRequest(), collab.getHours());
     }
     private String idGenerator(){
@@ -38,19 +38,8 @@ public class CollaborationDao {
         return jdbcTemplate.queryForObject("SELECT COUNT(idCollaboration) FROM Collaboration",new IntegerRowMapper());
     }
 
-    public void deleteCollaboration(Collaboration collab){
-        jdbcTemplate.update("DELETE FROM Collaboration WHERE idCollaboration =?",collab.getIdCollaboration());
-    }
 
-    public void deleteCollaboration(String collab){
-        jdbcTemplate.update("DELETE FROM Collaboration WHERE idCollaboration =?", collab);
-    }
 
-    public void updateCollaboration(Collaboration collab){
-        jdbcTemplate.update("UPDATE Collaboration SET assessmentScore=?, collaborationState=?, idOffer=?, " +
-                        "idRequest=?, hours=? WHERE idCollaboration=?", collab.getAssessmentScore(),
-                collab.isCollaborationState(),collab.getIdOffer(),collab.getIdRequest(),collab.getHours());
-    }
 
     public Collaboration getCollaboration(String idCollaboration){
         try{

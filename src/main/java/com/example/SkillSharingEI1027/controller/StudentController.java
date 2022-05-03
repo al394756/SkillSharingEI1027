@@ -1,5 +1,7 @@
 package com.example.SkillSharingEI1027.controller;
 
+import com.example.SkillSharingEI1027.dao.ChatDao;
+import com.example.SkillSharingEI1027.dao.MessageDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +125,10 @@ public class StudentController {
 
     @Autowired
     private StudentDao studentDao;
+    @Autowired
+    private ChatDao chatDao;
+    @Autowired
+    private MessageDao messageDao;
 
     @RequestMapping("/login")
     public String login(Model model){
@@ -217,6 +223,8 @@ public class StudentController {
 
         String msg = "Our SKP: "+user.getName()+"("+user.getIdStudent()+") has banned you from this service because:\n"+student.getBanReason();
         student.setBanReason(msg);
+        String idChat =chatDao.createChat(studentDao.getStudentUsingId("id000000"), student);
+        messageDao.banMessage(idChat, student);
         studentDao.cancelStudent(student);
         return "redirect:/";
     }

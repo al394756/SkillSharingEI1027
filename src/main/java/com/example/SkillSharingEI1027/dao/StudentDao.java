@@ -78,7 +78,7 @@ public class StudentDao {
     //Obtenemos Student con su id. Devuelve null si no existe o si la cuenta está inactiva
     public Student getStudentUsingId(String idStudent){
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE idStudent = ? AND activeAccount=true", new StudentRowMapper(), idStudent);
+            return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE idStudent = ?", new StudentRowMapper(), idStudent);
         } catch (EmptyResultDataAccessException e){
             return null;
         }
@@ -86,7 +86,7 @@ public class StudentDao {
 
     public Student getStudentUsingEmail(String email){
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE email = ? AND activeAccount=true", new StudentRowMapper(), email);
+            return jdbcTemplate.queryForObject("SELECT * FROM Student WHERE email = ?", new StudentRowMapper(), email);
         } catch (EmptyResultDataAccessException e){
             return null;
         }

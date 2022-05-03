@@ -4,10 +4,26 @@ public class Collaboration {
 
     private String idCollaboration;
     private int assessmentScore;
-    private boolean collaborationState;
+    private int collaborationState;
     private String idOffer;
     private String idRequest;
+    private String idStudent;
     private int hours;
+
+    public Collaboration() {
+        collaborationState = 0;
+    }
+
+    public void setCollaborationState(int valor) {
+        if (valor >= 0 && valor < CollaborationState.values().length){
+            collaborationState=valor;
+        }
+    }
+    public void setAssessmentScore(int valor) {
+        if (valor >= 0 && valor < AssesmentScore.values().length){
+            assessmentScore=valor;
+        }
+    }
 
     public String getIdCollaboration() {
         return idCollaboration;
@@ -21,16 +37,8 @@ public class Collaboration {
         return assessmentScore;
     }
 
-    public void setAssessmentScore(int assessmentScore) {
-        this.assessmentScore = assessmentScore;
-    }
-
-    public boolean isCollaborationState() {
+    public int getCollaborationState() {
         return collaborationState;
-    }
-
-    public void setCollaborationState(boolean collaborationState) {
-        this.collaborationState = collaborationState;
     }
 
     public String getIdOffer() {
@@ -49,6 +57,14 @@ public class Collaboration {
         this.idRequest = idRequest;
     }
 
+    public String getIdStudent() {
+        return idStudent;
+    }
+
+    public void setIdStudent(String idStudent) {
+        this.idStudent = idStudent;
+    }
+
     public int getHours() {
         return hours;
     }
@@ -65,6 +81,7 @@ public class Collaboration {
                 ", collaborationState=" + collaborationState +
                 ", idOffer='" + idOffer + '\'' +
                 ", idRequest='" + idRequest + '\'' +
+                ", idStudent='" + idStudent + '\'' +
                 ", hours=" + hours +
                 '}';
     }

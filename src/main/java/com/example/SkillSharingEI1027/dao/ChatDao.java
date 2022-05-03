@@ -1,6 +1,7 @@
 package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.Chat;
+import com.example.SkillSharingEI1027.modelo.Message;
 import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,9 +19,10 @@ public class ChatDao {
     @Autowired
     public void setDataSource(DataSource dataSource){ jdbcTemplate= new JdbcTemplate(dataSource);}
 
-    public void createChat(Student student1, Student student2){
+    public String createChat(Student student1, Student student2){
         String id = idGenerator();
         jdbcTemplate.update("INSERT INTO Chat VALUES(?,?,?)",id,student1.getIdStudent(),student2.getIdStudent());
+        return id;
     }
 
     public List<Chat> getChatsDeStudent(Student student){

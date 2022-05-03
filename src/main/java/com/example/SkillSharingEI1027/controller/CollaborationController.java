@@ -71,33 +71,4 @@ public class CollaborationController {
         return "redirect:list";
     }
 
-    @RequestMapping(value="/update/{idCollaboration}", method = RequestMethod.GET)
-    public String editCollaboration(Model model, @PathVariable String idCollaboration){
-        model.addAttribute("collaboration", collaborationDao.getCollaboration(idCollaboration));
-        return "collaboration/update"; //falta html
-    }
-
-    @RequestMapping(value="/update", method=RequestMethod.POST)
-    public String processUpdateSubmit(@ModelAttribute("collaboration") Collaboration collaboration, BindingResult bindingResult){
-        if (bindingResult.hasErrors())
-            return "collaboration/update"; //falta html
-        collaborationDao.updateCollaboration(collaboration);
-        return "redirect:list";
-    }
-
-    @RequestMapping(value = "/delete/{idCollaboration}")
-    public String processDelete(@PathVariable String idCollaboration) {
-        collaborationDao.deleteCollaboration(idCollaboration);
-        return "redirect:../list"; //falta html
-    }
-
-
-
-
-
-
-
-
-
-
 }
