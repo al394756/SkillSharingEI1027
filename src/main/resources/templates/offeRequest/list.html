@@ -11,31 +11,37 @@
 <div th:replace="fragments/header" ></div>
 <body>
 <main class="centrado" >
-    <div>
-        <h1 class="titulo centrado" th:text="${type}+'s'"></h1>
+    <div class="alLado">
+        <div><h1 class="titulo centrado" th:text="${type}+'s'"></h1></div>
         <a  href="add" class="add color_text">Add</a>
     </div>
 
     <div th:if="${#lists.isEmpty(list1)}" th:text="'There are not '+${type}+'s registered'"></div>
     <table class="tablaRequest" th:unless="${#lists.isEmpty(list1)}">
-        <tr>
+        <tr class="bacgraund">
             <td>
                 <ul>
                     <li class="caja color_text" th:each="offeRequest: ${list1}">
+                        <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
                         <div class="caja-interno">
 
-                            <label th:text="${offeRequest.skill.name}"></label>
                             <label th:if="${offeRequest.skill.level}==0"> Beginner</label>
                             <label th:if="${offeRequest.skill.level}==1"> Intermediate</label>
                             <label th:if="${offeRequest.skill.level}==2"> Expert</label>
-                            <div>
-                                <label class="start">Start</label>
-
-                                <label class="start" th:text="${#temporals.format(offeRequest.startDate, 'dd/MM/yyyy')}"></label>
-                                <br>
-                                <label>End</label>
-                                <label class="end" th:text="${#temporals.format(offeRequest.endDate,'dd/MM/yyyy')}"></label>
-                                <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
+                            <table >
+                                <tr>
+                                    <td class="endStart"><label>Start</label></td>
+                                    <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.startDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="endStart"><label>End</label></td>
+                                    <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.endDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                                </tr>
+                            </table>
+                            <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
+                            <div class="alLado">
+                                <a  href="edit" ><button class="edit color_text" >Edit</button></a>
+                                <a><button type="submit" class="edit color_text accept" >Accept</button></a>
                             </div>
                         </div>
                     </li>
@@ -44,19 +50,26 @@
             <td>
                 <ul >
                     <li class="caja color_text" th:each="offeRequest: ${list2}">
+                        <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
                         <div class="caja-interno">
-                            <label th:text="${offeRequest.skill.name}"></label>
+
                             <label th:if="${offeRequest.skill.level}==0"> Beginner</label>
                             <label th:if="${offeRequest.skill.level}==1"> Intermediate</label>
                             <label th:if="${offeRequest.skill.level}==2"> Expert</label>
-                            <div>
-                                <label class="start">Start</label>
-
-                                <label class="start" th:text="${#temporals.format(offeRequest.startDate, 'dd/MM/yyyy')}"></label>
-                                <br>
-                                <label>End</label>
-                                <label class="end" th:text="${#temporals.format(offeRequest.endDate,'dd/MM/yyyy')}"></label>
-                                <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
+                            <table >
+                                <tr>
+                                    <td class="endStart"><label>Start</label></td>
+                                    <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.startDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="endStart"><label>End</label></td>
+                                    <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.endDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                                </tr>
+                            </table>
+                            <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
+                            <div class="alLado">
+                                <a  href="edit" ><button class="edit color_text" >Edit</button></a>
+                                <a><button type="submit" class="edit color_text accept" >Accept</button></a>
                             </div>
                         </div>
                     </li>
@@ -65,19 +78,26 @@
             <td>
                 <ul>
                     <li class="caja color_text" th:each="offeRequest: ${list3}">
+                        <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
                         <div class="caja-interno">
-                            <label th:text="${offeRequest.skill.name}"></label>
+
                             <label th:if="${offeRequest.skill.level}==0"> Beginner</label>
                             <label th:if="${offeRequest.skill.level}==1"> Intermediate</label>
                             <label th:if="${offeRequest.skill.level}==2"> Expert</label>
-                            <div>
-                                <label class="start">Start</label>
-
-                                <label class="start" th:text="${#temporals.format(offeRequest.startDate, 'dd/MM/yyyy')}"></label>
-                                <br>
-                                <label>End</label>
-                                <label class="end" th:text="${#temporals.format(offeRequest.endDate,'dd/MM/yyyy')}"></label>
-                                <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
+                            <table >
+                                <tr>
+                                    <td class="endStart"><label>Start</label></td>
+                                    <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.startDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="endStart"><label>End</label></td>
+                                    <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.endDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                                </tr>
+                            </table>
+                            <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
+                            <div class="alLado">
+                                <a  href="edit" ><button class="edit color_text" >Edit</button></a>
+                                <a><button type="submit" class="edit color_text accept" >Accept</button></a>
                             </div>
                         </div>
                     </li>

@@ -6,6 +6,7 @@ body{
      line-height: 1.5em;
      margin: 0;
      background: #F6FAFF;
+     min-width:600px;
 }
 
 .container{
@@ -34,11 +35,5 @@ main{
      font-style: normal;
      color: red;
      font-size: 1.2rem;
-}
-
-
-table{
-     margin: auto;
-
 }
 

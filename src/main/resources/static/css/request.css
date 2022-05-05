@@ -3,15 +3,11 @@
 }
 .centrado{
     text-align: center;
-    margin: 0 auto;
     align-items: center;
-}
-.izquierda{
-    text-align: left;
 }
 .add{
     width: 5rem;
-    height: 2rem;
+    height: 1.5rem;
     border: white;
     padding: 0.3rem 0.5rem;
     border-radius: 5px;
@@ -22,31 +18,33 @@
     border-radius: 20px;
     background: #7d9abb;
     width: 16rem;
-    height: 20rem;
+    height: 20.5rem;
     box-shadow: 0 0 0.7rem #333333;
 }
 .caja-interno{
     margin: auto;
     padding: 0 2rem;
-    padding-bottom: 2rem;
-    padding-top: 0.5rem;
-    text-align: center;
-    horiz-align: center;
-}
-.caja-interno div{
-
-    height: 11rem;
+    padding-top: 0.1rem;
+    text-align: left;
+    horiz-align: left;
 }
 .descripcion{
     background: white;
     width: 100%;
-    height: 100%;
     border-radius: 5px;
+    height: 8rem;
 }
 .texto{
-    padding: 0 0.5rem;
+    padding: 0.3rem 0.5rem;
     text-align: left;
     color: #7d9abb;
+    font-size: 1rem;
+    line-height: normal;
+}
+
+.tablaRequest tr{
+    padding-left: 1rem;
+
 }
 
 .tablaRequest td {
@@ -56,4 +54,49 @@
     vertical-align: top;
     list-style-type: none;
     margin-bottom: 2.5rem;
+    line-height : 25px
+}
+
+table{
+    margin: auto;
+}
+main {
+    padding-top: 2rem;
+}
+.fecha{
+    border-radius: 5px;
+    border: white;
+    width: 7.9rem;
+}
+
+.alLado{
+    padding-top: 0.8rem;
+    display: inline-block;
+    vertical-align: top;
+}
+.alLado div{
+    display: inline-block;
+}
+.alLado a{
+    display: inline;
+}
+.endStart{
+    padding-right: 1rem;
+}
+.edit{
+    text-decoration: none;
+    width: 3.6rem;
+    height: 2rem;
+    border: white;
+    padding: 0.3rem 0.5rem;
+    border-radius: 5px;
+    background: white;
+    color: #7d9abb;
+    vertical-align: top;
+}
+.accept{
+    width: 5rem;
+}
+.nombre{
+    padding-top: 0.5rem;
 }
