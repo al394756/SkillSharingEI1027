@@ -13,9 +13,8 @@ public final class CollaborationRowMapper implements RowMapper<Collaboration> {
         collaboration.setIdCollaboration(rs.getString("idCollaboration"));
         collaboration.setAssessmentScore(rs.getInt("AssessmentScore"));
         collaboration.setCollaborationState(rs.getInt("CollaborationState"));
-        collaboration.setIdOffer(rs.getString("idOffer"));
-        collaboration.setIdRequest(rs.getString("idRequest"));
-        collaboration.setIdRequest(rs.getString("idStudent"));
+        collaboration.getIdOffer().setId(rs.getString("idOffer"));
+        collaboration.getIdRequest().setId(rs.getString("idRequest"));
         collaboration.setHours(rs.getInt("hours"));
         return collaboration;
     }

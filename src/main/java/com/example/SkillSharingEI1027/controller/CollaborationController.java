@@ -9,6 +9,7 @@ import com.example.SkillSharingEI1027.modelo.Collaboration;
 import com.example.SkillSharingEI1027.modelo.OffeRequest;
 
 import com.example.SkillSharingEI1027.modelo.Offer;
+import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +39,7 @@ public class CollaborationController {
     }
 
     @Autowired
-    public void setCollaborationDao(CollaborationDao collaborationDao){
-        this.collaborationDao = collaborationDao;
-    }
+    public void setCollaborationDao(CollaborationDao collaborationDao){ this.collaborationDao = collaborationDao;  }
 
     @RequestMapping("/list")
     public String listCollaborations(Model model){
@@ -47,20 +47,13 @@ public class CollaborationController {
         return "collaboration/list"; //falta html
     }
 
-    @RequestMapping(value = "add")
-    public String addCollaboration(Model model){
-        setOffeRequestDao(offeRequestDao,skillDao,studentDao);
-        model.addAttribute("collaboration",new Collaboration());
-        List<String> requestList = new ArrayList<>();
-        for (OffeRequest request : offeRequestDao.getActiveOffeRequests("Request"))
-            requestList.add(request.getId());
-        model.addAttribute("requests", requestList);
+    @RequestMapping(value = "/add/{requestId}/{offerId}", method = RequestMethod.GET )
+    public String addCollaboration(@PathVariable String requestId,@PathVariable String offerId, HttpSession session){
+        collaborationDao.addCollaboration(new Collaboration(offeRequestDao.getOffeRequest(requestId), offeRequestDao.getOffeRequest(offerId)));
 
-        List<String> offersList = new ArrayList<>();
-        for (OffeRequest offer : offeRequestDao.getActiveOffeRequests("Offer"))
-            offersList.add(offer.getId());
-        model.addAttribute("offers", offersList);
-        return "collaboration/add"; //falta html
+
+
+        return "collaboration/add";
     }
 
     @RequestMapping(value="/add", method = RequestMethod.POST)

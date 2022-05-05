@@ -5,13 +5,17 @@ public class Collaboration {
     private String idCollaboration;
     private int assessmentScore;
     private int collaborationState;
-    private String idOffer;
-    private String idRequest;
-    private String idStudent;
+    private OffeRequest idOffer;
+    private OffeRequest idRequest;
     private int hours;
 
     public Collaboration() {
         collaborationState = 0;
+    }
+
+    public Collaboration(OffeRequest idRequest, OffeRequest idOffer) {
+        this.idRequest = idRequest;
+        this.idOffer = idOffer;
     }
 
     public void setCollaborationState(int valor) {
@@ -41,29 +45,23 @@ public class Collaboration {
         return collaborationState;
     }
 
-    public String getIdOffer() {
+    public OffeRequest getIdOffer() {
         return idOffer;
     }
 
-    public void setIdOffer(String idOffer) {
+    public void setIdOffer(OffeRequest idOffer) {
         this.idOffer = idOffer;
     }
 
-    public String getIdRequest() {
+    public OffeRequest getIdRequest() {
         return idRequest;
     }
 
-    public void setIdRequest(String idRequest) {
+    public void setIdRequest(OffeRequest idRequest) {
         this.idRequest = idRequest;
     }
 
-    public String getIdStudent() {
-        return idStudent;
-    }
 
-    public void setIdStudent(String idStudent) {
-        this.idStudent = idStudent;
-    }
 
     public int getHours() {
         return hours;
@@ -81,7 +79,6 @@ public class Collaboration {
                 ", collaborationState=" + collaborationState +
                 ", idOffer='" + idOffer + '\'' +
                 ", idRequest='" + idRequest + '\'' +
-                ", idStudent='" + idStudent + '\'' +
                 ", hours=" + hours +
                 '}';
     }
