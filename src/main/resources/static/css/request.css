@@ -42,24 +42,6 @@
     line-height: normal;
 }
 
-.tablaRequest tr{
-    padding-left: 1rem;
-
-}
-
-.tablaRequest td {
-    vertical-align: top;
-}
-.tablaRequest li {
-    vertical-align: top;
-    list-style-type: none;
-    margin-bottom: 2.5rem;
-    line-height : 25px
-}
-
-table{
-    margin: auto;
-}
 main {
     padding-top: 2rem;
 }
@@ -69,21 +51,13 @@ main {
     width: 7.9rem;
 }
 
-.alLado{
-    padding-top: 0.8rem;
-    display: inline-block;
-    vertical-align: top;
-}
-.alLado div{
-    display: inline-block;
-}
-.alLado a{
-    display: inline;
-}
 .endStart{
     padding-right: 1rem;
 }
-.edit{
+.edit {
+    padding-top: 0.75rem;
+}
+.edit a{
     text-decoration: none;
     width: 3.6rem;
     height: 2rem;
@@ -99,4 +73,8 @@ main {
 }
 .nombre{
     padding-top: 0.5rem;
+}
+.prueba{
+    padding: 1rem 1rem;
+    display:inline-grid
 }
