@@ -3,10 +3,7 @@ package com.example.SkillSharingEI1027.controller;
 import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
-import com.example.SkillSharingEI1027.modelo.OffeRequest;
-import com.example.SkillSharingEI1027.modelo.Request;
-import com.example.SkillSharingEI1027.modelo.Skill;
-import com.example.SkillSharingEI1027.modelo.Student;
+import com.example.SkillSharingEI1027.modelo.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -61,17 +58,40 @@ public class OffeRequestMethods <T> {
         return "redirect:list";
     }
 
-    public String edit(Model model,String id,String type){
+    public String edit(Model model,String id,String type, HttpSession session){
         model.addAttribute("type",type);
         OffeRequest offeRequest= offeRequestDao.getOffeRequest(id);
         offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
         offeRequest.setStudent(studentDao.getStudentUsingId(offeRequest.getStudent().getIdStudent()));
+        OffeRequest offeRequestCopia;
+        if (type.equals("Request"))
+            offeRequestCopia= new Request(offeRequest);
+        else
+            offeRequestCopia=new Offer(offeRequest);
+        System.out.println(offeRequestCopia.toString());
+
+        session.setAttribute("skill",offeRequestCopia.getSkill());
+        model.addAttribute("url",offeRequestCopia.getUrl());
+
+        session.setAttribute("offeRequest",offeRequestCopia);
         model.addAttribute("offeRequest",offeRequest);
         return "offeRequest/update";
     }
 
-    public String processUpdateSubmit(OffeRequest offeRequest, BindingResult bindingResult){
+    public String processUpdateSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session){
+        OffeRequest offeRequestAntigua = (OffeRequest) session.getAttribute("offeRequest");
+        System.out.println(offeRequest+"TRAS FORM");
+        String descripcion = offeRequest.getDescription();
         OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
+        offeRequest.setId(offeRequestAntigua.getId());
+        Skill skill = (Skill) session.getAttribute("skill");
+        skill.setDescription(descripcion);
+        offeRequest.setSkill(skill);
+        offeRequest.setStudent(offeRequest.getStudent());
+        session.removeAttribute("offeRequest");
+        session.removeAttribute("skill");
+
+        System.out.println(offeRequest.toString()+"GGGGGGGG");
         offeRequestValidator.validateUpdate(offeRequest,bindingResult);
         if (bindingResult.hasErrors())
             return "offeRequest/update";
@@ -114,7 +134,7 @@ class OffeRequestValidator extends OffeRequestMethods implements Validator {
             errors.rejectValue("endDate","compulsory","Introduce a date");
         else if (offeRequest.getStartDate()!=null&&offeRequest.getStartDate().compareTo(offeRequest.getEndDate())<0)
             errors.rejectValue("endDate","compulsory","End Date must be bigger than Start Date");
-        if (offeRequest.getSkill().getIdSkill().trim().equals(""))
+        if (offeRequest.getDescription().trim().equals(""))
             errors.rejectValue("description", "compulsory", "Introduce a description");
     }
 }

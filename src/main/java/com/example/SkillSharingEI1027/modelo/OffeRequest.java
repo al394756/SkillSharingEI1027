@@ -80,6 +80,8 @@ public abstract class OffeRequest {
                 '}';
     }
 
+
+
     public String getType(){
         return type;
     }
