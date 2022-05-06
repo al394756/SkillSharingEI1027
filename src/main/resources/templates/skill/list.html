@@ -10,31 +10,33 @@
 <div th:replace="fragments/header" ></div>
 <body>
 <main class="centrado">
-<h1 class="titulo">Lista de Skills</h1>
-<table>
-  <tr>
-    <th>idSkill</th>
-    <th>Nombre</th>
-    <th>Nivel</th>
-    <th>Descripción</th>
+  <h1 class="titulo">Lista de Skills</h1>
+  <table>
+    <tr>
+      <th ><label>idSkill</label></th>
+      <th><label>Nombre</label></th>
+      <th><label>Nivel</label></th>
+      <th><label>Descripción</label></th>
 
-  </tr>
-  <tr class="bacgraund" th:each="skill: ${skills}">
-    <td th:text="${skill.idSkill}"></td>
-    <td th:text="${skill.name}"></td>
-    <td th:text="${skill.level}"></td>
-    <td th:text="${skill.description}"></td>
-    <td>
-      <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
-         role="button">edit</a>
-      <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
-         role="button">delete</a>
-    </td>
+    </tr>
+    <tr class="color" th:each="skill: ${skills}">
+      <td> <label th:text="${skill.idSkill}"></label></label></td>
+      <td> <label th:text="${skill.name}"></label></td>
+      <td> <label th:text="${skill.level}"></label></td>
+      <td> <label th:text="${skill.description}"></label></td>
+      <td>
+        <div>
+          <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
+                role="button">edit</a>
+          <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
+             role="button">delete</a>
+        </div>
 
-  </tr>
-</table>
-<a href="add"><button type="button">Añadir skill</button></a>
-<a href=".."><button type="button">Atrás</button></a>
+      </td>
+    </tr>
+  </table>
+  <a href="add"><button type="button">Añadir skill</button></a>
+  <a href=".."><button type="button">Atrás</button></a>
 </main>
 </body>
 </html>

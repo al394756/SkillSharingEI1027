@@ -1,10 +1,26 @@
 table{
+    color: white;
     margin: auto;
     background-color: #7d9abb;
-    height: 25rem;
     border: white;
     border-radius: 5px;
 }
-tr:nth-child(even){
-    background-color:;
+th{
+    height: 2rem;
+}
+td{
+    margin: auto;
+    padding: 1rem;
+}
+.color :nth-child(even){
+    background-color:#E8EEF6;
+}
+
+.color {
+    color: #7d9abb;
+    background: #DCE4EE;
+}
+a{
+    color: #7d9abb;
+    text-decoration: none;
 }
