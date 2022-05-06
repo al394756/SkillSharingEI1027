@@ -13,7 +13,9 @@
 <main class="centrado" >
     <div>
         <div><h1 class="titulo centrado" th:text="${type}+'s'"></h1></div>
-        <a  href="add" class="add color_text">Add</a>
+        <div th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
+            <a  href="add" class="add color_text">Add</a>
+        </div>
     </div>
 
     <div th:if="${#lists.isEmpty(list)}" th:text="'There are not '+${type}+'s registered'"></div>

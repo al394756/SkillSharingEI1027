@@ -203,7 +203,7 @@ public class StudentController {
     @RequestMapping("/logout")
     public String logOut(HttpSession session){
         session.invalidate();
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping(value="/student/ban/{id}", method = RequestMethod.GET)
