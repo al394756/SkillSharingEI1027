@@ -8,7 +8,7 @@
 .contenidos {
     display: table-row;
 }
-.request .offer .collab {
+.cell {
     display: table-cell;
     border: 1px solid #000;
     vertical-align: middle;
