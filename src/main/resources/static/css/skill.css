@@ -1,0 +1,10 @@
+table{
+    margin: auto;
+    background-color: #7d9abb;
+    height: 25rem;
+    border: white;
+    border-radius: 5px;
+}
+tr:nth-child(even){
+    background-color:;
+}

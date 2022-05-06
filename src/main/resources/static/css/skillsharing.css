@@ -37,3 +37,14 @@ main{
      font-size: 1.2rem;
 }
 
+.titulo{
+    color: #7d9abb;
+}
+.centrado{
+    text-align: center;
+    align-items: center;
+}
+
+.bacgraund{
+background: red
+}
