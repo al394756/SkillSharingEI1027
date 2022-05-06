@@ -5,35 +5,33 @@
   <meta charset="UTF-8" />
   <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
   <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
-  <link href="../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}"/>
-  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <link href="../static/css/skill.css" rel="stylesheet" th:href="@{/css/skill.css}"/>
 </head>
 <div th:replace="fragments/header" ></div>
 <body>
-<main>
-<h1>Lista de Skills</h1>
+<main class="centrado">
+<h1 class="titulo">Lista de Skills</h1>
 <table>
-  <thead>
   <tr>
     <th>idSkill</th>
     <th>Nombre</th>
-    <th>Descripción</th>
     <th>Nivel</th>
+    <th>Descripción</th>
+
   </tr>
-  </thead>
-  <tbody>
-  <tr th:each="skill: ${skills}">
+  <tr class="bacgraund" th:each="skill: ${skills}">
     <td th:text="${skill.idSkill}"></td>
     <td th:text="${skill.name}"></td>
-    <td th:text="${skill.description}"></td>
     <td th:text="${skill.level}"></td>
+    <td th:text="${skill.description}"></td>
     <td>
-      <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}" role="button"><i style='font-size:24px' class='far'>&#xf044;</i></a>
-      <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}" role="button"><button class="btn"><i style='font-size:24px' class="fa fa-trash"></i></button></a>
+      <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
+         role="button">edit</a>
+      <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
+         role="button">delete</a>
     </td>
 
   </tr>
-  </tbody>
 </table>
 <a href="add"><button type="button">Añadir skill</button></a>
 <a href=".."><button type="button">Atrás</button></a>
