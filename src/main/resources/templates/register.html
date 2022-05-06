@@ -51,9 +51,9 @@
                                maxlength="9" placeholder="12345678A"/>
                     </td>
                     <td>
-                        <input type="number" class="error" th:if="${#fields.hasErrors('phoneNumber')}"
+                        <input type="number" class="error" placeholder="111222333" th:if="${#fields.hasErrors('phoneNumber')}"
                                th:field="*{phoneNumber}" />
-                        <input type="number" class="rellena" th:unless="${#fields.hasErrors('phoneNumber')}"
+                        <input type="number" class="rellena" placeholder="111222333" th:unless="${#fields.hasErrors('phoneNumber')}"
                                th:field="*{phoneNumber}" />
                     </td>
                 </tr>
