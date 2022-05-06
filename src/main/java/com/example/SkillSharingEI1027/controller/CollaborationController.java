@@ -49,7 +49,8 @@ public class CollaborationController {
 
     @RequestMapping(value = "/add/{requestId}/{offerId}", method = RequestMethod.GET )
     public String addCollaboration(@PathVariable String requestId,@PathVariable String offerId, HttpSession session){
-        collaborationDao.addCollaboration(new Collaboration(offeRequestDao.getOffeRequest(requestId), offeRequestDao.getOffeRequest(offerId)));
+        Collaboration collaboration= new Collaboration(offeRequestDao.getOffeRequest(requestId), offeRequestDao.getOffeRequest(offerId));
+        collaborationDao.addCollaboration(collaboration);
 
 
 

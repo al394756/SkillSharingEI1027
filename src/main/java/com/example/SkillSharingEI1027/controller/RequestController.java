@@ -51,11 +51,14 @@ public class RequestController {
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String edit(Model model, @PathVariable String id, HttpSession session){
+
         return offeRequestMethods.edit(model, id,type,session);
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)
     public String processUpdateSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult, HttpSession session){
+
+
         return offeRequestMethods.processUpdateSubmit(request,bindingResult, session);
     }
 

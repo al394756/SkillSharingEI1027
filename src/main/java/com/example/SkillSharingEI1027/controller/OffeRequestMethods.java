@@ -50,7 +50,7 @@ public class OffeRequestMethods <T> {
         OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
         offeRequestValidator.validate(offeRequest,bindingResult);
         if (bindingResult.hasErrors())
-            return "offeRequest/add";
+            return "redirect:/"+offeRequest.getUrl()+"/add";
         Student student = (Student) session.getAttribute("user");
         offeRequest.setStudent(student);
         offeRequest.setSkill(skillDao.getIdBySkill(offeRequest.getSkill().getIdSkill()));
@@ -68,11 +68,8 @@ public class OffeRequestMethods <T> {
             offeRequestCopia= new Request(offeRequest);
         else
             offeRequestCopia=new Offer(offeRequest);
-        System.out.println(offeRequestCopia.toString());
 
         session.setAttribute("skill",offeRequestCopia.getSkill());
-        model.addAttribute("url",offeRequestCopia.getUrl());
-
         session.setAttribute("offeRequest",offeRequestCopia);
         model.addAttribute("offeRequest",offeRequest);
         return "offeRequest/update";
@@ -80,21 +77,22 @@ public class OffeRequestMethods <T> {
 
     public String processUpdateSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session){
         OffeRequest offeRequestAntigua = (OffeRequest) session.getAttribute("offeRequest");
-        System.out.println(offeRequest+"TRAS FORM");
-        String descripcion = offeRequest.getDescription();
-        OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
-        offeRequest.setId(offeRequestAntigua.getId());
         Skill skill = (Skill) session.getAttribute("skill");
+        OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
+
+        String descripcion = offeRequest.getDescription();
+        offeRequest.setId(offeRequestAntigua.getId());
         skill.setDescription(descripcion);
+        offeRequest.setStudent(offeRequestAntigua.getStudent());
         offeRequest.setSkill(skill);
         offeRequest.setStudent(offeRequest.getStudent());
         session.removeAttribute("offeRequest");
         session.removeAttribute("skill");
 
-        System.out.println(offeRequest.toString()+"GGGGGGGG");
         offeRequestValidator.validateUpdate(offeRequest,bindingResult);
-        if (bindingResult.hasErrors())
-            return "offeRequest/update";
+        if (bindingResult.hasErrors()) {
+            return "redirect:/"+offeRequest.getUrl() + "/update/"+offeRequest.getId();
+        }
         offeRequestDao.update(offeRequest);
         return "redirect:list";
     }
@@ -132,7 +130,7 @@ class OffeRequestValidator extends OffeRequestMethods implements Validator {
             errors.rejectValue("startDate","compulsory","Introduce a date");
         if (offeRequest.getEndDate()==null)
             errors.rejectValue("endDate","compulsory","Introduce a date");
-        else if (offeRequest.getStartDate()!=null&&offeRequest.getStartDate().compareTo(offeRequest.getEndDate())<0)
+        else if (offeRequest.getStartDate()!=null&&offeRequest.getStartDate().compareTo(offeRequest.getEndDate())>0)
             errors.rejectValue("endDate","compulsory","End Date must be bigger than Start Date");
         if (offeRequest.getDescription().trim().equals(""))
             errors.rejectValue("description", "compulsory", "Introduce a description");
