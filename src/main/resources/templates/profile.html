@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Porfile</title>
+    <title>Profile</title>
     <meta charset="UTF-8"/>
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
-    <link href="../static/css/profile.css" rel="stylesheet" th:href="@{/css/porfile.css}"/>
+    <link href="../static/css/profile.css" rel="stylesheet" th:href="@{/css/profile.css}"/>
 
 </head>
 <div th:replace="fragments/header" ></div>
 
 <body>
 <main>
-Pa hacer, feliu trabaja
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>   </td>
+            <td>Email:</td>
+            <td>   </td>
+        </tr>
+        <tr>
+            <td>Student ID</td>
+            <td>   </td>
+            <td>Hours</td>
+            <td>   </td>
+        </tr>
+    </table>
+    <div class="contenedor">
+        <div class="contenidos">
+            <div class="cell">Your requests</div>
+            <div class="cell">Your offers</div>
+            <div class="cell">Active collaborations</div>
+        </div>
+    </div>
 </main>
 </body>
 </html>

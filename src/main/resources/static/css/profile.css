@@ -1,0 +1,16 @@
+.contenedor {
+    display: table;
+    border: 0px solid #000;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+.contenidos {
+    display: table-row;
+}
+.cell {
+    display: table-cell;
+    border: 1px solid #000;
+    vertical-align: middle;
+    padding: 10px;
+}
