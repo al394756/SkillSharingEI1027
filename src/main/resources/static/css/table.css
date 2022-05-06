@@ -17,6 +17,7 @@ tbody tr{
 
 td{
     border: 1px solid #333333;
+    text-align: center;
 }
 
 th{
