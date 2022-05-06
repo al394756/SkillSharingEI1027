@@ -52,7 +52,7 @@ public class OfferController {
         return offeRequestMethods.processUpdateSubmit(offer,bindingResult, session);
     }
 
-    @RequestMapping(value = "/delete/{id}")
+    @RequestMapping(value = "/cancel/{id}")
     public String processDelete(@PathVariable String id) {
         return offeRequestMethods.processDelete(id);
     }

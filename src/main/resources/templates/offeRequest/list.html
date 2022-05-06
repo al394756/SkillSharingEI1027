@@ -14,7 +14,7 @@
     <div>
         <div><h1 class="titulo centrado" th:text="${type}+'s'"></h1></div>
         <div th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
-            <a  href="add" class="add color_text">Add</a>
+            <a  href="add" class="add color_text" th:if="*{user!=null}">Add</a>
         </div>
     </div>
 
@@ -41,7 +41,8 @@
                 </table>
                 <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
                 <div class="centrado edit">
-                    <a th:href="@{/request/update/{id}(id=${offeRequest.id})}" class="color_text">Edit</a>
+                    <a th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Edit</a>
+                    <a th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Cancel</a>
                 </div>
             </div>
         </div>
