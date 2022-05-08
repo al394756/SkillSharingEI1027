@@ -27,8 +27,8 @@ public class OfferController {
     }
 
     @RequestMapping("/list")
-    public String listOffers(Model model){
-        return offeRequestMethods.list(model,type);
+    public String listOffers(Model model, HttpSession session){
+        return offeRequestMethods.list(model,type, session);
     }
 
     @RequestMapping(value = "/add")

@@ -41,8 +41,9 @@
                 </table>
                 <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
                 <div class="centrado edit">
-                    <a th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Edit</a>
-                    <a th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Cancel</a>
+
+                    <a th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}"  th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Edit</a>
+                    <a th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}" th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Cancel</a>
                 </div>
             </div>
         </div>

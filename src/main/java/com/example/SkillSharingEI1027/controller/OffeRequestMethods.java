@@ -26,13 +26,14 @@ public class OffeRequestMethods <T> {
         this.studentDao=studentDao;
     }
 
-    public String list(Model model, String type) {
+    public String list(Model model, String type, HttpSession session) {
         model.addAttribute("type",type);
         List<OffeRequest> lista = offeRequestDao.getActiveOffeRequests(type);
         for (OffeRequest r : lista){
             r.setSkill(skillDao.getSkill(r.getSkill().getIdSkill()));
         }
         model.addAttribute("list", lista);
+        //model.addAttribute("student", session.getAttribute("user"));
         return "offeRequest/list";
     }
 

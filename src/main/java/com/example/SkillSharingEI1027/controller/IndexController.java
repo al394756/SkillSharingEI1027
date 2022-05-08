@@ -34,8 +34,8 @@ public class IndexController {
     }
 
     @RequestMapping("/list")
-    public String listRequests(Model model){
-        return offeRequestMethods.list(model,type);
+    public String listRequests(Model model,HttpSession session){
+        return offeRequestMethods.list(model,type, session);
     }
 
     @RequestMapping(value = "/add")

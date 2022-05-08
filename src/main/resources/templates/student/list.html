@@ -47,6 +47,7 @@
         </tr>
         </thead>
         <tbody>
+
         <tr th:each="student: ${#lists.sort(students, comparator)}">
             <td th:text="${student.idStudent}"></td>
             <td th:text="${student.name}"></td>
