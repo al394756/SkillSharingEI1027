@@ -13,19 +13,30 @@
      display: inline-block;
 }
 .home-icon{
-     height: 1.5rem;
+     height: 1.3rem;
      display: block;
-     padding-top: 0.05rem;
+     padding-top: 0.2rem;
      padding-bottom: 0.25rem;
 }
 .logo{
      height: 6.5rem;
      z-index: 3;
      vertical-align: top;
+
+}
+.logodiv{
+     visibility: hidden;
+     width: 100%;
+     background: red;
+     margin: 0 auto;
+     text-align: center;
+     z-index:1;
+     position: absolute;
+
 }
 .logo-plano{
+     visibility: visible;
      height: 2.3rem;
-     padding-left: 6rem;
 }
 .color_text{
      text-decoration:none;

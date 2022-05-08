@@ -17,6 +17,7 @@ public abstract class OffeRequest {
     private String start;
     private String url;
 
+
     public String getId() {
         return id;
     }
@@ -64,6 +65,8 @@ public abstract class OffeRequest {
     public void setStudent(Student student) {
         this.student = student;
     }
+
+
 
     @Override
     public String toString() {

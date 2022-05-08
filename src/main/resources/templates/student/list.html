@@ -5,13 +5,12 @@
     <meta charset="UTF-8" />
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
-    <link href="../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}"/>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="../static/css/user.css" rel="stylesheet" th:href="@{/css/user.css}"/>
 </head>
 <div th:replace="fragments/header" ></div>
 <body>
-<main>
-    <h1>List of Students</h1>
+<main class="centrado">
+    <h1 class="titulo">List of Students</h1>
     <div th:if="${#lists.isEmpty(students)}">
         There are not Students registered
     </div>
@@ -42,11 +41,11 @@
             <th scope="col">Degree</th>
             <th scope="col">Course</th>
             <th scope="col">BalanceHours</th>
-            <th scope="col">SKP</th>
-            <th scope="col">Active</th>
+
         </tr>
         </thead>
         <tbody>
+
         <tr th:each="student: ${#lists.sort(students, comparator)}">
             <td th:text="${student.idStudent}"></td>
             <td th:text="${student.name}"></td>
@@ -56,13 +55,14 @@
             <td th:text="${student.degree}"></td>
             <td th:text="${student.course}"></td>
             <td th:text="${student.balanceHours}"></td>
-            <td th:text="${student.skpMember}"></td>
-            <td th:text="${student.activeAccount}"></td>
-            <td th:field="banReason" th:object="${session}" th:if="not *{user == null} and *{user.skpMember} and not *{student.skpMember}"><a th:href="@{/student/ban/{id}(id=${student.idStudent})}"><button type="button">Ban</button></a></td>
+            <td class="colBan" th:field="banReason" th:object="${session}"
+                th:if="not *{user == null} and *{user.skpMember} and not *{student.skpMember}">
+                <a class="add color_text" th:href="@{/student/ban/{id}(id=${student.idStudent})}">Ban</a></td>
         </tr>
         </tbody>
     </table>
-    <a href=".."><button type="button">Atrás</button></a>
+    <br>
+    <a  href=".." class="add color_text" >Back</a>
 </main>
 </body>
 </html>

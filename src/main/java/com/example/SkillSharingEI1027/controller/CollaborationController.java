@@ -1,15 +1,9 @@
 package com.example.SkillSharingEI1027.controller;
 
 
-import com.example.SkillSharingEI1027.dao.CollaborationDao;
-import com.example.SkillSharingEI1027.dao.OffeRequestDao;
-import com.example.SkillSharingEI1027.dao.SkillDao;
-import com.example.SkillSharingEI1027.dao.StudentDao;
-import com.example.SkillSharingEI1027.modelo.Collaboration;
-import com.example.SkillSharingEI1027.modelo.OffeRequest;
+import com.example.SkillSharingEI1027.dao.*;
+import com.example.SkillSharingEI1027.modelo.*;
 
-import com.example.SkillSharingEI1027.modelo.Offer;
-import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +23,16 @@ import java.util.List;
 public class CollaborationController {
     private CollaborationDao collaborationDao;
     private OffeRequestDao offeRequestDao;
+    private ChatDao chatDao;
+    private MessageDao messageDao;
     private SkillDao skillDao;
-    private StudentDao studentDao;
 
     @Autowired
-    public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
+    public void setOffeRequestDao(OffeRequestDao offeRequestDao, ChatDao chatDao, MessageDao messageDao, SkillDao skillDao) {
         this.offeRequestDao = offeRequestDao;
-        this.skillDao = skillDao;
-        this.studentDao=studentDao;
+        this.chatDao = chatDao;
+        this.messageDao=messageDao;
+        this.skillDao=skillDao;
     }
 
     @Autowired
@@ -47,22 +44,74 @@ public class CollaborationController {
         return "collaboration/list"; //falta html
     }
 
-    @RequestMapping(value = "/add/{requestId}/{offerId}", method = RequestMethod.GET )
-    public String addCollaboration(@PathVariable String requestId,@PathVariable String offerId, HttpSession session){
-        Collaboration collaboration= new Collaboration(offeRequestDao.getOffeRequest(requestId), offeRequestDao.getOffeRequest(offerId));
+    @RequestMapping(value = "/add/{offeRequestId}")
+    public String addCollaboration(@PathVariable String offeRequestId, HttpSession session){
+
+        OffeRequest offeRequestAceptada = offeRequestDao.getOffeRequest(offeRequestId);
+        Student student= (Student) session.getAttribute("user");
+        OffeRequest offeRequestNueva = crearContrarioA(offeRequestAceptada,student);
+        Skill skill= skillDao.getSkill(offeRequestAceptada.getSkill().getIdSkill());
+
+
+        Collaboration collaboration;
+        String msgContent;
+        if (offeRequestNueva.getType().equals("Request")) {
+            collaboration = new Collaboration(offeRequestNueva, offeRequestAceptada);
+            msgContent="I have accepted your offer of "+ skill.getName()+" ("+offeRequestAceptada.getId()+")\nAccept the collaboration in the 'Collaboration proposals' section.";
+        }
+        else{
+            collaboration=new Collaboration(offeRequestAceptada,offeRequestNueva);
+            msgContent="I have accepted your request of "+ skill.getName()+" ("+offeRequestAceptada.getId()+")\nAccept the collaboration in the 'Collaboration proposals' section.";
+
+        }
+
+        Chat chat = conseguirChat(offeRequestAceptada.getStudent(),student);
+
+        mensajeConfirmacion(chat, msgContent, student );
+
+
         collaborationDao.addCollaboration(collaboration);
 
-
-
-        return "collaboration/add";
+        return "welcome";
     }
 
-    @RequestMapping(value="/add", method = RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("request") Collaboration collaboration, BindingResult bindingResult){
-        if (bindingResult.hasErrors())
-            return "collaboration/add";
-        collaborationDao.addCollaboration(collaboration);
-        return "redirect:list";
+
+    private Chat conseguirChat(Student student1, Student student2){
+        Chat chat = chatDao.getChatEntreStudents(student1, student2);
+        if (chat == null){
+            String id=chatDao.createChat(student1, student2);
+            chat = chatDao.getChatConId(id);
+        }
+        return chat;
     }
 
+    private OffeRequest crearContrarioA(OffeRequest offeRequestAceptada, Student student){
+        OffeRequest offeRequestNueva;
+        if (offeRequestAceptada.getId().startsWith("rq")){
+            offeRequestNueva=new Offer(offeRequestAceptada);
+            offeRequestNueva.setType("Offer");
+            offeRequestNueva.setStart("of");
+            offeRequestNueva.setUrl("offer");
+        } else {
+            offeRequestNueva = new Request(offeRequestAceptada);
+            offeRequestNueva.setType("Request");
+            offeRequestNueva.setStart("rq");
+            offeRequestNueva.setUrl("request");
+        }
+
+        offeRequestNueva.setStudent(student);
+        offeRequestDao.add(offeRequestNueva);
+        return offeRequestNueva;
+
+    }
+    private void mensajeConfirmacion(Chat chat, String msgContent, Student student){
+
+        Message msg = new Message();
+        msg.setDate(LocalDate.now());
+        msg.setStudent(student.getIdStudent());
+        msg.setIdChat(chat.getIdChat());
+        msg.setNumber(messageDao.messageNumber(msg.getIdChat()));
+        msg.setContent(msgContent);
+        messageDao.addMessage(msg);
+    }
 }

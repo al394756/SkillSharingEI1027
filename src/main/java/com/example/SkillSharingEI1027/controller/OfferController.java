@@ -4,6 +4,7 @@ import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.Offer;
+import com.example.SkillSharingEI1027.services.CollaborationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +22,16 @@ public class OfferController {
     private final OffeRequestMethods<Offer> offeRequestMethods=new OffeRequestMethods<>();
     private final String type="Offer";
 
+
+
     @Autowired
     public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
         offeRequestMethods.setOffeRequestDao(offeRequestDao,skillDao,studentDao);
     }
 
     @RequestMapping("/list")
-    public String listOffers(Model model){
-        return offeRequestMethods.list(model,type);
+    public String listOffers(Model model, HttpSession session){
+        return offeRequestMethods.list(model,type, session);
     }
 
     @RequestMapping(value = "/add")

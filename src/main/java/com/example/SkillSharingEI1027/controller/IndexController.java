@@ -4,6 +4,7 @@ import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.Request;
+import com.example.SkillSharingEI1027.services.CollaborationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/")
@@ -22,9 +24,12 @@ public class IndexController {
     private final OffeRequestMethods<Request> offeRequestMethods=new OffeRequestMethods<>();
     private final String type="Request";
 
+
+
     @RequestMapping("/")
-    public String indexPage(Model model){
+    public String indexPage(Model model, HttpSession session){
         //model.addAttribute("offeRequest",offeRequestMethods.list(model,type));
+        session.setAttribute("today", LocalDate.now());
         return "welcome";
     }
 
@@ -34,8 +39,8 @@ public class IndexController {
     }
 
     @RequestMapping("/list")
-    public String listRequests(Model model){
-        return offeRequestMethods.list(model,type);
+    public String listRequests(Model model,HttpSession session){
+        return offeRequestMethods.list(model,type, session);
     }
 
     @RequestMapping(value = "/add")

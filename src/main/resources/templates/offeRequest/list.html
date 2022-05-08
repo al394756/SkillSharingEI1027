@@ -13,7 +13,7 @@
 <main class="centrado" >
     <div>
         <div><h1 class="titulo centrado" th:text="${type}+'s'"></h1></div>
-        <div th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
+        <div th:object="${session}">
             <a  href="add" class="add color_text" th:if="*{user!=null}">Add</a>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div th:if="${#lists.isEmpty(list)}" th:text="'There are not '+${type}+'s registered'"></div>
 
 
-    <div class="prueba" th:each="offeRequest: ${list}">
+    <div class="grid" th:each="offeRequest: ${list}">
         <div class="caja color_text">
             <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
             <div class="caja-interno">
@@ -40,10 +40,23 @@
                     </tr>
                 </table>
                 <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
-                <div class="centrado edit">
-                    <a th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Edit</a>
-                    <a th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Cancel</a>
-                </div>
+                <table class="centrado edit">
+                    <tr>
+                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
+                            <a class="editIcon" th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}">
+                                <img class="tamIcon" src="/imagenes/editar.png"></a>
+                        </td>
+                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
+                            <a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}">Cancel</a>
+                        </td>
+                        <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent}">
+                            <a  th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a>
+                        </td>
+                    </tr>
+
+
+
+                </table>
             </div>
         </div>
     </div>

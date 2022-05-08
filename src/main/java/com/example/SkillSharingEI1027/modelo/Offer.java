@@ -17,4 +17,6 @@ public class Offer extends OffeRequest{
         super.setType(of.getType());
         super.setUrl(of.getUrl());
     }
+
+
 }

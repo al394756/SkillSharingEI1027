@@ -22,12 +22,18 @@ public class MessageDao {
     public void setDataSource(DataSource dataSource){ jdbcTemplate= new JdbcTemplate(dataSource);}
 
     public void addMessage(Message msg){
-        jdbcTemplate.update("INSERT INTO Message VALUES(?,?,?,?,?)",msg.getIdChat(),msg.getNumber(),msg.getStudent(),msg.getContent(),msg.getDate());
+        jdbcTemplate.update("INSERT INTO Message VALUES(?,?,?,?,?)",msg.getIdChat(),msg.getNumber(),msg.getStudent(),msg.getContent(),LocalDate.now());
 
     }
 
     public void banMessage(String chat , Student student){
         jdbcTemplate.update("INSERT INTO Message VALUES(?,?,?,?,?)",chat,0,"id000000",student.getBanReason(), LocalDate.now());
+
+
+    }
+
+    public void officialMessage(String chat , Student student, String msg){
+        jdbcTemplate.update("INSERT INTO Message VALUES(?,?,?,?,?)",chat,0,"id000000",msg, LocalDate.now());
 
 
     }

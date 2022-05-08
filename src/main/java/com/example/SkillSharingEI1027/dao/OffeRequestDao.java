@@ -1,6 +1,7 @@
 package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.OffeRequest;
+import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,10 +19,12 @@ public class OffeRequestDao {
     @Autowired
     public void setDataSource(DataSource dataSource){ jdbcTemplate = new JdbcTemplate(dataSource);}
 
-    public void add(OffeRequest offeRequest){
+    public OffeRequest add(OffeRequest offeRequest){
+        System.out.println(offeRequest);
         offeRequest.setId(idGenerator(offeRequest));
         jdbcTemplate.update("INSERT INTO "+offeRequest.getType()+" VALUES(?,?,?,?,?,?)", offeRequest.getId(),offeRequest.getSkill().getIdSkill(),
                 offeRequest.getStartDate(), offeRequest.getEndDate(), offeRequest.getDescription(),offeRequest.getStudent().getIdStudent());
+        return offeRequest;
     }
 
     public void delete(String id){
