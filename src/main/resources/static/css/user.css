@@ -26,12 +26,10 @@ table tbody tr:nth-child(even) {
     color: #7d9abb;
 
 }
+
 a{
     color: #7d9abb;
     text-decoration: none;
-}
-.tamIcon{
-    height: 1.5rem;
 }
 
 .add{
@@ -41,4 +39,8 @@ a{
     padding: 0.3rem 0.5rem;
     border-radius: 5px;
     background: #7d9abb;
+}
+
+.colBan{
+    background: #F6FAFF;
 }

@@ -15,9 +15,10 @@
     <thead>
       <tr>
         <th ><label>idSkill</label></th>
-        <th><label>Nombre</label></th>
-        <th><label>Nivel</label></th>
-        <th><label>Descripción</label></th>
+        <th><label>Name</label></th>
+        <th><label>Level</label></th>
+        <th><label>Description</label></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -25,22 +26,27 @@
     <tr class="color" th:each="skill: ${skills}">
       <td> <label th:text="${skill.idSkill}"></label></label></td>
       <td> <label th:text="${skill.name}"></label></td>
-      <td> <label th:text="${skill.level}"></label></td>
+      <td>
+        <label th:if="${skill.level}==0"> Beginner</label>
+        <label th:if="${skill.level}==1"> Intermediate</label>
+        <label th:if="${skill.level}==2"> Expert</label>
+      </td>
       <td> <label th:text="${skill.description}"></label></td>
       <td>
         <div>
           <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
-                role="button">edit</a>
+                role="button"><img class="tamIcon" src="/imagenes/editar.png"></a>
           <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
-             role="button">delete</a>
+             role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
         </div>
 
       </td>
     </tr>
     </tbody>
   </table>
-  <a href="add"><button type="button">Añadir skill</button></a>
-  <a href=".."><button type="button">Atrás</button></a>
+  <br>
+  <a  href="add" class="add color_text" >Add</a>
+  <a  href=".." class="add color_text" >Back</a>
 </main>
 </body>
 </html>
