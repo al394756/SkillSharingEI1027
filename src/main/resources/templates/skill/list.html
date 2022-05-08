@@ -12,13 +12,16 @@
 <main class="centrado">
   <h1 class="titulo">Lista de Skills</h1>
   <table>
-    <tr>
-      <th ><label>idSkill</label></th>
-      <th><label>Nombre</label></th>
-      <th><label>Nivel</label></th>
-      <th><label>Descripción</label></th>
+    <thead>
+      <tr>
+        <th ><label>idSkill</label></th>
+        <th><label>Nombre</label></th>
+        <th><label>Nivel</label></th>
+        <th><label>Descripción</label></th>
+      </tr>
+    </thead>
 
-    </tr>
+    <tbody>
     <tr class="color" th:each="skill: ${skills}">
       <td> <label th:text="${skill.idSkill}"></label></label></td>
       <td> <label th:text="${skill.name}"></label></td>
@@ -34,6 +37,7 @@
 
       </td>
     </tr>
+    </tbody>
   </table>
   <a href="add"><button type="button">Añadir skill</button></a>
   <a href=".."><button type="button">Atrás</button></a>

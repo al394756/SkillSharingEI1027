@@ -10,16 +10,23 @@ th{
 }
 td{
     margin: auto;
-    padding: 1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1rem black ;
 }
-.color :nth-child(even){
-    background-color:#E8EEF6;
+tr{
+
+}
+table tbody tr:nth-child(odd) {
+    color: #7d9abb;
+    background: #E8EEF6;
+}
+table tbody tr:nth-child(even) {
+    background: #DCE4EE;
+    color: #7d9abb;
+
 }
 
-.color {
-    color: #7d9abb;
-    background: #DCE4EE;
-}
 a{
     color: #7d9abb;
     text-decoration: none;

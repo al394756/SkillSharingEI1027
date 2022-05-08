@@ -25,7 +25,9 @@
 }
 .logo-plano{
      height: 2.3rem;
-     padding-left: 6rem;
+     z-index:1;
+     position: fixed;
+     margin: 0 auto;
 }
 .color_text{
      text-decoration:none;
