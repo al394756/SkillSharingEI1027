@@ -8,9 +8,19 @@ public class Chat {
     private String user1;
     private String user2;
     private List<Message> log;
+    private boolean newMsg;
 
     public Chat() {
         log=new ArrayList<>();
+        newMsg = true;
+    }
+
+    public boolean isNewMsg() {
+        return newMsg;
+    }
+
+    public void setNewMsg(boolean newMsg) {
+        this.newMsg = newMsg;
     }
 
     public String getIdChat() {

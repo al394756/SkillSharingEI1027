@@ -18,5 +18,8 @@ public class Offer extends OffeRequest{
         super.setUrl(of.getUrl());
     }
 
-
+    @Override
+    public int compareTo(OffeRequest o) {
+        return this.getStartDate().compareTo(o.getStartDate());
+    }
 }

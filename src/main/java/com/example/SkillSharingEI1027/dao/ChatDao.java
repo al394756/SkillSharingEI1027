@@ -22,7 +22,7 @@ public class ChatDao {
 
     public String createChat(Student student1, Student student2){
         String id = idGenerator();
-        jdbcTemplate.update("INSERT INTO Chat VALUES(?,?,?)",id,student1.getIdStudent(),student2.getIdStudent());
+        jdbcTemplate.update("INSERT INTO Chat VALUES(?,?,?,?)",id,student1.getIdStudent(),student2.getIdStudent(),true);
         return id;
     }
 

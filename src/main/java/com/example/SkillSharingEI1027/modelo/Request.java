@@ -16,6 +16,10 @@ public class Request extends OffeRequest{
         super.setEndDate(of.getEndDate());
         super.setType(of.getType());
         super.setUrl(of.getUrl());
+    }
 
+    @Override
+    public int compareTo(OffeRequest o) {
+        return this.getStartDate().compareTo(o.getStartDate());
     }
 }

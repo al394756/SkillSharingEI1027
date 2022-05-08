@@ -21,7 +21,7 @@
     <div th:if="${#lists.isEmpty(list)}" th:text="'There are not '+${type}+'s registered'"></div>
 
 
-    <div class="grid" th:each="offeRequest: ${list}">
+    <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
         <div class="caja color_text">
             <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
             <div class="caja-interno">

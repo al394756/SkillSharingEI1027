@@ -1,6 +1,6 @@
 package com.example.SkillSharingEI1027.modelo;
 
-public class Skill {
+public class Skill implements Comparable<Skill>{
     private String idSkill;
     private String name;
     private String description;
@@ -52,4 +52,8 @@ public class Skill {
                 '}';
     }
 
+    @Override
+    public int compareTo(Skill o) {
+        return this.getIdSkill().compareTo(o.getIdSkill());
+    }
 }

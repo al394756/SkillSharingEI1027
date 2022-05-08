@@ -14,7 +14,7 @@
     <div th:if="${#lists.isEmpty(students)}">
         There are not Students registered
     </div>
-    <p>Ordenar por: </p>
+    <p>Sort by: </p>
     <form  action="#" th:action="@{/student/list/sorted}" th:object="${sorter}" >
         <select type="text" th:field="*{type}" th:onchange="this.form.submit()">
 

@@ -23,7 +23,7 @@
     </thead>
 
     <tbody>
-    <tr class="color" th:each="skill: ${skills}">
+    <tr class="color" th:each="skill: ${#lists.sort(skills, metodecomparador)}">
       <td> <label th:text="${skill.idSkill}"></label></td>
       <td> <label th:text="${skill.name}"></label></td>
       <td>

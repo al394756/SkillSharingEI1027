@@ -4,7 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-public abstract class OffeRequest {
+public abstract class OffeRequest implements Comparable<OffeRequest>{
     private String id;
     private Skill skill=new Skill();
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
