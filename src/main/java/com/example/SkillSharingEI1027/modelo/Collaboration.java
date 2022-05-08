@@ -16,6 +16,7 @@ public class Collaboration {
     public Collaboration(OffeRequest idRequest, OffeRequest idOffer) {
         this.idRequest = idRequest;
         this.idOffer = idOffer;
+        this.collaborationState=0;
     }
 
     public void setCollaborationState(int valor) {

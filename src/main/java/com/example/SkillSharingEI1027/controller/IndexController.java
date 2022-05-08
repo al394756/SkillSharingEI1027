@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/")
@@ -23,8 +24,9 @@ public class IndexController {
     private final String type="Request";
 
     @RequestMapping("/")
-    public String indexPage(Model model){
+    public String indexPage(Model model, HttpSession session){
         //model.addAttribute("offeRequest",offeRequestMethods.list(model,type));
+        session.setAttribute("today", LocalDate.now());
         return "welcome";
     }
 

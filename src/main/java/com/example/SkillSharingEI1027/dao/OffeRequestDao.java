@@ -18,10 +18,11 @@ public class OffeRequestDao {
     @Autowired
     public void setDataSource(DataSource dataSource){ jdbcTemplate = new JdbcTemplate(dataSource);}
 
-    public void add(OffeRequest offeRequest){
+    public OffeRequest add(OffeRequest offeRequest){
         offeRequest.setId(idGenerator(offeRequest));
-        jdbcTemplate.update("INSERT INTO "+offeRequest.getType()+" VALUES(?,?,?,?,?,?)", offeRequest.getId(),offeRequest.getSkill().getIdSkill(),
-                offeRequest.getStartDate(), offeRequest.getEndDate(), offeRequest.getDescription(),offeRequest.getStudent().getIdStudent());
+        jdbcTemplate.update("INSERT INTO "+offeRequest.getType()+" VALUES(?,?,?,?,?,?,?)", offeRequest.getId(),offeRequest.getSkill().getIdSkill(),
+                offeRequest.getStartDate(), offeRequest.getEndDate(), offeRequest.getDescription(),offeRequest.getStudent().getIdStudent(), offeRequest.isVisible());
+        return offeRequest;
     }
 
     public void delete(String id){

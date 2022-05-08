@@ -33,6 +33,14 @@ public class ChatDao {
         }
     }
 
+    public List<Chat> getChatsEntreStudents(Student student1, Student student2){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Chat WHERE (user1=? AND user2=?) OR (user1=? AND user2=?)", new ChatRowMapper(), student1.getIdStudent(),student2.getIdStudent(), student2.getIdStudent(),student1.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
     private String idGenerator(){
         AtomicInteger contadorChats = new AtomicInteger(getCantidadChats());
         StringBuilder id = new StringBuilder("ch");

@@ -44,6 +44,8 @@
 
                     <a th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}"  th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Edit</a>
                     <a th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}" th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" class="color_text">Cancel</a>
+                    <a th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent}" th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}" class="color_text">Accept </a>
+
                 </div>
             </div>
         </div>

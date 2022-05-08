@@ -23,7 +23,7 @@ public class CollaborationDao {
         collab.setIdCollaboration(idGenerator());
         jdbcTemplate.update("INSERT INTO Collaboration VALUES(?,?,?,?,?,?)",
                 collab.getIdCollaboration(),collab.getAssessmentScore(), collab.getCollaborationState(),
-                collab.getIdOffer(), collab.getIdRequest(), collab.getHours());
+                collab.getIdOffer().getId(), collab.getIdRequest().getId(), collab.getHours());
     }
     private String idGenerator(){
         AtomicInteger contador = new AtomicInteger(getCantidadCollaborations());
@@ -57,6 +57,7 @@ public class CollaborationDao {
             return new ArrayList<>();
         }
     }
+
 
 
 

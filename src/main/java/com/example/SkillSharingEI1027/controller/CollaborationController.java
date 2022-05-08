@@ -1,15 +1,9 @@
 package com.example.SkillSharingEI1027.controller;
 
 
-import com.example.SkillSharingEI1027.dao.CollaborationDao;
-import com.example.SkillSharingEI1027.dao.OffeRequestDao;
-import com.example.SkillSharingEI1027.dao.SkillDao;
-import com.example.SkillSharingEI1027.dao.StudentDao;
-import com.example.SkillSharingEI1027.modelo.Collaboration;
-import com.example.SkillSharingEI1027.modelo.OffeRequest;
+import com.example.SkillSharingEI1027.dao.*;
+import com.example.SkillSharingEI1027.modelo.*;
 
-import com.example.SkillSharingEI1027.modelo.Offer;
-import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,14 +22,14 @@ import java.util.List;
 public class CollaborationController {
     private CollaborationDao collaborationDao;
     private OffeRequestDao offeRequestDao;
-    private SkillDao skillDao;
-    private StudentDao studentDao;
+    private ChatDao chatDao;
+    private MessageDao messageDao;
 
     @Autowired
-    public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
+    public void setOffeRequestDao(OffeRequestDao offeRequestDao, ChatDao chatDao, MessageDao messageDao) {
         this.offeRequestDao = offeRequestDao;
-        this.skillDao = skillDao;
-        this.studentDao=studentDao;
+        this.chatDao = chatDao;
+        this.messageDao=messageDao;
     }
 
     @Autowired
@@ -47,22 +41,36 @@ public class CollaborationController {
         return "collaboration/list"; //falta html
     }
 
-    @RequestMapping(value = "/add/{requestId}/{offerId}", method = RequestMethod.GET )
-    public String addCollaboration(@PathVariable String requestId,@PathVariable String offerId, HttpSession session){
-        Collaboration collaboration= new Collaboration(offeRequestDao.getOffeRequest(requestId), offeRequestDao.getOffeRequest(offerId));
+    @RequestMapping(value = "/add/{offeRequestId}")
+    public String addCollaboration(@PathVariable String offeRequestId, HttpSession session){
+        OffeRequest offeRequestNueva;
+        OffeRequest offeRequestAceptada = offeRequestDao.getOffeRequest(offeRequestId);
+        if (offeRequestId.substring(0,2).equals("rq")){
+            offeRequestNueva=new Offer(offeRequestAceptada);
+            offeRequestNueva.setType("Offer");
+            offeRequestNueva.setStart("of");
+            offeRequestNueva.setUrl("offer");
+        } else {
+            offeRequestNueva = new Request(offeRequestAceptada);
+            offeRequestNueva.setType("Request");
+            offeRequestNueva.setStart("rq");
+            offeRequestNueva.setUrl("request");
+        }
+        offeRequestNueva.setStudent((Student) session.getAttribute("user"));
+        offeRequestNueva = offeRequestDao.add(offeRequestNueva);
+
+        Collaboration collaboration;
+        if (offeRequestNueva.getType().equals("Request"))
+            collaboration= new Collaboration(offeRequestNueva,offeRequestAceptada);
+        else
+            collaboration=new Collaboration(offeRequestAceptada,offeRequestNueva);
+
+
+
         collaborationDao.addCollaboration(collaboration);
 
-
-
-        return "collaboration/add";
+        return "welcome";
     }
 
-    @RequestMapping(value="/add", method = RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("request") Collaboration collaboration, BindingResult bindingResult){
-        if (bindingResult.hasErrors())
-            return "collaboration/add";
-        collaborationDao.addCollaboration(collaboration);
-        return "redirect:list";
-    }
 
 }

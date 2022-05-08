@@ -16,6 +16,7 @@ public abstract class OffeRequest {
     private String type;
     private String start;
     private String url;
+    private boolean visible;
 
     public String getId() {
         return id;
@@ -65,6 +66,10 @@ public abstract class OffeRequest {
         this.student = student;
     }
 
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     @Override
     public String toString() {
         return "OffeRequest{" +
@@ -77,10 +82,14 @@ public abstract class OffeRequest {
                 ", type='" + type + '\'' +
                 ", start='" + start + '\'' +
                 ", url='" + url + '\'' +
+                ", visible= "+visible+ '\''+
                 '}';
     }
 
 
+    public boolean isVisible() {
+        return visible;
+    }
 
     public String getType(){
         return type;
