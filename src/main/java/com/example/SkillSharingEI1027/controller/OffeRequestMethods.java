@@ -4,6 +4,13 @@ import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.*;
+import com.example.SkillSharingEI1027.services.CollaborationService;
+import com.example.SkillSharingEI1027.services.CollaborationSvc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -15,10 +22,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+
 public class OffeRequestMethods <T> {
     private OffeRequestDao offeRequestDao;
     private SkillDao skillDao;
     private StudentDao studentDao;
+    private CollaborationService collaborationService;
+
+    @Autowired
+    public void setCollaborationService(CollaborationService collaborationService) {
+        this.collaborationService = collaborationService;
+    }
 
     public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
         this.offeRequestDao = offeRequestDao;
@@ -29,11 +43,12 @@ public class OffeRequestMethods <T> {
     public String list(Model model, String type, HttpSession session) {
         model.addAttribute("type",type);
         List<OffeRequest> lista = offeRequestDao.getActiveOffeRequests(type);
+        //List<OffeRequest> lista2 = collaborationService.giveOffeRequestPendientes(type,(Student) session.getAttribute("session"));
+        //lista.removeAll(lista2);
         for (OffeRequest r : lista){
             r.setSkill(skillDao.getSkill(r.getSkill().getIdSkill()));
         }
         model.addAttribute("list", lista);
-        //model.addAttribute("student", session.getAttribute("user"));
         return "offeRequest/list";
     }
 

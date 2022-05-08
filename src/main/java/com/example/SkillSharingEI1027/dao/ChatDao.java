@@ -2,6 +2,7 @@ package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.Chat;
 import com.example.SkillSharingEI1027.modelo.Message;
+import com.example.SkillSharingEI1027.modelo.Skill;
 import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,9 +34,11 @@ public class ChatDao {
         }
     }
 
-    public List<Chat> getChatsEntreStudents(Student student1, Student student2){
+
+
+    public Chat getChatEntreStudents(Student student1, Student student2){
         try{
-            return jdbcTemplate.query("SELECT * FROM Chat WHERE (user1=? AND user2=?) OR (user1=? AND user2=?)", new ChatRowMapper(), student1.getIdStudent(),student2.getIdStudent(), student2.getIdStudent(),student1.getIdStudent());
+            return (Chat) jdbcTemplate.queryForObject("SELECT * FROM Chat WHERE (user1=? AND user2=?) OR (user1=? AND user2=?)", new ChatRowMapper(), student1.getIdStudent(),student2.getIdStudent(), student2.getIdStudent(),student1.getIdStudent());
         } catch (EmptyResultDataAccessException e){
             return null;
         }
@@ -54,5 +57,13 @@ public class ChatDao {
     private Integer getCantidadChats(){
         return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM CHAT", new IntegerRowMapper());
 
+    }
+
+    public Chat getChatConId(String id){
+        try{
+            return (Chat) jdbcTemplate.queryForObject("SELECT * FROM Chat WHERE idChat=?", new ChatRowMapper(), id);
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 }

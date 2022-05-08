@@ -4,6 +4,7 @@ import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.Request;
+import com.example.SkillSharingEI1027.services.CollaborationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ public class IndexController {
 
     private final OffeRequestMethods<Request> offeRequestMethods=new OffeRequestMethods<>();
     private final String type="Request";
+
+
 
     @RequestMapping("/")
     public String indexPage(Model model, HttpSession session){

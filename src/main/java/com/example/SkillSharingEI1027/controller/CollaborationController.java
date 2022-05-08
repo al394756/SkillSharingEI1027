@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +25,14 @@ public class CollaborationController {
     private OffeRequestDao offeRequestDao;
     private ChatDao chatDao;
     private MessageDao messageDao;
+    private SkillDao skillDao;
 
     @Autowired
-    public void setOffeRequestDao(OffeRequestDao offeRequestDao, ChatDao chatDao, MessageDao messageDao) {
+    public void setOffeRequestDao(OffeRequestDao offeRequestDao, ChatDao chatDao, MessageDao messageDao, SkillDao skillDao) {
         this.offeRequestDao = offeRequestDao;
         this.chatDao = chatDao;
         this.messageDao=messageDao;
+        this.skillDao=skillDao;
     }
 
     @Autowired
@@ -43,9 +46,48 @@ public class CollaborationController {
 
     @RequestMapping(value = "/add/{offeRequestId}")
     public String addCollaboration(@PathVariable String offeRequestId, HttpSession session){
-        OffeRequest offeRequestNueva;
+
         OffeRequest offeRequestAceptada = offeRequestDao.getOffeRequest(offeRequestId);
-        if (offeRequestId.substring(0,2).equals("rq")){
+        Student student= (Student) session.getAttribute("user");
+        OffeRequest offeRequestNueva = crearContrarioA(offeRequestAceptada,student);
+        Skill skill= skillDao.getSkill(offeRequestAceptada.getSkill().getIdSkill());
+
+
+        Collaboration collaboration;
+        String msgContent;
+        if (offeRequestNueva.getType().equals("Request")) {
+            collaboration = new Collaboration(offeRequestNueva, offeRequestAceptada);
+            msgContent="I have accepted your offer of "+ skill.getName()+" ("+offeRequestAceptada.getId()+")\nAccept the collaboration in the 'Collaboration proposals' section.";
+        }
+        else{
+            collaboration=new Collaboration(offeRequestAceptada,offeRequestNueva);
+            msgContent="I have accepted your request of "+ skill.getName()+" ("+offeRequestAceptada.getId()+")\nAccept the collaboration in the 'Collaboration proposals' section.";
+
+        }
+
+        Chat chat = conseguirChat(offeRequestAceptada.getStudent(),student);
+
+        mensajeConfirmacion(chat, msgContent, student );
+
+
+        collaborationDao.addCollaboration(collaboration);
+
+        return "welcome";
+    }
+
+
+    private Chat conseguirChat(Student student1, Student student2){
+        Chat chat = chatDao.getChatEntreStudents(student1, student2);
+        if (chat == null){
+            String id=chatDao.createChat(student1, student2);
+            chat = chatDao.getChatConId(id);
+        }
+        return chat;
+    }
+
+    private OffeRequest crearContrarioA(OffeRequest offeRequestAceptada, Student student){
+        OffeRequest offeRequestNueva;
+        if (offeRequestAceptada.getId().startsWith("rq")){
             offeRequestNueva=new Offer(offeRequestAceptada);
             offeRequestNueva.setType("Offer");
             offeRequestNueva.setStart("of");
@@ -56,21 +98,20 @@ public class CollaborationController {
             offeRequestNueva.setStart("rq");
             offeRequestNueva.setUrl("request");
         }
-        offeRequestNueva.setStudent((Student) session.getAttribute("user"));
-        offeRequestNueva = offeRequestDao.add(offeRequestNueva);
 
-        Collaboration collaboration;
-        if (offeRequestNueva.getType().equals("Request"))
-            collaboration= new Collaboration(offeRequestNueva,offeRequestAceptada);
-        else
-            collaboration=new Collaboration(offeRequestAceptada,offeRequestNueva);
+        offeRequestNueva.setStudent(student);
+        offeRequestDao.add(offeRequestNueva);
+        return offeRequestNueva;
 
-
-
-        collaborationDao.addCollaboration(collaboration);
-
-        return "welcome";
     }
+    private void mensajeConfirmacion(Chat chat, String msgContent, Student student){
 
-
+        Message msg = new Message();
+        msg.setDate(LocalDate.now());
+        msg.setStudent(student.getIdStudent());
+        msg.setIdChat(chat.getIdChat());
+        msg.setNumber(messageDao.messageNumber(msg.getIdChat()));
+        msg.setContent(msgContent);
+        messageDao.addMessage(msg);
+    }
 }
