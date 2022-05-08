@@ -22,12 +22,21 @@
      height: 6.5rem;
      z-index: 3;
      vertical-align: top;
+
+}
+.logodiv{
+     visibility: hidden;
+     width: 100%;
+     background: red;
+     margin: 0 auto;
+     text-align: center;
+     z-index:1;
+     position: absolute;
+
 }
 .logo-plano{
+     visibility: visible;
      height: 2.3rem;
-     z-index:1;
-     position: fixed;
-     margin: 0 auto;
 }
 .color_text{
      text-decoration:none;
