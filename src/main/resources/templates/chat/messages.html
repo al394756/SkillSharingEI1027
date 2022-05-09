@@ -15,7 +15,7 @@
     <th scope="col"></th>
     </thead>
     <tbody>
-    <tr th:each="message: ${messages}">
+    <tr th:each="message: ${#lists.sort(messages,metodecomparador)}">
     <td > <table>
             <tr><th th:text="${message.date}"> </th> </tr>
             <tr>
@@ -26,11 +26,7 @@
     </tr>
     </tbody>
 </table>
-<!--    <ul th:each="message: ${messages}">-->
-<!--    &#45;&#45;<p th:text="${message.date}">&#45;&#45;</p>-->
-<!--        <li th:text="${message.student}"></li> : <p th:text="${message.content}"></p>-->
 
-<!--    </ul>-->
 
 
     <input type="text" th:field="*{content}"> <input type="submit" value=">">
