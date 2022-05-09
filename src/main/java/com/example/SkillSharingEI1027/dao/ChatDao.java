@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,7 +23,7 @@ public class ChatDao {
 
     public String createChat(Student student1, Student student2){
         String id = idGenerator();
-        jdbcTemplate.update("INSERT INTO Chat VALUES(?,?,?,?)",id,student1.getIdStudent(),student2.getIdStudent(),true);
+        jdbcTemplate.update("INSERT INTO Chat VALUES(?,?,?,?,?)",id,student1.getIdStudent(),student2.getIdStudent(),false,false);
         return id;
     }
 
@@ -36,6 +37,10 @@ public class ChatDao {
 
 
 
+    public void updateChat(Chat chat){
+        jdbcTemplate.update("UPDATE CHAT SET newMsgParaStudent1=?, newMsgParaStudent2=? WHERE idChat=?", chat.isNewMsgParaStudent1(),chat.isNewMsgParaStudent2(),chat.getIdChat());
+
+    }
     public Chat getChatEntreStudents(Student student1, Student student2){
         try{
             return (Chat) jdbcTemplate.queryForObject("SELECT * FROM Chat WHERE (user1=? AND user2=?) OR (user1=? AND user2=?)", new ChatRowMapper(), student1.getIdStudent(),student2.getIdStudent(), student2.getIdStudent(),student1.getIdStudent());
@@ -44,6 +49,20 @@ public class ChatDao {
         }
     }
 
+    public List<String> getStudents(Chat chat){
+        List<String> list=new LinkedList<>();
+        try{
+            Chat chat1  = getChatConId(chat.getIdChat());
+            String student1=  chat1.getUser1();
+            list.add(student1);
+            String student2= chat1.getUser2();
+            list.add(student2);
+            return list;
+
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
     private String idGenerator(){
         AtomicInteger contadorChats = new AtomicInteger(getCantidadChats());
         StringBuilder id = new StringBuilder("ch");

@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public class MessageDao {
     private JdbcTemplate jdbcTemplate;
-    private String chat;
+    private Chat chat;
 
 
     @Autowired
@@ -49,11 +49,11 @@ public class MessageDao {
 
     }
 
-    public void setChat(String chat) {
+    public void setChat(Chat chat) {
         this.chat = chat;
     }
 
-    public String getChat() {
+    public Chat getChat() {
         return chat;
     }
 }

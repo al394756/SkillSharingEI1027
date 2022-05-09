@@ -8,19 +8,29 @@ public class Chat {
     private String user1;
     private String user2;
     private List<Message> log;
-    private boolean newMsg;
+    private boolean newMsgParaStudent1;
+    private boolean newMsgParaStudent2;
 
     public Chat() {
         log=new ArrayList<>();
-        newMsg = true;
+        newMsgParaStudent1=false;
+        newMsgParaStudent2=false;
     }
 
-    public boolean isNewMsg() {
-        return newMsg;
+    public boolean isNewMsgParaStudent1() {
+        return newMsgParaStudent1;
     }
 
-    public void setNewMsg(boolean newMsg) {
-        this.newMsg = newMsg;
+    public void setNewMsgParaStudent1(boolean newMsgParaStudent1) {
+        this.newMsgParaStudent1 = newMsgParaStudent1;
+    }
+
+    public boolean isNewMsgParaStudent2() {
+        return newMsgParaStudent2;
+    }
+
+    public void setNewMsgParaStudent2(boolean newMsgParaStudent2) {
+        this.newMsgParaStudent2 = newMsgParaStudent2;
     }
 
     public String getIdChat() {
