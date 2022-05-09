@@ -55,7 +55,7 @@
 
 .navigation ul {
      margin: 0;
-     padding-left: 0.3rem;;
+     padding-left: 0.3rem;
      list-style: none;
 }
 
@@ -79,6 +79,7 @@
 }
 
 .userName{
+     color: white;
      vertical-align: top;
      margin: auto;
      display: inline-block;
@@ -162,9 +163,6 @@
      transition: all 0.4s linear;
      border-radius: 5px;
 }
-.tam:hover{
-     background: #ccc;
-}
 .elementos_iz {
      padding-left: 9.8rem;
      padding-top: 0.5rem;
@@ -181,4 +179,15 @@
      font-style: normal;
      color: green;
      font-size: 1.2rem;
+}
+
+.numMen{
+     left: 6.7rem;
+     position: absolute;
+     line-height: 2.92rem;
+     font-size: 0.6rem;
+     color: white;
+     margin: auto;
+     display: inline-block;
+     height: 1.9rem;
 }
