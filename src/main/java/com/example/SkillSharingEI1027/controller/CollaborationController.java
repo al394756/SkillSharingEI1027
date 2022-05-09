@@ -82,6 +82,12 @@ public class CollaborationController {
             String id=chatDao.createChat(student1, student2);
             chat = chatDao.getChatConId(id);
         }
+        if (chat.getUser1().equals(student1.getIdStudent())){
+            chat.setNewMsgParaStudent1(true);
+        } else if(chat.getUser2().equals(student1.getIdStudent())){
+            chat.setNewMsgParaStudent2(true);
+        }
+        chatDao.updateChat(chat);
         return chat;
     }
 

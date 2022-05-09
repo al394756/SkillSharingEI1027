@@ -15,7 +15,7 @@ public final class ChatRowMapper implements RowMapper {
        chat.setUser1(rs.getString("user1"));
        chat.setUser2(rs.getString("user2"));
        chat.setNewMsgParaStudent1(rs.getBoolean("newMsgParaStudent1"));
-        chat.setNewMsgParaStudent1(rs.getBoolean("newMsgParaStudent2"));
+       chat.setNewMsgParaStudent2(rs.getBoolean("newMsgParaStudent2"));
 
         return  chat;
     }
