@@ -20,3 +20,19 @@
     vertical-align: middle;
     padding: 10px;
 }
+table{
+    color: white;
+    margin: auto;
+    border: white;
+    border-radius: 5px;
+    text-align: left;
+}
+td{
+    margin: auto;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+table tr{
+    color: #7d9abb;
+    background: #DCE4EE;
+}

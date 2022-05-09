@@ -12,26 +12,17 @@
 
 <body>
 <main>
-    <div class="contenedor">
-        <div class="contenidos">
-            <div class="cell">Name:</div>
-            <div><label th:text="${session.user.getName()}" ></label></div>
-            <div class="cell">Email:</div>
-            <div><label th:text="${session.user.getEmail()}" ></label></div>
-        </div>
-        <div class="contenidos">
-            <div class="cell">Student ID:</div>
-            <div><label th:text="${session.user.getIdStudent()}" ></label></div>
-            <div class="cell">Hours:</div>
-            <div><label th:text="${session.user.getBalanceHours()}" ></label></div>
-        </div>
-    </div>
-    <div class="contenedor">
-        <div class="contenidos">
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell">Active collaborations</div>
-        </div>
+    <div class="container">
+        <table>
+            <tr>
+                <td>
+                    <div class="color_text">
+                        <label>Name:</label>
+                        <label th:text="*{session.user.name}"></label>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </main>
 </body>
