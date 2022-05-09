@@ -1,0 +1,72 @@
+.caja{
+    border-radius: 20px;
+    background: #7d9abb;
+    width: 30rem;
+    height: 20rem;
+    margin: 0 auto;
+    box-shadow: 0 0 0.7rem #333333;
+}
+.caja-interno{
+    margin: auto;
+    padding: 0 2rem;
+    padding-bottom: 2rem;
+    padding-top: 0.5rem;
+    text-align: center;
+}
+main{
+    color: white;
+    padding-top: 7rem;
+}
+table{
+    width: 100%;
+}
+tr {
+    width: 100%;
+}
+td{
+    padding: 0.2rem;
+}
+input{
+    width: 15rem;
+    height: 1.5rem;
+    border: white;
+    border-radius: 5px;
+    background: white;
+}
+input:hover{
+    background: #eee;
+}
+
+.sumit{
+    width: 8rem;
+    height: 1.8rem;
+    border: white;
+    border-radius: 5px;
+    background: white;
+    color: #7d9abb;
+    font-weight: bold;
+}
+
+.iz{
+    text-align: left
+}
+label{
+    padding-left: 1rem;
+}
+hr{
+    height: 0.2rem;
+    background: white;
+    border: white;
+}
+
+.error{
+    background: #FFC2C2;
+}
+
+.error:hover{
+    background: white;
+}
+.er{
+    font-size: 70%;
+    color: #FFC2C2;
+}
