@@ -12,20 +12,20 @@
 
 <body>
 <main>
-    <table class="contenedor">
-        <tr>
-            <td>Name:</td>
-            <td><label th:text="${session.user.getName()}" ></label></td>
-            <td>Email:</td>
-            <td><label th:text="${session.user.getEmail()}" ></label></td>
-        </tr>
-        <tr>
-            <td>Student ID:</td>
-            <td><label th:text="${session.user.getIdStudent()}" ></label></td>
-            <td>Hours:</td>
-            <td><label th:text="${session.user.getBalanceHours()}" ></label></td>
-        </tr>
-    </table>
+    <div class="contenedor">
+        <div class="contenidos">
+            <div class="cell">Name:</div>
+            <div><label th:text="${session.user.getName()}" ></label></div>
+            <div class="cell">Email:</div>
+            <div><label th:text="${session.user.getEmail()}" ></label></div>
+        </div>
+        <div class="contenidos">
+            <div class="cell">Student ID:</div>
+            <div><label th:text="${session.user.getIdStudent()}" ></label></div>
+            <div class="cell">Hours:</div>
+            <div><label th:text="${session.user.getBalanceHours()}" ></label></div>
+        </div>
+    </div>
     <div class="contenedor">
         <div class="contenidos">
             <div class="cell">Your requests</div>
