@@ -1,4 +1,5 @@
-<header class="header" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<header class="header">
     <div class="logodiv"><img src="/imagenes/logoPlano.png" class="logo-plano"></div>
     <div class="navL">
         <nav class="navigation">
@@ -44,12 +45,11 @@
     <div class="elementos_iz"><label class="color_text tam" for="check">✖</label></div>
     <img SRC="/imagenes/logo.png" class="logo">
     <ul>
-        <li ><a href="/student/list" class="color_text interlimeado">Users</a></li>
-        <li ><a href="/request/list" class="color_text interlimeado">Requests</a></li>
-        <li ><a href="/offer/list" class="color_text interlimeado">Offers</a></li>
-        <li ><a href="/skill/list" class="color_text interlimeado">Skills</a></li>
-        <li ><a href="/collaboration/list" class="color_text interlimeado">Collaborations</a></li>
-        <li ><a href="/chat/list" class="color_text interlimeado">Chats</a></li>
+        <li th:if="not ${session.user == null}"><a href="/student/list" class="color_text interlimeado">Listar usuarios</a></li>
+        <li ><a href="/request/list" class="color_text interlimeado">Request</a></li>
+        <li th:if="not ${session.user == null}"><a href="/offer/list" class="color_text interlimeado">Offers</a></li>
+        <li th:if="not ${session.user == null}"><a href="/skill/list" class="color_text interlimeado">Skills</a></li>
+        <li th:if="not ${session.user == null}"><a href="/chat/list" class="color_text interlimeado">Comprobar chats</a></li>
     </ul>
 </div>
 
