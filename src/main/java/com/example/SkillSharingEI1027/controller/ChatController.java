@@ -48,7 +48,6 @@ public class ChatController {
     public String checkMessages(Model model,@PathVariable String chatId, HttpSession session){
         Student user = (Student) session.getAttribute("user");
         Chat chat = chatDao.getChatConId(chatId);
-        System.out.println(chat.toString());
 
         List<String> listStudents=chatDao.getStudents(chat);
         model.addAttribute("messages", messageDao.getMessagesFromChat(chatId));
@@ -64,6 +63,8 @@ public class ChatController {
         chatDao.updateChat(chat);
 
         messageDao.setChat(chat);
+
+        session.setAttribute("UnreadMsg", chatDao.getCantidadChatsSinLeer(user));
 
         model.addAttribute("newMessage", new Message());
 
@@ -85,9 +86,9 @@ public class ChatController {
 
         messageDao.addMessage(newMessage);
         if (listStudents.get(0).equals(user.getIdStudent())){
-            chat.setNewMsgParaStudent1(true);
-        } else {
             chat.setNewMsgParaStudent2(true);
+        } else {
+            chat.setNewMsgParaStudent1(true);
 
         }
 

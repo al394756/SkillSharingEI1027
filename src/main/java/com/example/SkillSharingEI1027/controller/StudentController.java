@@ -152,6 +152,7 @@ public class StudentController {
         }
         session.setAttribute("user",student);
 
+        session.setAttribute("UnreadMsg", chatDao.getCantidadChatsSinLeer(student));
         return "redirect:/";
     }
 
@@ -173,6 +174,7 @@ public class StudentController {
         student = studentDao.getStudentUsingId(id);
 
         session.setAttribute("user",student);
+        session.setAttribute("UnreadMsg", chatDao.getCantidadChatsSinLeer(student));
         return "redirect:/";
     }
 

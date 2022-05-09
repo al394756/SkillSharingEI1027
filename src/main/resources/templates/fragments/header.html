@@ -1,11 +1,12 @@
-
-<header class="header">
+<header class="header" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="logodiv"><img src="/imagenes/logoPlano.png" class="logo-plano"></div>
     <div class="navL">
         <nav class="navigation">
             <ul>
                 <li><a><label class="color_text tam" for="check">☰</label></a></li>
                 <li><a href="/"><img src="/imagenes/home.png" class="home-icon"></a></li>
+                <li><div th:unless="*{user == null}"><a href="/chat/list" ><img src="/imagenes/comentario.png" class="home-icon"></a></div></li>
+                <li><p class="userName" th:text="${session.UnreadMsg}" ></p></li>
             </ul>
         </nav>
         <nav class="navigation">
