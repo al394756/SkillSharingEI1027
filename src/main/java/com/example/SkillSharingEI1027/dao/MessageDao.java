@@ -27,7 +27,7 @@ public class MessageDao {
     }
 
     public void banMessage(String chat , Student student){
-        jdbcTemplate.update("INSERT INTO Message VALUES(?,?,?,?,?)",chat,0,"id000000",student.getBanReason(), LocalDate.now());
+        jdbcTemplate.update("INSERT INTO Message VALUES(?,?,?,?,?)",chat,messageNumber(chat),"id000000",student.getBanReason(), LocalDate.now());
 
 
     }

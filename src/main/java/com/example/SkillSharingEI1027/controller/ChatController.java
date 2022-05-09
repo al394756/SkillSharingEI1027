@@ -48,6 +48,8 @@ public class ChatController {
     public String checkMessages(Model model,@PathVariable String chatId, HttpSession session){
         Student user = (Student) session.getAttribute("user");
         Chat chat = chatDao.getChatConId(chatId);
+        System.out.println(chat.toString());
+
         List<String> listStudents=chatDao.getStudents(chat);
         model.addAttribute("messages", messageDao.getMessagesFromChat(chatId));
 
@@ -55,12 +57,14 @@ public class ChatController {
         if (listStudents.get(0).equals(user.getIdStudent())){
             chat.setNewMsgParaStudent1(false);
         } else {
+
             chat.setNewMsgParaStudent2(false);
 
         }
         chatDao.updateChat(chat);
 
-        messageDao.setChat(chatDao.getChatConId(chatId));
+        messageDao.setChat(chat);
+
         model.addAttribute("newMessage", new Message());
 
         return "chat/messages";
@@ -76,6 +80,7 @@ public class ChatController {
         List<String> listStudents=chatDao.getStudents(messageDao.getChat());
         Chat chat = messageDao.getChat();
 
+
         newMessage.setNumber(messageDao.messageNumber(newMessage.getIdChat()));
 
         messageDao.addMessage(newMessage);
@@ -85,6 +90,8 @@ public class ChatController {
             chat.setNewMsgParaStudent2(true);
 
         }
+
+
         chatDao.updateChat(chat);
         return "redirect:/chat/messages/"+newMessage.getIdChat();
     }

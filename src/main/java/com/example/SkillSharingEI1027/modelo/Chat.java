@@ -65,4 +65,15 @@ public class Chat {
         this.log = log;
     }
 
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "idChat='" + idChat + '\'' +
+                ", user1='" + user1 + '\'' +
+                ", user2='" + user2 + '\'' +
+                ", log=" + log +
+                ", newMsgParaStudent1=" + newMsgParaStudent1 +
+                ", newMsgParaStudent2=" + newMsgParaStudent2 +
+                '}';
+    }
 }

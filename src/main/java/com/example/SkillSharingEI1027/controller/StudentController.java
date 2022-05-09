@@ -223,8 +223,17 @@ public class StudentController {
 
         String msg = "Our SKP: "+user.getName()+"("+user.getIdStudent()+") has banned you from this service because:\n"+student.getBanReason();
         student.setBanReason(msg);
-        String idChat =chatDao.createChat(studentDao.getStudentUsingId("id000000"), student);
+        Chat chat=chatDao.getChatEntreStudents(studentDao.getStudentUsingId("id000000"), student);
+        String idChat;
+        if (chat==null) {
+            idChat = chatDao.createChat(studentDao.getStudentUsingId("id000000"), student);
+        } else {
+            idChat=chat.getIdChat();
+        }
         messageDao.banMessage(idChat, student);
+        chat=chatDao.getChatConId(idChat);
+        chat.setNewMsgParaStudent2(true);
+        chatDao.updateChat(chat);
         studentDao.cancelStudent(student);
         return "redirect:/";
     }
