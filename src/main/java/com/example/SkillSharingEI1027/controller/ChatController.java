@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/chat")
@@ -40,15 +43,24 @@ public class ChatController {
     @RequestMapping("/list")
     public String listChats(Model model, HttpSession session){
         Student user = (Student) session.getAttribute("user");
-        model.addAttribute("chats", chatDao.getChatsDeStudent(user));
+        model.addAttribute("chats",createMap(chatDao.getChatsDeStudent(user),user));
         return "chat/list";
     }
 
+    private Map<Chat,String> createMap(List<Chat> list, Student user){
+        Map<Chat,String>chats=new HashMap<>();
+        for (Chat chat:list){
+            if (chat.getUser1().equals(user.getIdStudent())) chats.put(chat,studentDao.getStudentUsingId(chat.getUser2()).getName());
+            else chats.put(chat,studentDao.getStudentUsingId(chat.getUser1()).getName());
+        }
+        return chats;
+    }
 
     //Revisar mensajes entre 2 students
     @RequestMapping(value="/messages/{chatId}")
     public String checkMessages(Model model,@PathVariable String chatId, HttpSession session){
         Student user = (Student) session.getAttribute("user");
+        model.addAttribute("chats", createMap(chatDao.getChatsDeStudent(user),user));
         Chat chat = chatDao.getChatConId(chatId);
 
         List<String> listStudents=chatDao.getStudents(chat);
@@ -69,7 +81,6 @@ public class ChatController {
         model.addAttribute("user2",studentDao.getStudentUsingId(idUser2).getName());
         model.addAttribute("user", user.getIdStudent());
         model.addAttribute("newMessage", new Message());
-
         return "chat/messages";
     }
 

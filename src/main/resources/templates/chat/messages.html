@@ -3,15 +3,15 @@
 <head>
     <title>Gestionar Chats</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
     <link href="../static/css/messages.css" rel="stylesheet" th:href="@{/css/messages.css}"/>
+    <link href="../static/css/chat.css" rel="stylesheet" th:href="@{/css/chat.css}"/>
 </head>
 <div th:replace="fragments/header" ></div>
-<body>
+<div th:replace="chat/list" ></div>
+<body class="body2">
 <main>
-
     <section class="chatbox">
         <h1 class="username" th:text="${user2}"></h1>
         <section class="chat-window">
