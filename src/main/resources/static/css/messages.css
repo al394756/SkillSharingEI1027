@@ -28,6 +28,7 @@ body {
     flex-direction: column;
     overflow: hidden;
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    border-radius: 20px;
 }
 .chat-window {
     flex: auto;
@@ -38,7 +39,7 @@ body {
 .chat-input {
     flex: 0 0 auto;
     height: 60px;
-    background: #40434e;
+    background: #ffffff;
     border-top: 1px solid #2671ff;
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
 }
@@ -52,13 +53,13 @@ body {
     text-indent: 10px;
     font-size: 12pt;
     padding: 0;
-    background: #40434e;
+    background: #ffffff;
 }
 .chat-input button {
     float: right;
     outline: 0 none;
     border: none;
-    background: rgba(255,255,255,.25);
+    background: rgb(255, 255, 255);
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -93,14 +94,7 @@ body {
     float: left;
     box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24);
 }
-.user-img {
-    display: inline-block;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
-    background: #2671ff;
-    margin: 0 10px 10px 0;
-}
+
 .flr {
     flex: 1 0 auto;
     display: flex;
@@ -140,7 +134,9 @@ body {
     margin-bottom: 10px;
 }
 .username {
-    margin-right: 3px;
+    text-align: center;
+    color: white;
+    background: #7699bf;
 }
 .posttime {
     margin-left: 3px;
@@ -158,8 +154,4 @@ body {
 }
 .msg-self .timestamp {
     text-align: right;
-}
-
-h1{
-    text-align: center;
 }

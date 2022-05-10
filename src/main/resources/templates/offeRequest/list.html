@@ -32,11 +32,11 @@
                 <table >
                     <tr>
                         <td class="endStart"><label>Start</label></td>
-                        <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.startDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                        <td><input class="texto" type="date" th:value="${#temporals.format(offeRequest.startDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
                     </tr>
                     <tr>
                         <td class="endStart"><label>End</label></td>
-                        <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.endDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                        <td><input class="texto" type="date" th:value="${#temporals.format(offeRequest.endDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
                     </tr>
                 </table>
                 <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>

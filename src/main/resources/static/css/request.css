@@ -24,9 +24,9 @@
 }
 .descripcion{
     background: white;
-    width: 100%;
     border-radius: 5px;
-    height: 8rem;
+    max-width: 80%;
+    width: auto;
 }
 .texto{
     padding: 0.3rem 0.5rem;
@@ -34,6 +34,11 @@
     color: #7d9abb;
     font-size: 1rem;
     line-height: normal;
+    background: white;
+    border-radius: 5px;
+    border: white;
+    max-width: 80%;
+    width: auto;
 }
 
 main {
@@ -43,6 +48,7 @@ main {
     border-radius: 5px;
     border: white;
     width: 7.9rem;
+    color: #7d9abb;
 }
 
 .endStart{
@@ -61,8 +67,6 @@ main {
     text-decoration: none;
     color: #7d9abb;
 }
-
-
 
 .accept{
     width: 5rem;

@@ -32,14 +32,13 @@
         <label th:if="${skill.level}==2"> Expert</label>
       </td>
       <td> <label th:text="${skill.description}"></label></td>
-      <td>
+      <td th:if="not ${session.user == null} and ${session.user.skpMember==true}">
         <div>
           <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
                 role="button"><img class="tamIcon" src="/imagenes/editar.png"></a>
           <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
              role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
         </div>
-
       </td>
     </tr>
     </tbody>

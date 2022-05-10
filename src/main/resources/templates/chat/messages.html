@@ -13,7 +13,7 @@
 <main>
 
     <section class="chatbox">
-        <h1 th:text="${user2}"></h1>
+        <h1 class="username" th:text="${user2}"></h1>
         <section class="chat-window">
             <div th:each="message: ${messages}">
                 <div th:if=" ${session.user != null} and ${session.user.idStudent} != ${message.student}">
