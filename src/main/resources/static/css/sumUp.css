@@ -1,8 +1,8 @@
 .caja{
     border-radius: 20px;
     background: #7d9abb;
-    width: 42rem;
-    height: 35rem;
+    width: 40rem;
+    height: 32rem;
     margin: 0 auto;
     box-shadow: 0 0 0.7rem #333333;
 }
@@ -10,16 +10,12 @@
     margin: auto;
     padding: 0 2rem;
     padding-bottom: 2rem;
-    padding-top: 0.5rem;
-}
-form {
+    padding-top: 0.01rem;
     text-align: center;
 }
 main{
     color: white;
-    padding-top: 7rem;
-}
-h2{
+    padding-top: 4rem;
     text-align: center;
 }
 table{
@@ -33,6 +29,9 @@ td{
 }
 
 .register{
+    padding-top: 1rem;
+}
+.register input{
     width: 8rem;
     height: 1.8rem;
     border: white;
@@ -111,14 +110,13 @@ hr{
     background: white;
     border: white;
 }
-.or{
-    margin: 0;
-    padding-left: 0.3rem;;
-    list-style: none;
+p{
+    color: #7d9abb;
 }
-.or li {
-    display: inline-block;
-    vertical-align: top;
-    padding: 0 0;
-
+a{
+    background: #7d9abb;
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 0.5rem;
 }

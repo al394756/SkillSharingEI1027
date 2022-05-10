@@ -1,5 +1,6 @@
 package com.example.SkillSharingEI1027.controller;
 
+import com.example.SkillSharingEI1027.dao.ChatDao;
 import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
@@ -25,11 +26,11 @@ public class IndexController {
     private final String type="Request";
 
 
-
     @RequestMapping("/")
     public String indexPage(Model model, HttpSession session){
         //model.addAttribute("offeRequest",offeRequestMethods.list(model,type));
         session.setAttribute("today", LocalDate.now());
+
         return "welcome";
     }
 

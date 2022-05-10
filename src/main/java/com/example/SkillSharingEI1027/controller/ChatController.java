@@ -3,7 +3,6 @@ package com.example.SkillSharingEI1027.controller;
 
 import com.example.SkillSharingEI1027.dao.ChatDao;
 import com.example.SkillSharingEI1027.dao.MessageDao;
-import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.Chat;
 import com.example.SkillSharingEI1027.modelo.Message;
@@ -11,7 +10,6 @@ import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -67,6 +64,7 @@ public class ChatController {
         chatDao.updateChat(chat);
 
         messageDao.setChat(chat);
+        session.setAttribute("UnreadMsg", chatDao.getCantidadChatsSinLeer(user));
 
         model.addAttribute("user2",studentDao.getStudentUsingId(idUser2).getName());
         model.addAttribute("user", user.getIdStudent());
@@ -90,9 +88,9 @@ public class ChatController {
 
         messageDao.addMessage(newMessage);
         if (listStudents.get(0).equals(user.getIdStudent())){
-            chat.setNewMsgParaStudent1(true);
-        } else {
             chat.setNewMsgParaStudent2(true);
+        } else {
+            chat.setNewMsgParaStudent1(true);
 
         }
 

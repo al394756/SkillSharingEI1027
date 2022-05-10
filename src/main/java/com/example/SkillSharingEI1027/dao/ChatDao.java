@@ -85,4 +85,9 @@ public class ChatDao {
             return null;
         }
     }
+
+    public Integer getCantidadChatsSinLeer(Student student){
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM CHAT WHERE (user1=? AND newMsgParaStudent1=true) OR (user2=? AND newMsgParaStudent2=true)", new IntegerRowMapper(),student.getIdStudent(),student.getIdStudent());
+
+    }
 }
