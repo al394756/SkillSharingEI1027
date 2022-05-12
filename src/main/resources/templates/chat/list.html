@@ -10,18 +10,19 @@
 <div th:replace="fragments/header" ></div>
 <body>
 <main>
-  <aside>
-<h1>Your Chats</h1>
+  <div class="caja">
+    <h1>Your Chats</h1>
     <ul>
-
       <div th:each="chat: ${#lists.sort(chats,metodecomparador)}">
         <li>
-          <a th:href="@{/chat/messages/{idChat}(idChat=${chat.getIdChat()})}"><button class="buttonlist" type="button" th:text="${chat.getNombreOtraPersona()}"></button></a>
-      </li>
+          <a th:href="@{/chat/messages/{idChat}(idChat=${chat.getIdChat()})}">
+            <button class="buttonlist" type="button" th:text="${chat.getNombreOtraPersona()}"></button>
+          </a>
+        </li>
       </div>
     </ul>
+  </div>
 
-  </aside>
   <br>
   <a href="/"><button class="addbutton color_text" type="button">Back</button></a>
   <br>
