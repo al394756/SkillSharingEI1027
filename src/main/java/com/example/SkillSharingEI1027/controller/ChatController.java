@@ -63,25 +63,29 @@ public class ChatController {
         Student user = (Student) session.getAttribute("user");
         List<Chat> chats=chatDao.getChatsDeStudentSinLeer(user);
         chats.addAll(chatDao.getChatsDeStudentLeidos(user));
-
-        model.addAttribute("chats",createMap(chatDao.getChatsDeStudent(user),user));
+        almacenarNombrePersona(chats, user.getIdStudent());
+        model.addAttribute("chats", chats);
         return "chat/list";
     }
 
-    private Map<Chat,String> createMap(List<Chat> list, Student user){
-        Map<Chat,String>chats=new HashMap<>();
-        for (Chat chat:list){
-            if (chat.getUser1().equals(user.getIdStudent())) chats.put(chat,studentDao.getStudentUsingId(chat.getUser2()).getName());
-            else chats.put(chat,studentDao.getStudentUsingId(chat.getUser1()).getName());
+    private void almacenarNombrePersona(List<Chat> chats, String user){
+        for (Chat chat:chats ) {
+            if (user.equals(chat.getUser1())){
+                chat.setNombreOtraPersona(studentDao.getStudentUsingId(chat.getUser2()).getName());
+            } else {
+                chat.setNombreOtraPersona(studentDao.getStudentUsingId(chat.getUser1()).getName());
+            }
         }
-        return chats;
+
     }
 
     //Revisar mensajes entre 2 students
     @RequestMapping(value="/messages/{chatId}")
     public String checkMessages(Model model,@PathVariable String chatId, HttpSession session){
         Student user = (Student) session.getAttribute("user");
-        model.addAttribute("chats", createMap(chatDao.getChatsDeStudent(user),user));
+        List<Chat> chats = chatDao.getChatsDeStudent(user);
+        almacenarNombrePersona(chats,user.getIdStudent());
+        model.addAttribute("chats", chats);
         Chat chat = chatDao.getChatConId(chatId);
 
         List<String> listStudents=chatDao.getStudents(chat);

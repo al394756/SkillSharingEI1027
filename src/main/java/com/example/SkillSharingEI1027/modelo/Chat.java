@@ -7,12 +7,11 @@ public class Chat implements Comparable<Chat>{
     private String idChat;
     private String user1;
     private String user2;
-    private List<Message> log;
     private boolean newMsgParaStudent1;
     private boolean newMsgParaStudent2;
+    private String nombreOtraPersona;
 
     public Chat() {
-        log=new ArrayList<>();
         newMsgParaStudent1=false;
         newMsgParaStudent2=false;
     }
@@ -45,10 +44,6 @@ public class Chat implements Comparable<Chat>{
         return user2;
     }
 
-    public List<Message> getLog() {
-        return log;
-    }
-
     public void setIdChat(String idChat) {
         this.idChat = idChat;
     }
@@ -61,8 +56,12 @@ public class Chat implements Comparable<Chat>{
         this.user2 = user2;
     }
 
-    public void setLog(List<Message> log) {
-        this.log = log;
+    public String getNombreOtraPersona() {
+        return nombreOtraPersona;
+    }
+
+    public void setNombreOtraPersona(String nombreOtraPersona) {
+        this.nombreOtraPersona = nombreOtraPersona;
     }
 
     @Override
@@ -71,7 +70,6 @@ public class Chat implements Comparable<Chat>{
                 "idChat='" + idChat + '\'' +
                 ", user1='" + user1 + '\'' +
                 ", user2='" + user2 + '\'' +
-                ", log=" + log +
                 ", newMsgParaStudent1=" + newMsgParaStudent1 +
                 ", newMsgParaStudent2=" + newMsgParaStudent2 +
                 '}';

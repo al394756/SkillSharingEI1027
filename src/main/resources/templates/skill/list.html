@@ -11,10 +11,10 @@
 <body>
 <main class="centrado">
   <h1 class="titulo">Lista de Skills</h1>
-  <table>
+  <div th:if="${#lists.isEmpty(skills)}" th:text="'There are not Skills available'"></div>
+  <table th:unless="${#lists.isEmpty(skills)}">
     <thead>
       <tr>
-        <th ><label>idSkill</label></th>
         <th><label>Name</label></th>
         <th><label>Level</label></th>
         <th><label>Description</label></th>
@@ -24,7 +24,6 @@
 
     <tbody>
     <tr class="color" th:each="skill: ${#lists.sort(skills, metodecomparador)}">
-      <td> <label th:text="${skill.idSkill}"></label></td>
       <td> <label th:text="${skill.name}"></label></td>
       <td>
         <label th:if="${skill.level}==0"> Beginner</label>

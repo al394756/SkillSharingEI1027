@@ -20,7 +20,6 @@ public class OffeRequestDao {
     public void setDataSource(DataSource dataSource){ jdbcTemplate = new JdbcTemplate(dataSource);}
 
     public OffeRequest add(OffeRequest offeRequest){
-        System.out.println(offeRequest);
         offeRequest.setId(idGenerator(offeRequest));
         jdbcTemplate.update("INSERT INTO "+offeRequest.getType()+" VALUES(?,?,?,?,?,?)", offeRequest.getId(),offeRequest.getSkill().getIdSkill(),
                 offeRequest.getStartDate(), offeRequest.getEndDate(), offeRequest.getDescription(),offeRequest.getStudent().getIdStudent());
