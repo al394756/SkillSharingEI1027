@@ -44,8 +44,9 @@
     </tbody>
   </table>
   <br>
-  <a  href="add" class="add color_text" >Add</a>
   <a  href="/" class="add color_text" >Back</a>
+  <a  th:if="${session.user.skpMember==true}"  href="add" class="add color_text" >Add</a>
+
 </main>
 </body>
 </html>

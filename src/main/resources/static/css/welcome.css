@@ -1,5 +1,410 @@
-.texto_pequeño{
-    font-style:italic;
-    font-size: small;
+html {
+  font-size: 18px;
+}
 
+body {
+  background-color: #ffffff;
+  color: #050533;
+  font-family: Arial;
+}
+
+.body-section.dark {
+  background-color: #3e5cd2;
+  color: #ffffff;
+}
+.body-section.dark a {
+  font-family: Arial;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: underline;
+}
+.body-section.dark a:active {
+  color: #cdcdcd;
+}
+.body-section.dark a:visited {
+  color: #cdcdcd;
+}
+.body-section.dark a:hover {
+  color: #cdcdcd;
+}
+.body-section.dark h1,
+.body-section.dark h2,
+.body-section.dark h3,
+.body-section.dark h4,
+.body-section.dark h5,
+.body-section.dark h6 {
+  font-family: Arial;
+  color: #ffffff;
+}
+
+.sumit{
+    width: 8rem;
+    height: 1.8rem;
+    border: white;
+    border-radius: 5px;
+    background: white;
+    color: #7d9abb;
+    font-weight: bold;
+}
+
+.body-section.light a {
+  font-family: Arial;
+  color: #050533;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: underline;
+}
+.body-section.light a:active {
+  color: #373765;
+}
+.body-section.light a:visited {
+  color: #373765;
+}
+.body-section.light a:hover {
+  color: #373765;
+}
+.check{
+    width:35px;
+    height:35px;
+    padding: 0px 10px, 10px, 10px;
+}
+p {
+margin-top: 0;
+margin-left: 26px;
+margin-bottom: 30px;"
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Arial;
+  color: #050533;
+}
+
+/* One Line Inputs */
+input[type=text],
+input[type=password],
+input[type=datetime],
+input[type=datetime-local],
+input[type=date],
+input[type=month],
+input[type=time],
+input[type=week],
+input[type=number],
+input[type=email],
+input[type=url],
+input[type=search],
+input[type=tel],
+input[type=color],
+input[type=file],
+textarea,
+select {
+  color: #050533;
+  font-family: Arial;
+}
+input[type=text]::-webkit-input-placeholder,
+input[type=password]::-webkit-input-placeholder,
+input[type=datetime]::-webkit-input-placeholder,
+input[type=datetime-local]::-webkit-input-placeholder,
+input[type=date]::-webkit-input-placeholder,
+input[type=month]::-webkit-input-placeholder,
+input[type=time]::-webkit-input-placeholder,
+input[type=week]::-webkit-input-placeholder,
+input[type=number]::-webkit-input-placeholder,
+input[type=email]::-webkit-input-placeholder,
+input[type=url]::-webkit-input-placeholder,
+input[type=search]::-webkit-input-placeholder,
+input[type=tel]::-webkit-input-placeholder,
+input[type=color]::-webkit-input-placeholder,
+input[type=file]::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+select::-webkit-input-placeholder {
+  font-family: Arial;
+}
+input[type=text]::-moz-placeholder,
+input[type=password]::-moz-placeholder,
+input[type=datetime]::-moz-placeholder,
+input[type=datetime-local]::-moz-placeholder,
+input[type=date]::-moz-placeholder,
+input[type=month]::-moz-placeholder,
+input[type=time]::-moz-placeholder,
+input[type=week]::-moz-placeholder,
+input[type=number]::-moz-placeholder,
+input[type=email]::-moz-placeholder,
+input[type=url]::-moz-placeholder,
+input[type=search]::-moz-placeholder,
+input[type=tel]::-moz-placeholder,
+input[type=color]::-moz-placeholder,
+input[type=file]::-moz-placeholder,
+textarea::-moz-placeholder,
+select::-moz-placeholder {
+  font-family: Arial;
+}
+input[type=text]:-ms-input-placeholder,
+input[type=password]:-ms-input-placeholder,
+input[type=datetime]:-ms-input-placeholder,
+input[type=datetime-local]:-ms-input-placeholder,
+input[type=date]:-ms-input-placeholder,
+input[type=month]:-ms-input-placeholder,
+input[type=time]:-ms-input-placeholder,
+input[type=week]:-ms-input-placeholder,
+input[type=number]:-ms-input-placeholder,
+input[type=email]:-ms-input-placeholder,
+input[type=url]:-ms-input-placeholder,
+input[type=search]:-ms-input-placeholder,
+input[type=tel]:-ms-input-placeholder,
+input[type=color]:-ms-input-placeholder,
+input[type=file]:-ms-input-placeholder,
+textarea:-ms-input-placeholder,
+select:-ms-input-placeholder {
+  font-family: Arial;
+}
+
+.body-section.light input[type=text],
+.body-section.light input[type=password],
+.body-section.light input[type=datetime],
+.body-section.light input[type=datetime-local],
+.body-section.light input[type=date],
+.body-section.light input[type=month],
+.body-section.light input[type=time],
+.body-section.light input[type=week],
+.body-section.light input[type=number],
+.body-section.light input[type=email],
+.body-section.light input[type=url],
+.body-section.light input[type=search],
+.body-section.light input[type=tel],
+.body-section.light input[type=color],
+.body-section.light input[type=file],
+.body-section.light textarea,
+.body-section.light select {
+  border-color: #050533;
+}
+.body-section.light .hs-input[type=checkbox]:not(:checked) + span:before, .body-section.light .hs-input[type=checkbox]:checked + span:before, .body-section.light .hs-input[type=radio]:not(:checked) + span:before, .body-section.light .hs-input[type=radio]:checked + span:before {
+  border-color: #050533;
+}
+
+/* Form Buttons */
+.body-section.dark .hs-button,
+.body-section.dark a.hs-button,
+.body-section.dark input[type=submit],
+.body-section.dark input[type=button],
+.body-section.light .hs-button,
+.body-section.light a.hs-button,
+.body-section.light input[type=submit],
+.body-section.light input[type=button] {
+  background-color: #40b0df;
+  color: #ffffff;
+  border-radius: 0px;
+  font-family: Arial;
+}
+.body-section.dark .hs-button:hover,
+.body-section.dark a.hs-button:hover,
+.body-section.dark input[type=submit]:hover,
+.body-section.dark input[type=button]:hover,
+.body-section.light .hs-button:hover,
+.body-section.light a.hs-button:hover,
+.body-section.light input[type=submit]:hover,
+.body-section.light input[type=button]:hover {
+  background-color: #2c9ccb;
+}
+
+/* Forms customizations */
+.hs-input[type=checkbox]:not(:checked) + span:after, .hs-input[type=checkbox]:checked + span:after {
+  border-bottom-color: #050533;
+  border-right-color: #050533;
+}
+.hs-input[type=radio]:not(:checked) + span:after, .hs-input[type=radio]:checked + span:after {
+  background-color: #050533;
+}
+
+.hs-fieldtype-file div.input:before {
+  background-color: #40b0df;
+  color: #ffffff;
+  border-color: #40b0df;
+}
+.hs-fieldtype-file div.input:hover:before {
+  background-color: #2c9ccb;
+  border-color: #2c9ccb;
+}
+
+/* enable dropdown button customization */
+.hs-fieldtype-select .input:after {
+  color: #050533;
+}
+
+.dnd__header-row-0-max-width-section-centering > .row-fluid {
+  max-width: 940px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.dnd__banner-row-0-background-color {
+  background-color: rgba(125, 154, 187, 1) !important;
+}
+.dnd__banner-row-0-max-width-section-centering > .row-fluid {
+  max-width: 940px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.dnd__banner-column-3-row-0-background-color {
+  background-color: rgba(62, 92, 210, 1) !important;
+}
+.dnd__checklist-row-0-max-width-section-centering > .row-fluid {
+  max-width: 940px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.dnd__footer-row-0-max-width-section-centering > .row-fluid {
+  max-width: 940px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.dnd__footer-module-2-flexbox-positioning {
+  display: -ms-flexbox !important;
+  -ms-flex-direction: column !important;
+  -ms-flex-align: center !important;
+  -ms-flex-pack: start;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start;
+}
+.dnd__footer-module-2-flexbox-positioning > div {
+  max-width: 100%;
+  flex-shrink: 0 !important;
+}
+/* HubSpot Non-stacked Media Query Styles */
+@media (min-width:768px) {
+  .dnd__banner-row-0-vertical-alignment > .row-fluid {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: row;
+    display: flex !important;
+    flex-direction: row;
+  }
+  .dnd__banner-column-3-vertical-alignment {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .dnd__banner-column-3-vertical-alignment > div {
+    flex-shrink: 0 !important;
+  }
+  .dnd__banner-column-1-vertical-alignment {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .dnd__banner-column-1-vertical-alignment > div {
+    flex-shrink: 0 !important;
+  }
+  .dnd__checklist-column-1-row-1-vertical-alignment > .row-fluid {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: row;
+    display: flex !important;
+    flex-direction: row;
+  }
+  .dnd__checklist-module-3-vertical-alignment {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .dnd__checklist-module-3-vertical-alignment > div {
+    flex-shrink: 0 !important;
+  }
+  .dnd__footer-column-1-row-0-vertical-alignment > .row-fluid {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: row;
+    display: flex !important;
+    flex-direction: row;
+  }
+  .dnd__footer-module-2-vertical-alignment {
+    display: -ms-flexbox !important;
+    -ms-flex-direction: column !important;
+    -ms-flex-pack: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .dnd__footer-module-2-vertical-alignment > div {
+    flex-shrink: 0 !important;
+  }
+}
+/* HubSpot Styles (default) */
+.dnd__header-row-0-padding {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+.dnd__banner-row-0-padding {
+  padding-top: 120px !important;
+  padding-bottom: 120px !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+.dnd__banner-column-3-margin {
+  margin-bottom: -400px !important;
+}
+.dnd__banner-column-3-row-0-padding {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+.dnd__banner-column-1-padding {
+  padding-top: 50px !important;
+  padding-left: 0px !important;
+  padding-right: 40px !important;
+}
+.dnd__checklist-row-0-padding {
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+.dnd__checklist-column-1-row-1-padding {
+  padding-top: 10px !important;
+  padding-right: 50px !important;
+}
+.dnd__checklist-column-1-row-2-padding {
+  padding-top: 20px !important;
+}
+.dnd__footer-row-0-padding {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+/* HubSpot Styles (mobile) */
+@media (max-width: 767px) {
+  .dnd__banner-row-0-padding {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
+  .dnd__banner-column-3-margin {
+    margin-bottom: 0px !important;
+  }
+  .dnd__banner-column-1-padding {
+    padding-top: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .dnd__checklist-row-0-padding {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+  .dnd__checklist-column-1-row-1-padding {
+    padding-right: 0px !important;
+  }
 }

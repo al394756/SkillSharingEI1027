@@ -1,5 +1,4 @@
-
-<header class="header">
+<header class="header" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="logodiv"><img src="/imagenes/logoPlano.png" class="logo-plano"></div>
     <div class="navL">
         <nav class="navigation">
@@ -55,6 +54,9 @@
         <li ><a href="/request/list" class="color_text interlimeado">Request</a></li>
         <li ><a href="/offer/list" class="color_text interlimeado">Offers</a></li>
         <li th:if="not ${session.user == null}"><a href="/skill/list" class="color_text interlimeado">Skills</a></li>
+        <li th:if="not ${session.user == null}"><a href="/chat/list" class="color_text interlimeado">Chats</a></li>
+        <li th:if="not ${session.user == null}"><a th:href="@{/profile/{id}(id=${session.user.idStudent})}" class="color_text interlimeado">Personal Area</a></li>
+
     </ul>
 </div>
 
