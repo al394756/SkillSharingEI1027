@@ -27,17 +27,21 @@ td{
     padding: 0.2rem;
 }
 input{
+    font-weight: bold;
+    color: #7d9abb;
     width: 8.5rem;
     height: 1.5rem;
-    border: white;
     border-radius: 5px;
     background: white;
+    border: #7d9abb;
 }
 input:hover{
     background: #eee;
 }
 
 select{
+    font-weight: bold;
+    color: #7d9abb;
     width: 8.5rem;
     height: 1.5rem;
     border: white;
@@ -46,6 +50,10 @@ select{
 }
 select:hover{
     background: #eee;
+}
+
+option{
+    font-weight: bold;
 }
 
 .sumit{
@@ -88,3 +96,4 @@ a{
     border-radius: 15px;
     padding: 0.5rem;
 }
+
