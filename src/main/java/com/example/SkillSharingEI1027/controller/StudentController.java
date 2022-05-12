@@ -1,8 +1,6 @@
 package com.example.SkillSharingEI1027.controller;
 
-import com.example.SkillSharingEI1027.dao.ChatDao;
-import com.example.SkillSharingEI1027.dao.MessageDao;
-import com.example.SkillSharingEI1027.dao.StudentDao;
+import com.example.SkillSharingEI1027.dao.*;
 import com.example.SkillSharingEI1027.modelo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -129,6 +127,10 @@ public class StudentController {
     private ChatDao chatDao;
     @Autowired
     private MessageDao messageDao;
+    @Autowired
+    private CollaborationDao collaborationDao;
+    @Autowired
+    private OffeRequestDao offeRequestDao;
 
     @RequestMapping("/login")
     public String login(Model model){
@@ -241,7 +243,18 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/profile/{id}", method=RequestMethod.GET)
-    public String profilePage(@PathVariable String id){
+    public String profilePage(@PathVariable String id, Model model, HttpSession session){
+        Student user = (Student) session.getAttribute("user");
+        model.addAttribute("RequestAceptar",collaborationDao.getRequestsPorAceptar(user));
+        model.addAttribute("OfferAceptar",collaborationDao.getOffersPorAceptar(user));
+        model.addAttribute("misOffers",offeRequestDao.getOfferRequestsActivasDe("Offer",user));
+        model.addAttribute("misRequests",offeRequestDao.getOfferRequestsActivasDe("Request",user));
+
+
+
+        //model.addAttribute("misRequests",offeRequestDao.get)
+
         return "/profile";
+
     }
 }

@@ -79,4 +79,12 @@ public class OffeRequestDao {
             return new ArrayList<>();
         }
     }
+
+    public List<OffeRequest> getOfferRequestsActivasDe(String table, Student student){
+        try{
+            return jdbcTemplate.query("SELECT * FROM "+table+" WHERE endDate>? AND idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
 }
