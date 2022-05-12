@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Profile</title>
+    <title th:text="*{session.user.name}"></title>
     <meta charset="UTF-8"/>
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>

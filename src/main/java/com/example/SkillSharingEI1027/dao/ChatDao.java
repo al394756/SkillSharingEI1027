@@ -35,7 +35,22 @@ public class ChatDao {
         }
     }
 
+    public List<Chat> getChatsDeStudentSinLeer(Student student){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Chat WHERE (user1=? AND newMsgParaStudent1=true) OR (user2=? AND newMsgParaStudent2=true)", new ChatRowMapper(), student.getIdStudent(),student.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
 
+
+    public List<Chat> getChatsDeStudentLeidos(Student student){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Chat WHERE (user1=? AND newMsgParaStudent1=false) OR (user2=? AND newMsgParaStudent2=false)", new ChatRowMapper(), student.getIdStudent(),student.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
 
     public void updateChat(Chat chat){
         jdbcTemplate.update("UPDATE CHAT SET newMsgParaStudent1=?, newMsgParaStudent2=? WHERE idChat=?", chat.isNewMsgParaStudent1(),chat.isNewMsgParaStudent2(),chat.getIdChat());

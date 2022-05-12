@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>YourChats</title>
+  <title>Skill Sharing -Chats</title>
   <meta charset="UTF-8" />
   <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
   <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
@@ -13,6 +13,7 @@
   <aside>
 <h1>Your Chats</h1>
     <ul>
+
       <div th:each="chat: ${chats}">
         <li>
           <a th:href="@{/chat/messages/{idChat}(idChat=${chat.getKey().getIdChat()})}"><button class="buttonlist" type="button" th:text="${chat.getValue()}"></button></a>

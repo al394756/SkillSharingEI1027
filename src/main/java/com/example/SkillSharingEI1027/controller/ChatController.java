@@ -10,6 +10,9 @@ import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+class MessageValidator implements Validator{
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return Message.class.equals(clazz);
+    }
+
+    @Override
+    public void validate(Object obj, Errors errors) {
+        Message message = (Message) obj;
+        if (message.getContent().trim().equals(""))
+            errors.rejectValue("content","compulsory","Introduce a message");
+
+    }
+}
 @Controller
 @RequestMapping("/chat")
 public class ChatController {
@@ -43,6 +61,9 @@ public class ChatController {
     @RequestMapping("/list")
     public String listChats(Model model, HttpSession session){
         Student user = (Student) session.getAttribute("user");
+        List<Chat> chats=chatDao.getChatsDeStudentSinLeer(user);
+        chats.addAll(chatDao.getChatsDeStudentLeidos(user));
+
         model.addAttribute("chats",createMap(chatDao.getChatsDeStudent(user),user));
         return "chat/list";
     }
@@ -85,7 +106,12 @@ public class ChatController {
     }
 
     @RequestMapping(value ="/messages", method = RequestMethod.POST)
-    public String processMessage(@ModelAttribute("newMessage") Message newMessage, HttpSession session){
+    public String processMessage(@ModelAttribute("newMessage") Message newMessage, HttpSession session, BindingResult bindingResult){
+        MessageValidator validator= new MessageValidator();
+        validator.validate(newMessage,bindingResult);
+        if (bindingResult.hasErrors())
+            return "redirect:/chat/messages/"+messageDao.getChat().getIdChat();
+
 
         Student user = (Student) session.getAttribute("user");
         newMessage.setDate(LocalDate.now());
@@ -96,6 +122,7 @@ public class ChatController {
 
 
         newMessage.setNumber(messageDao.messageNumber(newMessage.getIdChat()));
+
 
         messageDao.addMessage(newMessage);
         if (listStudents.get(0).equals(user.getIdStudent())){

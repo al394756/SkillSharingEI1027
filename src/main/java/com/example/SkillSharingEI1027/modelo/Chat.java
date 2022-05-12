@@ -3,7 +3,7 @@ package com.example.SkillSharingEI1027.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chat {
+public class Chat implements Comparable<Chat>{
     private String idChat;
     private String user1;
     private String user2;
@@ -75,5 +75,11 @@ public class Chat {
                 ", newMsgParaStudent1=" + newMsgParaStudent1 +
                 ", newMsgParaStudent2=" + newMsgParaStudent2 +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Chat o) {
+        return this.idChat.compareTo(o.idChat);
     }
 }

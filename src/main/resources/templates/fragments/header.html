@@ -57,6 +57,7 @@
         <li th:if="not ${session.user == null}"><a href="/chat/list" class="color_text interlimeado">Chats</a></li>
         <li th:if="not ${session.user == null}"><a th:href="@{/profile/{id}(id=${session.user.idStudent})}" class="color_text interlimeado">Personal Area</a></li>
 
+
     </ul>
 </div>
 
