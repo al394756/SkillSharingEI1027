@@ -12,14 +12,30 @@
 
 <body>
 <main>
-    <div class="container">
+    <div class="caja color_text">
         <table>
             <tr>
-                <td>
-                    <div class="color_text">
+                <th>
                         <label>Name:</label>
-                        <label th:text="*{session.user.name}"></label>
-                    </div>
+                </th>
+
+                <td>
+                    <label th:text="*{session.user.name}"></label>
+                </td>
+                <th>
+                        <label>Email:</label>
+                </th>
+                <td>
+                <label th:text="*{session.user.email}"></label>
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    <label>Balance hours:</label>
+                </th>
+                <td>
+                    <label th:text="*{session.user.balanceHours}"></label>
                 </td>
             </tr>
         </table>

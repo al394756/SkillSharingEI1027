@@ -1,3 +1,7 @@
+
+main{
+    padding-top: 4rem;
+}
 .atributes {
     width: 70%;
     align: center;
@@ -20,19 +24,23 @@
     vertical-align: middle;
     padding: 10px;
 }
-table{
+table {
     color: white;
     margin: auto;
     border: white;
     border-radius: 5px;
     text-align: left;
 }
-td{
-    margin: auto;
-    padding: 0.5rem;
-    border-radius: 5px;
+
+th,td{
+    padding: 1rem 1rem;
 }
-table tr{
-    color: #7d9abb;
-    background: #DCE4EE;
+
+.caja{
+    padding: 2rem 0;
+    background: #7d9abb;
+    border-radius: 5px;
+    height: 10rem;
+    width: 50rem;
+    margin: auto;
 }

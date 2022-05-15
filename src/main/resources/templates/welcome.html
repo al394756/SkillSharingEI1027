@@ -10,15 +10,10 @@
 
 </head>
 <div th:replace="fragments/header" ></div>
-
-<body th:if=" ${session.user != null} and ${session.user.activeAccount == false}" >
-
-    <div class="fondoOscuro">
-    <p>Your account has been baned</p>
-    </div>
-
-</body >
-<body th:unless=" ${session.user != null} and ${session.user.activeAccount == false}">
+<body>
+<div class="baneado">
+    <p class="color_text">You have been banned</p>
+</div>
 <main>
     <div >
     </div>
@@ -171,6 +166,7 @@
     </div>
 </div>
 </main>
+</body>
 </body>
 
 </html>

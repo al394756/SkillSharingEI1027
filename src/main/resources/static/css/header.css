@@ -37,14 +37,6 @@
      visibility: visible;
      height: 2.3rem;
 }
-.color_text{
-     text-decoration:none;
-     font-family: Arial;
-     font-weight: bold;
-     font-style: normal;
-     color: white;
-     font-size: 1.2rem;
-}
 .navL{
      display: flex;
      justify-content: space-between;
