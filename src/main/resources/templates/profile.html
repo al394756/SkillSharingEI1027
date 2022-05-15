@@ -12,34 +12,61 @@
 
 <body>
 <main>
+    <h1>My data:</h1>
     <div class="caja color_text">
         <table>
             <tr>
                 <th>
-                        <label>Name:</label>
+                    <label>Name:</label>
                 </th>
 
                 <td>
-                    <label th:text="*{session.user.name}"></label>
+                    <p th:text="*{session.user.name}"></p>
                 </td>
                 <th>
-                        <label>Email:</label>
+                    <label>Email:</label>
                 </th>
                 <td>
-                <label th:text="*{session.user.email}"></label>
+                    <p th:text="*{session.user.email}"></p>
                 </td>
-
             </tr>
             <tr>
                 <th>
                     <label>Balance hours:</label>
                 </th>
                 <td>
-                    <label th:text="*{session.user.balanceHours}"></label>
+                    <p th:text="*{session.user.balanceHours}"></p>
                 </td>
             </tr>
         </table>
     </div>
+
+    <h1>My collaborations:</h1>
+    <table class="tablaColla">
+        <thead>
+        <tr>
+            <th><label>Name</label></th>
+            <th><label>Level</label></th>
+            <th><label>Description</label></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="color">
+            <td> <label ></label></td>
+            <td> <label ></label></td>
+            <td th:if="not ${session.user == null} and ${session.user.skpMember==true}">
+                <div>
+                    <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
+                       role="button"><img class="tamIcon" src="/imagenes/editar.png"></a>
+                    <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
+                       role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </table>
 </main>
 </body>
 </html>
