@@ -11,9 +11,13 @@
 </head>
 <div th:replace="fragments/header" ></div>
 <body>
-<div class="baneado">
-    <p class="color_text">You have been banned</p>
+
+<div th:if="not ${session.user == null} and ${session.user.activeAccount==false}">
+    <div class="baneado">
+        <p class="color_text" th:text="${session.user.banReason}"></p>
+    </div>
 </div>
+
 <main>
     <div >
     </div>

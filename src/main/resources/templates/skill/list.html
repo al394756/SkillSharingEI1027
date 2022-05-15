@@ -10,7 +10,7 @@
 <div th:replace="fragments/header" ></div>
 <body>
 <main class="centrado">
-  <h1 class="titulo">Lista de Skills</h1>
+  <h1 class="titulo">List of Skills</h1>
   <div th:if="${#lists.isEmpty(skills)}" th:text="'There are not Skills available'"></div>
   <table th:unless="${#lists.isEmpty(skills)}">
     <thead>
