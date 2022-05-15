@@ -21,6 +21,7 @@ public final class StudentRowMapper implements RowMapper<Student> {
         student.setBalanceHours(rs.getInt("balanceHours"));
         student.setSkpMember(rs.getBoolean("skpMember"));
         student.setActiveAccount(rs.getBoolean("activeAccount"));
+        student.setBanReason(rs.getString("banReason"));
         return student;
     }
 }
