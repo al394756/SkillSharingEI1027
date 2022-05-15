@@ -11,8 +11,17 @@
 </head>
 <div th:replace="fragments/header" ></div>
 
-<body>
+<body th:if=" ${session.user != null} and ${session.user.activeAccount == false}" >
+
+    <div class="fondoOscuro">
+    <p>Your account has been baned</p>
+    </div>
+
+</body >
+<body th:unless=" ${session.user != null} and ${session.user.activeAccount == false}">
 <main>
+    <div >
+    </div>
 <div class="body-wrapper">
 
     <div class="dnd-content-area compass__event">

@@ -9,6 +9,7 @@
 </head>
 
 <div th:replace="fragments/header" ></div>
+<div th:replace="fragments/confirmation" ></div>
 <body>
 <main>
 <div class="caja">
@@ -29,7 +30,7 @@
                         <option th:each="skill1:${skills}" th:value="${skill1}"
                                 th:text="${skill1}"></option>
                     </select>
-                    <select  type="text" id="skill" th:field="*{skill.idSkill}"
+                    <select  type="text" th:field="*{skill.idSkill}"
                              th:unless="${#fields.hasErrors('skill.idSkill')}" >
                         <option th:each="skill1:${skills}" th:value="${skill1}"
                                 th:text="${skill1}"></option>
@@ -38,7 +39,7 @@
                 <td>
                     <input type="text" maxlength="100" id="description" th:field="*{description}"
                            th:unless="${#fields.hasErrors('description')}"/>
-                    <input class="error" type="text" maxlength="100" id="description" th:field="*{description}"
+                    <input class="error" type="text" maxlength="100" th:field="*{description}"
                            th:if="${#fields.hasErrors('description')}"/>
                 </td>
             </tr>
@@ -66,7 +67,7 @@
         <table>
             <tr>
                 <td><a href="list"><button class="sumit" type="button" >Back</button></a></td>
-                <td><button class="sumit" type="submit"  th:text="'Create a '+${type}"></button></td>
+                <td><button class="sumit" type="submit" for="check" th:text="'Create a '+${type}"></button></td>
             </tr>
         </table>
     </form>
