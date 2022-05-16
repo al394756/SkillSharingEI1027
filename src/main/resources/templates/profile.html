@@ -21,23 +21,25 @@
                 </th>
 
                 <td>
-                    <p th:text="*{session.user.name}"></p>
+                    <label class="tuyo" th:text="*{session.user.name}"></label>
                 </td>
                 <th>
                     <label>Email:</label>
                 </th>
                 <td>
-                    <p th:text="*{session.user.email}"></p>
+                    <label class="tuyo" th:text="*{session.user.email}"></label>
                 </td>
             </tr>
-            <tr>
-                <th>
-                    <label>Balance hours:</label>
-                </th>
-                <td>
-                    <p th:text="*{session.user.balanceHours}"></p>
-                </td>
-            </tr>
+        </table>
+        <table>
+        <tr>
+            <th>
+                <label>Balance hours:</label>
+            </th>
+            <td>
+                <label class="tuyo" th:text="*{session.user.balanceHours}"></label>
+            </td>
+        </tr>
         </table>
     </div>
 
