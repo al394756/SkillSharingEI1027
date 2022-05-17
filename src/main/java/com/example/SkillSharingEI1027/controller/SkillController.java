@@ -3,6 +3,7 @@ package com.example.SkillSharingEI1027.controller;
 
 import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.modelo.Skill;
+import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
+
 class SkillValidator implements Validator{
 
     @Override
@@ -41,14 +45,24 @@ public class SkillController {
 
     //Métodos para listar todas las skills
     @RequestMapping("/list")
-    public String listSkills(Model model){
+    public String listSkills(Model model, HttpSession session){
+
+        Student user = (Student) session.getAttribute("user");
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
         model.addAttribute("skills", skillDao.getSkills());
         return "skill/list";
     }
 
     //Métodos para añadir nuevas skills
     @RequestMapping(value="/add")
-    public String addSkill(Model model){
+    public String addSkill(Model model, HttpSession session){
+
+        Student user = (Student) session.getAttribute("user");
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
         model.addAttribute("skill", new Skill());
         return "skill/add";
     }

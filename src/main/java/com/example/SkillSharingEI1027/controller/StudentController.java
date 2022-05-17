@@ -182,6 +182,12 @@ public class StudentController {
 
     @RequestMapping("/student/list")
     public String listStudents(Model model, HttpSession session){
+
+        Student user = (Student) session.getAttribute("user");
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
+
         model.addAttribute("students", studentDao.getStudentsActivos());
         model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("sorter", new Sorter());
@@ -246,6 +252,11 @@ public class StudentController {
     @RequestMapping(value = "/profile/{id}", method=RequestMethod.GET)
     public String profilePage(@PathVariable String id, Model model, HttpSession session){
         Student user = (Student) session.getAttribute("user");
+
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
+
         model.addAttribute("RequestAceptar",collaborationDao.getRequestsPorAceptar(user));
         model.addAttribute("OfferAceptar",collaborationDao.getOffersPorAceptar(user));
         model.addAttribute("misOffers",offeRequestDao.getOfferRequestsActivasDe("Offer",user));

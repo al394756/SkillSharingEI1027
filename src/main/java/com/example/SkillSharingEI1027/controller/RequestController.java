@@ -4,6 +4,7 @@ import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.Request;
+import com.example.SkillSharingEI1027.modelo.Student;
 import com.example.SkillSharingEI1027.services.CollaborationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,11 +29,21 @@ public class RequestController {
 
     @RequestMapping("/list")
     public String listRequests(Model model, HttpSession session){
+        Student user = (Student) session.getAttribute("user");
+        if (user!=null && !user.isActiveAccount()){
+            return "welcome";
+        }
+
         return offeRequestMethods.list(model,type,session);
     }
 
     @RequestMapping(value = "/add")
     public String addRequest(Model model,HttpSession session){
+        Student user = (Student) session.getAttribute("user");
+
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
         model.addAttribute("offeRequest",new Request());
         return offeRequestMethods.add(model,type,session);
     }

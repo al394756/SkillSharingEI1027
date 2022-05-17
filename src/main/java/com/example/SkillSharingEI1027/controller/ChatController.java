@@ -61,6 +61,9 @@ public class ChatController {
     @RequestMapping("/list")
     public String listChats(Model model, HttpSession session){
         Student user = (Student) session.getAttribute("user");
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
         List<Chat> chats=chatDao.getChatsDeStudentSinLeer(user);
         chats.addAll(chatDao.getChatsDeStudentLeidos(user));
         almacenarNombrePersona(chats, user.getIdStudent());
@@ -83,6 +86,10 @@ public class ChatController {
     @RequestMapping(value="/messages/{chatId}")
     public String checkMessages(Model model,@PathVariable String chatId, HttpSession session){
         Student user = (Student) session.getAttribute("user");
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
+
         List<Chat> chats = chatDao.getChatsDeStudent(user);
         almacenarNombrePersona(chats,user.getIdStudent());
         model.addAttribute("chats", chats);

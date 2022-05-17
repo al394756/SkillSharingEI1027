@@ -42,7 +42,11 @@ public class CollaborationController {
     public void setCollaborationDao(CollaborationDao collaborationDao){ this.collaborationDao = collaborationDao;  }
 
     @RequestMapping("/list")
-    public String listCollaborations(Model model){
+    public String listCollaborations(Model model, HttpSession session){
+        Student user = (Student) session.getAttribute("user");
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
         List<Collaboration> collaborations = collaborationDao.getCollaborations();
         collaborations = conseguirDatosCollaborations(collaborations);
         model.addAttribute("collaborations", collaborations);
@@ -54,7 +58,11 @@ public class CollaborationController {
     public String addCollaboration(@PathVariable String offeRequestId, HttpSession session){
 
         OffeRequest offeRequestAceptada = offeRequestDao.getOffeRequest(offeRequestId);
-        Student student= (Student) session.getAttribute("user");
+
+        Student student = (Student) session.getAttribute("user");
+        if (student == null || !student.isActiveAccount()){
+            return "welcome";
+        }
         OffeRequest offeRequestNueva = crearContrarioA(offeRequestAceptada,student);
         Skill skill= skillDao.getSkill(offeRequestAceptada.getSkill().getIdSkill());
 

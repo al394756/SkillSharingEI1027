@@ -11,11 +11,7 @@
 </head>
 <div th:replace="fragments/header" ></div>
 
-
-
 <body>
-
-
 
 <main>
     <div th:if="not ${session.user == null} and ${session.user.activeAccount==false}">
@@ -25,7 +21,7 @@
         <div class="caja_ban color_text">
             <p class="color_text" th:text="${session.user.banReason}"></p>
             <br>
-            <p class="color_text"> Access your chats section for more details. </p>
+            <p class="color_text">You can only access your chats section for more details.</p>
         </div>
     </div>
 
