@@ -65,8 +65,7 @@ option{
     color: #7d9abb;
     font-weight: bold;
 }
-.sumit2{
-    padding: 0.45rem 1rem;
+.ajustesSubmit{
     width: 8rem;
     height: 1.8rem;
     border: white;
@@ -75,19 +74,17 @@ option{
     color: #7d9abb;
     font-size: 13px;
     font-weight: bold;
+}
+.sumit2{
+    padding: 0.45rem 1rem;
+
 }
 .sumit3{
     padding: 0.45rem 2.7rem;
-    width: 8rem;
-    height: 1.8rem;
-    border: white;
-    border-radius: 5px;
-    background: white;
-    color: #7d9abb;
-    font-size: 13px;
-    font-weight: bold;
 }
-
+.sumit4{
+    padding: 0.45rem 2.1rem;
+}
 .iz{
     text-align: left
 }
