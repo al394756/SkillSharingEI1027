@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -88,9 +89,9 @@ public class OffeRequestDao {
         }
     }
 
-    public List<OffeRequest> getOffeRequestWithSkill(String table, String idskill){
+    public List<OffeRequest> getOffeRequestWithSkill(String table, String idskill, LocalDate date){
         try{
-            return jdbcTemplate.query("SELECT * FROM "+table+" WHERE idSkill=?", new OffeRequestRowMapper(table), idskill);
+            return jdbcTemplate.query("SELECT * FROM "+table+" WHERE idSkill=? AND endDate>?", new OffeRequestRowMapper(table), idskill,date);
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }

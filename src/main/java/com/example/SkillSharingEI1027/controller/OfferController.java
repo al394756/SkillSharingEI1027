@@ -45,6 +45,10 @@ public class OfferController {
         return offeRequestMethods.processAddSubmit(offer,bindingResult,session,model);
     }
 
+    @RequestMapping(value="/confirmado")
+    public String processConfirmAddSubmit(HttpSession session){
+        return offeRequestMethods.processConfirmAddSubmit(session);
+    }
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String edit(Model model, @PathVariable String id, HttpSession session){
         return offeRequestMethods.edit(model, id,type, session);

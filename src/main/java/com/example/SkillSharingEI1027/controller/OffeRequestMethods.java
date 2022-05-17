@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -75,9 +76,10 @@ public class OffeRequestMethods <T> {
         offeRequest.setSkill(skill);
 
         String type= (String) session.getAttribute("type");
+        model.addAttribute("type2",type);
         if (type.equals("Offer")) type="Request";
         else type="Offer";
-        List<OffeRequest> offeRequestList=offeRequestDao.getOffeRequestWithSkill(type,skill.getIdSkill());
+        List<OffeRequest> offeRequestList=offeRequestDao.getOffeRequestWithSkill(type,skill.getIdSkill(),offeRequest.getStartDate());
         if (offeRequestList.isEmpty()){
             offeRequestDao.add(offeRequest);
             return "redirect:list";
@@ -86,7 +88,15 @@ public class OffeRequestMethods <T> {
         session.removeAttribute("type");
         model.addAttribute("skill",skill);
         model.addAttribute("list",offeRequestList);
+        session.setAttribute("offeRequest",offeRequest);
         return "offeRequest/listexisting";
+    }
+
+    public String processConfirmAddSubmit(HttpSession session){
+        OffeRequest offeRequest=(OffeRequest)session.getAttribute("offeRequest");
+        session.removeAttribute("offeRequest");
+        offeRequestDao.add(offeRequest);
+        return "redirect:list";
     }
 
     public String edit(Model model,String id,String type, HttpSession session){
