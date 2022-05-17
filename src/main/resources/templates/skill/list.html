@@ -35,8 +35,20 @@
         <div>
           <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
                 role="button"><img class="tamIcon" src="/imagenes/editar.png"></a>
-          <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
-             role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
+          <input type="checkbox" class="checconf" id="confirm">
+          <label for="confirm"><img class="tamIcon" src="/imagenes/delete.png"></label>
+
+          <div class="corfrimacion">
+            <p class="color_text" >Are you sure you want to cancel this skill</p>
+            <table class="botones">
+              <tr>
+                <td><label class="botonConf" for="confirm"> Back </label></td>
+                <td><a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
+                       role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></a></td>
+              </tr>
+            </table>
+          </div>
+          <label class="fondoOscuro2"></label>
         </div>
       </td>
     </tr>
