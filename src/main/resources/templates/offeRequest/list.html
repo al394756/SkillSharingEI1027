@@ -24,6 +24,7 @@
     <div th:unless="${#lists.isEmpty(list)}" class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
         <div class="caja color_text">
             <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
+            <div class="nombreAutor"><label th:text="'By '+${offeRequest.student.name}"></label></div>
             <div class="caja-interno">
 
                 <label th:if="${offeRequest.skill.level}==0"> Beginner</label>

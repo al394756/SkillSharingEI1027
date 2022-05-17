@@ -12,7 +12,7 @@
     border-radius: 20px;
     background: #7d9abb;
     width: 16rem;
-    height: 20.5rem;
+    height: 21.5rem;
     box-shadow: 0 0 0.7rem #333333;
 }
 .caja-interno{
@@ -70,7 +70,13 @@ main {
     width: 5rem;
 }
 .nombre{
+    font-size: 1.3em;
     padding-top: 0.5rem;
+}
+
+.nombreAutor{
+    font-size: 13px;
+    font-style: italic;
 }
 .grid{
     padding: 1rem 1rem;

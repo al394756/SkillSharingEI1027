@@ -48,6 +48,8 @@ public class OffeRequestMethods <T> {
         //lista.removeAll(lista2);
         for (OffeRequest r : lista){
             r.setSkill(skillDao.getSkill(r.getSkill().getIdSkill()));
+            System.out.println(r);
+            r.setStudent(studentDao.getStudentUsingId(r.getStudent().getIdStudent()));
         }
         model.addAttribute("list", lista);
         return "offeRequest/list";
