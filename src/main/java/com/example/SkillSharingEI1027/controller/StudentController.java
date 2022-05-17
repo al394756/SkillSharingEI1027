@@ -188,7 +188,7 @@ public class StudentController {
             return "welcome";
         }
 
-        model.addAttribute("students", studentDao.getStudentsActivos());
+        model.addAttribute("students", studentDao.getStudents());
         model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("sorter", new Sorter());
         model.addAttribute("comparator", new StudentComparatorById());
@@ -242,13 +242,16 @@ public class StudentController {
         chat.setNewMsgParaStudent2(true);
         chatDao.updateChat(chat);
         studentDao.cancelStudent(student);
+        cancelarOfferRequestDe(student);
+        return "redirect:/";
+    }
+
+    private void cancelarOfferRequestDe(Student student){
         for(OffeRequest offeRequest: offeRequestDao.getOfferRequestsActivasDe("Request",student))
             offeRequestDao.delete(offeRequest.getId());
         for(OffeRequest offeRequest: offeRequestDao.getOfferRequestsActivasDe("Offer",student))
             offeRequestDao.delete(offeRequest.getId());
-        return "redirect:/";
     }
-
     @RequestMapping(value = "/profile/{id}", method=RequestMethod.GET)
     public String profilePage(@PathVariable String id, Model model, HttpSession session){
         Student user = (Student) session.getAttribute("user");
@@ -269,4 +272,15 @@ public class StudentController {
         return "/profile";
 
     }
-}
+
+    @RequestMapping(value = "/student/unban/{id}", method = RequestMethod.GET)
+    public String unbanStudent(Model model, @PathVariable String id){
+
+        Student student =studentDao.getStudentUsingId(id);
+
+        student.setBanReason(null);
+        studentDao.unbanStudent(student);
+        return "redirect:/";
+        }
+    }
+

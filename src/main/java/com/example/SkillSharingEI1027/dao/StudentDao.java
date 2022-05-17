@@ -75,6 +75,10 @@ public class StudentDao {
         jdbcTemplate.update("UPDATE Student SET activeAccount=false, banReason=? WHERE idStudent=?", student.getBanReason(),student.getIdStudent());
     }
 
+    public void unbanStudent(Student student){
+        jdbcTemplate.update("UPDATE Student SET activeAccount=true, banReason=? WHERE idStudent=?", student.getBanReason(),student.getIdStudent());
+    }
+
     //Obtenemos Student con su id. Devuelve null si no existe o si la cuenta está inactiva
     public Student getStudentUsingId(String idStudent){
         try{
@@ -116,6 +120,14 @@ public class StudentDao {
     public List<Student> getStudentsActivos(){
         try{
             return jdbcTemplate.query("SELECT * FROM Student WHERE activeAccount=true", new StudentRowMapper());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Student> getStudents(){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Student", new StudentRowMapper());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
