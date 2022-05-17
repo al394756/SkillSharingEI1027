@@ -89,6 +89,8 @@ public class OffeRequestMethods <T> {
         model.addAttribute("skill",skill);
         model.addAttribute("list",offeRequestList);
         session.setAttribute("offeRequest",offeRequest);
+        model.addAttribute("offeRequest",offeRequest);
+        System.out.println(offeRequest);
         return "offeRequest/listexisting";
     }
 
