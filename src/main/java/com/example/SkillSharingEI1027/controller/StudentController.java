@@ -251,6 +251,8 @@ public class StudentController {
             offeRequestDao.delete(offeRequest.getId());
         for(OffeRequest offeRequest: offeRequestDao.getOfferRequestsActivasDe("Offer",student))
             offeRequestDao.delete(offeRequest.getId());
+        for (Collaboration collaboration:collaborationDao.getCollaborationsActivasDe(student))
+            collaborationDao.finalizeCollaboration(collaboration);
     }
     @RequestMapping(value = "/profile/{id}", method=RequestMethod.GET)
     public String profilePage(@PathVariable String id, Model model, HttpSession session){
