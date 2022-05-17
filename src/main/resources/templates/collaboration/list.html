@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
-    <link href="../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}"/>
+    <link href="../static/css/skill.css" rel="stylesheet" th:href="@{/css/skill.css}"/>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <div th:replace="fragments/header" ></div>
@@ -27,9 +27,9 @@
         </thead>
         <tbody>
         <tr class="color" th:each="collaboration: ${collaborations}">
-            <td th:text="${collaboration.idOffer.student.name}"></td>
-            <td th:text="${collaboration.idRequest.student.name}"></td>
-            <td th:text="${collaboration.idRequest.skill.name}"></td>
+            <td> <label th:text="${collaboration.idOffer.student.name}"></label></td>
+            <td> <label th:text="${collaboration.idRequest.student.name}"> </label></td>
+            <td> <label th:text="${collaboration.idRequest.skill.name}"></label></td>
             <td>
                 <label th:if="${collaboration.collaborationState}==0"> Pending</label>
                 <label th:if="${collaboration.collaborationState}==1"> Confirmed</label>
@@ -47,7 +47,9 @@
         </tr>
         </tbody>
     </table>
-    <a href=".."><button type="button">Atrás</button></a>
+    <br>
+
+    <a  href="/" class="add color_text" >Back</a>
 </main>
 </body>
 </html>

@@ -35,6 +35,27 @@ body {
   color: #ffffff;
 }
 
+.caja_ban{
+    opacity: 100%;
+
+    border-radius: 20px;
+    background: #7d9abb;
+    width: 30rem;
+    height: 20rem;
+    box-shadow: 0 0 0.7rem #333333;
+    padding: 25px 25px 25px 25px;
+    position: fixed;
+    display: block;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left:0 ;
+    margin: auto;
+
+}
+
+
+
 .sumit{
     width: 8rem;
     height: 1.8rem;
