@@ -9,7 +9,6 @@
 </head>
 
 <div th:replace="fragments/header" ></div>
-<div th:replace="fragments/confirmation" ></div>
 <body>
 <main>
 <div class="caja">
@@ -64,10 +63,26 @@
             </tr>
         </table>
         <div class="hrdiv"><hr/></div>
-        <table>
+        <table >
             <tr>
                 <td><a href="list"><button class="sumit" type="button" >Back</button></a></td>
-                <td><button class="sumit" type="submit" for="check" th:text="'Create a '+${type}"></button></td>
+                <td>
+                    <input type="checkbox" class="checconf" id="confirm">
+                    <label for="confirm"><button class="sumit"  th:text="'Create a '+${type}"></button></label>
+
+                    <div class="corfrimacion">
+                        <p class="color_text" th:text="'Are you sure you want to cancel this '+${type}"></p>
+                        <table class="botones">
+                            <tr>
+                                <td><button class="botonConf" for="confirm"> Back </button></td>
+                                <td><button class="sumit" type="submit" for="confirm" th:text="'Create a '+${type}"></button></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <label class="fondoOscuro2"></label>
+                </td>
+
             </tr>
         </table>
     </form>
