@@ -47,7 +47,7 @@
                                 <img class="tamIcon" src="/imagenes/editar.png"></a>
                         </td>
                         <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
-                            <a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
+                            <a  th:href="@{/offer/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
                         </td>
                         <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent} and ${!session.user.isSkpMember()}">
                             <a  th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a>

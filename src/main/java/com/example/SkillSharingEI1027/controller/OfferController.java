@@ -22,8 +22,6 @@ public class OfferController {
     private final OffeRequestMethods<Offer> offeRequestMethods=new OffeRequestMethods<>();
     private final String type="Offer";
 
-
-
     @Autowired
     public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
         offeRequestMethods.setOffeRequestDao(offeRequestDao,skillDao,studentDao);

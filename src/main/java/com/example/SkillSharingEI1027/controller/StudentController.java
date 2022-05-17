@@ -229,16 +229,17 @@ public class StudentController {
         student.setBanReason(msg);
         Chat chat=chatDao.getChatEntreStudents(studentDao.getStudentUsingId("id000000"), student);
         String idChat;
-        if (chat==null) {
-            idChat = chatDao.createChat(studentDao.getStudentUsingId("id000000"), student);
-        } else {
-            idChat=chat.getIdChat();
-        }
+        if (chat==null) idChat = chatDao.createChat(studentDao.getStudentUsingId("id000000"), student);
+        else idChat=chat.getIdChat();
         messageDao.banMessage(idChat, student);
         chat=chatDao.getChatConId(idChat);
         chat.setNewMsgParaStudent2(true);
         chatDao.updateChat(chat);
         studentDao.cancelStudent(student);
+        for(OffeRequest offeRequest: offeRequestDao.getOfferRequestsActivasDe("Request",student))
+            offeRequestDao.delete(offeRequest.getId());
+        for(OffeRequest offeRequest: offeRequestDao.getOfferRequestsActivasDe("Offer",student))
+            offeRequestDao.delete(offeRequest.getId());
         return "redirect:/";
     }
 

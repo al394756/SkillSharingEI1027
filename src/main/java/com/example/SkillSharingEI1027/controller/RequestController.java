@@ -15,20 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
-
-
-/***
- =======================================================
- Esta clase es inutil, lo he pasado al index controller
- =======================================================
- ***/
-
 @Controller
 @RequestMapping("/request")
 public class RequestController {
     private final OffeRequestMethods<Request> offeRequestMethods=new OffeRequestMethods<>();
     private final String type="Request";
-
 
     @Autowired
     public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
@@ -37,7 +28,7 @@ public class RequestController {
 
     @RequestMapping("/list")
     public String listRequests(Model model, HttpSession session){
-        return offeRequestMethods.list(model,type,  session);
+        return offeRequestMethods.list(model,type,session);
     }
 
     @RequestMapping(value = "/add")
@@ -53,19 +44,11 @@ public class RequestController {
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)
     public String edit(Model model, @PathVariable String id, HttpSession session){
-
         return offeRequestMethods.edit(model, id,type,session);
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)
     public String processUpdateSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult, HttpSession session){
-
-
         return offeRequestMethods.processUpdateSubmit(request,bindingResult, session);
-    }
-
-    @RequestMapping(value = "/cancel/{id}")
-    public String processDelete(@PathVariable String id) {
-        return offeRequestMethods.processDelete(id);
     }
 }
