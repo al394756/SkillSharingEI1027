@@ -86,16 +86,22 @@ public class SkillController {
 
     //Métodos para cambiar la descripción de la skill (según requisitos se supone que solo se quiere cambiar esto)
     @RequestMapping(value="/update/{idSkill}", method = RequestMethod.GET)
-    public String editDescripcionSkill(Model model, @PathVariable String idSkill){
-        model.addAttribute("skill", skillDao.getSkill(idSkill));
+    public String editDescripcionSkill(Model model, @PathVariable String idSkill, HttpSession session){
+        Skill skill=skillDao.getSkill(idSkill);
+        model.addAttribute("skill", skill);
+        session.setAttribute("skillVieja", skill);
         return "skill/update";
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)
-    public String processUpdateSubmit(@ModelAttribute("skill") Skill skill, BindingResult bindingResult){
+    public String processUpdateSubmit(@ModelAttribute("skill") Skill skill, BindingResult bindingResult, HttpSession session){
+
         if (bindingResult.hasErrors())
             return "skill/update";
-        skillDao.updateSkill(skill);
+
+        Skill skillCambiada = (Skill) session.getAttribute("skillVieja");
+        skillCambiada.setDescription(skill.getDescription());
+        skillDao.updateSkill(skillCambiada);
         return "redirect:list";
     }
 }
