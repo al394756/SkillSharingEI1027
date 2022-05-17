@@ -80,9 +80,14 @@ public class CollaborationDao {
 
     public List<Collaboration> getCollaborationsActivasDe(Student student){
         try{
-            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 or collaborationstate=1 and ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id)", new CollaborationRowMapper(), student.getIdStudent());
+            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 or collaborationstate=1 and ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
+    }
+
+    public void finalizeCollaboration(Collaboration collaboration){
+        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=2 WHERE id=?",
+                collaboration.getIdCollaboration());
     }
 }
