@@ -65,7 +65,7 @@
         <div class="hrdiv"><hr/></div>
         <table>
             <tr>
-                <td><a href="list"><button class="sumit" type="button" >Back</button></a></td>
+                <td><a th:href="@{/{type}/list(type=${offeRequest.url})}"><button class="sumit" type="button" >Back</button></a></td>
                 <td>
 
                     <input type="checkbox" class="checconf" id="confirm">
@@ -75,7 +75,7 @@
                         <p class="color_text" th:text="'Are you sure you want to cancel this '+${type}"></p>
                         <table class="botones">
                             <tr>
-                                <td><button class="botonConf" for="confirm"> Back </button></td>
+                                <td><label class="botonConf" for="confirm"> Back </label></td>
                                 <td><button class="sumit" type="submit" for="confirm" th:text="'Create a '+${type}"></button></td>
                             </tr>
                         </table>
