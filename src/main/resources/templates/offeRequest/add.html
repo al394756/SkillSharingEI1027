@@ -19,8 +19,8 @@
           th:object="${offeRequest}" method="post">
         <table>
             <tr class="iz">
-                <td><label>Skill:</label></td>
-                <td><label>Description:</label></td>
+                <td><label for="skill">Skill:</label></td>
+                <td><label for="description">Description:</label></td>
             </tr>
             <tr class="iz">
                 <td>
@@ -43,8 +43,8 @@
                 </td>
             </tr>
             <tr class="iz">
-                <td><label>Start date:</label></td>
-                <td><label>End date:</label></td>
+                <td><label for="startDate">Start date:</label></td>
+                <td><label for="endDate">End date:</label></td>
             </tr>
 
             <tr class="iz">
@@ -63,12 +63,13 @@
             </tr>
         </table>
         <div class="hrdiv"><hr/></div>
-        <table >
+        <table>
             <tr>
                 <td><a href="list"><button class="sumit" type="button" >Back</button></a></td>
                 <td>
+
                     <input type="checkbox" class="checconf" id="confirm">
-                    <label for="confirm"><button class="sumit"  th:text="'Create a '+${type}"></button></label>
+                    <label class="sumit2" for="confirm" th:text="'Create a '+${type}"></label>
 
                     <div class="corfrimacion">
                         <p class="color_text" th:text="'Are you sure you want to cancel this '+${type}"></p>
