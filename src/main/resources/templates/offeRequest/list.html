@@ -55,7 +55,7 @@
                                 <table class="botones">
                                     <tr>
                                         <td><label class="botonConf" th:for="${offeRequest.id}"> Back </label></td>
-                                        <td><a  th:href="@{/offer/cancel/{id}(id=${offeRequest.id})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></td>
+                                        <td><a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id},type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></td>
                                     </tr>
                                 </table>
                             </div>

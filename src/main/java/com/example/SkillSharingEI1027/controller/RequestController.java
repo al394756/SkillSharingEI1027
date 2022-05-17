@@ -62,4 +62,14 @@ public class RequestController {
     public String processUpdateSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult, HttpSession session){
         return offeRequestMethods.processUpdateSubmit(request,bindingResult, session);
     }
+
+    @RequestMapping(value = "/cancel/{id}")
+    public String processDelete(@PathVariable String id) {
+        return offeRequestMethods.processDelete(id);
+    }
+
+    @RequestMapping(value="/confirmado")
+    public String processConfirmAddSubmit(HttpSession session){
+        return offeRequestMethods.processConfirmAddSubmit(session);
+    }
 }
