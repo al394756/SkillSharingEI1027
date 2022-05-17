@@ -4,7 +4,6 @@
   <title>Add a New Skill</title>
   <meta charset="UTF-8" />
   <link type="text/css"  rel="stylesheet" th:href="@{../../css/skillsharing.css}"/>
-
   <link  type="text/css" rel="stylesheet" th:href="@{../../css/header.css}"/>
   <link  type="text/css" rel="stylesheet" th:href="@{../../css/addOR.css}"/>
 
@@ -60,7 +59,21 @@
       </table>
       <div class="hrdiv"><hr/></div>
       <a href="list"><button class="sumit" type="button" >Back</button></a>
-      <button class="sumit" type="submit">Add Skill</button>
+      <input type="checkbox" class="checconf" id="confirm">
+      <label class="ajustesSubmit sumit4 " for="confirm"> Add Skill </label>
+
+      <div class="corfrimacion">
+        <p class="color_text" th:text="'Are you sure you want to edit this '+${type}"></p>
+        <table class="botones">
+          <tr>
+            <td><button class="botonConf" for="confirm"> Back </button></td>
+            <td><button class="sumit" type="submit">Add Skill</button></td>
+          </tr>
+        </table>
+      </div>
+
+      <label class="fondoOscuro2"></label>
+
     </form>
     </div>
 </div>

@@ -14,7 +14,7 @@
     <div>
         <div><h1 class="titulo centrado" th:text="${type}+'s for '+${skill.name}"></h1></div>
         <div>
-            <a  th:href="@{/offer/confirmado}" class="add color_text" th:text="'Add your own '+${type2}"></a>
+            <a  th:href="@{/{type}/confirmado(type=${offeRequest.url})}" class="add color_text" th:text="'Add your own '+${type2}"></a>
         </div>
     </div>
     <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">

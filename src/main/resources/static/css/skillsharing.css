@@ -3,7 +3,7 @@ body{
      font-family: Arial;
      color: #333;
      font-size: 1.2rem;
-     line-height: 1.5em;
+     line-height: 1.5rem;
      margin: 0;
      background: #F6FAFF;
      min-width:600px;
@@ -73,4 +73,63 @@ background: red
 }
 .baneado p{
      margin: auto;
+}
+.checconf:checked ~ .fondoOscuro2{
+     display: flex;
+}
+
+.checconf:checked ~ .corfrimacion{
+     display: flex;
+}
+
+.checconf{
+     top: 0;
+     position: fixed;
+     display: none;
+}
+.corfrimacion{
+     top: 0;
+     bottom: 0;
+     right: 0;
+     left: 0;
+     margin: auto;
+     width: 15rem;
+     height: 10rem;
+     background: #7d9abb;
+     position: fixed;
+     display: none;
+     flex-wrap: wrap;
+     z-index: 3;
+     border-radius: 20px;
+     padding: 1rem;
+}
+.fondoOscuro2{
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: -webkit-linear-gradient(#333333,#333333,#5b5b5b);
+     background: -o-linear-gradient(#333333,#333333,#5b5b5b);
+     background: linear-gradient(#333333,#333333,#5b5b5b);
+     position: fixed;
+     z-index: 2;
+     display: none;
+     opacity: 30%;
+}
+.botonConf{
+     height: 2rem;
+     color: #7d9abb;
+     width:100%;
+     font-weight: bold;
+     background: white;
+     border: white;
+}
+.botones{
+     border-spacing: 1rem 0;
+     margin: auto;
+}
+.botones td{
+     padding: 0 0.5rem;
+     background: white;
+     border-radius: 5px;
 }

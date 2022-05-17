@@ -1,6 +1,7 @@
 package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.Collaboration;
+import com.example.SkillSharingEI1027.modelo.OffeRequest;
 import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -77,9 +78,11 @@ public class CollaborationDao {
         }
     }
 
-
-
-
-
-
+    public List<Collaboration> getCollaborationsActivasDe(Student student){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 or collaborationstate=1 and ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id)", new CollaborationRowMapper(), student.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
 }
