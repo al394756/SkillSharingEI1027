@@ -14,7 +14,7 @@
     <div>
         <div><h1 class="titulo centrado" th:text="${type}+'s'"></h1></div>
         <div th:object="${session}">
-            <a  href="add" class="add color_text" th:if="*{user!=null}">Add</a>
+            <a  href="add" class="add color_text" th:if="*{user!=null} and ${!session.user.isSkpMember()}">Add</a>
         </div>
     </div>
 
@@ -47,9 +47,9 @@
                                 <img class="tamIcon" src="/imagenes/editar.png"></a>
                         </td>
                         <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
-                            <a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}">Cancel</a>
+                            <a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
                         </td>
-                        <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent}">
+                        <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent} and ${!session.user.isSkpMember()}">
                             <a  th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a>
                         </td>
                     </tr>
