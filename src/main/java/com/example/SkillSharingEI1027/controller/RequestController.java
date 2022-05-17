@@ -41,14 +41,14 @@ public class RequestController {
     }
 
     @RequestMapping(value = "/add")
-    public String addRequest(Model model){
+    public String addRequest(Model model,HttpSession session){
         model.addAttribute("offeRequest",new Request());
-        return offeRequestMethods.add(model,type);
+        return offeRequestMethods.add(model,type,session);
     }
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult,HttpSession session){
-        return offeRequestMethods.processAddSubmit(request,bindingResult,session);
+    public String processAddSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult,HttpSession session,Model model){
+        return offeRequestMethods.processAddSubmit(request,bindingResult,session,model);
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title th:text="${type}+'s for '+${skill.name}"></title>
+    <meta charset="UTF-8" />
+    <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+    <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link href="../static/css/request.css" rel="stylesheet" th:href="@{/css/request.css}"/>
+</head>
+
+<div th:replace="fragments/header" ></div>
+<body>
+<main class="centrado" >
+    <div>
+        <div><h1 class="titulo centrado" th:text="${type}+'s for '+${skill.name}"></h1></div>
+    </div>
+    <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
+        <div class="caja color_text">
+            <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
+            <div class="caja-interno">
+
+                <label th:if="${offeRequest.skill.level}==0"> Beginner</label>
+                <label th:if="${offeRequest.skill.level}==1"> Intermediate</label>
+                <label th:if="${offeRequest.skill.level}==2"> Expert</label>
+                <table >
+                    <tr>
+                        <td class="endStart"><label>Start</label></td>
+                        <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.startDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                    </tr>
+                    <tr>
+                        <td class="endStart"><label>End</label></td>
+                        <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.endDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                    </tr>
+                </table>
+                <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
+                <table class="centrado edit">
+                    <tr>
+                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
+                            <a class="editIcon" th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}">
+                                <img class="tamIcon" src="/imagenes/editar.png"></a>
+                        </td>
+                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
+                            <a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
+                        </td>
+                        <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent} and ${!session.user.isSkpMember()}">
+                            <a  th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a>
+                        </td>
+                    </tr>
+
+
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <a  href="/" class="add color_text" >Back</a>
+
+
+</main>
+</body>
+</html>

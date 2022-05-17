@@ -35,14 +35,14 @@ public class OfferController {
     }
 
     @RequestMapping(value = "/add")
-    public String addOffer(Model model){
+    public String addOffer(Model model,HttpSession session){
         model.addAttribute("offeRequest",new Offer());
-        return offeRequestMethods.add(model,type);
+        return offeRequestMethods.add(model,type,session);
     }
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("offer") Offer offer, BindingResult bindingResult, HttpSession session){
-        return offeRequestMethods.processAddSubmit(offer,bindingResult,session);
+    public String processAddSubmit(@ModelAttribute("offer") Offer offer, BindingResult bindingResult, HttpSession session,Model model){
+        return offeRequestMethods.processAddSubmit(offer,bindingResult,session,model);
     }
 
     @RequestMapping(value="/update/{id}", method = RequestMethod.GET)

@@ -52,8 +52,9 @@ public class OffeRequestMethods <T> {
         return "offeRequest/list";
     }
 
-    public String add(Model model,String type) {
+    public String add(Model model,String type, HttpSession session) {
         model.addAttribute("type",type);
+        session.setAttribute("type",type);
         List<String> skills = new ArrayList<>();
         skills.add("Select one option");
         for (Skill skill : skillDao.getSkills())
@@ -62,16 +63,30 @@ public class OffeRequestMethods <T> {
         return "offeRequest/add";
     }
 
-    public String processAddSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session) {
+    public String processAddSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session, Model model) {
         OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
         offeRequestValidator.validate(offeRequest,bindingResult);
         if (bindingResult.hasErrors())
             return "redirect:/"+offeRequest.getUrl()+"/add";
-        Student student = (Student) session.getAttribute("user");
-        offeRequest.setStudent(student);
-        offeRequest.setSkill(skillDao.getIdBySkill(offeRequest.getSkill().getIdSkill()));
-        offeRequestDao.add(offeRequest);
-        return "redirect:list";
+
+        offeRequest.setStudent((Student) session.getAttribute("user"));
+
+        Skill skill=skillDao.getIdBySkill(offeRequest.getSkill().getIdSkill());
+        offeRequest.setSkill(skill);
+
+        String type= (String) session.getAttribute("type");
+        if (type.equals("Offer")) type="Request";
+        else type="Offer";
+        List<OffeRequest> offeRequestList=offeRequestDao.getOffeRequestWithSkill(type,skill.getIdSkill());
+        if (offeRequestList.isEmpty()){
+            offeRequestDao.add(offeRequest);
+            return "redirect:list";
+        }
+        model.addAttribute("type",type);
+        session.removeAttribute("type");
+        model.addAttribute("skill",skill);
+        model.addAttribute("list",offeRequestList);
+        return "offeRequest/listexisting";
     }
 
     public String edit(Model model,String id,String type, HttpSession session){
