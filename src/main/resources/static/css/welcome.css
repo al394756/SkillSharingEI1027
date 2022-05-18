@@ -71,6 +71,7 @@ body {
     border-radius: 5px;
     background: #E7FFFD;
     color: #7d9abb;
+    cursor: pointer;
     font-weight: bold;
 }
 
