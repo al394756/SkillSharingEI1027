@@ -40,7 +40,7 @@
 }
 .color_text{
      text-decoration:none;
-     font-family: Arial;
+     font-family: Arial, serif;
      font-weight: bold;
      font-style: normal;
      color: white;
@@ -177,7 +177,7 @@
 }
 .color_textprueba2{
      text-decoration:none;
-     font-family: Arial;
+     font-family: Arial, serif;
      font-weight: bold;
      font-style: normal;
      color: green;
