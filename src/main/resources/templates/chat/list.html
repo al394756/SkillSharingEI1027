@@ -1,39 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Gestionar Chats</title>
+  <title>Skill Sharing -Chats</title>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+  <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+  <link href="../static/css/chat.css" rel="stylesheet" th:href="@{/css/chat.css}"/>
 </head>
+<div th:replace="fragments/header" ></div>
 <body>
-<h1>Lista de Chats</h1>
-<table>
-  <thead>
-  <tr>
-    <th scope="col">idChat</th>
-    <th scope="col">Student1</th>
-    <th scope="col">Student2</th>
-<!--    <th scope="col">Nivel</th>-->
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="chat: ${chats}">
-    <td th:text="${chat.idChat}"></td>
-    <td th:text="${chat.user1}"></td>
-    <td th:text="${chat.user2}"></td>
+<main>
+  <div class="caja">
+    <h1>Your Chats</h1>
+    <ul>
+      <div th:each="chat: ${#lists.sort(chats,metodecomparador)}">
+        <li>
+          <a th:href="@{/chat/messages/{idChat}(idChat=${chat.getIdChat()})}">
+            <button class="buttonlist" type="button" th:text="${chat.getNombreOtraPersona()}"></button>
+          </a>
+        </li>
+      </div>
+    </ul>
+  </div>
 
-
-    <td><a th:href="@{/chat/messages/{idChat}(idChat=${chat.idChat})}"><button type="button" class="btn btn-warning">Revisar Chat</button></a>-->
-     </td>
-<!--    <td><a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"><button type="button" class="btn btn-danger">Eliminar</button></a>-->
-<!--    </td>-->
-  </tr>
-  </tbody>
-</table>
-<a href="add"><button type="button" class="btn btn-success">Añadir Chat</button></a>
-<a href=".."><button type="button" class="btn btn-danger">Atrás</button></a>
+  <br>
+  <a href="/"><button class="back color_text" type="button">Back</button></a>
+  <br>
+</main>
 
 </body>
 </html>

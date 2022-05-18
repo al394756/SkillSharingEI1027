@@ -1,22 +1,65 @@
-.atributes {
-    width: 70%;
-    align: center;
-}
-.contenedor {
-    display: table;
-    border: 0;
-    width: 80%;
+main{
     text-align: center;
-    margin: 10%;
-    justify-content: center;
+    padding-top: 4rem;
 }
-.contenidos {
-    display: table-row;
-}
-.cell {
-    display: table-cell;
+
+h1{
     color: #7d9abb;
-    border: 0;
-    vertical-align: middle;
-    padding: 10px;
+}
+
+table{
+    margin: auto;
+}
+
+
+.caja{
+    width: max-content;
+    margin: auto;
+    padding: 1rem 2rem;
+    background: #7d9abb;
+    border-radius: 20px;
+}
+
+.caja td{
+    padding: 0.25rem 1rem 0.45em 0.5rem;
+}
+
+.tuyo{
+    width: max-content;
+    text-decoration: none;
+    height: 2rem;
+    background: white;
+    border-radius: 8px;
+    color: #7d9abb;
+    padding: 0.25rem 0.25rem;
+
+}
+
+.tablaColla{
+    color: white;
+    margin: auto;
+    border: white;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.tablaColla th{
+    padding: 0.25rem 0.75rem;
+    text-align: center;
+    background: #7d9abb;
+    border-radius: 5px;
+}
+.tablaColla{
+    margin: auto;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.tablaColla tbody tr:nth-child(odd) {
+    color: #7d9abb;
+    background: #E8EEF6;
+}
+.tablaColla tbody tr:nth-child(even) {
+    background: #DCE4EE;
+    color: #7d9abb;
 }

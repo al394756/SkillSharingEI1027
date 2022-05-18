@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Login</title>
+  <title>Skill Sharing -Login</title>
   <meta charset="UTF-8"/>
   <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
   <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
@@ -12,7 +12,7 @@
 <div th:replace="fragments/header" ></div>
 
 <body>
-<main>
+<main class="centrado">
   <div class="caja">
     <div class="caja-interno">
       <h2>Log in</h2>
@@ -54,7 +54,8 @@
       </form>
     </div>
   </div>
+  <p>New to SkillSharing? <a th:href="register">Sign up</a> </p>
 </main>
-<p>New to SkillSharing? <a th:href="register">Create an account</a> </p>
+
 </body>
 </html>

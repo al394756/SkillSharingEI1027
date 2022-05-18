@@ -36,7 +36,7 @@ public class StudentDao {
         String apellido = formatoNombre(student.getSurname().trim());
         String nombreCompleto = nombre + " " + apellido;
         String id = idGenerator();
-        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True,Null)",id,student.getDni().toUpperCase(Locale.ROOT).trim(),nombreCompleto.trim(),student.getEmail().trim(),
+        jdbcTemplate.update("INSERT INTO Student VALUES(?,?,?,?,?,?,?,?,0,False,True,Null)",id,student.getDni().toUpperCase(Locale.ROOT).trim(),nombreCompleto.trim(),student.getEmail().toLowerCase(Locale.ROOT).trim(),
         student.getPhoneNumber(),passw,student.getDegree(),student.getCourse());
         return id;
     }
@@ -73,6 +73,10 @@ public class StudentDao {
     //No se puede borrar estudiante, solo podemos cancelar su cuenta poniendo activeAccount a false
     public void cancelStudent(Student student){
         jdbcTemplate.update("UPDATE Student SET activeAccount=false, banReason=? WHERE idStudent=?", student.getBanReason(),student.getIdStudent());
+    }
+
+    public void unbanStudent(Student student){
+        jdbcTemplate.update("UPDATE Student SET activeAccount=true, banReason=? WHERE idStudent=?", student.getBanReason(),student.getIdStudent());
     }
 
     //Obtenemos Student con su id. Devuelve null si no existe o si la cuenta está inactiva
@@ -121,6 +125,14 @@ public class StudentDao {
         }
     }
 
+    public List<Student> getStudents(){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Student", new StudentRowMapper());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
+
     private Integer getCantidadStudents(){
         return jdbcTemplate.queryForObject("SELECT COUNT(name) FROM Student",new IntegerRowMapper());
 
@@ -128,9 +140,9 @@ public class StudentDao {
     public Student loadUser(String userInput, String password) {
         Student user;
         if (userInput.contains("@")){
-            user = getStudentUsingEmail(userInput.trim());
+            user = getStudentUsingEmail(userInput.trim().toLowerCase(Locale.ROOT));
         } else{
-            user = getStudentUsingId(userInput.trim());
+            user = getStudentUsingId(userInput.trim().toLowerCase(Locale.ROOT));
         }
         if (user == null)
             return null; // Usuari no trobat

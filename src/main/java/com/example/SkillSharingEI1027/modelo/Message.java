@@ -3,9 +3,10 @@ package com.example.SkillSharingEI1027.modelo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Date;
 
-public class Message {
+public class Message implements Comparable<Message> {
     private String idChat;
     private String student;
     private int number;
@@ -65,5 +66,13 @@ public class Message {
                 ", content='" + content + '\'' +
                 ", date=" + date +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Message o) {
+        if (this.getNumber()>o.getNumber()){
+            return 1;
+        }
+        return -1;
     }
 }

@@ -5,8 +5,8 @@ public class Collaboration {
     private String idCollaboration;
     private int assessmentScore;
     private int collaborationState;
-    private OffeRequest idOffer;
-    private OffeRequest idRequest;
+    private OffeRequest idOffer= new Offer();
+    private OffeRequest idRequest = new Request();
     private int hours;
 
     public Collaboration() {

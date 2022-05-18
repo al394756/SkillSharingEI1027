@@ -3,33 +3,66 @@
 <head>
   <title>Modificar skill</title>
   <meta charset="UTF-8" />
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+  <link type="text/css"  rel="stylesheet" th:href="@{../../css/skillsharing.css}"/>
+  <link  type="text/css" rel="stylesheet" th:href="@{../../css/header.css}"/>
+  <link  type="text/css" rel="stylesheet" th:href="@{../../css/addOR.css}"/>
 </head>
+<div th:replace="fragments/header" ></div>
 <body>
-<h2>Modificar skill </h2>
-<form action="#" th:action="@{/skill/update}"
-      th:object="${skill}" method="post">
-  <table>
-    <tr>
-      <td><label>idSkill</label></td>
-      <td><input type="text" th:field="*{idSkill}"readonly/></td>
-    </tr>
-    <tr>
-      <td><label>Nombre</label></td>
-      <td><input type="text" th:field="*{name}" readonly/></td>
-    </tr>
-    <tr>
-      <td><label>Descripción</label></td>
-      <td><input type="text" th:field="*{description}" /></td>
-    </tr>
-    <tr>
-      <td><label>Nivel</label></td>
-      <td><input type="number" max="2" min="0" th:field="*{level}" readonly/></td>
-    </tr>
-      <td colspan="2"><input type="submit" value="Actualiza Skill" /></td>
-    </tr>
-  </table>
-</form>
+<main>
+  <div class="caja">
+    <div class="caja-interno">
+      <h2>Modificar skill </h2>
+      <hr/>
+      <form action="#" th:action="@{/skill/update}"
+            th:object="${skill}" method="post">
+        <table>
+          <tr class="iz">
+            <td><label>Name</label></td>
+            <td><label>Level</label></td>
+          </tr>
+          <tr class="iz">
+            <td>
+              <input type="text" th:field="*{name}" readonly/>
+            </td>
+
+            <td>
+              <input type="number" max="2" min="0" th:field="*{level}" readonly/>
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr class="iz">
+            <td><label>Description</label></td>
+          </tr>
+          <tr class="iz">
+            <td>
+              <input class="error" th:if="${#fields.hasErrors('description')}" th type="text" th:field="*{description}" placeholder="Description" maxlength="100" th:errorclass="needcorrection">
+
+              <input th:unless="${#fields.hasErrors('description')}" th type="text"  class="rellenaGrande" th:field="*{description}" placeholder="Description" maxlength="100" th:errorclass="needcorrection" >
+            </td>
+          </tr>
+        </table>
+        <div class="hrdiv"><hr/></div>
+      <a href="/skill/list"><button class="sumit" type="button" >Back</button></a>
+        <input type="checkbox" class="checconf" id="confirm">
+        <label class="ajustesSubmit sumit4 " for="confirm"> Update Skill </label>
+
+        <div class="corfrimacion">
+          <p class="color_text">Are you sure you want to edit this Skill?</p>
+          <table class="botones">
+            <tr>
+              <td><label class="botonConf" for="confirm"> Back </label></td>
+              <td><button class="sumit" type="submit">Apply</button></td>
+            </tr>
+          </table>
+        </div>
+
+        <label class="fondoOscuro2"></label>
+
+      </form>
+    </div>
+  </div>
+</main>
 </body>
 </html>

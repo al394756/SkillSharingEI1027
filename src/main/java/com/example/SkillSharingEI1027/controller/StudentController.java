@@ -1,8 +1,6 @@
 package com.example.SkillSharingEI1027.controller;
 
-import com.example.SkillSharingEI1027.dao.ChatDao;
-import com.example.SkillSharingEI1027.dao.MessageDao;
-import com.example.SkillSharingEI1027.dao.StudentDao;
+import com.example.SkillSharingEI1027.dao.*;
 import com.example.SkillSharingEI1027.modelo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -129,6 +127,10 @@ public class StudentController {
     private ChatDao chatDao;
     @Autowired
     private MessageDao messageDao;
+    @Autowired
+    private CollaborationDao collaborationDao;
+    @Autowired
+    private OffeRequestDao offeRequestDao;
 
     @RequestMapping("/login")
     public String login(Model model){
@@ -152,6 +154,7 @@ public class StudentController {
         }
         session.setAttribute("user",student);
 
+        session.setAttribute("UnreadMsg", chatDao.getCantidadChatsSinLeer(student));
         return "redirect:/";
     }
 
@@ -173,12 +176,19 @@ public class StudentController {
         student = studentDao.getStudentUsingId(id);
 
         session.setAttribute("user",student);
+        session.setAttribute("UnreadMsg", chatDao.getCantidadChatsSinLeer(student));
         return "redirect:/";
     }
 
     @RequestMapping("/student/list")
     public String listStudents(Model model, HttpSession session){
-        model.addAttribute("students", studentDao.getStudentsActivos());
+
+        Student user = (Student) session.getAttribute("user");
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
+
+        model.addAttribute("students", studentDao.getStudents());
         model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("sorter", new Sorter());
         model.addAttribute("comparator", new StudentComparatorById());
@@ -225,21 +235,54 @@ public class StudentController {
         student.setBanReason(msg);
         Chat chat=chatDao.getChatEntreStudents(studentDao.getStudentUsingId("id000000"), student);
         String idChat;
-        if (chat==null) {
-            idChat = chatDao.createChat(studentDao.getStudentUsingId("id000000"), student);
-        } else {
-            idChat=chat.getIdChat();
-        }
+        if (chat==null) idChat = chatDao.createChat(studentDao.getStudentUsingId("id000000"), student);
+        else idChat=chat.getIdChat();
         messageDao.banMessage(idChat, student);
         chat=chatDao.getChatConId(idChat);
         chat.setNewMsgParaStudent2(true);
         chatDao.updateChat(chat);
         studentDao.cancelStudent(student);
+        cancelarOfferRequestDe(student);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/profile/{id}", method=RequestMethod.GET)
-    public String profilePage(@PathVariable String id){
-        return "/profile";
+    private void cancelarOfferRequestDe(Student student){
+        for(OffeRequest offeRequest: offeRequestDao.getOfferRequestsActivasDe("Request",student))
+            offeRequestDao.delete(offeRequest.getId());
+        for(OffeRequest offeRequest: offeRequestDao.getOfferRequestsActivasDe("Offer",student))
+            offeRequestDao.delete(offeRequest.getId());
+        for (Collaboration collaboration:collaborationDao.getCollaborationsActivasDe(student))
+            collaborationDao.finalizeCollaboration(collaboration);
     }
-}
+    @RequestMapping(value = "/profile/{id}", method=RequestMethod.GET)
+    public String profilePage(@PathVariable String id, Model model, HttpSession session){
+        Student user = (Student) session.getAttribute("user");
+
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
+
+        model.addAttribute("RequestAceptar",collaborationDao.getRequestsPorAceptar(user));
+        model.addAttribute("OfferAceptar",collaborationDao.getOffersPorAceptar(user));
+        model.addAttribute("misOffers",offeRequestDao.getOfferRequestsActivasDe("Offer",user));
+        model.addAttribute("misRequests",offeRequestDao.getOfferRequestsActivasDe("Request",user));
+
+
+
+        //model.addAttribute("misRequests",offeRequestDao.get)
+
+        return "/profile";
+
+    }
+
+    @RequestMapping(value = "/student/unban/{id}", method = RequestMethod.GET)
+    public String unbanStudent(Model model, @PathVariable String id){
+
+        Student student =studentDao.getStudentUsingId(id);
+
+        student.setBanReason(null);
+        studentDao.unbanStudent(student);
+        return "redirect:/";
+        }
+    }
+

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Gestionar Skills</title>
+  <title>Skill Sharing -Skills</title>
   <meta charset="UTF-8" />
   <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
   <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
@@ -10,21 +10,19 @@
 <div th:replace="fragments/header" ></div>
 <body>
 <main class="centrado">
-  <h1 class="titulo">Lista de Skills</h1>
-  <table>
+  <h1 class="titulo">List of Skills</h1>
+  <div th:if="${#lists.isEmpty(skills)}" th:text="'There are not Skills available'"></div>
+  <table th:unless="${#lists.isEmpty(skills)}">
     <thead>
       <tr>
-        <th ><label>idSkill</label></th>
         <th><label>Name</label></th>
         <th><label>Level</label></th>
         <th><label>Description</label></th>
-        <th></th>
       </tr>
     </thead>
 
     <tbody>
     <tr class="color" th:each="skill: ${#lists.sort(skills, metodecomparador)}">
-      <td> <label th:text="${skill.idSkill}"></label></td>
       <td> <label th:text="${skill.name}"></label></td>
       <td>
         <label th:if="${skill.level}==0"> Beginner</label>
@@ -32,21 +30,33 @@
         <label th:if="${skill.level}==2"> Expert</label>
       </td>
       <td> <label th:text="${skill.description}"></label></td>
-      <td>
+      <td th:if="not ${session.user == null} and ${session.user.skpMember==true}">
         <div>
           <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
                 role="button"><img class="tamIcon" src="/imagenes/editar.png"></a>
-          <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
-             role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
-        </div>
+          <input type="checkbox" class="checconf" id="confirm">
+          <label for="confirm"><img class="tamIcon" src="/imagenes/delete.png"></label>
 
+          <div class="corfrimacion">
+            <p class="color_text" >Are you sure you want to cancel this skill</p>
+            <table class="botones">
+              <tr>
+                <td><label class="botonConf" for="confirm"> Back </label></td>
+                <td><a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
+                       role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></a></td>
+              </tr>
+            </table>
+          </div>
+          <label class="fondoOscuro2"></label>
+        </div>
       </td>
     </tr>
     </tbody>
   </table>
   <br>
-  <a  href="add" class="add color_text" >Add</a>
-  <a  href=".." class="add color_text" >Back</a>
+  <a  href="/" class="add color_text" >Back</a>
+  <a  th:if="${session.user.skpMember==true}"  href="add" class="add color_text" >Add</a>
+
 </main>
 </body>
 </html>

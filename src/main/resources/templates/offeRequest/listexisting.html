@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title th:text="${type}+'s'"></title>
+    <title th:text="${type}+'s for '+${skill.name}"></title>
     <meta charset="UTF-8" />
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
@@ -12,20 +12,14 @@
 <body>
 <main class="centrado" >
     <div>
-        <div><h1 class="titulo centrado" th:text="${type}+'s'"></h1></div>
-        <div th:object="${session}">
-            <a  href="add" class="add color_text" th:if="*{user!=null} and ${!session.user.isSkpMember()}">Add</a>
+        <div><h1 class="titulo centrado" th:text="${type}+'s for '+${skill.name}"></h1></div>
+        <div>
+            <a  th:href="@{/{type}/confirmado(type=${offeRequest.url})}" class="add color_text" th:text="'Add your own '+${type2}"></a>
         </div>
     </div>
-
-    <div th:if="${#lists.isEmpty(list)}" th:text="'There are not '+${type}+'s registered'"></div>
-
-
-    <div th:unless="${#lists.isEmpty(list)}" class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
+    <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
         <div class="caja color_text">
             <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
-            <div class="nombreAutor"><label th:text="'By '+${offeRequest.student.name}"></label></div>
-            <hr/>
             <div class="caja-interno">
 
                 <label th:if="${offeRequest.skill.level}==0"> Beginner</label>
@@ -49,42 +43,24 @@
                                 <img class="tamIcon" src="/imagenes/editar.png"></a>
                         </td>
                         <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
-                            <input type="checkbox" class="checconf" th:id="${offeRequest.id}">
-                            <label th:for="${offeRequest.id}"><img class="tamIcon" src="/imagenes/delete.png"></label>
-
-                            <div class="corfrimacion">
-                                <p class="color_text" th:text="'Are you sure you want to cancel this '+${type}"> </p>
-                                <table class="botones">
-                                    <tr>
-                                        <td><label class="botonConf" th:for="${offeRequest.id}"> Back </label></td>
-                                        <td><a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id},type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <label class="fondoOscuro2"></label>
+                            <a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
                         </td>
                         <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent} and ${!session.user.isSkpMember()}">
-                            <a th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a>
+                            <a  th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a>
                         </td>
                     </tr>
+
+
+
                 </table>
 
             </div>
         </div>
     </div>
     <br>
-    <a  href="/" class="add color_text" >Back</a>
+    <a  href=".." class="add color_text" >Back</a>
 
 
 </main>
-
-
-
 </body>
 </html>
-
-
-<!--<a th:href="'update/'+${offeRequest.id}" role="button"><i style='font-size:24px' class='far'>&#xf044;</i></a>-->
-<!--<a th:href="'delete/'+${offeRequest.id}" role="button">-->
-<!--    <button class="btn"><i style='font-size:24px' class="fa fa-trash"></i></button></a>-->
-

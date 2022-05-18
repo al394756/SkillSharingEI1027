@@ -1,32 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Banear</title>
+    <title>Ban</title>
     <meta charset="UTF-8" />
-
+    <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+    <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link href="../static/css/ban.css" rel="stylesheet" th:href="@{/css/ban.css}"/>
 </head>
+<div th:replace="fragments/header" ></div>
 <body>
-<h2 Banear a th:text="${nom}"></h2>
+<main class="centrado">
+    <div class="caja color_text">
 <form action="#" th:action="@{/student/ban}"
       th:object="${student}" method="post">
+    <div class="caja-interno">
+    <div class="nombre"><h2 th:text="'Ban '+${student.name}"></h2></div>
+    <hr>
     <table>
         <tr>
-            <td><label>Name</label></td>
-            <td><input type="text" th:field="*{name}" readonly="readonly"/></td>
+            <td><label>Name:</label></td>
+            <td><input type="text" class="fecha" th:field="*{name}" readonly="readonly"/></td>
         </tr>
         <tr>
-            <td><label>id</label></td>
-            <td><input type="text" th:field="*{idStudent}" readonly="readonly"/></td>
+            <td><label>id:</label></td>
+            <td><input type="text" class="fecha" th:field="*{idStudent}" readonly="readonly"/></td>
         </tr>
         <tr>
-            <td><label>reason</label></td>
-            <td><input type="text" th:field="*{banReason}" /></td>
+            <td><label>Reason:</label></td>
+            <td><input type="text" class="descripcion" th:field="*{banReason}" /></td>
             <td th:if="${#fields.hasErrors('banReason')}" th:errors="*{banReason}"></td>
         </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Ban Student" /></td>
-        </tr>
     </table>
+
+        <hr>
+        <a href="/student/list"><button class="sumit" type="button" >Back</button></a>
+        <input type="checkbox" class="checconf" id="confirm">
+        <label class="ajustesSubmit sumit4" for="confirm">Ban Student</label>
+
+
+
+    </div>
+
+    <div class="corfrimacion">
+        <p class="color_text">Are you sure you want to ban this Student?</p>
+        <table class="botones">
+            <tr>
+                <td><label class="botonConf" for="confirm"> Back </label></td>
+                <td><button class="sumit" type="submit">Ban Student</button></td>
+            </tr>
+        </table>
+    </div>
 </form>
+    </div>
+</main>
 </body>
 </html>

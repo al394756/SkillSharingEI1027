@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Profile</title>
+    <title th:text="*{session.user.name}"></title>
     <meta charset="UTF-8"/>
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
@@ -12,20 +12,63 @@
 
 <body>
 <main>
-    <div class="contenedor">
-        <div class="contenidos">
-            <div class="cell">Name:</div>
-            <div><label th:text="${session.user.getName()}" ></label></div>
-            <div class="cell">Email:</div>
-            <div><label th:text="${session.user.getEmail()}" ></label></div>
-        </div>
-        <div class="contenidos">
-            <div class="cell">Student ID:</div>
-            <div><label th:text="${session.user.getIdStudent()}" ></label></div>
-            <div class="cell">Hours:</div>
-            <div><label th:text="${session.user.getBalanceHours()}" ></label></div>
-        </div>
+    <h1>My data:</h1>
+    <div class="caja color_text">
+        <table>
+            <tr>
+                <th>
+                    <label>Name:</label>
+                </th>
+
+                <td>
+                    <label class="tuyo" th:text="*{session.user.name}"></label>
+                </td>
+                <th>
+                    <label>Email:</label>
+                </th>
+                <td>
+                    <label class="tuyo" th:text="*{session.user.email}"></label>
+                </td>
+            </tr>
+        </table>
+        <table>
+        <tr>
+            <th>
+                <label>Balance hours:</label>
+            </th>
+            <td>
+                <label class="tuyo" th:text="*{session.user.balanceHours}"></label>
+            </td>
+        </tr>
+        </table>
     </div>
+
+    <h1>My collaborations:</h1>
+    <table class="tablaColla">
+        <thead>
+        <tr>
+            <th><label>Name</label></th>
+            <th><label>Level</label></th>
+            <th><label>Description</label></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="color">
+            <td> <label ></label></td>
+            <td> <label ></label></td>
+            <td th:if="not ${session.user == null} and ${session.user.skpMember==true}">
+                <div>
+                    <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
+                       role="button"><img class="tamIcon" src="/imagenes/editar.png"></a>
+                    <a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
+                       role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </table>
 </main>
 </body>
 </html>

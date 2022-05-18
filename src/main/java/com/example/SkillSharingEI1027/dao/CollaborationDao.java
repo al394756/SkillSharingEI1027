@@ -1,6 +1,8 @@
 package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.Collaboration;
+import com.example.SkillSharingEI1027.modelo.OffeRequest;
+import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -58,8 +60,34 @@ public class CollaborationDao {
         }
     }
 
+    public List<Collaboration> getOffersPorAceptar(Student student){
+        try{
 
+            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 and ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
 
+    public List<Collaboration> getRequestsPorAceptar(Student student){
+        try{
 
+            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 and ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id)", new CollaborationRowMapper(), student.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
 
+    public List<Collaboration> getCollaborationsActivasDe(Student student){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 or collaborationstate=1 and ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
+
+    public void finalizeCollaboration(Collaboration collaboration){
+        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=2 WHERE id=?",
+                collaboration.getIdCollaboration());
+    }
 }

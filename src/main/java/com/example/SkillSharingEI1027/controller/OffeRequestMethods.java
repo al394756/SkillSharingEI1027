@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -47,13 +48,15 @@ public class OffeRequestMethods <T> {
         //lista.removeAll(lista2);
         for (OffeRequest r : lista){
             r.setSkill(skillDao.getSkill(r.getSkill().getIdSkill()));
+            r.setStudent(studentDao.getStudentUsingId(r.getStudent().getIdStudent()));
         }
         model.addAttribute("list", lista);
         return "offeRequest/list";
     }
 
-    public String add(Model model,String type) {
+    public String add(Model model,String type, HttpSession session) {
         model.addAttribute("type",type);
+        session.setAttribute("type",type);
         List<String> skills = new ArrayList<>();
         skills.add("Select one option");
         for (Skill skill : skillDao.getSkills())
@@ -62,14 +65,38 @@ public class OffeRequestMethods <T> {
         return "offeRequest/add";
     }
 
-    public String processAddSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session) {
+    public String processAddSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session, Model model) {
         OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
         offeRequestValidator.validate(offeRequest,bindingResult);
         if (bindingResult.hasErrors())
             return "redirect:/"+offeRequest.getUrl()+"/add";
-        Student student = (Student) session.getAttribute("user");
-        offeRequest.setStudent(student);
-        offeRequest.setSkill(skillDao.getIdBySkill(offeRequest.getSkill().getIdSkill()));
+
+        offeRequest.setStudent((Student) session.getAttribute("user"));
+
+        Skill skill=skillDao.getIdBySkill(offeRequest.getSkill().getIdSkill());
+        offeRequest.setSkill(skill);
+
+        String type= (String) session.getAttribute("type");
+        model.addAttribute("type2",type);
+        if (type.equals("Offer")) type="Request";
+        else type="Offer";
+        List<OffeRequest> offeRequestList=offeRequestDao.getOffeRequestWithSkill(type,skill.getIdSkill(),offeRequest.getStartDate());
+        if (offeRequestList.isEmpty()){
+            offeRequestDao.add(offeRequest);
+            return "redirect:list";
+        }
+        model.addAttribute("type",type);
+        session.removeAttribute("type");
+        model.addAttribute("skill",skill);
+        model.addAttribute("list",offeRequestList);
+        session.setAttribute("offeRequest",offeRequest);
+        model.addAttribute("offeRequest",offeRequest);
+        return "offeRequest/listexisting";
+    }
+
+    public String processConfirmAddSubmit(HttpSession session){
+        OffeRequest offeRequest=(OffeRequest)session.getAttribute("offeRequest");
+        session.removeAttribute("offeRequest");
         offeRequestDao.add(offeRequest);
         return "redirect:list";
     }

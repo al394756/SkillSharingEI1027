@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register</title>
+    <title>Skill Sharing -Register</title>
     <meta charset="UTF-8" />
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
-    <link href="../static/css/registro.css" rel="stylesheet" th:href="@{/css/registro.css}"/>
+    <link href="../static/css/sumUp.css" rel="stylesheet" th:href="@{/css/sumUp.css}"/>
 
 </head>
 
@@ -127,15 +127,16 @@
                 </tr>
             </table>
             <br>
-            <input class="register" type="submit" value="Register"/>
-            <br>
-            <br>
             <hr>
+            <div class="register"><input type="submit" value="Register"/></div>
+
+
         </form>
         </div>
     </div>
+    <p>Already have an account? <a th:href="login">Log in</a></p>
 </main>
-<p>Already have an account? <a th:href="login">Log in</a></p>
+
 
 </body>
 </html>

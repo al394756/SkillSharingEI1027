@@ -4,9 +4,8 @@
   <title>Add a New Skill</title>
   <meta charset="UTF-8" />
   <link type="text/css"  rel="stylesheet" th:href="@{../../css/skillsharing.css}"/>
-
   <link  type="text/css" rel="stylesheet" th:href="@{../../css/header.css}"/>
-  <link  type="text/css" rel="stylesheet" th:href="@{../../css/registro.css}"/>
+  <link  type="text/css" rel="stylesheet" th:href="@{../../css/addOR.css}"/>
 
 
 </head>
@@ -19,59 +18,64 @@
   <div class="caja-interno">
     <h2 >Create a Skill</h2>
     <hr/>
-<form action="#" th:action="@{/skill/add}"
-      th:object="${skill}" method="post">
-  <table>
-    <tr class="iz">
-      <td><label>Name</label></td>
-      <td><label>Level</label></td>
-    </tr>
-    <tr class="iz">
-      <td>
-        <input type="text" class="error"  th:field="*{name}"
-            placeholder="Name" maxlength="20" th:errorclass="needcorrection"
-                 th:if="${#fields.hasErrors('name')}"/>
-        <input type="text" class="rellena"  th:field="*{name}"
-                 placeholder="Name" maxlength="20" th:errorclass="needcorrection"
-                 th:unless="${#fields.hasErrors('name')}"/>
+    <form action="#" th:action="@{/skill/add}"
+          th:object="${skill}" method="post">
+      <table>
+        <tr class="iz">
+          <td><label>Name</label></td>
+          <td><label>Level</label></td>
+        </tr>
+        <tr class="iz">
+          <td>
+            <input type="text" class="error"  th:field="*{name}"
+                placeholder="Name" maxlength="20" th:errorclass="needcorrection"
+                     th:if="${#fields.hasErrors('name')}"/>
+            <input type="text"  th:field="*{name}"
+                     placeholder="Name" maxlength="20" th:errorclass="needcorrection"
+                     th:unless="${#fields.hasErrors('name')}"/>
+          </td>
 
-      </td>
+          <td>
 
-      <td>
+            <select th:field="*{level}">
+              <option value="0">Beginner</option>
+              <option value="1">Intermediate</option>
+              <option value="2">Expert</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr class="iz">
+          <td><label>Description</label></td>
+        </tr>
+        <tr class="iz">
+          <td>
+            <input class="error" th:if="${#fields.hasErrors('description')}" th type="text" th:field="*{description}" placeholder="Description" maxlength="100" th:errorclass="needcorrection">
 
-        <select class="rellena" th:field="*{level}">
-          <option value="0">Beginner</option>
-          <option value="1">Intermediate</option>
-          <option value="2">Expert</option>
-        </select>
-      </td>
-    </tr>
-  </table>
-  <table>
-    <tr class="iz">
-      <td><label>Description</label></td>
-    </tr>
-    <tr class="iz">
-      <td>
-        <input th:if="${#fields.hasErrors('description')}" th type="text" class="errorGrande" th:field="*{description}" placeholder="Description" maxlength="100" th:errorclass="needcorrection">
+            <input th:unless="${#fields.hasErrors('description')}" th type="text"  class="rellenaGrande" th:field="*{description}" placeholder="Description" maxlength="100" th:errorclass="needcorrection" >
+          </td>
+        </tr>
+      </table>
+      <div class="hrdiv"><hr/></div>
+      <a href="list"><button class="sumit" type="button" >Back</button></a>
+      <input type="checkbox" class="checconf" id="confirm">
+      <label class="ajustesSubmit sumit4 " for="confirm"> Add Skill </label>
 
-      <input th:unless="${#fields.hasErrors('description')}" th type="text"  class="rellenaGrande" th:field="*{description}" placeholder="Description" maxlength="100" th:errorclass="needcorrection" >
-      </td>
-    </tr>
+      <div class="corfrimacion">
+        <p class="color_text" th:text="'Are you sure you want to edit this '+${type}"></p>
+        <table class="botones">
+          <tr>
+            <td><button class="botonConf" for="confirm"> Back </button></td>
+            <td><button class="sumit" type="submit">Add Skill</button></td>
+          </tr>
+        </table>
+      </div>
 
+      <label class="fondoOscuro2"></label>
 
-  </table>
-  <br>
-  <table>
-    <tr>
-      <td><a href="/skill/list"><button type="button" class="register">Back</button></a></td>
-
-
-      <td><input type="submit" class="register" value="Add Skill" > </td>
-    </tr>
-  </table>
-</form>
-  </div>
+    </form>
+    </div>
 </div>
 </main>
 </body>
