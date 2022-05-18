@@ -12,7 +12,7 @@
     border-radius: 20px;
     background: #7d9abb;
     width: 16rem;
-    height: 21.5rem;
+    height: 22.5rem;
     box-shadow: 0 0 0.7rem #333333;
 }
 .caja-interno{
@@ -21,6 +21,11 @@
     padding-top: 0.1rem;
     text-align: left;
     horiz-align: left;
+}
+
+hr{
+    height: 1px;
+    background-color: white;
 }
 .descripcion{
     background: white;
