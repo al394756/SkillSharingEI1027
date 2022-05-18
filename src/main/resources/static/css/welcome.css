@@ -54,14 +54,22 @@ body {
 
 }
 
-
-
 .sumit{
+  width: 8rem;
+  height: 1.8rem;
+  border: white;
+  border-radius: 5px;
+  background: white;
+  color: #7d9abb;
+  font-weight: bold;
+}
+
+.sumit:hover{
     width: 8rem;
     height: 1.8rem;
     border: white;
     border-radius: 5px;
-    background: white;
+    background: #E7FFFD;
     color: #7d9abb;
     font-weight: bold;
 }
