@@ -18,10 +18,10 @@
             <input type="checkbox" class="checconf" id="confirm">
             <label  th:href="@{/{type}/confirmado(type=${offeRequest.url})}"  class="ajustesSubmit sumit2" for="confirm" th:text="'Add your own '+${type2}"></label>
 
-            <div class="corfrimacion" th:object="${list}"> An email has been sent to:
+            <div class="corfrimacion" > An email has been sent to:
 
-                <p th:each="person : ${list}" class="color_text">
-                    <label th:text="${person.student.email}+', '"></label>
+                <p th:each="mail : ${mailList}" class="color_text">
+                    <label th:text="${mail}"></label>
                 </p>
                 <table class="botones">
                     <tr>

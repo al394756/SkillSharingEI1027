@@ -18,10 +18,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 
 public class OffeRequestMethods <T> {
@@ -85,9 +82,14 @@ public class OffeRequestMethods <T> {
             offeRequestDao.add(offeRequest);
             return "redirect:list";
         }
+        Set<String> setMail = new HashSet<>();
+
         for (OffeRequest or: offeRequestList ) {
-            or.setStudent(studentDao.getStudentUsingId(or.getStudent().getIdStudent()));
+            Student student=studentDao.getStudentUsingId(or.getStudent().getIdStudent());
+            or.setStudent(student);
+            setMail.add(student.getEmail());
         }
+        model.addAttribute("mailList",setMail);
         model.addAttribute("type",type);
         session.removeAttribute("type");
         model.addAttribute("skill",skill);
