@@ -6,8 +6,6 @@
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
     <link href="../static/css/request.css" rel="stylesheet" th:href="@{/css/request.css}"/>
-
-
 </head>
 
 <div th:replace="fragments/header" ></div>
@@ -32,6 +30,28 @@
 
             <label class="fondoOscuro2"></label>
         </div>
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <input type="checkbox" class="checconf" id="confirm">
+                        <label class="add color_text" for="confirm" th:text="'Add your own '+${type2}"></label>
+                        <div class="corfrimacion" th:object="${mailTosend}"> An email has been sent to:
+
+                            <p th:each="person : ${mailTosend}" class="color_text">
+                                <label th:text="${person.student.email}+', '"></label>
+                            </p>
+                            <table class="botones">
+                                <tr>
+                                    <td><a  th:href="@{/{type}/confirmado(type=${offeRequest.url})}" class="add color_text" >Accept</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <label class="fondoOscuro2"></label>
+                </td>
+            </tr>
+        </table>
     </div>
     <br>
     <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
@@ -57,12 +77,17 @@
                 <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
                 <table class="centrado edit">
                     <tr>
+                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
+                            <a class="editIcon" th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}">
+                                <img class="tamIcon" src="/imagenes/editar.png"></a>
+                        </td>
+                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
+                            <a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
+                        </td>
                         <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent} and ${!session.user.isSkpMember()}">
                             <a  th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a>
                         </td>
                     </tr>
-
-
 
 
 

@@ -87,7 +87,12 @@ public class OffeRequestMethods <T> {
         for (OffeRequest or: offeRequestList ) {
             or.setStudent(studentDao.getStudentUsingId(or.getStudent().getIdStudent()));
         }
-        System.out.println(offeRequestList.toString());
+        String t = "Offer";
+        if (type.equals(t))
+            t = "Request";
+        List<OffeRequest> listaParaMail = offeRequestDao.getOffeRequestWithSkill(t,skill.getIdSkill(),offeRequest.getStartDate());
+        System.out.println(listaParaMail);
+        model.addAttribute("mailTosend", listaParaMail);
         model.addAttribute("type",type);
         session.removeAttribute("type");
         model.addAttribute("skill",skill);

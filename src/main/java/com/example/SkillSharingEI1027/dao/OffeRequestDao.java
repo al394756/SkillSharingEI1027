@@ -114,4 +114,12 @@ public class OffeRequestDao {
             return new ArrayList<>();
         }
     }
+
+    public List<OffeRequest> getStudentWithSkill(String table, String idskill){
+        try{
+            return jdbcTemplate.query("SELECT Student FROM "+table+" WHERE idSkill=?", new OffeRequestRowMapper(table), idskill);
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
 }

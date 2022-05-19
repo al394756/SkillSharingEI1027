@@ -47,6 +47,11 @@ input:hover{
     font-weight: bold;
 }
 
+.sumit:hover{
+    background: #eee;
+    cursor: pointer;
+}
+
 .iz{
     text-align: left
 }
