@@ -15,6 +15,7 @@
         <div><h1 class="titulo centrado" th:text="${type}+'s for '+${skill.name}"></h1></div>
         <div>
 
+<!--        este check va linea 22-->
             <input type="checkbox" class="checconf" id="confirm">
             <label  class="ajustesSubmit sumit2" for="confirm" th:text="'Add your own '+${type2}"></label>
 
@@ -22,26 +23,24 @@
                 <p class="color_text" th:text="'Are you sure you want to add your own '+${type2}+'?'"></p>
                 <table class="botones">
                     <tr>
-                        <td><button class="botonConf" for="confirm"> Back </button></td>
-                        <td><button class="sumit" th:href="@{/{type}/confirmado(type=${offeRequest.url})}">Accept</button></td>
+                        <td><label class="botonConf" for="confirm"> Back </label></td>
+                        <td><label for="confirm2" >Accept</label></td>
                     </tr>
                 </table>
             </div>
 
-
-
-
-            <div class="corfrimacion">
+<!--            segundo check-->
+            <input type="checkbox" class="check2" id="confirm2">
+            <div class="corfrimacion2">
                 <p class="color_text" >An email has been sent to: </p>
 
                 <p th:each="mail : ${mailList}" class="color_text">
                     <label th:text="${mail}"></label>
                 </p>
-                <table class="botones">
-                    <tr>
-                        <td><a  th:href="@{/{type}/confirmado(type=${offeRequest.url})}" class="add color_text" >Accept</a></td>
-                    </tr>
-                </table>
+                <form action="#" th:href="@{/{url}/list(url=${offeRequest.url})}"
+                      th:object="${offeRequest}" method="post">
+                    <button class="sumit" type="submit">Accept</button>
+                </form>
             </div>
 
             <label class="fondoOscuro2"></label>

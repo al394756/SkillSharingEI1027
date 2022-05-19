@@ -79,15 +79,41 @@ background: red
 }
 
 .checconf:checked ~ .corfrimacion{
-     display: flex;
-}
+      display: flex;
+ }
 
 .checconf{
      top: 0;
      position: fixed;
      display: none;
 }
+
+.check2:checked ~ .corfrimacion2{
+     display: flex;
+}
+
+.check2{
+     top: 0;
+     position: fixed;
+     display: none;
+}
 .corfrimacion{
+     top: 0;
+     bottom: 0;
+     right: 0;
+     left: 0;
+     margin: auto;
+     width: 15rem;
+     height: 10rem;
+     background: #7d9abb;
+     position: fixed;
+     display: none;
+     flex-wrap: wrap;
+     z-index: 3;
+     border-radius: 20px;
+     padding: 1rem;
+}
+.corfrimacion2{
      top: 0;
      bottom: 0;
      right: 0;
