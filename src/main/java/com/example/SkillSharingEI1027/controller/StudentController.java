@@ -266,7 +266,7 @@ public class StudentController {
         model.addAttribute("OfferAceptar",collaborationDao.getOffersPorAceptar(user));
         model.addAttribute("misOffers",offeRequestDao.getOfferRequestsActivasDe("Offer",user));
         model.addAttribute("misRequests",offeRequestDao.getOfferRequestsActivasDe("Request",user));
-
+        model.addAttribute("misCollaborations", collaborationDao.getOffersPorAceptar(user));
 
 
         //model.addAttribute("misRequests",offeRequestDao.get)

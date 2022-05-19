@@ -54,13 +54,26 @@
         </thead>
 
         <tbody>
-        <tr class="color">
-            <td> <label ></label></td>
-            <td> <label ></label></td>
-            <td th:if="not ${session.user == null} and ${session.user.skpMember==true}">
-                <div>
-                    <a><img class="tamIcon" src="/imagenes/delete.png"></a>
-                </div>
+        <tr class="color" th:each="collaboration: ${collaborations}">
+            <td> <label th:text="${collaboration.idOffer.student.name}"></label></td>
+            <td> <label th:text="${collaboration.idRequest.student.name}"> </label></td>
+            <td> <label th:text="${collaboration.idRequest.skill.name}"></label></td>
+            <td>
+                <label th:if="${collaboration.collaborationState}==0"> Pending</label>
+                <label th:if="${collaboration.collaborationState}==1"> Confirmed</label>
+                <label th:if="${collaboration.collaborationState}==2"> Completed</label>
+            </td>
+            <td>
+                <label th:if="${collaboration.collaborationState}==2"><label th:text="${collaboration.hours}"></label></label>
+                <label th:unless="${collaboration.collaborationState}==2">?</label>
+            </td>
+            <td>
+                <label th:if="${collaboration.collaborationState}==2"><label th:text="${collaboration.assessmentScore}"></label></label>
+                <label th:unless="${collaboration.collaborationState}==2">?</label>
+            </td>
+
+            <td class="colBan" th:object="${session}"> <a class="add color_text" th:href="@{/student/unban/{id}(id=${student.idStudent})}">Valorar</a>
+
             </td>
         </tr>
         </tbody>

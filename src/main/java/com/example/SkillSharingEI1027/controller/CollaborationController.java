@@ -71,10 +71,13 @@ public class CollaborationController {
         String msgContent;
         if (offeRequestNueva.getType().equals("Request")) {
             collaboration = new Collaboration(offeRequestNueva, offeRequestAceptada);
+            collaboration.setRequestinicia(true);
             msgContent="I have accepted your offer of "+ skill.getName()+" ("+offeRequestAceptada.getId()+")\nAccept the collaboration in the 'Collaboration proposals' section.";
         }
         else{
             collaboration=new Collaboration(offeRequestAceptada,offeRequestNueva);
+            collaboration.setRequestinicia(false);
+
             msgContent="I have accepted your request of "+ skill.getName()+" ("+offeRequestAceptada.getId()+")\nAccept the collaboration in the 'Collaboration proposals' section.";
 
         }

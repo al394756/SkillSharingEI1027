@@ -8,6 +8,7 @@ public class Collaboration {
     private OffeRequest idOffer= new Offer();
     private OffeRequest idRequest = new Request();
     private int hours;
+    private boolean requestinicia;
 
     public Collaboration() {
         collaborationState = 0;
@@ -70,6 +71,14 @@ public class Collaboration {
 
     public void setHours(int hours) {
         this.hours = hours;
+    }
+
+    public boolean isRequestinicia() {
+        return requestinicia;
+    }
+
+    public void setRequestinicia(boolean requestinicia) {
+        this.requestinicia = requestinicia;
     }
 
     @Override

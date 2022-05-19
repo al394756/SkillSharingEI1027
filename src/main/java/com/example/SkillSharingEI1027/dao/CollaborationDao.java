@@ -23,9 +23,9 @@ public class CollaborationDao {
 
     public void addCollaboration(Collaboration collab){
         collab.setIdCollaboration(idGenerator());
-        jdbcTemplate.update("INSERT INTO Collaboration VALUES(?,?,?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO Collaboration VALUES(?,?,?,?,?,?,?)",
                 collab.getIdCollaboration(),collab.getAssessmentScore(), collab.getCollaborationState(),
-                collab.getIdOffer().getId(), collab.getIdRequest().getId(), collab.getHours());
+                collab.getIdOffer().getId(), collab.getIdRequest().getId(), collab.getHours(), collab.isRequestinicia());
     }
     private String idGenerator(){
         AtomicInteger contador = new AtomicInteger(getCantidadCollaborations());
