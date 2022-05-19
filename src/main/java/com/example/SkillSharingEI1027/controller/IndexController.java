@@ -1,5 +1,6 @@
 package com.example.SkillSharingEI1027.controller;
 
+import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,9 @@ public class IndexController {
     @RequestMapping("/")
     public String indexPage(HttpSession session){
         session.setAttribute("today", LocalDate.now());
-        return "welcome";
+        Student user = (Student)session.getAttribute("user");
+        if ( user == null  || !user.isActiveAccount())
+            return "welcome";
+        return "index";
     }
 }

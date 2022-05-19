@@ -83,10 +83,7 @@ main {
     font-size: 13px;
     font-style: italic;
 }
-.grid{
-    padding: 1rem 1rem;
-    display:inline-grid
-}
+
 .tamIcon{
     padding-top: 0.3rem;
     height: 1.5rem;

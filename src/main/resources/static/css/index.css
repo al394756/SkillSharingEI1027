@@ -1,0 +1,21 @@
+.menu{
+    text-align: center;
+    margin: auto;
+
+}
+
+tr{
+    padding: 1rem;
+}
+.menu a{
+    width: 9rem;
+    display: block;
+    border-radius: 5px;
+    background: #7d9abb;
+    color: white;
+    padding: 0.5rem 1rem ;
+
+}
+main{
+    padding-top: 2rem;
+}

@@ -159,3 +159,7 @@ background: red
      background: white;
      border-radius: 5px;
 }
+.grid{
+     padding: 1rem 1rem;
+     display:inline-grid
+}

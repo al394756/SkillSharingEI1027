@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Skill Sharing -Login</title>
+    <meta charset="UTF-8"/>
+    <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+    <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link href="../static/css/index.css" rel="stylesheet" th:href="@{/css/index.css}"/>
+
+</head>
+
+<div th:replace="fragments/header" ></div>
+
+<body>
+<main class="centrado">
+    <img src="/imagenes/logo_azul.png">
+<table class="menu">
+    <tr>
+        <td><a href="/request/list" class="color_text interlimeado">Request</a></td>
+        <td><a href="/offer/list" class="color_text interlimeado">Offers</a></td>
+        <td th:if="not ${session.user == null}"><a  href="/skill/list" class="color_text interlimeado">Skills</a></a></td>
+    </tr>
+    <tr>
+        <td th:if="not ${session.user == null}"><a  href="/chat/list" class="color_text interlimeado">Chats</a></a></td>
+        <td th:if="not ${session.user == null}"><a  th:href="@{/profile/{id}(id=${session.user.idStudent})}" class="color_text interlimeado">Personal Area</a></a></td>
+        <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><a  href="/student/list" class="color_text interlimeado">Users</a></td>
+    </tr>
+    <tr th:if="not ${session.user == null} and ${session.user.skpMember==true}">
+        <td></td>
+        <td><a  href="/collaboration/list" class="color_text interlimeado">Collaboration</a></td>
+        <td></td>
+    </tr>
+
+</table>
+</main>
+</body>
+</html>
 
