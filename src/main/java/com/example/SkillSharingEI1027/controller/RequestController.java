@@ -68,8 +68,13 @@ public class RequestController {
         return offeRequestMethods.processDelete(id);
     }
 
-    @RequestMapping(value="/confirmado")
+    @RequestMapping(value="/listexisting",method = RequestMethod.POST)
     public String processConfirmAddSubmit(HttpSession session){
         return offeRequestMethods.processConfirmAddSubmit(session);
+    }
+
+    @RequestMapping(value = "/listexisting")
+    public String listExisting(HttpSession session,Model model){
+        return offeRequestMethods.listExisting(session,model);
     }
 }
