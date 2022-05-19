@@ -34,6 +34,8 @@
                 <label th:if="${collaboration.collaborationState}==0"> Pending</label>
                 <label th:if="${collaboration.collaborationState}==1"> Confirmed</label>
                 <label th:if="${collaboration.collaborationState}==2"> Completed</label>
+                <label th:if="${collaboration.collaborationState}==3"> Cancelled</label>
+
             </td>
             <td>
                 <label th:if="${collaboration.collaborationState}==2"><label th:text="${collaboration.hours}"></label></label>

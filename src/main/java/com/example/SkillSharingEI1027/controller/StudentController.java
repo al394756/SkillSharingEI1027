@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -131,6 +132,8 @@ public class StudentController {
     private CollaborationDao collaborationDao;
     @Autowired
     private OffeRequestDao offeRequestDao;
+    @Autowired
+    private SkillDao skillDao;
 
     @RequestMapping("/login")
     public String login(Model model){
@@ -262,16 +265,15 @@ public class StudentController {
             return "welcome";
         }
 
-        model.addAttribute("RequestAceptar",collaborationDao.getRequestsPorAceptar(user));
-        model.addAttribute("OfferAceptar",collaborationDao.getOffersPorAceptar(user));
-        model.addAttribute("misOffers",offeRequestDao.getOfferRequestsActivasDe("Offer",user));
-        model.addAttribute("misRequests",offeRequestDao.getOfferRequestsActivasDe("Request",user));
-        model.addAttribute("misCollaborations", collaborationDao.getOffersPorAceptar(user));
+        List<Collaboration> list = collaborationDao.getCollaborationsDe(user);
+        list = conseguirDatosCollaborations(list);
+
+        model.addAttribute("misCollaborations", list);
 
 
         //model.addAttribute("misRequests",offeRequestDao.get)
 
-        return "/profile";
+        return "profile";
 
     }
 
@@ -284,5 +286,24 @@ public class StudentController {
         studentDao.unbanStudent(student);
         return "redirect:/";
         }
+
+
+    public List<Collaboration> conseguirDatosCollaborations(List<Collaboration> collaborations){
+        List<Collaboration> collabFinal = new LinkedList<>();
+        for (Collaboration c: collaborations){
+            OffeRequest offeRequest = offeRequestDao.getOffeRequest(c.getIdOffer().getId());
+            offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
+            offeRequest.setStudent(studentDao.getStudentUsingId(offeRequest.getStudent().getIdStudent()));
+            c.setIdOffer(offeRequest);
+
+            offeRequest =offeRequestDao.getOffeRequest(c.getIdRequest().getId());
+            offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
+            offeRequest.setStudent(studentDao.getStudentUsingId(offeRequest.getStudent().getIdStudent()));
+            c.setIdRequest(offeRequest);
+
+            collabFinal.add(c);
+        }
+        return collabFinal;
+    }
     }
 

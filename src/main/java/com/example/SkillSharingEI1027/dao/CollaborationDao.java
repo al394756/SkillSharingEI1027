@@ -90,4 +90,17 @@ public class CollaborationDao {
         jdbcTemplate.update("UPDATE Collaboration SET collaborationState=2 WHERE id=?",
                 collaboration.getIdCollaboration());
     }
+
+    public void cancelCollaboration(Collaboration collaboration){
+        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=3, hours=0 WHERE id=?",
+                collaboration.getIdCollaboration());
+    }
+
+    public List<Collaboration> getCollaborationsDe(Student student){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
 }

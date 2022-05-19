@@ -3,7 +3,8 @@ package com.example.SkillSharingEI1027.modelo;
 public enum CollaborationState {
     PENDIENTE(0),
     CONFIRMADO(1),
-    FINALIZADO(2);
+    FINALIZADO(2),
+    CANCELADO(3);
 
     private final int id;
 

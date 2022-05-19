@@ -137,7 +137,7 @@ public class CollaborationController {
         msg.setContent(msgContent);
         messageDao.addMessage(msg);
     }
-    private List<Collaboration> conseguirDatosCollaborations(List<Collaboration> collaborations){
+    public List<Collaboration> conseguirDatosCollaborations(List<Collaboration> collaborations){
         List<Collaboration> collabFinal = new LinkedList<>();
         for (Collaboration c: collaborations){
             OffeRequest offeRequest = offeRequestDao.getOffeRequest(c.getIdOffer().getId());
