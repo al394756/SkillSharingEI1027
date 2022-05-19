@@ -13,9 +13,28 @@
 <main class="centrado" >
     <div>
         <div><h1 class="titulo centrado" th:text="${type}+'s for '+${skill.name}"></h1></div>
-        <div>
-            <a  th:href="@{/{type}/confirmado(type=${offeRequest.url})}" class="add color_text" th:text="'Add your own '+${type2}"></a>
-        </div>
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <input type="checkbox" class="checconf" id="confirm">
+                        <label class="add color_text" for="confirm" th:text="'Add your own '+${type2}"></label>
+                        <div class="corfrimacion" th:object="${mailTosend}"> An email has been sent to:
+
+                            <p th:each="person : ${mailTosend}" class="color_text">
+                                <label th:text="${person.student.email}+', '"></label>
+                            </p>
+                            <table class="botones">
+                                <tr>
+                                    <td><a  th:href="@{/{type}/confirmado(type=${offeRequest.url})}" class="add color_text" >Accept</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <label class="fondoOscuro2"></label>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
         <div class="caja color_text">

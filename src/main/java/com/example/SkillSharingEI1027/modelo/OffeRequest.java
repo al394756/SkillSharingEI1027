@@ -83,8 +83,6 @@ public abstract class OffeRequest implements Comparable<OffeRequest>{
                 '}';
     }
 
-
-
     public String getType(){
         return type;
     }

@@ -85,6 +85,12 @@ public class OffeRequestMethods <T> {
             offeRequestDao.add(offeRequest);
             return "redirect:list";
         }
+        String t = "Offer";
+        if (type.equals(t))
+            t = "Request";
+        List<OffeRequest> listaParaMail = offeRequestDao.getOffeRequestWithSkill(t,skill.getIdSkill(),offeRequest.getStartDate());
+        System.out.println(listaParaMail);
+        model.addAttribute("mailTosend", listaParaMail);
         model.addAttribute("type",type);
         session.removeAttribute("type");
         model.addAttribute("skill",skill);
