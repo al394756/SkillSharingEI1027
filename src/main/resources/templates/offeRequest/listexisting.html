@@ -16,9 +16,23 @@
         <div>
 
             <input type="checkbox" class="checconf" id="confirm">
-            <label  th:href="@{/{type}/confirmado(type=${offeRequest.url})}"  class="ajustesSubmit sumit2" for="confirm" th:text="'Add your own '+${type2}"></label>
+            <label  class="ajustesSubmit sumit2" for="confirm" th:text="'Add your own '+${type2}"></label>
 
-            <div class="corfrimacion" > An email has been sent to:
+            <div class="corfrimacion">
+                <p class="color_text" th:text="'Are you sure you want to add your own '+${type2}+'?'"></p>
+                <table class="botones">
+                    <tr>
+                        <td><button class="botonConf" for="confirm"> Back </button></td>
+                        <td><button class="sumit" th:href="@{/{type}/confirmado(type=${offeRequest.url})}">Accept</button></td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+
+            <div class="corfrimacion">
+                <p class="color_text" >An email has been sent to: </p>
 
                 <p th:each="mail : ${mailList}" class="color_text">
                     <label th:text="${mail}"></label>
