@@ -67,8 +67,8 @@ public class SkillDao {
         }
     }
 
-    private Integer getCantidadSkills(){
-        return jbdcTemplate.queryForObject("SELECT COUNT(name) FROM Skill",new IntegerRowMapper());
+    private int getCantidadSkills(){
+        return jbdcTemplate.queryForObject("SELECT COUNT(name) FROM Skill",Integer.class);
 
     }
     //Genera un id de formato "sk000000", sk + 6 cifras (permite tener hasta 1000000 usuarios registrados)

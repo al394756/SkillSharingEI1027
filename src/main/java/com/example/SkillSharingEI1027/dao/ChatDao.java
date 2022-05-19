@@ -88,8 +88,8 @@ public class ChatDao {
         return id.toString()+numeroId;
     }
 
-    private Integer getCantidadChats(){
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM CHAT", new IntegerRowMapper());
+    private int getCantidadChats(){
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM CHAT", Integer.class);
 
     }
 
@@ -101,8 +101,8 @@ public class ChatDao {
         }
     }
 
-    public Integer getCantidadChatsSinLeer(Student student){
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM CHAT WHERE (user1=? AND newMsgParaStudent1=true) OR (user2=? AND newMsgParaStudent2=true)", new IntegerRowMapper(),student.getIdStudent(),student.getIdStudent());
+    public int getCantidadChatsSinLeer(Student student){
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM CHAT WHERE (user1=? AND newMsgParaStudent1=true) OR (user2=? AND newMsgParaStudent2=true)", Integer.class,student.getIdStudent(),student.getIdStudent());
 
     }
 }

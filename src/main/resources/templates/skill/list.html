@@ -15,21 +15,21 @@
   <table th:unless="${#lists.isEmpty(skills)}">
     <thead>
       <tr>
-        <th><label>Name</label></th>
-        <th><label>Level</label></th>
-        <th><label>Description</label></th>
+        <th>Name</th>
+        <th>Level</th>
+        <th>Description</th>
       </tr>
     </thead>
 
     <tbody>
     <tr class="color" th:each="skill: ${#lists.sort(skills, metodecomparador)}">
-      <td> <label th:text="${skill.name}"></label></td>
+      <td th:text="${skill.name}"></td>
       <td>
         <label th:if="${skill.level}==0"> Beginner</label>
         <label th:if="${skill.level}==1"> Intermediate</label>
         <label th:if="${skill.level}==2"> Expert</label>
       </td>
-      <td> <label th:text="${skill.description}"></label></td>
+      <td th:text="${skill.description}"></td>
       <td th:if="not ${session.user == null} and ${session.user.skpMember==true}">
         <div>
           <a th:href="@{/skill/update/{idSkill}(idSkill=${skill.idSkill})}"
@@ -41,7 +41,7 @@
             <p class="color_text" >Are you sure you want to cancel this skill</p>
             <table class="botones">
               <tr>
-                <td><label class="botonConf" for="confirm"> Back </label></td>
+                <td class="botonConf" for="confirm">Back</td>
                 <td><a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
                        role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></a></td>
               </tr>

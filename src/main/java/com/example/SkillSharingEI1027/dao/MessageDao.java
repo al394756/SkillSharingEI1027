@@ -44,8 +44,8 @@ public class MessageDao {
             return null;
         }
     }
-    public Integer messageNumber(String idChat){
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Message WHERE idChat=?", new IntegerRowMapper(),idChat);
+    public int messageNumber(String idChat){
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM Message WHERE idChat=?", Integer.class,idChat);
 
     }
 

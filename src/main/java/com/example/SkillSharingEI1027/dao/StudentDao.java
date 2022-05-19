@@ -133,8 +133,8 @@ public class StudentDao {
         }
     }
 
-    private Integer getCantidadStudents(){
-        return jdbcTemplate.queryForObject("SELECT COUNT(name) FROM Student",new IntegerRowMapper());
+    private int getCantidadStudents(){
+        return jdbcTemplate.queryForObject("SELECT COUNT(name) FROM Student",Integer.class);
 
     }
     public Student loadUser(String userInput, String password) {

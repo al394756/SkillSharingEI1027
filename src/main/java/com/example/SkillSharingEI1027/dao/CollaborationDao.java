@@ -36,8 +36,8 @@ public class CollaborationDao {
         id.append("0".repeat(Math.max(0, 6 - numeroCifras)));
         return id.toString() + numeroId;
     }
-    private Integer getCantidadCollaborations(){
-        return jdbcTemplate.queryForObject("SELECT COUNT(idCollaboration) FROM Collaboration",new IntegerRowMapper());
+    private int getCantidadCollaborations(){
+        return jdbcTemplate.queryForObject("SELECT COUNT(idCollaboration) FROM Collaboration",Integer.class);
     }
 
 

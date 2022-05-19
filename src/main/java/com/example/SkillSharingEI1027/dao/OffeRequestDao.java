@@ -61,8 +61,8 @@ public class OffeRequestDao {
         return id.toString() +numeroId;
     }
 
-    private Integer getCantidad(String table){
-        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM "+table,new IntegerRowMapper());
+    private int getCantidad(String table){
+        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM "+table,Integer.class);
     }
 
     public List<OffeRequest> getActiveOffeRequests(String table) {

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Skill Sharing -Stadistics</title>
+    <meta charset="UTF-8" />
+    <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+    <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link href="../static/css/statistics.css" rel="stylesheet" th:href="@{/css/statistics.css}"/>
+</head>
+<div th:replace="fragments/header" ></div>
+<body>
+<main class="centrado">
+    <h1 class="titulo">Statistics</h1>
+    <table>
+        <caption>Percentage of different skills used</caption>
+        <tr>
+            <th>Request</th>
+            <td th:text="${pOfDDistinctSkillsRequest}+'%'"></td>
+        </tr>
+        <tr>
+            <th>Offer</th>
+            <td th:text="${pOfDDistinctSkillsOffer}+'%'"></td>
+        </tr>
+    </table>
+</main>
+</body>
+</html>

@@ -30,7 +30,6 @@ public class OfferController {
 
     @RequestMapping("/list")
     public String listOffers(Model model, HttpSession session){
-
         Student user = (Student) session.getAttribute("user");
         if (user!=null && !user.isActiveAccount()){
             return "welcome";

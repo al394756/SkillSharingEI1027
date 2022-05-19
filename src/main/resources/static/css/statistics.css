@@ -1,0 +1,32 @@
+table{
+    color: white;
+    margin: auto;
+    border: white;
+    border-radius: 5px;
+    text-align: left;
+    width: 25%;
+}
+th{
+    text-align: center;
+    background: #7d9abb;
+    border-radius: 5px;
+}
+td{
+    margin: auto;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+table td:nth-child(odd) {
+    color: #7d9abb;
+    background: #E8EEF6;
+}
+table td:nth-child(even) {
+    background: #DCE4EE;
+    color: #7d9abb;
+
+}
+
+caption{
+    color: #7d9abb;
+}
