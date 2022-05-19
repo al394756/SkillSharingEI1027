@@ -89,9 +89,9 @@ public class OffeRequestDao {
         }
     }
 
-    public List<OffeRequest> getOffeRequestWithSkill(String table, String idskill, LocalDate date){
+    public List<OffeRequest> getOffeRequestWithSkill(String table, String idskill, LocalDate date, Student student){
         try{
-            return jdbcTemplate.query("SELECT * FROM "+table+" WHERE idSkill=? AND endDate>?", new OffeRequestRowMapper(table), idskill,date);
+            return jdbcTemplate.query("SELECT * FROM "+table+" WHERE idSkill=? AND endDate>? AND idStudent != ?", new OffeRequestRowMapper(table), idskill,date, student.getIdStudent());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }

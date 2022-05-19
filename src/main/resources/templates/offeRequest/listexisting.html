@@ -6,6 +6,8 @@
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
     <link href="../static/css/request.css" rel="stylesheet" th:href="@{/css/request.css}"/>
+
+
 </head>
 
 <div th:replace="fragments/header" ></div>
@@ -14,12 +16,29 @@
     <div>
         <div><h1 class="titulo centrado" th:text="${type}+'s for '+${skill.name}"></h1></div>
         <div>
-            <a  th:href="@{/{type}/confirmado(type=${offeRequest.url})}" class="add color_text" th:text="'Add your own '+${type2}"></a>
+
+            <input type="checkbox" class="checconf" id="confirm">
+            <label  th:href="@{/{type}/confirmado(type=${offeRequest.url})}"  class="ajustesSubmit sumit2" for="confirm" th:text="'Add your own '+${type2}"></label>
+
+            <div class="corfrimacion">
+                <p class="color_text" th:text="'Are you sure you want to create this '+${type}"></p>
+                <table class="botones">
+                    <tr>
+                        <td><label class="botonConf" for="confirm"> Back </label></td>
+                        <td><button class="sumit" type="submit" th:text="'Create a '+${type}"></button></td>
+                    </tr>
+                </table>
+            </div>
+
+            <label class="fondoOscuro2"></label>
         </div>
     </div>
+    <br>
     <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
         <div class="caja color_text">
-            <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
+            <div class="nombre"><label th:text="${skill.name}"></label></div>
+            <div class="nombreAutor"><label th:text="'By '+${offeRequest.student.name}"></label></div>
+            <hr/>
             <div class="caja-interno">
 
                 <label th:if="${offeRequest.skill.level}==0"> Beginner</label>
@@ -38,17 +57,12 @@
                 <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
                 <table class="centrado edit">
                     <tr>
-                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
-                            <a class="editIcon" th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}">
-                                <img class="tamIcon" src="/imagenes/editar.png"></a>
-                        </td>
-                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
-                            <a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id}, type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a>
-                        </td>
                         <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent} and ${!session.user.isSkpMember()}">
                             <a  th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a>
                         </td>
                     </tr>
+
+
 
 
 
@@ -58,7 +72,7 @@
         </div>
     </div>
     <br>
-    <a  href=".." class="add color_text" >Back</a>
+    <a  th:href="@{/{type}/list(type=${offeRequest.url})}" class="add color_text" >Back</a>
 
 
 </main>

@@ -44,8 +44,7 @@ public class OffeRequestMethods <T> {
     public String list(Model model, String type, HttpSession session) {
         model.addAttribute("type",type);
         List<OffeRequest> lista = offeRequestDao.getActiveOffeRequests(type);
-        //List<OffeRequest> lista2 = collaborationService.giveOffeRequestPendientes(type,(Student) session.getAttribute("session"));
-        //lista.removeAll(lista2);
+
         for (OffeRequest r : lista){
             r.setSkill(skillDao.getSkill(r.getSkill().getIdSkill()));
             r.setStudent(studentDao.getStudentUsingId(r.getStudent().getIdStudent()));
@@ -80,11 +79,15 @@ public class OffeRequestMethods <T> {
         model.addAttribute("type2",type);
         if (type.equals("Offer")) type="Request";
         else type="Offer";
-        List<OffeRequest> offeRequestList=offeRequestDao.getOffeRequestWithSkill(type,skill.getIdSkill(),offeRequest.getStartDate());
+        List<OffeRequest> offeRequestList=offeRequestDao.getOffeRequestWithSkill(type,skill.getIdSkill(),offeRequest.getStartDate(), offeRequest.getStudent());
         if (offeRequestList.isEmpty()){
             offeRequestDao.add(offeRequest);
             return "redirect:list";
         }
+        for (OffeRequest or: offeRequestList ) {
+            or.setStudent(studentDao.getStudentUsingId(or.getStudent().getIdStudent()));
+        }
+        System.out.println(offeRequestList.toString());
         model.addAttribute("type",type);
         session.removeAttribute("type");
         model.addAttribute("skill",skill);
