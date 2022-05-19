@@ -33,8 +33,10 @@
             <td>
                 <label th:if="${collaboration.collaborationState}==0"> Pending</label>
                 <label th:if="${collaboration.collaborationState}==1"> Confirmed</label>
-                <label th:if="${collaboration.collaborationState}==2"> Completed</label>
-                <label th:if="${collaboration.collaborationState}==3"> Cancelled</label>
+                <label th:if="${collaboration.collaborationState}==2"> Awaiting Assessment</label>
+                <label th:if="${collaboration.collaborationState}==3"> Completed</label>
+                <label th:if="${collaboration.collaborationState}==4"> Cancelled</label>
+
 
             </td>
             <td>

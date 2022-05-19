@@ -257,7 +257,7 @@ public class StudentController {
         for (Collaboration collaboration:collaborationDao.getCollaborationsActivasDe(student))
             collaborationDao.finalizeCollaboration(collaboration);
     }
-    @RequestMapping(value = "/profile/{id}", method=RequestMethod.GET)
+    @RequestMapping(value = "/profile/{id}")
     public String profilePage(@PathVariable String id, Model model, HttpSession session){
         Student user = (Student) session.getAttribute("user");
 

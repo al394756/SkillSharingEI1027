@@ -87,12 +87,16 @@ public class CollaborationDao {
     }
 
     public void finalizeCollaboration(Collaboration collaboration){
-        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=2 WHERE id=?",
+        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=3 WHERE idCollaboration=?",
+                collaboration.getIdCollaboration());
+    }
+    public void confirmCollaboration(Collaboration collaboration){
+        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=1 WHERE idCollaboration=?",
                 collaboration.getIdCollaboration());
     }
 
     public void cancelCollaboration(Collaboration collaboration){
-        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=3, hours=0 WHERE id=?",
+        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=4, hours=0 WHERE idCollaboration=?",
                 collaboration.getIdCollaboration());
     }
 

@@ -51,7 +51,7 @@ public class CollaborationController {
         collaborations = conseguirDatosCollaborations(collaborations);
         model.addAttribute("collaborations", collaborations);
 
-        return "collaboration/list"; //falta html
+        return "collaboration/list";
     }
 
     @RequestMapping(value = "/add/{offeRequestId}")
@@ -92,7 +92,44 @@ public class CollaborationController {
         return "welcome";
     }
 
+    @RequestMapping(value = "/confirm/{idCollaboration}")
+    public String confirmCollaboration(@PathVariable String idCollaboration, HttpSession session){
+        Collaboration collaboration = collaborationDao.getCollaboration(idCollaboration);
+        collaboration=conseguirDatosCollaborations(collaboration);
 
+        Student student = (Student) session.getAttribute("user");
+        Student student1 = conseguirOtroStudent(student, collaboration);
+        Chat chat = conseguirChat(student, student1);
+        String msgContent =" I have accepted your collaboration proposal on "+collaboration.getIdRequest().getSkill().getName()+". I hope to see you between "+collaboration.getIdRequest().getStartDate()+" and "+collaboration.getIdOffer().getEndDate();
+        mensajeConfirmacion(chat,msgContent,student);
+        collaborationDao.confirmCollaboration(collaboration);
+        return "redirect:/profile/"+student.getIdStudent();
+    }
+
+    @RequestMapping(value = "/cancel/{idCollaboration}")
+    public String cancelCollaboration(@PathVariable String idCollaboration, HttpSession session){
+        Collaboration collaboration = collaborationDao.getCollaboration(idCollaboration);
+        collaboration=conseguirDatosCollaborations(collaboration);
+        Student student = (Student) session.getAttribute("user");
+        Student student1 = conseguirOtroStudent(student, collaboration);
+        Chat chat = conseguirChat(student, student1);
+        String msgContent;
+        if (collaboration.getCollaborationState() == 0){
+            msgContent = "Sorry I can't accept your collaboration proposal on "+collaboration.getIdRequest().getSkill().getName();
+        } else{
+            msgContent ="Sorry I have cancelled our planned collaboration on "+collaboration.getIdRequest().getSkill().getName()+" between  "+collaboration.getIdRequest().getStartDate()+" and "+collaboration.getIdOffer().getEndDate();
+        }
+        mensajeConfirmacion(chat,msgContent,student);
+        collaborationDao.cancelCollaboration(collaboration);
+
+        return "redirect:/profile/"+student.getIdStudent();
+    }
+    private Student conseguirOtroStudent(Student student, Collaboration collaboration){
+        if (collaboration.getIdOffer().getStudent().getIdStudent().equals(student.getIdStudent()))
+            return collaboration.getIdRequest().getStudent();
+        else
+            return collaboration.getIdOffer().getStudent();
+    }
     private Chat conseguirChat(Student student1, Student student2){
         Chat chat = chatDao.getChatEntreStudents(student1, student2);
         if (chat == null){
@@ -137,6 +174,7 @@ public class CollaborationController {
         msg.setContent(msgContent);
         messageDao.addMessage(msg);
     }
+
     public List<Collaboration> conseguirDatosCollaborations(List<Collaboration> collaborations){
         List<Collaboration> collabFinal = new LinkedList<>();
         for (Collaboration c: collaborations){
@@ -153,5 +191,20 @@ public class CollaborationController {
             collabFinal.add(c);
         }
         return collabFinal;
+    }
+
+
+    public Collaboration conseguirDatosCollaborations(Collaboration collaboration){
+        OffeRequest offeRequest = offeRequestDao.getOffeRequest(collaboration.getIdOffer().getId());
+        offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
+        offeRequest.setStudent(studentDao.getStudentUsingId(offeRequest.getStudent().getIdStudent()));
+        collaboration.setIdOffer(offeRequest);
+
+        offeRequest =offeRequestDao.getOffeRequest(collaboration.getIdRequest().getId());
+        offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
+        offeRequest.setStudent(studentDao.getStudentUsingId(offeRequest.getStudent().getIdStudent()));
+        collaboration.setIdRequest(offeRequest);
+
+        return collaboration;
     }
 }
