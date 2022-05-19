@@ -37,7 +37,7 @@
                 <p th:each="mail : ${mailList}" class="color_text">
                     <label th:text="${mail}"></label>
                 </p>
-                <form action="#" th:href="@{/{url}/list(url=${offeRequest.url})}"
+                <form action="#"
                       th:object="${offeRequest}" method="post">
                     <button class="sumit" type="submit">Accept</button>
                 </form>

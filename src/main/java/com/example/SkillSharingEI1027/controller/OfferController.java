@@ -54,7 +54,7 @@ public class OfferController {
         return offeRequestMethods.processAddSubmit(offer,bindingResult,session,model);
     }
 
-    @RequestMapping(value="/confirmado")
+    @RequestMapping(value="/listexisting",method = RequestMethod.POST)
     public String processConfirmAddSubmit(HttpSession session){
         return offeRequestMethods.processConfirmAddSubmit(session);
     }
@@ -71,6 +71,11 @@ public class OfferController {
     @RequestMapping(value = "/cancel/{id}")
     public String processDelete(@PathVariable String id) {
         return offeRequestMethods.processDelete(id);
+    }
+
+    @RequestMapping(value = "/listexisting")
+    public String listExisting(HttpSession session,Model model){
+        return offeRequestMethods.listExisting(session,model);
     }
 }
 

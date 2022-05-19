@@ -50,13 +50,13 @@
             <tr class="iz">
                 <td>
                     <input type="date" id="startDate" th:field="*{startDate}"
-                           th:unles="${#fields.hasErrors('startDate')}"/>
+                           th:unless="${#fields.hasErrors('startDate')}"/>
                     <input class="error" type="date" id="startDate" th:field="*{startDate}"
                            th:if="${#fields.hasErrors('startDate')}"/>
                 </td>
                 <td>
                     <input  type="date" id="endDate" th:field="*{endDate}"
-                           th:unles="${#fields.hasErrors('endDate')}"/>
+                           th:unless="${#fields.hasErrors('endDate')}"/>
                     <input class="error" type="date" id="endDate" th:field="*{endDate}"
                            th:if="${#fields.hasErrors('endDate')}"/>
                 </td>

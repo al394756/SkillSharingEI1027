@@ -64,8 +64,10 @@ public class OffeRequestMethods <T> {
     public String processAddSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session, Model model) {
         OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
         offeRequestValidator.validate(offeRequest,bindingResult);
-        if (bindingResult.hasErrors())
-            return "redirect:/"+offeRequest.getUrl()+"/add";
+        if (bindingResult.hasErrors()) {
+            return "redirect:/" + offeRequest.getUrl() + "/add";
+        }
+        System.out.println("dddd");
 
         offeRequest.setStudent((Student) session.getAttribute("user"));
 
@@ -77,32 +79,42 @@ public class OffeRequestMethods <T> {
         String type;
         if (type2.equals("Offer")) type="Request";
         else type="Offer";
+        session.setAttribute("type",type);
         List<OffeRequest> offeRequestList=offeRequestDao.getOffeRequestWithSkill(type,skill.getIdSkill(),offeRequest.getStartDate(), offeRequest.getStudent());
         if (offeRequestList.isEmpty()){
             offeRequestDao.add(offeRequest);
             return "redirect:list";
         }
-        Set<String> setMail = new HashSet<>();
+        session.setAttribute("skill",skill);
+        session.setAttribute("offeRequest",offeRequest);
+        session.setAttribute("offeRequestList",offeRequestList);
+        return "redirect:/"+type2.toLowerCase(Locale.ROOT)+"/listexisting";
+    }
 
+    public String listExisting(HttpSession session, Model model){
+        Set<String> setMail = new HashSet<>();
+        List<OffeRequest> offeRequestList= (List<OffeRequest>) session.getAttribute("offeRequestList");
         for (OffeRequest or: offeRequestList ) {
             Student student=studentDao.getStudentUsingId(or.getStudent().getIdStudent());
             or.setStudent(student);
             setMail.add(student.getEmail());
         }
         model.addAttribute("mailList",setMail);
-        model.addAttribute("type",type);
-        session.removeAttribute("type");
-        model.addAttribute("skill",skill);
+        model.addAttribute("type",session.getAttribute("type"));
+        //session.removeAttribute("type");
+        model.addAttribute("skill",session.getAttribute("skill"));
+        //session.removeAttribute("skill");
         model.addAttribute("list",offeRequestList);
-        session.setAttribute("offeRequest",offeRequest);
-        model.addAttribute("offeRequest",offeRequest);
+
+        model.addAttribute("offeRequest",session.getAttribute("offeRequest"));
         return "offeRequest/listexisting";
     }
 
     public String processConfirmAddSubmit(HttpSession session){
         OffeRequest offeRequest=(OffeRequest)session.getAttribute("offeRequest");
-        session.removeAttribute("offeRequest");
         offeRequestDao.add(offeRequest);
+        System.out.println("aaaaaaaaaaa");
+        //session.removeAttribute("offeRequest");
         return "redirect:list";
     }
 
