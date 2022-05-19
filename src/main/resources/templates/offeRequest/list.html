@@ -64,7 +64,20 @@
                             <label class="fondoOscuro2"></label>
                         </td>
                         <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent} and ${!session.user.isSkpMember()}">
-                            <a th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a>
+
+                            <input type="checkbox" class="checconf" th:id="${offeRequest.id}">
+                            <label class="accept" th:for="${offeRequest.id}">Accept</label>
+
+                            <div class="corfrimacion">
+                                <p class="color_text" th:text="'Are you sure you want to accept this '+${type}"> </p>
+                                <table class="botones">
+                                    <tr>
+                                        <td><label class="botonConf" th:for="${offeRequest.id}"> Back </label></td>
+                                        <td><a th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <label class="fondoOscuro2"></label>
                         </td>
                     </tr>
                 </table>
