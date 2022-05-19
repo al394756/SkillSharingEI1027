@@ -75,9 +75,10 @@ public class OffeRequestMethods <T> {
         Skill skill=skillDao.getIdBySkill(offeRequest.getSkill().getIdSkill());
         offeRequest.setSkill(skill);
 
-        String type= (String) session.getAttribute("type");
-        model.addAttribute("type2",type);
-        if (type.equals("Offer")) type="Request";
+        String type2= (String) session.getAttribute("type");
+        model.addAttribute("type2",type2);
+        String type;
+        if (type2.equals("Offer")) type="Request";
         else type="Offer";
         List<OffeRequest> offeRequestList=offeRequestDao.getOffeRequestWithSkill(type,skill.getIdSkill(),offeRequest.getStartDate(), offeRequest.getStudent());
         if (offeRequestList.isEmpty()){
@@ -87,12 +88,6 @@ public class OffeRequestMethods <T> {
         for (OffeRequest or: offeRequestList ) {
             or.setStudent(studentDao.getStudentUsingId(or.getStudent().getIdStudent()));
         }
-        String t = "Offer";
-        if (type.equals(t))
-            t = "Request";
-        List<OffeRequest> listaParaMail = offeRequestDao.getOffeRequestWithSkill(t,skill.getIdSkill(),offeRequest.getStartDate());
-        System.out.println(listaParaMail);
-        model.addAttribute("mailTosend", listaParaMail);
         model.addAttribute("type",type);
         session.removeAttribute("type");
         model.addAttribute("skill",skill);
