@@ -21,7 +21,37 @@
             <th>Offer</th>
             <td th:text="${pOfDDistinctSkillsOffer}+'%'"></td>
         </tr>
+        <tr>
+            <th>Collaboration</th>
+            <td th:text="${pOfDDistinctSkillsCollaboration}+'%'"></td>
+        </tr>
     </table>
+    <br>
+    <table>
+        <caption>Percentage of most used skills in offers</caption>
+        <tr class="color" th:each="skill: ${timesOfSkillUsedOffer}">
+
+            <th th:text="${skill.getKey()}"></th>
+            <td th:text="${skill.getCount()}+'%'"></td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <caption>Percentage of most used skills in requests</caption>
+        <tr class="color" th:each="skill: ${timesOfSkillUsedRequest}">
+            <th th:text="${skill.getKey()}"></th>
+            <td th:text="${skill.getCount()}+'%'"></td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <caption>Percentage of most used skills in collaborations</caption>
+        <tr class="color" th:each="skill: ${timesOfSkillUsedCollaboration}">
+            <th th:text="${skill.getKey()}"></th>
+            <td th:text="${skill.getCount()}+'%'"></td>
+        </tr>
+    </table>
+    <br>
 </main>
 </body>
 </html>

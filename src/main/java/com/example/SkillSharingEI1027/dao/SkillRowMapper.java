@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public final class SkillRowMapper implements RowMapper<Skill>{
-
-
     @Override
     public Skill mapRow(ResultSet rs, int rowNum) throws SQLException {
         Skill skill= new Skill();
