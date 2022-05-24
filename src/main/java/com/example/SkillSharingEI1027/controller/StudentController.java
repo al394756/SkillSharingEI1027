@@ -52,7 +52,7 @@ class StudentValidator extends StudentController implements Validator {
         if (student.getSurname().trim().equals(""))
             errors.rejectValue("surname", "compulsory", "Introduce a valid surname");
 
-        String telefono =student.getPhoneNumber()+"";
+        String telefono = String.valueOf(student.getPhoneNumber());
         if (telefono.trim().equals("") || telefono.length()!=9)
             errors.rejectValue("phoneNumber", "compulsory", "Introduce a valid phone number");
 

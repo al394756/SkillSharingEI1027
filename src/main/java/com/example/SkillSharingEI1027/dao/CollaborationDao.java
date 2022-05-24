@@ -1,7 +1,6 @@
 package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.Collaboration;
-import com.example.SkillSharingEI1027.modelo.OffeRequest;
 import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -29,12 +28,9 @@ public class CollaborationDao {
     }
     private String idGenerator(){
         AtomicInteger contador = new AtomicInteger(getCantidadCollaborations());
-        StringBuilder id= new StringBuilder("co");
-        int maximo0 = 6;
         int numeroId = contador.get();
         int numeroCifras = Integer.toString(numeroId).length();
-        id.append("0".repeat(Math.max(0, 6 - numeroCifras)));
-        return id.toString() + numeroId;
+        return "co"+"0".repeat(Math.max(0, 6 - numeroCifras)) + numeroId;
     }
     private int getCantidadCollaborations(){
         return jdbcTemplate.queryForObject("SELECT COUNT(idCollaboration) FROM Collaboration",Integer.class);

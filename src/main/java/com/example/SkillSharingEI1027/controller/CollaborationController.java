@@ -7,15 +7,11 @@ import com.example.SkillSharingEI1027.modelo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,13 +52,11 @@ public class CollaborationController {
 
     @RequestMapping(value = "/add/{offeRequestId}")
     public String addCollaboration(@PathVariable String offeRequestId, HttpSession session){
-
-        OffeRequest offeRequestAceptada = offeRequestDao.getOffeRequest(offeRequestId);
-
         Student student = (Student) session.getAttribute("user");
         if (student == null || !student.isActiveAccount()){
             return "welcome";
         }
+        OffeRequest offeRequestAceptada = offeRequestDao.getOffeRequest(offeRequestId);
         OffeRequest offeRequestNueva = crearContrarioA(offeRequestAceptada,student);
         Skill skill= skillDao.getSkill(offeRequestAceptada.getSkill().getIdSkill());
 

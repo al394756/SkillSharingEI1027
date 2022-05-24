@@ -4,14 +4,12 @@ import com.example.SkillSharingEI1027.modelo.OffeRequest;
 import com.example.SkillSharingEI1027.modelo.Offer;
 import com.example.SkillSharingEI1027.modelo.Request;
 import org.springframework.jdbc.core.RowMapper;
-
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
 public final class OffeRequestRowMapper implements RowMapper<OffeRequest>{
-    private String table;
+    private final String table;
     public OffeRequestRowMapper(String table){
         this.table=table;
     }

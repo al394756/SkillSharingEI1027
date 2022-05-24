@@ -1,8 +1,5 @@
 package com.example.SkillSharingEI1027.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Chat implements Comparable<Chat>{
     private String idChat;
     private String user1;

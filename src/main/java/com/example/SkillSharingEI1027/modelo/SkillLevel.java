@@ -5,8 +5,6 @@ public enum SkillLevel {
     MEDIO(1),
     EXPERTO(2);
 
-
-
     private final int id;
 
     SkillLevel(int id){
@@ -18,13 +16,4 @@ public enum SkillLevel {
         return id;
     }
 
-
-
-    public static void main(String[] args) {
-        SkillLevel sk = SkillLevel.NOVATO;
-        for (SkillLevel i: values()){
-            System.out.println(i.toString());
-
-        }
-    }
 }

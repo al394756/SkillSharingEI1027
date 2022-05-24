@@ -41,17 +41,13 @@ table{
     border: white;
     border-radius: 5px;
     text-align: left;
+    padding: 0.5rem;
 }
 
 .tablaColla th{
     padding: 0.25rem 0.75rem;
     text-align: center;
     background: #7d9abb;
-    border-radius: 5px;
-}
-.tablaColla{
-    margin: auto;
-    padding: 0.5rem;
     border-radius: 5px;
 }
 
@@ -62,4 +58,9 @@ table{
 .tablaColla tbody tr:nth-child(even) {
     background: #DCE4EE;
     color: #7d9abb;
+}
+
+a{
+    color: #7d9abb;
+    text-decoration: none;
 }

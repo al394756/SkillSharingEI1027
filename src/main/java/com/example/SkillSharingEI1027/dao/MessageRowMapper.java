@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public final class MessageRowMapper implements RowMapper {
+public final class MessageRowMapper implements RowMapper<Message> {
     @Override
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
         Message message = new Message();
         message.setIdChat(rs.getString("idchat"));
         message.setNumber(rs.getInt("number"));

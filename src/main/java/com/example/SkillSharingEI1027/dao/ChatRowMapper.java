@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class ChatRowMapper implements RowMapper {
+public final class ChatRowMapper implements RowMapper<Chat> {
     @Override
     public Chat mapRow(ResultSet rs, int rowNum) throws SQLException {
        Chat chat = new Chat();

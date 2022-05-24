@@ -54,11 +54,9 @@ public class OffeRequestDao {
 
     private String idGenerator(OffeRequest offeRequest){
         AtomicInteger contadorRequests = new AtomicInteger(getCantidad(offeRequest.getType()));
-        StringBuilder id= new StringBuilder(offeRequest.getStart());
         int numeroId = contadorRequests.get();
         int numeroCifras = Integer.toString(numeroId).length();
-        id.append("0".repeat(Math.max(0, 6 - numeroCifras)));
-        return id.toString() +numeroId;
+        return offeRequest.getStart() + "0".repeat(Math.max(0, 6 - numeroCifras)) + numeroId;
     }
 
     private int getCantidad(String table){

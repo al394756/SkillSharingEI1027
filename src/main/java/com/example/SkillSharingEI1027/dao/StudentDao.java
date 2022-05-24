@@ -19,7 +19,7 @@ public class StudentDao {
     private JdbcTemplate jdbcTemplate;
 
 
-    public void  StudentDao(){
+    public StudentDao(){
         jdbcTemplate=new JdbcTemplate();
     }
     //Obtiene el jdbc a partir de Data Source
@@ -45,13 +45,10 @@ public class StudentDao {
     //Genera un id de formato "id000000", id + 6 cifras (permite tener hasta 1000000 usuarios registrados)
     private String idGenerator(){
         AtomicInteger contadorStudents = new AtomicInteger(getCantidadStudents());
-        StringBuilder id= new StringBuilder("id");
         int maximo0 = 6;
         int numeroId = contadorStudents.get();
         int numeroCifras = Integer.toString(numeroId).length();
-        id.append("0".repeat(Math.max(0, maximo0 - numeroCifras)));
-
-        return id.toString() +numeroId;
+        return "id"+"0".repeat(Math.max(0, maximo0 - numeroCifras)) +numeroId;
     }
 
     private String formatoNombre(String nombre){

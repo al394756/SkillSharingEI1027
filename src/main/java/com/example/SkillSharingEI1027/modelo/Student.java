@@ -19,7 +19,6 @@ public class Student implements Comparable<Student>{
         balanceHours=0;
         skpMember=false;
         activeAccount=true;
-        banReason=null;
     }
 
     public String getSurname() { return surname; }

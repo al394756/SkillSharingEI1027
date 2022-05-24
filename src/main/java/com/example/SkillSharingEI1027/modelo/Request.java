@@ -2,24 +2,14 @@ package com.example.SkillSharingEI1027.modelo;
 
 public class Request extends OffeRequest{
     public Request(){
-        setType("Request");
-        setStart("rq");
-        setUrl("request");
+        super("Request","rq","request");
     }
-    public Request(OffeRequest of) {
-        super.setId(of.getId());
-        super.setSkill(of.getSkill());
-        super.setStudent(of.getStudent());
-        super.setStart(of.getStart());
-        super.setDescription(of.getDescription());
-        super.setStartDate(of.getStartDate());
-        super.setEndDate(of.getEndDate());
-        super.setType(of.getType());
-        super.setUrl(of.getUrl());
+    public Request(OffeRequest offeRequest) {
+        super(offeRequest);
     }
 
     @Override
-    public int compareTo(OffeRequest o) {
-        return this.getStartDate().compareTo(o.getStartDate());
+    public int compareTo(OffeRequest offeRequest) {
+        return this.getStartDate().compareTo(offeRequest.getStartDate());
     }
 }

@@ -6,8 +6,6 @@ public class Skill implements Comparable<Skill>{
     private String description;
     private int level;
 
-    public Skill() {}
-
     public String getIdSkill() {
         return idSkill;
     }

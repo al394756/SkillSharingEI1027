@@ -6,17 +6,35 @@ import java.time.LocalDate;
 
 public abstract class OffeRequest implements Comparable<OffeRequest>{
     private String id;
-    private Skill skill=new Skill();
+    private Skill skill;
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
     private String description;
-    private Student student=new Student();
+    private Student student;
     private String type;
     private String start;
     private String url;
 
+    protected OffeRequest(String type, String start, String url) {
+        student=new Student();
+        skill=new Skill();
+        this.type = type;
+        this.start = start;
+        this.url = url;
+    }
+    protected OffeRequest(OffeRequest offeRequest) {
+        this.id=offeRequest.getId();
+        this.skill=offeRequest.getSkill();
+        this.startDate=offeRequest.getStartDate();
+        this.endDate=offeRequest.getEndDate();
+        this.description=offeRequest.getDescription();
+        this.student=offeRequest.getStudent();
+        this.type=offeRequest.getType();
+        this.start=offeRequest.getStart();
+        this.url=offeRequest.getUrl();
+    }
 
     public String getId() {
         return id;

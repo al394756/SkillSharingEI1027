@@ -10,7 +10,7 @@ public class StudentComparatorById extends StudentComparator implements Comparat
         super();
     }
     public StudentComparatorById(Sorter sorter) {
-        super.setSorter(sorter);
+        super(sorter);
     }
 
     @Override

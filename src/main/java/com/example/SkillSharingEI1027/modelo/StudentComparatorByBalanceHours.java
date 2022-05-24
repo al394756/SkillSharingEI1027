@@ -15,6 +15,6 @@ public class StudentComparatorByBalanceHours  extends StudentComparator implemen
     }
 
     public StudentComparatorByBalanceHours(Sorter sorter) {
-        super.setSorter(sorter);
+        super(sorter);
     }
 }

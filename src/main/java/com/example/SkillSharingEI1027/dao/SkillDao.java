@@ -74,12 +74,9 @@ public class SkillDao {
     //Genera un id de formato "sk000000", sk + 6 cifras (permite tener hasta 1000000 usuarios registrados)
     private String idGenerator(){
         AtomicInteger contadorStudents = new AtomicInteger(getCantidadSkills());
-        StringBuilder id= new StringBuilder("sk");
         int maximo0 = 6;
         int numeroId = contadorStudents.get();
         int numeroCifras = Integer.toString(numeroId).length();
-        id.append("0".repeat(Math.max(0, maximo0 - numeroCifras)));
-
-        return id.toString() +numeroId;
+        return "sk"+"0".repeat(Math.max(0, maximo0 - numeroCifras)) +numeroId;
     }
 }

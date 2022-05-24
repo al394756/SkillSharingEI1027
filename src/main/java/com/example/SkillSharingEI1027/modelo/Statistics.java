@@ -1,8 +1,8 @@
 package com.example.SkillSharingEI1027.modelo;
 
 public class Statistics {
-    String key;
-    float count;
+    private String key;
+    private float count;
 
     public Statistics(String key, int count) {
         this.key = key;

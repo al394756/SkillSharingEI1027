@@ -24,6 +24,7 @@ public class CollaborationSvc implements CollaborationService{
     @Autowired
     OffeRequestDao offeRequestDao;
 
+    @Override
     public List<Collaboration> giveCollaborationPendiente(String idStudent){
         List<Collaboration> lista = collaborationDao.getCollaborations();
         List<Collaboration> lista_pendientes = new LinkedList<>();
@@ -37,6 +38,7 @@ public class CollaborationSvc implements CollaborationService{
         return lista_pendientes;
     }
 
+    @Override
     public List<Collaboration> giveCollaborations(String idStudent){
         List<Collaboration> lista = collaborationDao.getCollaborations();
         List<Collaboration> lista_pendientes = new LinkedList<>();
@@ -48,6 +50,8 @@ public class CollaborationSvc implements CollaborationService{
         }
         return lista_pendientes;
     }
+
+    @Override
     public List<OffeRequest> giveOffeRequestPendientes(String type, Student student){
         List<OffeRequest> listOf=new LinkedList<>();
         if (student==null)

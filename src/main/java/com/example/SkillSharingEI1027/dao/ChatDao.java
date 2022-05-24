@@ -1,8 +1,6 @@
 package com.example.SkillSharingEI1027.dao;
 
 import com.example.SkillSharingEI1027.modelo.Chat;
-import com.example.SkillSharingEI1027.modelo.Message;
-import com.example.SkillSharingEI1027.modelo.Skill;
 import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -68,10 +66,8 @@ public class ChatDao {
         List<String> list=new LinkedList<>();
         try{
             Chat chat1  = getChatConId(chat.getIdChat());
-            String student1=  chat1.getUser1();
-            list.add(student1);
-            String student2= chat1.getUser2();
-            list.add(student2);
+            list.add(chat1.getUser1());
+            list.add(chat1.getUser2());
             return list;
 
         } catch (EmptyResultDataAccessException e){
@@ -80,12 +76,10 @@ public class ChatDao {
     }
     private String idGenerator(){
         AtomicInteger contadorChats = new AtomicInteger(getCantidadChats());
-        StringBuilder id = new StringBuilder("ch");
         int maximo0 = 6;
         int numeroId = contadorChats.get();
         int numeroCifras = Integer.toString(numeroId).length();
-        id.append("0".repeat(Math.max(0,maximo0-numeroCifras)));
-        return id.toString()+numeroId;
+        return "ch"+"0".repeat(Math.max(0, maximo0 - numeroCifras)) +numeroId;
     }
 
     private int getCantidadChats(){

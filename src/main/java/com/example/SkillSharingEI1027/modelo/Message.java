@@ -3,9 +3,6 @@ package com.example.SkillSharingEI1027.modelo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.Date;
-
 public class Message implements Comparable<Message> {
     private String idChat;
     private String student;
@@ -13,9 +10,6 @@ public class Message implements Comparable<Message> {
     private String content;
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate date;
-
-    public Message() {
-    }
 
     public String getIdChat() {
         return idChat;

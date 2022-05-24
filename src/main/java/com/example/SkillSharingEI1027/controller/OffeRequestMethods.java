@@ -5,17 +5,11 @@ import com.example.SkillSharingEI1027.dao.SkillDao;
 import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.*;
 import com.example.SkillSharingEI1027.services.CollaborationService;
-import com.example.SkillSharingEI1027.services.CollaborationSvc;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -67,7 +61,6 @@ public class OffeRequestMethods <T> {
         if (bindingResult.hasErrors()) {
             return "redirect:/" + offeRequest.getUrl() + "/add";
         }
-        System.out.println("dddd");
 
         offeRequest.setStudent((Student) session.getAttribute("user"));
 
@@ -113,7 +106,6 @@ public class OffeRequestMethods <T> {
     public String processConfirmAddSubmit(HttpSession session){
         OffeRequest offeRequest=(OffeRequest)session.getAttribute("offeRequest");
         offeRequestDao.add(offeRequest);
-        System.out.println("aaaaaaaaaaa");
         //session.removeAttribute("offeRequest");
         return "redirect:list";
     }
