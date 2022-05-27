@@ -43,19 +43,10 @@ public class StatisticsController {
         model.addAttribute("pOfDDistinctSkillsRequest",String.format("%.2f", pOfDDistinctSkillsRequest));
         model.addAttribute("pOfDDistinctSkillsCollaboration",String.format("%.2f",pOfDDistinctSkillsCollaboration));
 
-        float nActiveOffers=offeRequestDao.getActiveOffeRequests("offer").size();
-        float nActiveRequests=offeRequestDao.getActiveOffeRequests("request").size();
-        float nActiveCollaborations=collaborationDao.getActiveCollaborations().size();
         List<Statistics> timesOfSkillUsedOffer=statisticsDao.timesOfSkillUsedOffeRequest("offer");
+        System.out.println(timesOfSkillUsedOffer);
         List<Statistics> timesOfSkillUsedRequest=statisticsDao.timesOfSkillUsedOffeRequest("request");
         List<Statistics> timesOfSkillUsedCollaboration=statisticsDao.timesOfSkillUsedCollaboration();
-
-        for (Statistics statistics:timesOfSkillUsedOffer)
-            statistics.setCount(statistics.getCount()/nActiveOffers*100);
-        for (Statistics statistics:timesOfSkillUsedRequest)
-            statistics.setCount(statistics.getCount()/nActiveRequests*100);
-        for (Statistics statistics:timesOfSkillUsedCollaboration)
-            statistics.setCount(statistics.getCount()/nActiveCollaborations*100);
 
         model.addAttribute("timesOfSkillUsedOffer",timesOfSkillUsedOffer);
         model.addAttribute("timesOfSkillUsedRequest",timesOfSkillUsedRequest);
@@ -64,13 +55,6 @@ public class StatisticsController {
         List<Statistics> timesMVPStudentOffer=statisticsDao.timesMVPStudentOffeRequest("offer");
         List<Statistics> timesMVPStudentRequest=statisticsDao.timesMVPStudentOffeRequest("request");
         List<Statistics> timesMVPStudentCollaboration=statisticsDao.timesMVPStudentCollaboration();
-
-        for (Statistics statistics:timesMVPStudentOffer)
-            statistics.setCount(statistics.getCount()/nActiveOffers*100);
-        for (Statistics statistics:timesMVPStudentRequest)
-            statistics.setCount(statistics.getCount()/nActiveRequests*100);
-        for (Statistics statistics:timesMVPStudentCollaboration)
-            statistics.setCount(statistics.getCount()/nActiveCollaborations*100);
 
         model.addAttribute("timesMVPStudentOffer",timesMVPStudentOffer);
         model.addAttribute("timesMVPStudentRequest",timesMVPStudentRequest);

@@ -1,6 +1,5 @@
 package com.example.SkillSharingEI1027.dao;
 
-import com.example.SkillSharingEI1027.modelo.Collaboration;
 import com.example.SkillSharingEI1027.modelo.OffeRequest;
 import com.example.SkillSharingEI1027.modelo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import javax.sql.DataSource;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
@@ -36,7 +34,7 @@ public class OffeRequestDao {
         String table="";
         if (id.startsWith("rq")) table="Request";
         else if (id.startsWith("of")) table="Offer";
-        jdbcTemplate.update("UPDATE "+table+" SET endDate=? WHERE id=?",java.time.LocalDate.now(),id);
+        jdbcTemplate.update("UPDATE "+table+" SET endDate=CURRENT_DATE WHERE id=?",id);
     }
 
     public void update(OffeRequest offeRequest){
@@ -75,9 +73,9 @@ public class OffeRequestDao {
     public List<OffeRequest> getActiveOffeRequests(String table) {
         try{
             if (table.equals("Request"))
-                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE endDate>?", new OffeRequestRowMapper(table),java.time.LocalDate.now());
+                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE endDate>CURRENT_DATE", new OffeRequestRowMapper(table));
             else
-                return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE endDate>?", new OffeRequestRowMapper(table),java.time.LocalDate.now());
+                return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE endDate>CURRENT_DATE", new OffeRequestRowMapper(table));
 
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
@@ -98,8 +96,8 @@ public class OffeRequestDao {
     public List<OffeRequest> getOfferRequestsActivasDe(String table, Student student){
         try{
             if (table.equals("Request"))
-                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE r.endDate>? AND r.idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
-            return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE r.endDate>? AND r.idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
+                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE r.endDate>CURRENT_DATE AND r.idStudent=?", new OffeRequestRowMapper(table), student.getIdStudent());
+            return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE r.endDate>CURRENT_DATE AND r.idStudent=?", new OffeRequestRowMapper(table), student.getIdStudent());
 
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();

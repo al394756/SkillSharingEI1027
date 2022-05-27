@@ -43,7 +43,7 @@ public class StatisticsDao {
 
     public List<Statistics> timesOfSkillUsedOffeRequest(String table){
         try{
-            return jdbcTemplate.query("select s.name, count(o.idSkill) from "+table+" as o join skill as s using(idSkill) where endDate>CURRENT_DATE group by s.name",new StatisticsRowMapper());
+            return jdbcTemplate.query("select s.name, cast(count(o.idSkill)as float)*cast(100 as float)/cast((select count(*) from "+table+" where enddate>CURRENT_DATE) as float) from "+table+" as o join skill as s using(idSkill) where endDate>CURRENT_DATE group by s.name",new StatisticsRowMapper());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
@@ -59,7 +59,7 @@ public class StatisticsDao {
 
     public List<Statistics> timesMVPStudentOffeRequest(String table){
         try{
-            return jdbcTemplate.query("select s.name, count(o.idStudent) from "+table+" as o join student as s using(idStudent) where endDate>CURRENT_DATE group by s.name",new StatisticsRowMapper());
+            return jdbcTemplate.query("select s.name, count(o.idStudent)*cast(100 as float)/cast((select count(*) from "+table+" where enddate>CURRENT_DATE) as float) from "+table+" as o join student as s using(idStudent) where endDate>CURRENT_DATE group by s.name",new StatisticsRowMapper());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
