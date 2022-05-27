@@ -62,14 +62,14 @@
                             <label class="fondoOscuro2"></label>
                         </td>
                         <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
-                            <input type="checkbox" class="checconf" th:id="${offeRequest.id}">
-                            <label th:for="${offeRequest.id}"><img class="tamIcon" src="/imagenes/delete.png"></label>
+                            <input type="checkbox" class="check2" th:id="${offeRequest.id}+'2'">
+                            <label th:for="${offeRequest.id}+'2'"><img class="tamIcon" src="/imagenes/delete.png"></label>
 
-                            <div class="corfrimacion">
+                            <div class="corfrimacion2">
                                 <p class="color_text" th:text="'Are you sure you want to cancel this '+${type}"> </p>
                                 <table class="botones">
                                     <tr>
-                                        <td><label class="botonConf" th:for="${offeRequest.id}"> Back </label></td>
+                                        <td><label class="botonConf" th:for="${offeRequest.id}+'2'"> Back </label></td>
                                         <td><a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id},type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></td>
                                     </tr>
                                 </table>

@@ -91,6 +91,9 @@ background: red
 .check2:checked ~ .corfrimacion2{
      display: flex;
 }
+.check2:checked ~ .fondoOscuro2{
+     display: flex;
+}
 
 .check2{
      top: 0;
