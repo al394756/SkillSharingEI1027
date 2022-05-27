@@ -109,7 +109,7 @@
                 </a>
             </td>
             <td th:if="${collaboration.collaborationState}==2 and ${collaboration.idRequest.student.idStudent} == ${session.user.idStudent} " class="colBan">
-                <a th:href="@{/student/confirm/{id}(id=${collaboration.idCollaboration})}">
+                <a th:href="@{/collaboration/valorar/{idCollaboration}(idCollaboration=${collaboration.idCollaboration})}">
                     Assess Collaboration
                 </a>
             </td>
