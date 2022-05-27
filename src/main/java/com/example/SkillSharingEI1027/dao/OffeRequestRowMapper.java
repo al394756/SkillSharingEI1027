@@ -34,7 +34,7 @@ public final class OffeRequestRowMapper implements RowMapper<OffeRequest>{
         student.setActiveAccount(rs.getBoolean("activeAccount"));
         student.setBanReason(rs.getString("banreason"));
         Skill skill = new Skill();
-        skill.setIdSkill(rs.getString("idSkill"));
+        skill.setIdSkill(rs.getString(19));
         skill.setName(rs.getString(20));
         skill.setDescription(rs.getString(21));
         skill.setLevel(rs.getInt("skillLevel"));
