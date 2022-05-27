@@ -85,13 +85,20 @@ public class OffeRequestMethods <T> {
     }
 
     public String listExisting(HttpSession session, Model model){
-        Set<String> setMail = new HashSet<>();
+        List<String> setMail = new LinkedList<>();
+        int count = 0;
         List<OffeRequest> offeRequestList= (List<OffeRequest>) session.getAttribute("offeRequestList");
         for (OffeRequest or: offeRequestList ) {
             Student student=studentDao.getStudentUsingId(or.getStudent().getIdStudent());
             or.setStudent(student);
-            setMail.add(student.getEmail());
+            if (setMail.size()<3) {
+                setMail.add(student.getEmail());
+            }
+            else
+                count++;
+
         }
+        setMail.add("and" + count + "more");
         model.addAttribute("mailList",setMail);
         model.addAttribute("type",session.getAttribute("type"));
         //session.removeAttribute("type");

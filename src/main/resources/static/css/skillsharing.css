@@ -129,6 +129,25 @@ background: red
      border-radius: 20px;
      padding: 1rem;
 }
+.corfrimacion3{
+     top: 0;
+     bottom: 0;
+     right: 0;
+     left: 0;
+     margin: auto;
+     width: 25rem;
+     height: 20rem;
+     background: #7d9abb;
+     position: fixed;
+     display: none;
+     flex-wrap: wrap;
+     z-index: 3;
+     border-radius: 20px;
+     padding: 1rem;
+}
+.check2:checked ~ .corfrimacion3{
+     display: flex;
+}
 .fondoOscuro2{
      top: 0;
      left: 0;
