@@ -115,6 +115,14 @@ public class CollaborationController {
 
         return "redirect:/profile/";
     }
+
+    @RequestMapping(value = "/valorar/{idCollaboration}")
+    public String valorarCollaboration(@PathVariable String idCollaboration, HttpSession session, Model model){
+        Collaboration collaboration = collaborationDao.getCollaboration(idCollaboration);
+        model.addAttribute("collaboration", collaboration);
+        return "redirect:/collaboration/valorar";
+    }
+
     private Student conseguirOtroStudent(Student student, Collaboration collaboration){
         if (collaboration.getIdOffer().getStudent().getIdStudent().equals(student.getIdStudent()))
             return collaboration.getIdRequest().getStudent();
