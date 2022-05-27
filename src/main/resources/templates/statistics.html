@@ -52,6 +52,31 @@
         </tr>
     </table>
     <br>
+    <table>
+        <caption>Percentage of students with more active offers</caption>
+        <tr class="color" th:each="skill: ${timesMVPStudentOffer}">
+
+            <th th:text="${skill.getKey()}"></th>
+            <td th:text="${skill.twoDecimals()}+'%'"></td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <caption>Percentage of students with more active requests</caption>
+        <tr class="color" th:each="skill: ${timesMVPStudentRequest}">
+            <th th:text="${skill.getKey()}"></th>
+            <td th:text="${skill.twoDecimals()}+'%'"></td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <caption>Percentage of students with more active collaborations</caption>
+        <tr class="color" th:each="skill: ${timesMVPStudentCollaboration}">
+            <th th:text="${skill.getKey()}"></th>
+            <td th:text="${skill.twoDecimals()}+'%'"></td>
+        </tr>
+    </table>
+    <br>
 </main>
 </body>
 </html>
