@@ -1,14 +1,40 @@
 .menu{
     text-align: center;
     margin: auto;
-
 }
-
 tr{
-    padding: 1rem;
+    margin: auto;
+    padding: 0;
 }
-.menu a{
-    width: 9rem;
+td{
+    margin: auto;
+    padding: 0.2rem 0.8rem;
+    vertical-align: top;
+}
+
+main{
+    padding-top: 2rem;
+}
+
+h1{
+    color: #7d9abb;
+    left: 0; right: 0;
+    position: absolute;
+    top: 16.5rem;
+}
+
+main p{
+    margin: auto;
+    font-size: 0.8rem;
+    padding: 0 1rem ;
+    text-align: center;
+    color: #7d9abb;
+    line-height: 1.4rem;
+
+}
+main a{
+    margin: auto;
+    width: 15rem;
     display: block;
     border-radius: 5px;
     background: #7d9abb;
@@ -16,6 +42,5 @@ tr{
     padding: 0.5rem 1rem ;
 
 }
-main{
-    padding-top: 2rem;
-}
+
+

@@ -14,24 +14,47 @@
 <body>
 <main class="centrado">
     <img src="/imagenes/logo_azul.png">
-<table class="menu">
-    <tr>
-        <td><a href="/request/list" class="color_text interlimeado">Request</a></td>
-        <td><a href="/offer/list" class="color_text interlimeado">Offers</a></td>
-        <td th:if="not ${session.user == null}"><a  href="/skill/list" class="color_text interlimeado">Skills</a></a></td>
-    </tr>
-    <tr>
-        <td th:if="not ${session.user == null}"><a  href="/chat/list" class="color_text interlimeado">Chats</a></a></td>
-        <td th:if="not ${session.user == null}"><a  th:href="@{/profile}" class="color_text interlimeado">Personal Area</a></a></td>
-        <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><a  href="/student/list" class="color_text interlimeado">Users</a></td>
-    </tr>
-    <tr th:if="not ${session.user == null} and ${session.user.skpMember==true}">
-        <td></td>
-        <td><a  href="/collaboration/list" class="color_text interlimeado">Collaboration</a></td>
-        <td></td>
-    </tr>
 
-</table>
+    <h1 th:if="not ${session.user == null}" th:text="'Welcome '+${session.user.name} "></h1>
+    <br>
+    <br>
+    <table class="menu">
+        <tr>
+            <td><a href="/offer/list" class="color_text interlimeado">Offers</a></td>
+            <td><a href="/request/list" class="color_text interlimeado">Request</a></td>
+            <td th:if="not ${session.user == null}"><a  href="/skill/list" class="color_text interlimeado">Skills</a></td>
+        </tr>
+        <tr>
+            <td><p>Do you want to teach? </p>
+                <p>Do you want have an Offer?</p>
+            </td>
+            <td><p >Didn't you seen a offer that you want?</p>
+                <p>Do you want to teach a request? </p>
+            </td>
+            <td th:if="not ${session.user == null}"><p>Do you want to see all available skills?</p></td>
+        </tr>
+    </table>
+    <table class="menu">
+        <tr>
+            <td th:if="not ${session.user == null}"><a  href="/chat/list" class="color_text interlimeado">Chats</a></td>
+            <td th:if="not ${session.user == null} and not ${session.user.skpMember==true}" class="bacgraund4" >
+                <a  th:href="@{/profile/{id}(id=${session.user.idStudent})}" class="color_text interlimeado">Personal Area</a></td>
+            <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><a  href="/student/list" class="color_text interlimeado">Users</a></td>
+            <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><a  href="/collaboration/list" class="color_text interlimeado">Collaboration</a></td>
+        </tr>
+        <tr>
+            <td th:if="not ${session.user == null}"><p>Do you want go to your chats?</p></td>
+            <td th:if="not ${session.user == null} and not ${session.user.skpMember==true}"><p>Do you want go to your personal area?</p></td>
+            <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><p>Do you want to administer the users?</p></td>
+            <td th:if="not ${session.user == null} and ${session.user.skpMember==true}">
+                <p>Do you want to administer the</p>
+                <p>  collaborations?</p>
+            </td>
+        </tr>
+    </table>
+
+
+
 </main>
 </body>
 </html>
