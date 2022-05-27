@@ -40,7 +40,7 @@ public class CollaborationDao {
 
     public List<Collaboration> getActiveCollaborations(){
         try{
-            return jdbcTemplate.query("SELECT * FROM Collaboration as c "+fromSentence+"  where o.enddate>CURRENT_DATE", new CollaborationRowMapper());
+            return jdbcTemplate.query("SELECT * "+fromSentence+"  where o.enddate>CURRENT_DATE", new CollaborationRowMapper());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }

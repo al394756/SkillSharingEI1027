@@ -61,23 +61,22 @@ public class StatisticsController {
         model.addAttribute("timesOfSkillUsedRequest",timesOfSkillUsedRequest);
         model.addAttribute("timesOfSkillUsedCollaboration",timesOfSkillUsedCollaboration);
 
-        /*float nActiveOffers=offeRequestDao.getActiveOffeRequests("offer").size();
-        float nActiveRequests=offeRequestDao.getActiveOffeRequests("request").size();
-        float nActiveCollaborations=collaborationDao.getActiveCollaborations().size();
-        List<Statistics> timesOfSkillUsedOffer=statisticsDao.timesOfSkillUsedOffeRequest("offer");
-        List<Statistics> timesOfSkillUsedRequest=statisticsDao.timesOfSkillUsedOffeRequest("request");
-        List<Statistics> timesOfSkillUsedCollaboration=statisticsDao.timesOfSkillUsedCollaboration();
+        List<Statistics> timesMVPStudentOffer=statisticsDao.timesMVPStudentOffeRequest("offer");
+        List<Statistics> timesMVPStudentRequest=statisticsDao.timesMVPStudentOffeRequest("request");
+        List<Statistics> timesMVPStudentCollaboration=statisticsDao.timesMVPStudentCollaboration();
 
-        for (Statistics statistics:timesOfSkillUsedOffer)
+        for (Statistics statistics:timesMVPStudentOffer)
             statistics.setCount(statistics.getCount()/nActiveOffers*100);
-        for (Statistics statistics:timesOfSkillUsedRequest)
+        for (Statistics statistics:timesMVPStudentRequest)
             statistics.setCount(statistics.getCount()/nActiveRequests*100);
-        for (Statistics statistics:timesOfSkillUsedCollaboration)
+        for (Statistics statistics:timesMVPStudentCollaboration)
             statistics.setCount(statistics.getCount()/nActiveCollaborations*100);
 
-        model.addAttribute("timesOfSkillUsedOffer",timesOfSkillUsedOffer);
-        model.addAttribute("timesOfSkillUsedRequest",timesOfSkillUsedRequest);
-        model.addAttribute("timesOfSkillUsedCollaboration",timesOfSkillUsedCollaboration);*/
+        model.addAttribute("timesMVPStudentOffer",timesMVPStudentOffer);
+        model.addAttribute("timesMVPStudentRequest",timesMVPStudentRequest);
+        model.addAttribute("timesMVPStudentCollaboration",timesMVPStudentCollaboration);
+
+
 
         return "statistics";
     }
