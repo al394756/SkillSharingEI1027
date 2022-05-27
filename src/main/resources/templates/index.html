@@ -38,7 +38,7 @@
         <tr>
             <td th:if="not ${session.user == null}"><a  href="/chat/list" class="color_text interlimeado">Chats</a></td>
             <td th:if="not ${session.user == null} and not ${session.user.skpMember==true}" class="bacgraund4" >
-                <a  th:href="@{/profile/{id}(id=${session.user.idStudent})}" class="color_text interlimeado">Personal Area</a></td>
+                <a  th:href="@{/profile}" class="color_text interlimeado">Personal Area</a></td>
             <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><a  href="/student/list" class="color_text interlimeado">Users</a></td>
             <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><a  href="/collaboration/list" class="color_text interlimeado">Collaboration</a></td>
         </tr>
