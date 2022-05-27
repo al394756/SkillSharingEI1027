@@ -24,7 +24,7 @@
             </tr>
             <tr class="iz">
                 <td>
-                    <select class="error" type="text" id="skill" th:field="*{skill.idSkill}"
+                    <select class="error" type="text" id="skill" th:field="*{skill.getIdSkill()}"
                              th:if="${#fields.hasErrors('skill.idSkill')}" >
                         <option th:each="skill1:${skills}" th:value="${skill1}"
                                 th:text="${skill1}"></option>

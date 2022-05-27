@@ -77,6 +77,10 @@ public class OffeRequestMethods <T> {
         session.setAttribute("skill",skill);
         session.setAttribute("offeRequest",offeRequest);
         session.setAttribute("offeRequestList",offeRequestList);
+
+        session.setAttribute("correcto", true);
+
+
         return "redirect:/"+type2.toLowerCase(Locale.ROOT)+"/listexisting";
     }
 
@@ -110,6 +114,8 @@ public class OffeRequestMethods <T> {
         OffeRequest offeRequest=(OffeRequest)session.getAttribute("offeRequest");
         offeRequestDao.add(offeRequest);
         //session.removeAttribute("offeRequest");
+        session.setAttribute("correcto", true);
+        session.setAttribute("lastUrl", "/"+offeRequest.getUrl()+"/list");
         return "redirect:list";
     }
 
@@ -125,6 +131,7 @@ public class OffeRequestMethods <T> {
         session.setAttribute("skill",offeRequestCopia.getSkill());
         session.setAttribute("offeRequest",offeRequestCopia);
         model.addAttribute("offeRequest",offeRequest);
+
         return "offeRequest/update";
     }
 
@@ -147,11 +154,15 @@ public class OffeRequestMethods <T> {
             return "redirect:/"+offeRequest.getUrl() + "/update/"+offeRequest.getId();
         }
         offeRequestDao.update(offeRequest);
+
+        session.setAttribute("correcto", true);
+
         return "redirect:list";
     }
 
-    public String processDelete(String idOffer) {
+    public String processDelete(String idOffer, HttpSession session) {
         offeRequestDao.delete(idOffer);
+        session.setAttribute("correcto", true);
         return "redirect:../list";
     }
 }

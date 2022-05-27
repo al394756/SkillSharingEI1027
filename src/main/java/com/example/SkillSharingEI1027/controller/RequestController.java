@@ -63,8 +63,8 @@ public class RequestController {
     }
 
     @RequestMapping(value = "/cancel/{id}")
-    public String processDelete(@PathVariable String id) {
-        return offeRequestMethods.processDelete(id);
+    public String processDelete(@PathVariable String id, HttpSession session) {
+        return offeRequestMethods.processDelete(id, session);
     }
 
     @RequestMapping(value="/listexisting",method = RequestMethod.POST)
