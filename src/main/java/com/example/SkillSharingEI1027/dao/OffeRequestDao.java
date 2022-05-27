@@ -109,8 +109,8 @@ public class OffeRequestDao {
     public List<OffeRequest> getOffeRequestWithSkill(String table, String idskill, LocalDate date, Student student){
         try{
             if (table.equals("Request"))
-                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE idSkill=? AND endDate>? AND idStudent != ?", new OffeRequestRowMapper(table), idskill,date, student.getIdStudent());
-            return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE idSkill=? AND endDate>? AND idStudent != ?", new OffeRequestRowMapper(table), idskill,date, student.getIdStudent());
+                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE r.idSkill=? AND r.endDate>? AND r.idStudent != ?", new OffeRequestRowMapper(table), idskill,date, student.getIdStudent());
+            return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE o.idSkill=? AND o.endDate>? AND o.idStudent != ?", new OffeRequestRowMapper(table), idskill,date, student.getIdStudent());
 
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
