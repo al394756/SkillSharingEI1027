@@ -15,6 +15,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class CollaborationDao {
     private JdbcTemplate jdbcTemplate;
+    private String fromSentence = "FROM COLLABORATION AS C inner JOIN OFFER AS O on c.idOffer=o.id INNER JOIN REQUEST AS R ON r.id = c.idRequest INNER JOIN Skill AS s on s.idSkill=r.idSkill INNER JOIN Student as st ON st.idStudent = r.idStudent INNER JOIN Student as st1 on st1.idStudent = o.idStudent";
+
     private AtomicInteger idAtomic = new AtomicInteger(1);
 
     @Autowired
@@ -36,12 +38,18 @@ public class CollaborationDao {
         return jdbcTemplate.queryForObject("SELECT COUNT(idCollaboration) FROM Collaboration",Integer.class);
     }
 
-
+    public List<Collaboration> getActiveCollaborations(){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Collaboration as c "+fromSentence+"  where o.enddate>CURRENT_DATE", new CollaborationRowMapper());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
 
 
     public Collaboration getCollaboration(String idCollaboration){
         try{
-            return jdbcTemplate.queryForObject("SELECT * FROM Collaboration WHERE idCollaboration=?",
+            return jdbcTemplate.queryForObject("SELECT * "+fromSentence+" WHERE idCollaboration=?",
                     new CollaborationRowMapper(),idCollaboration);
         } catch (EmptyResultDataAccessException ex){
             return null;
@@ -50,41 +58,17 @@ public class CollaborationDao {
 
     public List<Collaboration> getCollaborations(){
         try{
-            return jdbcTemplate.query("SELECT * FROM Collaboration", new CollaborationRowMapper());
+            return jdbcTemplate.query("SELECT * "+fromSentence, new CollaborationRowMapper());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
     }
 
-    public List<Collaboration> getActiveCollaborations(){
-        try{
-            return jdbcTemplate.query("SELECT * FROM Collaboration as c inner join Offer as o on c.idOffer=o.id  where o.enddate>CURRENT_DATE", new CollaborationRowMapper());
-        } catch (EmptyResultDataAccessException e){
-            return new ArrayList<>();
-        }
-    }
 
-    public List<Collaboration> getOffersPorAceptar(Student student){
-        try{
-
-            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 and ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent());
-        } catch (EmptyResultDataAccessException e){
-            return new ArrayList<>();
-        }
-    }
-
-    public List<Collaboration> getRequestsPorAceptar(Student student){
-        try{
-
-            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 and ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id)", new CollaborationRowMapper(), student.getIdStudent());
-        } catch (EmptyResultDataAccessException e){
-            return new ArrayList<>();
-        }
-    }
 
     public List<Collaboration> getCollaborationsActivasDe(Student student){
         try{
-            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE (collaborationstate=0 or collaborationstate=1) and (? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id))", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
+            return jdbcTemplate.query("SELECT * "+fromSentence+" WHERE (collaborationstate=0 or collaborationstate=1) and (? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id))", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
@@ -92,7 +76,7 @@ public class CollaborationDao {
 
     public List<Collaboration> getCollaborationsAcabadasDe(Student student){
         try{
-            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE (collaborationstate=2 or collaborationstate=3 or collaborationstate=4) and (? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id))", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
+            return jdbcTemplate.query("SELECT * "+fromSentence+" WHERE (collaborationstate=2 or collaborationstate=3 or collaborationstate=4) and (? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id))", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
@@ -114,7 +98,7 @@ public class CollaborationDao {
 
     public List<Collaboration> getCollaborationsDe(Student student){
         try{
-            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
+            return jdbcTemplate.query("SELECT * "+fromSentence+" WHERE ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }

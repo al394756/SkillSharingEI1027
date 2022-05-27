@@ -259,7 +259,6 @@ public class StudentController {
     }
     @RequestMapping(value = "/profile")
     public String profilePage(Model model, HttpSession session){
-        System.out.println("aaaaaaaaaaaaa");
         Student user = (Student) session.getAttribute("user");
 
         if (user == null || !user.isActiveAccount()){
@@ -270,7 +269,7 @@ public class StudentController {
         model.addAttribute("sorter", "");
 
 
-        list = conseguirDatosCollaborations(list);
+        //list = conseguirDatosCollaborations(list);
 
         model.addAttribute("misCollaborations", list);
 
