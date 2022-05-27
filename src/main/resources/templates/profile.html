@@ -12,7 +12,7 @@
 
 <body>
 <main>
-    <h1>My data:</h1>
+    <h1>My data</h1>
     <div class="caja color_text">
         <table>
             <tr>
@@ -43,13 +43,30 @@
         </table>
     </div>
 
-    <h1>My collaborations:</h1>
+    <p>Filter by: </p>
+    <form  method="post" th:action="@{/profile/filtered}"  >
+        <select type="text" th:onchange="this.form.submit()" th:value="${sorter}" name="sorter">
+
+            <option value="">Select an option</option>
+            <option value="All">All</option>
+            <option value="Unfinished">Unfinished Collaborations</option>
+            <option value="Finished">Finished Collaborations</option>
+
+        </select>
+
+
+    </form>
+    <h1 th:if="${sorter}=='' or ${sorter}==All">My collaborations</h1>
+    <h1 th:if="${sorter}!=null and ${sorter}==Finished">My Finished collaborations</h1>
+    <h1 th:if="${sorter}!=null and ${sorter}==Unfinished">My Unfinished collaborations</h1>
+
     <table class="tablaColla">
         <thead>
         <tr>
             <th><label>Offeror</label></th>
             <th><label>Requester</label></th>
             <th><label>Skill</label></th>
+            <th><label>Date</label></th>
             <th><label>Collaboration State</label></th>
             <th><label>Hours</label></th>
             <th><label>Score</label></th>
@@ -57,10 +74,12 @@
         </thead>
 
         <tbody>
-        <tr class="color" th:each="collaboration: ${misCollaborations}">
+        <tr class="color" th:each="collaboration: ${#lists.sort(misCollaborations,metodecomparador)}">
             <td> <label th:text="${collaboration.idOffer.student.name}"></label></td>
             <td> <label th:text="${collaboration.idRequest.student.name}"> </label></td>
             <td> <label th:text="${collaboration.idRequest.skill.name}"></label></td>
+            <td> <label th:text="|${#temporals.format(collaboration.idRequest.startDate, 'dd/MM/yyyy')}      ---    ${#temporals.format(collaboration.idRequest.endDate, 'dd/MM/yyyy')}|"> </label></td>
+
             <td>
                 <label th:if="${collaboration.collaborationState}==0"> Pending</label>
                 <label th:if="${collaboration.collaborationState}==1"> Confirmed</label>

@@ -84,7 +84,15 @@ public class CollaborationDao {
 
     public List<Collaboration> getCollaborationsActivasDe(Student student){
         try{
-            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 or collaborationstate=1 and ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
+            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE (collaborationstate=0 or collaborationstate=1) and (? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id))", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Collaboration> getCollaborationsAcabadasDe(Student student){
+        try{
+            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE (collaborationstate=2 or collaborationstate=3 or collaborationstate=4) and (? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id))", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }

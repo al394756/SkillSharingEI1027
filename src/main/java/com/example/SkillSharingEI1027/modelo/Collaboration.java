@@ -1,6 +1,6 @@
 package com.example.SkillSharingEI1027.modelo;
 
-public class Collaboration {
+public class Collaboration implements Comparable<Collaboration>{
 
     private String idCollaboration;
     private int assessmentScore;
@@ -91,5 +91,13 @@ public class Collaboration {
                 ", idRequest='" + idRequest + '\'' +
                 ", hours=" + hours +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Collaboration o) {
+        if (this.collaborationState < o.getCollaborationState())
+            return -1;
+        else
+            return 1;
     }
 }

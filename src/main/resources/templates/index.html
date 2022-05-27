@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <td th:if="not ${session.user == null}"><a  href="/chat/list" class="color_text interlimeado">Chats</a></a></td>
-        <td th:if="not ${session.user == null}"><a  th:href="@{/profile/{id}(id=${session.user.idStudent})}" class="color_text interlimeado">Personal Area</a></a></td>
+        <td th:if="not ${session.user == null}"><a  th:href="@{/profile}" class="color_text interlimeado">Personal Area</a></a></td>
         <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><a  href="/student/list" class="color_text interlimeado">Users</a></td>
     </tr>
     <tr th:if="not ${session.user == null} and ${session.user.skpMember==true}">

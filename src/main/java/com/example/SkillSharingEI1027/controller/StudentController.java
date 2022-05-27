@@ -257,25 +257,64 @@ public class StudentController {
         for (Collaboration collaboration:collaborationDao.getCollaborationsActivasDe(student))
             collaborationDao.finalizeCollaboration(collaboration);
     }
-    @RequestMapping(value = "/profile/{id}")
-    public String profilePage(@PathVariable String id, Model model, HttpSession session){
+    @RequestMapping(value = "/profile")
+    public String profilePage(Model model, HttpSession session){
+        System.out.println("aaaaaaaaaaaaa");
         Student user = (Student) session.getAttribute("user");
 
         if (user == null || !user.isActiveAccount()){
             return "welcome";
         }
 
-        List<Collaboration> list = collaborationDao.getCollaborationsDe(user);
+        List<Collaboration> list= collaborationDao.getCollaborationsDe(user);
+        model.addAttribute("sorter", "");
+
+
         list = conseguirDatosCollaborations(list);
 
         model.addAttribute("misCollaborations", list);
 
 
-        //model.addAttribute("misRequests",offeRequestDao.get)
+        return "profile";
+
+    }
+
+    @RequestMapping(value = "/profile/filtered")
+    public String profilePageFiltered(Model model, HttpSession session, @RequestParam("sorter") String sorter){
+        System.out.println(sorter);
+        Student user = (Student) session.getAttribute("user");
+
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
+
+        List<Collaboration> list = sorteredList(sorter, user);
+        System.out.println(list);
+
+        list = conseguirDatosCollaborations(list);
+
+        model.addAttribute("sorter",sorter);
+        model.addAttribute("misCollaborations", list);
 
         return "profile";
 
     }
+
+    private List<Collaboration> sorteredList(String sorter, Student user){
+        List<Collaboration> list=null;
+        switch (sorter) {
+            case "All":
+                list = collaborationDao.getCollaborationsDe(user);
+                break;
+            case "Unfinished":
+                list = collaborationDao.getCollaborationsActivasDe(user);
+                break;
+            case "Finished":
+                list = collaborationDao.getCollaborationsAcabadasDe(user);
+                break;
+        }
+        return list;
+        }
 
     @RequestMapping(value = "/student/unban/{id}", method = RequestMethod.GET)
     public String unbanStudent(Model model, @PathVariable String id){
