@@ -32,7 +32,7 @@
         <tr class="color" th:each="skill: ${timesOfSkillUsedOffer}">
 
             <th th:text="${skill.getKey()}"></th>
-            <td th:text="${skill.getCount()}+'%'"></td>
+            <td th:text="${skill.twoDecimals()}+'%'"></td>
         </tr>
     </table>
     <br>
@@ -40,7 +40,7 @@
         <caption>Percentage of most used skills in requests</caption>
         <tr class="color" th:each="skill: ${timesOfSkillUsedRequest}">
             <th th:text="${skill.getKey()}"></th>
-            <td th:text="${skill.getCount()}+'%'"></td>
+            <td th:text="${skill.twoDecimals()}+'%'"></td>
         </tr>
     </table>
     <br>
@@ -48,7 +48,7 @@
         <caption>Percentage of most used skills in collaborations</caption>
         <tr class="color" th:each="skill: ${timesOfSkillUsedCollaboration}">
             <th th:text="${skill.getKey()}"></th>
-            <td th:text="${skill.getCount()}+'%'"></td>
+            <td th:text="${skill.twoDecimals()}+'%'"></td>
         </tr>
     </table>
     <br>

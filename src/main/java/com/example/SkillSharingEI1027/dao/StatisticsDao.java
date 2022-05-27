@@ -41,6 +41,14 @@ public class StatisticsDao {
         }
     }
 
+    public int numberOfDistinctStudents(){
+        try{
+            return jdbcTemplate.queryForObject("SELECT COUNT(DISTINCT idSkill) from student", Integer.class);
+        } catch (EmptyResultDataAccessException e){
+            return -1;
+        }
+    }
+
     public List<Statistics> timesOfSkillUsedOffeRequest(String table){
         try{
             return jdbcTemplate.query("select s.name, count(o.idSkill) from "+table+" as o join skill as s using(idSkill) where endDate>CURRENT_DATE group by s.name",new StatisticsRowMapper());
@@ -52,6 +60,14 @@ public class StatisticsDao {
     public List<Statistics> timesOfSkillUsedCollaboration(){
         try{
             return jdbcTemplate.query("select s.name, count(o.idSkill) from collaboration as c inner join offer as o on c.idOffer=o.id join skill as s using(idSkill)  where enddate>CURRENT_DATE group by s.name",new StatisticsRowMapper());
+        } catch (EmptyResultDataAccessException e){
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Statistics> timesMVPStudentOffeRequest(String table){
+        try{
+            return jdbcTemplate.query("select s.name, count(o.idStudent) from "+table+" as o join student as s using(idStudent) where endDate>CURRENT_DATE group by s.name",new StatisticsRowMapper());
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }

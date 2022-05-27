@@ -61,6 +61,24 @@ public class StatisticsController {
         model.addAttribute("timesOfSkillUsedRequest",timesOfSkillUsedRequest);
         model.addAttribute("timesOfSkillUsedCollaboration",timesOfSkillUsedCollaboration);
 
+        /*float nActiveOffers=offeRequestDao.getActiveOffeRequests("offer").size();
+        float nActiveRequests=offeRequestDao.getActiveOffeRequests("request").size();
+        float nActiveCollaborations=collaborationDao.getActiveCollaborations().size();
+        List<Statistics> timesOfSkillUsedOffer=statisticsDao.timesOfSkillUsedOffeRequest("offer");
+        List<Statistics> timesOfSkillUsedRequest=statisticsDao.timesOfSkillUsedOffeRequest("request");
+        List<Statistics> timesOfSkillUsedCollaboration=statisticsDao.timesOfSkillUsedCollaboration();
+
+        for (Statistics statistics:timesOfSkillUsedOffer)
+            statistics.setCount(statistics.getCount()/nActiveOffers*100);
+        for (Statistics statistics:timesOfSkillUsedRequest)
+            statistics.setCount(statistics.getCount()/nActiveRequests*100);
+        for (Statistics statistics:timesOfSkillUsedCollaboration)
+            statistics.setCount(statistics.getCount()/nActiveCollaborations*100);
+
+        model.addAttribute("timesOfSkillUsedOffer",timesOfSkillUsedOffer);
+        model.addAttribute("timesOfSkillUsedRequest",timesOfSkillUsedRequest);
+        model.addAttribute("timesOfSkillUsedCollaboration",timesOfSkillUsedCollaboration);*/
+
         return "statistics";
     }
 }

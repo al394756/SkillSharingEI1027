@@ -32,4 +32,8 @@ public class Statistics {
                 ", count=" + count +
                 '}';
     }
+
+    public String twoDecimals(){
+        return String.format("%.2f", count);
+    }
 }
