@@ -36,10 +36,6 @@ public class OffeRequestMethods <T> {
         model.addAttribute("type",type);
         List<OffeRequest> lista = offeRequestDao.getActiveOffeRequests(type);
 
-        for (OffeRequest r : lista){
-            r.setSkill(skillDao.getSkill(r.getSkill().getIdSkill()));
-            r.setStudent(studentDao.getStudentUsingId(r.getStudent().getIdStudent()));
-        }
         model.addAttribute("list", lista);
         return "offeRequest/list";
     }
@@ -120,8 +116,6 @@ public class OffeRequestMethods <T> {
     public String edit(Model model,String id,String type, HttpSession session){
         model.addAttribute("type",type);
         OffeRequest offeRequest= offeRequestDao.getOffeRequest(id);
-        offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
-        offeRequest.setStudent(studentDao.getStudentUsingId(offeRequest.getStudent().getIdStudent()));
         OffeRequest offeRequestCopia;
         if (type.equals("Request"))
             offeRequestCopia= new Request(offeRequest);

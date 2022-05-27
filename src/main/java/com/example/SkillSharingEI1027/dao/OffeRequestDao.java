@@ -12,11 +12,15 @@ import javax.sql.DataSource;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class OffeRequestDao {
     private JdbcTemplate jdbcTemplate;
+    private String fromSentenceR = "FROM REQUEST AS R INNER JOIN STUDENT AS S ON S.IDSTUDENT = R.IDSTUDENT INNER JOIN SKILL AS SK ON SK.IDSKILL=R.IDSKILL";
+    private String fromSentenceO = "FROM Offer AS o INNER JOIN STUDENT AS S ON S.IDSTUDENT = o.IDSTUDENT INNER JOIN SKILL AS SK ON SK.IDSKILL=o.IDSKILL";
+
 
     @Autowired
     public void setDataSource(DataSource dataSource){ jdbcTemplate = new JdbcTemplate(dataSource);}
@@ -42,11 +46,16 @@ public class OffeRequestDao {
 
     public OffeRequest getOffeRequest(String id){
         try{
-            String table="";
-            if (id.startsWith("rq")) table="Request";
-            else if (id.startsWith("of")) table="Offer";
-            return jdbcTemplate.queryForObject("SELECT * FROM "+table+" WHERE id=?",
-                    new OffeRequestRowMapper(table),id);
+
+            if (id.startsWith("rq")) {
+                return jdbcTemplate.queryForObject("SELECT * " + fromSentenceR + " WHERE id=?",
+                        new OffeRequestRowMapper("Request"), id);
+            }
+            else {
+                return jdbcTemplate.queryForObject("SELECT * " + fromSentenceO + " WHERE id=?",
+                        new OffeRequestRowMapper("Offer"), id);
+            }
+
         } catch (EmptyResultDataAccessException ex){
             return null;
         }
@@ -65,7 +74,11 @@ public class OffeRequestDao {
 
     public List<OffeRequest> getActiveOffeRequests(String table) {
         try{
-            return jdbcTemplate.query("SELECT * FROM "+table+" WHERE endDate>?", new OffeRequestRowMapper(table),java.time.LocalDate.now());
+            if (table.equals("Request"))
+                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE endDate>?", new OffeRequestRowMapper(table),java.time.LocalDate.now());
+            else
+                return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE endDate>?", new OffeRequestRowMapper(table),java.time.LocalDate.now());
+
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
@@ -73,7 +86,10 @@ public class OffeRequestDao {
 
     public List<OffeRequest> getOffeRequests(String table){
         try{
-            return jdbcTemplate.query("SELECT * FROM "+table, new OffeRequestRowMapper(table));
+            if (table.equals("Request"))
+                return jdbcTemplate.query("SELECT * "+fromSentenceR, new OffeRequestRowMapper(table));
+            return jdbcTemplate.query("SELECT * "+fromSentenceO, new OffeRequestRowMapper(table));
+
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
@@ -81,7 +97,10 @@ public class OffeRequestDao {
 
     public List<OffeRequest> getOfferRequestsActivasDe(String table, Student student){
         try{
-            return jdbcTemplate.query("SELECT * FROM "+table+" WHERE endDate>? AND idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
+            if (table.equals("Request"))
+                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE endDate>? AND idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
+            return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE endDate>? AND idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
+
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
@@ -89,35 +108,14 @@ public class OffeRequestDao {
 
     public List<OffeRequest> getOffeRequestWithSkill(String table, String idskill, LocalDate date, Student student){
         try{
-            return jdbcTemplate.query("SELECT * FROM "+table+" WHERE idSkill=? AND endDate>? AND idStudent != ?", new OffeRequestRowMapper(table), idskill,date, student.getIdStudent());
+            if (table.equals("Request"))
+                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE idSkill=? AND endDate>? AND idStudent != ?", new OffeRequestRowMapper(table), idskill,date, student.getIdStudent());
+            return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE idSkill=? AND endDate>? AND idStudent != ?", new OffeRequestRowMapper(table), idskill,date, student.getIdStudent());
+
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
     }
 
-    public List<Collaboration> getOffersPorAceptar(Student student){
-        try{
 
-            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 and ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent());
-        } catch (EmptyResultDataAccessException e){
-            return new ArrayList<>();
-        }
-    }
-
-    public List<Collaboration> getRequestsPorAceptar(Student student){
-        try{
-
-            return jdbcTemplate.query("SELECT * FROM Collaboration c WHERE collaborationstate=0 and ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id)", new CollaborationRowMapper(), student.getIdStudent());
-        } catch (EmptyResultDataAccessException e){
-            return new ArrayList<>();
-        }
-    }
-
-    public List<OffeRequest> getStudentWithSkill(String table, String idskill){
-        try{
-            return jdbcTemplate.query("SELECT Student FROM "+table+" WHERE idSkill=?", new OffeRequestRowMapper(table), idskill);
-        } catch (EmptyResultDataAccessException e){
-            return new ArrayList<>();
-        }
-    }
 }
