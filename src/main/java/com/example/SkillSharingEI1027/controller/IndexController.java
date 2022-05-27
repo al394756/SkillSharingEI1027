@@ -21,7 +21,7 @@ public class IndexController {
     @RequestMapping("/")
     public String indexPage(HttpSession session){
         session.setAttribute("today", LocalDate.now());
-        collaborationDao.actualizaCollaborations(LocalDate.now());
+        collaborationDao.actualizaCollaborations();
         Student user = (Student)session.getAttribute("user");
         if ( user == null  || !user.isActiveAccount())
             return "welcome";

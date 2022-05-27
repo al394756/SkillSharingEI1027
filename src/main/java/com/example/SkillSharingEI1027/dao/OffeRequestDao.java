@@ -98,8 +98,8 @@ public class OffeRequestDao {
     public List<OffeRequest> getOfferRequestsActivasDe(String table, Student student){
         try{
             if (table.equals("Request"))
-                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE endDate>? AND idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
-            return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE endDate>? AND idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
+                return jdbcTemplate.query("SELECT * "+fromSentenceR+" WHERE r.endDate>? AND r.idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
+            return jdbcTemplate.query("SELECT * "+fromSentenceO+" WHERE r.endDate>? AND r.idStudent=?", new OffeRequestRowMapper(table), java.time.LocalDate.now(), student.getIdStudent());
 
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();

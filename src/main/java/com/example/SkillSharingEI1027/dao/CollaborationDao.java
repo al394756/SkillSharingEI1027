@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -102,5 +103,9 @@ public class CollaborationDao {
         } catch (EmptyResultDataAccessException e){
             return new ArrayList<>();
         }
+    }
+
+    public void actualizaCollaborations(){
+        jdbcTemplate.update("UPDATE COLLABORATION SET collaborationState=2 WHERE collaborationState=1 AND idRequest IN (SELECT r.id FROM request as r WHERE CURRENT_DATE >= r.endDate) ");
     }
 }
