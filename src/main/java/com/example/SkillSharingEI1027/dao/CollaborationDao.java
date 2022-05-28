@@ -97,6 +97,10 @@ public class CollaborationDao {
                 collaboration.getIdCollaboration());
     }
 
+    public void assessCollaboration(Collaboration collaboration){
+        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=3, hours=?, assessmentScore=? WHERE idCollabortion=?", collaboration.getHours(), collaboration.getAssessmentScore(), collaboration.getIdCollaboration());
+    }
+
     public List<Collaboration> getCollaborationsDe(Student student){
         try{
             return jdbcTemplate.query("SELECT * "+fromSentence+" WHERE ? IN (SELECT idStudent FROM Request r WHERE c.idRequest = r.id) or ? IN (SELECT idStudent FROM Offer o WHERE c.idOffer = o.id)", new CollaborationRowMapper(), student.getIdStudent(),student.getIdStudent());

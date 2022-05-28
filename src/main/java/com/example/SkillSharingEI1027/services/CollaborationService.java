@@ -10,4 +10,5 @@ import java.util.List;
 public interface CollaborationService {
     List<OffeRequest> giveOffeRequestNoAceptadas(Student student, String type);
     void mensajeConfirmacion(Chat chat, String msgContent, Student student);
+    Chat conseguirChat(Student student1, Student student2);
 }
