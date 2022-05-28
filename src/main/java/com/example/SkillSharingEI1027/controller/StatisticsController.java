@@ -44,7 +44,6 @@ public class StatisticsController {
         model.addAttribute("pOfDDistinctSkillsCollaboration",String.format("%.2f",pOfDDistinctSkillsCollaboration));
 
         List<Statistics> timesOfSkillUsedOffer=statisticsDao.timesOfSkillUsedOffeRequest("offer");
-        System.out.println(timesOfSkillUsedOffer);
         List<Statistics> timesOfSkillUsedRequest=statisticsDao.timesOfSkillUsedOffeRequest("request");
         List<Statistics> timesOfSkillUsedCollaboration=statisticsDao.timesOfSkillUsedCollaboration();
 

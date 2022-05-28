@@ -9,6 +9,6 @@ import java.sql.SQLException;
 public class StatisticsRowMapper implements RowMapper<Statistics> {
     @Override
     public Statistics mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Statistics(rs.getString(1),rs.getInt(2));
+        return new Statistics(rs.getString(1),rs.getFloat(2));
     }
 }

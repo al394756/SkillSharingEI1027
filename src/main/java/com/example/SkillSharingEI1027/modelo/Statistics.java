@@ -4,7 +4,7 @@ public class Statistics {
     private String key;
     private float count;
 
-    public Statistics(String key, int count) {
+    public Statistics(String key, float count) {
         this.key = key;
         this.count = count;
     }
