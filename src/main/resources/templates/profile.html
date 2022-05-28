@@ -78,7 +78,7 @@
             <td> <label th:text="${collaboration.idOffer.student.name}"></label></td>
             <td> <label th:text="${collaboration.idRequest.student.name}"> </label></td>
             <td> <label th:text="${collaboration.idRequest.skill.name}"></label></td>
-            <td> <label th:text="|${#temporals.format(collaboration.idRequest.startDate, 'dd/MM/yyyy')}      ---    ${#temporals.format(collaboration.idRequest.endDate, 'dd/MM/yyyy')}|"> </label></td>
+            <td> <label th:text="|${#temporals.format(collaboration.idRequest.startDate, 'dd/MM/yyyy')}      -    ${#temporals.format(collaboration.idRequest.endDate, 'dd/MM/yyyy')}|"> </label></td>
 
             <td>
                 <label th:if="${collaboration.collaborationState}==0"> Pending</label>

@@ -24,15 +24,17 @@
             </tr>
             <tr class="iz">
                 <td>
-                    <select class="error" type="text" id="skill" th:field="*{skill.getIdSkill()}"
+                    <select class="error" type="text" id="skill" th:field="*{skill.idSkill}"
                              th:if="${#fields.hasErrors('skill.idSkill')}" >
-                        <option th:each="skill1:${skills}" th:value="${skill1}"
-                                th:text="${skill1}"></option>
+                        <option value="">Select an option</option>
+                        <option th:each="skill1:${skills}" th:value="${skill1.idSkill}"
+                                th:text="${skill1.name}"></option>
                     </select>
                     <select  type="text" th:field="*{skill.idSkill}"
                              th:unless="${#fields.hasErrors('skill.idSkill')}" >
-                        <option th:each="skill1:${skills}" th:value="${skill1}"
-                                th:text="${skill1}"></option>
+                        <option value="">Select an option</option>
+                        <option th:each="skill1:${skills}" th:value="${skill1.idSkill}"
+                                th:text="${skill1.name}"></option>
                     </select>
                 </td>
                 <td>

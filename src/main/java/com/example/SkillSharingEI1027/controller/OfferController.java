@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,8 +33,20 @@ public class OfferController {
             return "welcome";
         }
         session.setAttribute("backUrl","/offer/list");
+        model.addAttribute("idSkill","");
 
         return offeRequestMethods.list(model,type, session);
+    }
+
+    @RequestMapping("/list/idSkill")
+    public String listFiltered(Model model, HttpSession session, @RequestParam String idSkill){
+        Student user = (Student) session.getAttribute("user");
+        if (user!=null && !user.isActiveAccount()){
+            return "welcome";
+        }
+        session.setAttribute("backUrl","/offer/list");
+
+        return offeRequestMethods.listFiltered(model,"Offer",idSkill,session,"offer");
     }
 
     @RequestMapping(value = "/add")

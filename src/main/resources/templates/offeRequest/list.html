@@ -19,84 +19,95 @@
 
         </div>
     </div>
+    <p>Filter by Skill: </p>
+    <form  method="post" th:action="@{/__${url}__/list/idSkill}"  >
+        <select type="text" th:onchange="this.form.submit()" th:value="${idSkill}" name="idSkill">
+            <option value="">Select skill</option>
+            <option value="all">All</option>
+            <option th:each="skill1:${skills}" th:value="${skill1.idSkill}" name="idSkill"
+                    th:text="${skill1.name}"></option>
+        </select>
+    </form>
 
     <div th:if="${#lists.isEmpty(list)}" th:text="'There are not '+${type}+'s registered'"></div>
 
 
-    <div th:unless="${#lists.isEmpty(list)}" class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
-        <div class="caja color_text">
-            <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
-            <div class="nombreAutor"><label th:text="'By '+${offeRequest.student.name}"></label></div>
-            <hr/>
-            <div class="caja-interno">
+    <div th:unless="${#lists.isEmpty(list)}">
 
-                <label th:if="${offeRequest.skill.level}==0"> Beginner</label>
-                <label th:if="${offeRequest.skill.level}==1"> Intermediate</label>
-                <label th:if="${offeRequest.skill.level}==2"> Expert</label>
-                <table >
-                    <tr>
-                        <td class="endStart"><label>Start</label></td>
-                        <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.startDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
-                    </tr>
-                    <tr>
-                        <td class="endStart"><label>End</label></td>
-                        <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.endDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
-                    </tr>
-                </table>
-                <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
-                <table class="centrado edit">
-                    <tr>
-                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
+        <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
+            <div class="caja color_text">
+                <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>
+                <div class="nombreAutor"><label th:text="'By '+${offeRequest.student.name}"></label></div>
+                <hr/>
+                <div class="caja-interno">
 
-                            <input type="checkbox" class="checconf" th:id="${offeRequest.id}">
-                            <label th:for="${offeRequest.id}"><img class="tamIcon" src="/imagenes/editar.png"></label>
+                    <label th:if="${offeRequest.skill.level}==0"> Beginner</label>
+                    <label th:if="${offeRequest.skill.level}==1"> Intermediate</label>
+                    <label th:if="${offeRequest.skill.level}==2"> Expert</label>
+                    <table >
+                        <tr>
+                            <td class="endStart"><label>Start</label></td>
+                            <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.startDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                        </tr>
+                        <tr>
+                            <td class="endStart"><label>End</label></td>
+                            <td><input class="fecha" type="date" th:value="${#temporals.format(offeRequest.endDate,'yyyy-MM-dd')}" readonly="readonly"/></td>
+                        </tr>
+                    </table>
+                    <div class="descripcion" ><p class="texto" th:text="${offeRequest.description}"></p></div>
+                    <table class="centrado edit">
+                        <tr>
+                            <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
 
-                            <div class="corfrimacion">
-                                <p class="color_text" th:text="'Are you sure you want to edit this '+${type}"> </p>
-                                <table class="botones">
-                                    <tr>
-                                        <td><label class="botonConf" th:for="${offeRequest.id}"> Back </label></td>
-                                        <td><a class="editIcon" th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}">
-                                            <img class="tamIcon" src="/imagenes/editar.png"></a></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <label class="fondoOscuro2"></label>
-                        </td>
-                        <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
-                            <input type="checkbox" class="check2" th:id="${offeRequest.id}+'2'">
-                            <label th:for="${offeRequest.id}+'2'"><img class="tamIcon" src="/imagenes/delete.png"></label>
+                                <input type="checkbox" class="checconf" th:id="${offeRequest.id}">
+                                <label th:for="${offeRequest.id}"><img class="tamIcon" src="/imagenes/editar.png"></label>
 
-                            <div class="corfrimacion2">
-                                <p class="color_text" th:text="'Are you sure you want to cancel this '+${type}"> </p>
-                                <table class="botones">
-                                    <tr>
-                                        <td><label class="botonConf" th:for="${offeRequest.id}+'2'"> Back </label></td>
-                                        <td><a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id},type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <label class="fondoOscuro2"></label>
-                        </td>
-                        <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent} and ${!session.user.isSkpMember()}">
+                                <div class="corfrimacion">
+                                    <p class="color_text" th:text="'Are you sure you want to edit this '+${type}"> </p>
+                                    <table class="botones">
+                                        <tr>
+                                            <td><label class="botonConf" th:for="${offeRequest.id}"> Back </label></td>
+                                            <td><a class="editIcon" th:href="@{/{type}/update/{id}(id=${offeRequest.id}, type=${offeRequest.url})}">
+                                                <img class="tamIcon" src="/imagenes/editar.png"></a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <label class="fondoOscuro2"></label>
+                            </td>
+                            <td th:if="not ${session.user == null} and ${session.user.idStudent} == *{offeRequest.student.idStudent}">
+                                <input type="checkbox" class="check2" th:id="${offeRequest.id}+'2'">
+                                <label th:for="${offeRequest.id}+'2'"><img class="tamIcon" src="/imagenes/delete.png"></label>
 
-                            <input type="checkbox" class="checconf" th:id="${offeRequest.id}">
-                            <label class="accept" th:for="${offeRequest.id}">Accept</label>
+                                <div class="corfrimacion2">
+                                    <p class="color_text" th:text="'Are you sure you want to cancel this '+${type}"> </p>
+                                    <table class="botones">
+                                        <tr>
+                                            <td><label class="botonConf" th:for="${offeRequest.id}+'2'"> Back </label></td>
+                                            <td><a  th:href="@{/{type}/cancel/{id}(id=${offeRequest.id},type=${offeRequest.url})}" role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <label class="fondoOscuro2"></label>
+                            </td>
+                            <td th:if="not ${session.user == null} and ${session.user.idStudent} != *{offeRequest.student.idStudent} and ${!session.user.isSkpMember()}">
 
-                            <div class="corfrimacion">
-                                <p class="color_text" th:text="'Are you sure you want to accept this '+${type}"> </p>
-                                <table class="botones">
-                                    <tr>
-                                        <td><label class="botonConf" th:for="${offeRequest.id}"> Back </label></td>
-                                        <td><a th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <label class="fondoOscuro2"></label>
-                        </td>
-                    </tr>
-                </table>
+                                <input type="checkbox" class="checconf" th:id="${offeRequest.id}">
+                                <label class="accept" th:for="${offeRequest.id}">Accept</label>
 
+                                <div class="corfrimacion">
+                                    <p class="color_text" th:text="'Are you sure you want to accept this '+${type}"> </p>
+                                    <table class="botones">
+                                        <tr>
+                                            <td><label class="botonConf" th:for="${offeRequest.id}"> Back </label></td>
+                                            <td><a th:href="@{/collaboration/add/{id}(id=${offeRequest.id})}">Accept </a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <label class="fondoOscuro2"></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

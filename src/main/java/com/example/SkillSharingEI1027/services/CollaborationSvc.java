@@ -55,6 +55,32 @@ public class CollaborationSvc implements CollaborationService {
         return listOffeRActivas;
     }
 
+    @Override
+    public List<OffeRequest> giveOffeRequestNoAceptadas(Student student, String type, String idSkill) {
+        List<OffeRequest> listOffeRActivas = offeRequestDao.getOffeRequestFiltered(type,idSkill);
+        List<OffeRequest> listFinal = new LinkedList<>();
+        List<String> listId = new LinkedList<>();
+        for (OffeRequest of : listOffeRActivas) {
+            listId.add(of.getId());
+        }
+        List<Collaboration> listCollaborations = collaborationDao.getCollaborationsActivasDe(student);
+        if (type.equals("Request")) {
+            for (Collaboration c : listCollaborations) {
+                if (listId.contains(c.getIdRequest().getId())) {
+                    listFinal.add(c.getIdRequest());
+                }
+            }
+
+        } else {
+            for (Collaboration c : listCollaborations) {
+                if (listId.contains(c.getIdOffer().getId())) {
+                    listFinal.add(c.getIdOffer());
+                }
+            }
+        }
+        listOffeRActivas.removeAll(listFinal);
+        return listOffeRActivas;
+    }
 
     @Override
     public void mensajeConfirmacion(Chat chat, String msgContent, Student student){
