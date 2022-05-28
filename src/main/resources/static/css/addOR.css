@@ -64,6 +64,8 @@ option{
     background: white;
     color: #7d9abb;
     font-weight: bold;
+    cursor: pointer;
+
 }
 .ajustesSubmit{
     width: 8rem;
@@ -74,6 +76,8 @@ option{
     color: #7d9abb;
     font-size: 13px;
     font-weight: bold;
+    cursor: pointer;
+
 }
 .sumit2{
     padding: 0.45rem 1rem;
