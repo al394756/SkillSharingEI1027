@@ -29,15 +29,9 @@ public class StatisticsController {
 
     @RequestMapping("/statistics")
     public String statistics(Model model){
-        float numberOfDDistinctSkillsOffer=statisticsDao.numberOfDistinctSkillsInOffeRequest("offer");
-        float numberOfDDistinctSkillsRequest=statisticsDao.numberOfDistinctSkillsInOffeRequest("request");
-        float numberOfDDistinctSkillsCollaboration=statisticsDao.numberOfDistinctSkillsInCollaboration();
-
-        float nSkills=statisticsDao.numberOfDistinctSkills();
-
-        float pOfDDistinctSkillsOffer=numberOfDDistinctSkillsOffer/nSkills*100;
-        float pOfDDistinctSkillsRequest=numberOfDDistinctSkillsRequest/nSkills*100;
-        float pOfDDistinctSkillsCollaboration=numberOfDDistinctSkillsCollaboration/nSkills*100;
+        float pOfDDistinctSkillsOffer=statisticsDao.numberOfDistinctSkillsInOffeRequest("offer");
+        float pOfDDistinctSkillsRequest=statisticsDao.numberOfDistinctSkillsInOffeRequest("request");
+        float pOfDDistinctSkillsCollaboration=statisticsDao.numberOfDistinctSkillsInCollaboration();
 
         model.addAttribute("pOfDDistinctSkillsOffer",String.format("%.2f", pOfDDistinctSkillsOffer));
         model.addAttribute("pOfDDistinctSkillsRequest",String.format("%.2f", pOfDDistinctSkillsRequest));
@@ -58,8 +52,6 @@ public class StatisticsController {
         model.addAttribute("timesMVPStudentOffer",timesMVPStudentOffer);
         model.addAttribute("timesMVPStudentRequest",timesMVPStudentRequest);
         model.addAttribute("timesMVPStudentCollaboration",timesMVPStudentCollaboration);
-
-
 
         return "statistics";
     }
