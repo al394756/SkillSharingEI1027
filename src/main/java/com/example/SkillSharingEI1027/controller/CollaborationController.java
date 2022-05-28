@@ -4,6 +4,7 @@ package com.example.SkillSharingEI1027.controller;
 import com.example.SkillSharingEI1027.dao.*;
 import com.example.SkillSharingEI1027.modelo.*;
 
+import com.example.SkillSharingEI1027.services.CollaborationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,16 +23,15 @@ public class CollaborationController {
     private OffeRequestDao offeRequestDao;
     private ChatDao chatDao;
     private MessageDao messageDao;
-    private SkillDao skillDao;
-    private StudentDao studentDao;
+    private CollaborationService collaborationService;
+
 
     @Autowired
-    public void setOffeRequestDao(OffeRequestDao offeRequestDao, ChatDao chatDao, MessageDao messageDao, SkillDao skillDao, StudentDao studentDao) {
+    public void setOffeRequestDao(OffeRequestDao offeRequestDao, ChatDao chatDao, MessageDao messageDao, CollaborationService collaborationService) {
         this.offeRequestDao = offeRequestDao;
         this.chatDao = chatDao;
         this.messageDao=messageDao;
-        this.skillDao=skillDao;
-        this.studentDao=studentDao;
+        this.collaborationService=collaborationService;
     }
 
     @Autowired
@@ -57,7 +57,7 @@ public class CollaborationController {
         }
         OffeRequest offeRequestAceptada = offeRequestDao.getOffeRequest(offeRequestId);
         OffeRequest offeRequestNueva = crearContrarioA(offeRequestAceptada,student);
-        Skill skill= skillDao.getSkill(offeRequestAceptada.getSkill().getIdSkill());
+        Skill skill= offeRequestAceptada.getSkill();
 
 
         Collaboration collaboration;
@@ -77,7 +77,7 @@ public class CollaborationController {
 
         Chat chat = conseguirChat(offeRequestAceptada.getStudent(),student);
 
-        mensajeConfirmacion(chat, msgContent, student );
+        collaborationService.mensajeConfirmacion(chat, msgContent, student );
 
 
         collaborationDao.addCollaboration(collaboration);
@@ -94,7 +94,7 @@ public class CollaborationController {
         Student student1 = conseguirOtroStudent(student, collaboration);
         Chat chat = conseguirChat(student, student1);
         String msgContent =" I have accepted your collaboration proposal on "+collaboration.getIdRequest().getSkill().getName()+". I hope to see you between "+collaboration.getIdRequest().getStartDate()+" and "+collaboration.getIdOffer().getEndDate();
-        mensajeConfirmacion(chat,msgContent,student);
+        collaborationService.mensajeConfirmacion(chat,msgContent,student);
         collaborationDao.confirmCollaboration(collaboration);
         return "redirect:/profile/";
     }
@@ -111,7 +111,7 @@ public class CollaborationController {
         } else{
             msgContent ="Sorry I have cancelled our planned collaboration on "+collaboration.getIdRequest().getSkill().getName()+" between  "+collaboration.getIdRequest().getStartDate()+" and "+collaboration.getIdOffer().getEndDate();
         }
-        mensajeConfirmacion(chat,msgContent,student);
+        collaborationService.mensajeConfirmacion(chat,msgContent,student);
         collaborationDao.cancelCollaboration(collaboration);
 
         return "redirect:/profile/";
@@ -164,16 +164,7 @@ public class CollaborationController {
         return offeRequestNueva;
 
     }
-    private void mensajeConfirmacion(Chat chat, String msgContent, Student student){
 
-        Message msg = new Message();
-        msg.setDate(LocalDate.now());
-        msg.setStudent(student.getIdStudent());
-        msg.setIdChat(chat.getIdChat());
-        msg.setNumber(messageDao.messageNumber(msg.getIdChat()));
-        msg.setContent(msgContent);
-        messageDao.addMessage(msg);
-    }
 
 
 }
