@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class CollaborationSvc implements CollaborationService{
+public class CollaborationSvc implements CollaborationService {
 
     @Autowired
     StudentDao studentDao;
@@ -24,54 +24,30 @@ public class CollaborationSvc implements CollaborationService{
     @Autowired
     OffeRequestDao offeRequestDao;
 
+
     @Override
-    public List<Collaboration> giveCollaborationPendiente(String idStudent){
-        List<Collaboration> lista = collaborationDao.getCollaborations();
-        List<Collaboration> lista_pendientes = new LinkedList<>();
-        for (Collaboration c:lista){
-            if (c.getCollaborationState() == 0){
-                if (c.getIdOffer().getStudent().getIdStudent().equals(idStudent) || c.getIdRequest().getStudent().getIdStudent().equals(idStudent)){
-                    lista_pendientes.add(c);
-                }
-            }
+    public List<OffeRequest> giveOffeRequestNoAceptadas(Student student, String type) {
+        List<OffeRequest> listOffeRActivas = offeRequestDao.getActiveOffeRequests(type);
+        List<OffeRequest> listFinal = new LinkedList<>();
+        List<String> listId = new LinkedList<>();
+        for (OffeRequest of : listOffeRActivas) {
+            listId.add(of.getId());
         }
-        return lista_pendientes;
-    }
-
-    @Override
-    public List<Collaboration> giveCollaborations(String idStudent){
-        List<Collaboration> lista = collaborationDao.getCollaborations();
-        List<Collaboration> lista_pendientes = new LinkedList<>();
-        for (Collaboration c:lista){
-                if (c.getIdOffer().getStudent().getIdStudent().equals(idStudent) || c.getIdRequest().getStudent().getIdStudent().equals(idStudent)){
-                    lista_pendientes.add(c);
-
-            }
-        }
-        return lista_pendientes;
-    }
-
-    @Override
-    public List<OffeRequest> giveOffeRequestPendientes(String type, Student student){
-        List<OffeRequest> listOf=new LinkedList<>();
-        if (student==null)
-            return listOf;
-        List<Collaboration> listaC= giveCollaborations(student.getIdStudent());
-
-        if (type.equals("Request")){
-            for (Collaboration collaboration:listaC){
-                if (collaboration.getIdRequest().getStudent().getIdStudent().equals(student.getIdStudent())){
-                    listOf.add(collaboration.getIdRequest());
+        List<Collaboration> listCollaborations = collaborationDao.getCollaborationsDe(student);
+        if (type.equals("Request")) {
+            for (Collaboration c : listCollaborations) {
+                if (!listId.contains(c.getIdRequest().getId())) {
+                    listFinal.add(c.getIdRequest());
                 }
             }
 
-        } else{
-            for (Collaboration collaboration:listaC){
-                if (collaboration.getIdOffer().getStudent().getIdStudent().equals(student.getIdStudent())){
-                    listOf.add(collaboration.getIdRequest());
+        } else {
+            for (Collaboration c : listCollaborations) {
+                if (!listId.contains(c.getIdOffer().getId())) {
+                    listFinal.add(c.getIdOffer());
                 }
             }
         }
-        return listOf;
+        return listFinal;
     }
 }

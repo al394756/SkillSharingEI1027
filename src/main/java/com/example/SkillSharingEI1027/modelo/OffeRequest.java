@@ -3,6 +3,7 @@ package com.example.SkillSharingEI1027.modelo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public abstract class OffeRequest implements Comparable<OffeRequest>{
     private String id;
@@ -119,4 +120,14 @@ public abstract class OffeRequest implements Comparable<OffeRequest>{
     public void setUrl(String url){
         this.url=url;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OffeRequest that = (OffeRequest) o;
+        return id.equals(that.id);
+    }
+
+
 }

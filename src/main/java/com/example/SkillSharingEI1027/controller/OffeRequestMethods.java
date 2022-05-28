@@ -18,23 +18,19 @@ import java.util.*;
 public class OffeRequestMethods <T> {
     private OffeRequestDao offeRequestDao;
     private SkillDao skillDao;
-    private StudentDao studentDao;
     private CollaborationService collaborationService;
 
-    @Autowired
-    public void setCollaborationService(CollaborationService collaborationService) {
-        this.collaborationService = collaborationService;
-    }
 
-    public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao, StudentDao studentDao) {
+    public void setOffeRequestDao(OffeRequestDao offeRequestDao, SkillDao skillDao,  CollaborationService collaborationService) {
         this.offeRequestDao = offeRequestDao;
         this.skillDao = skillDao;
-        this.studentDao=studentDao;
+        this.collaborationService= collaborationService;
     }
 
     public String list(Model model, String type, HttpSession session) {
+        Student student = (Student) session.getAttribute("user");
         model.addAttribute("type",type);
-        List<OffeRequest> lista = offeRequestDao.getActiveOffeRequests(type);
+        List<OffeRequest> lista = collaborationService.giveOffeRequestNoAceptadas(student,type);
 
         model.addAttribute("list", lista);
         return "offeRequest/list";

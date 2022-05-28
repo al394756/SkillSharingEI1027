@@ -7,7 +7,5 @@ import com.example.SkillSharingEI1027.modelo.Student;
 import java.util.List;
 
 public interface CollaborationService {
-    List<Collaboration> giveCollaborationPendiente(String idStudent);
-    List<Collaboration> giveCollaborations(String idStudent);
-    List<OffeRequest> giveOffeRequestPendientes(String type, Student student);
+    List<OffeRequest> giveOffeRequestNoAceptadas(Student student, String type);
 }
