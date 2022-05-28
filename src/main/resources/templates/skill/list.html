@@ -56,7 +56,7 @@
   <br>
   <a  href="/" class="add color_text" >Back</a>
   <a  th:if="${session.user.skpMember==true}"  href="add" class="add color_text" >Add</a>
-
+  <div th:replace="fragments/confirmacion"></div>
 </main>
 </body>
 </html>
