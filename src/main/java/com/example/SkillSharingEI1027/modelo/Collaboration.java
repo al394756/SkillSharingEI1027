@@ -7,8 +7,9 @@ public class Collaboration implements Comparable<Collaboration>{
     private int collaborationState;
     private OffeRequest idOffer= new Offer();
     private OffeRequest idRequest = new Request();
-    private int hours;
+    private float hours;
     private boolean requestinicia;
+
 
     public Collaboration() {
         collaborationState = 0;
@@ -65,11 +66,11 @@ public class Collaboration implements Comparable<Collaboration>{
 
 
 
-    public int getHours() {
+    public float getHours() {
         return hours;
     }
 
-    public void setHours(int hours) {
+    public void setHours(float hours) {
         this.hours = hours;
     }
 
