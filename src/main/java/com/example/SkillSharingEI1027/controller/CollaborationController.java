@@ -8,29 +8,49 @@ import com.example.SkillSharingEI1027.services.CollaborationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
+class CollaborationValidator implements Validator{
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return Skill.class.equals(clazz);
+    }
 
+    @Override
+    public void validate(Object obj, Errors errors) {
+        Collaboration collaboration = (Collaboration) obj;
+        if (collaboration.getHours()==0){
+            errors.rejectValue("hours","compulsory","Introduce how long the collaboration lasted");
+        }
+        if (collaboration.getAssessmentScore()==0 || collaboration.getAssessmentScore() > 5){
+            errors.rejectValue("assessmentscore","compulsory","Introduce your valoration of collaboration");
+        }
+
+    }
+}
 @Controller
 @RequestMapping("/collaboration")
 public class CollaborationController {
     private CollaborationDao collaborationDao;
     private OffeRequestDao offeRequestDao;
     private ChatDao chatDao;
-    private MessageDao messageDao;
     private CollaborationService collaborationService;
 
 
     @Autowired
-    public void setOffeRequestDao(OffeRequestDao offeRequestDao, ChatDao chatDao, MessageDao messageDao, CollaborationService collaborationService) {
+    public void setOffeRequestDao(OffeRequestDao offeRequestDao, ChatDao chatDao,  CollaborationService collaborationService) {
         this.offeRequestDao = offeRequestDao;
         this.chatDao = chatDao;
-        this.messageDao=messageDao;
         this.collaborationService=collaborationService;
     }
 
@@ -121,7 +141,17 @@ public class CollaborationController {
     public String valorarCollaboration(@PathVariable String idCollaboration, HttpSession session, Model model){
         Collaboration collaboration = collaborationDao.getCollaboration(idCollaboration);
         model.addAttribute("collaboration", collaboration);
-        return "redirect:/collaboration/valorar";
+        return "/collaboration/valorar";
+    }
+
+    @RequestMapping(value="/valorar", method = RequestMethod.POST)
+    public String processValorar(@ModelAttribute("collaboration") Collaboration collaboration, BindingResult bindingResult, HttpSession session){
+        CollaborationValidator validator = new CollaborationValidator();
+        validator.validate(collaboration,bindingResult);
+        if (bindingResult.hasErrors()){
+            return "/collaboration/valorar/"+collaboration.getIdCollaboration();
+        }
+        return "redirect:list";
     }
 
     private Student conseguirOtroStudent(Student student, Collaboration collaboration){
