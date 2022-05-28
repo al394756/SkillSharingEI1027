@@ -30,7 +30,12 @@ public class OffeRequestMethods <T> {
     public String list(Model model, String type, HttpSession session) {
         Student student = (Student) session.getAttribute("user");
         model.addAttribute("type",type);
-        List<OffeRequest> lista = collaborationService.giveOffeRequestNoAceptadas(student,type);
+        List<OffeRequest> lista = null;
+        if (student == null){
+            lista = offeRequestDao.getActiveOffeRequests(type);
+        } else {
+            lista  = collaborationService.giveOffeRequestNoAceptadas(student,type);
+        }
 
         model.addAttribute("list", lista);
         return "offeRequest/list";
