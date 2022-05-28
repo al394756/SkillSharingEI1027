@@ -81,8 +81,9 @@ public class CollaborationController {
 
 
         collaborationDao.addCollaboration(collaboration);
+        session.setAttribute("correcto",true);
 
-        return "welcome";
+        return "redirect:"+(String) session.getAttribute("backUrl");
     }
 
     @RequestMapping(value = "/confirm/{idCollaboration}")
