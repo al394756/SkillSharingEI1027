@@ -3,50 +3,118 @@
 <head>
     <title>Crear nueva skill</title>
     <meta charset="UTF-8" />
-
+    <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
+    <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link  type="text/css" rel="stylesheet" th:href="@{../../css/addOR.css}"/>
+    <link  type="text/css" rel="stylesheet" th:href="@{../../css/estrellas.css}"/>
 </head>
 <div th:replace="/fragments/header.html"></div>
 <body>
-<h2>New Collaboration</h2>
-<form action="#" th:action="@{/collaboration/add}"
-      th:object="${collaboration}" method="post">
-    <table>
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="offer">Offer:</label>
-            <div class="col-sm-4">
-                <select class="form-control" type="text" id="offer" th:field="*{idOffer}">
-                    <option th:each="offer:${offers}"
-                            th:value="${offer}"
-                            th:text="${offer}"></option>
-                </select>
-            </div>
+<main>
+    <div class="caja">
+        <div class="caja-interno">
+            <h2 th:text="${collaboration.getIdRequest().getSkill().getName()}"></h2>
+            <hr/>
+            <form action="#" th:action="@{/collaboration/valorar}"
+                  th:object="${collaboration}" method="post">
+                <table>
+                    <tr class="iz">
+                        <th><label>Start:</label></th>
+                        <th><label>End:</label></th>
+                    </tr>
+                    <tr class="iz">
+                        <td>
+                            <input type="date" th:value="${collaboration.getIdRequest().getStartDate()}" readonly>
+                        </td>
+                        <td>
+                            <input type="date" th:value="${collaboration.getIdRequest().getEndDate()}" readonly>
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr class="iz">
+                        <th><label>Teacher:</label></th>
+                        <th><label>Hours:</label></th>
+                    </tr>
+                    <tr class="iz">
+                        <td>
+                            <input type="text" th:value="${collaboration.getIdOffer().getStudent().getName()}" readonly>
+                        </td>
+                        <td>
+                            <select class="rellena2" th:unless="${#fields.hasErrors('hours')}" type="number">
+                                <option value="0">Select the duration</option>
+                                <option value="1">1h</option>
+                                <option value="1.5">1.5h</option>
+                                <option value="2">2h</option>
+                                <option value="2.5">2.5h</option>
+                                <option value="3">3h</option>
+                                <option value="3.5">3.5h</option>
+                                <option value="4">4h</option>
+                                <option value="4.5">4.5h</option>
+                                <option value="5">5h</option>
+                                <option value="6">+6h</option>
+                            </select>
+                            <select class="error2" th:if="${#fields.hasErrors('hours')}" type="number">
+                                <option value="0">select the duration</option>
+                                <option value="1">1h</option>
+                                <option value="1.5">1.5h</option>
+                                <option value="2">2h</option>
+                                <option value="2.5">2.5h</option>
+                                <option value="3">3h</option>
+                                <option value="3.5">3.5h</option>
+                                <option value="4">4h</option>
+                                <option value="4.5">4.5h</option>
+                                <option value="5">5h</option>
+                                <option value="6">+6h</option>
+                            </select>
+
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr class="iz">
+                        <th><label>Assess:</label></th>
+                    </tr>
+                    <tr class="iz">
+                        <td>
+                            <form>
+                                <p class="clasificacion">
+                                    <input id="radio1" type="radio" name="estrellas" value="5">
+                                    <label for="radio1">★</label>
+                                    <input id="radio2" type="radio" name="estrellas" value="4">
+                                    <label for="radio2">★</label>
+                                    <input id="radio3" type="radio" name="estrellas" value="3">
+                                    <label for="radio3">★</label>
+                                    <input id="radio4" type="radio" name="estrellas" value="2">
+                                    <label for="radio4">★</label>
+                                    <input id="radio5" type="radio" name="estrellas" value="1">
+                                    <label for="radio5">★</label>
+                                </p>
+                            </form>
+                        </td>
+                        
+                    </tr>
+                </table>
+                <div class="hrdiv"><hr/></div>
+                <a href="/skill/list"><button class="sumit" type="button" >Back</button></a>
+                <input type="checkbox" class="checconf" id="confirm">
+                <label class="ajustesSubmit sumit4 " for="confirm"> Update Skill </label>
+
+                <div class="corfrimacion">
+                    <p class="color_text">Are you sure you want to edit this Skill?</p>
+                    <table class="botones">
+                        <tr>
+                            <td><label class="botonConf" for="confirm"> Back </label></td>
+                            <td><button class="sumit" type="submit">Apply</button></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <label class="fondoOscuro2"></label>
+
+            </form>
         </div>
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="request">Request:</label>
-            <div class="col-sm-4">
-                <select class="form-control" type="request" id="request" th:field="*{idRequest}">
-                    <option th:each="request:${requests}"
-                            th:value="${request}"
-                            th:text="${request}"></option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="assessmentScore">Assessment Score:</label>
-            <div class="col-sm-4">
-                <input type="number" min="0" class="form-control" id="assessmentScore" th:field="*{assessmentScore}" readonly/>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="hours">Hours:</label>
-            <div class="col-sm-4">
-                <input type="number" min="0" class="form-control" id="hours" th:field="*{hours}" readonly/>
-            </div>
-        </div>
-        <tr>
-            <td colspan="2"><input type="submit" value="Add Collaboration" /></td>
-        </tr>
-    </table>
-</form>
+    </div>
+</main>
 </body>
 </html>

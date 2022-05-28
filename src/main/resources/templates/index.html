@@ -25,12 +25,12 @@
             <td th:if="not ${session.user == null}"><a  href="/skill/list" class="color_text interlimeado">Skills</a></td>
         </tr>
         <tr>
-            <td th:if="not ${session.user == null} and not ${session.user.skpMember==true}"><p>Do you want to teach? </p>
-                <p>Do you want have an Offer?</p>
+            <td th:if="not ${session.user == null} and not ${session.user.skpMember==true}"><p>Do you want to offer your skills? </p>
+                <p>Do you want to accept an offer?</p>
             </td>
             <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><p>Do you want to see all available offers?</p></td>
-            <td th:if="not ${session.user == null} and not ${session.user.skpMember==true}"><p >Didn't you seen a offer that you want?</p>
-                <p>Do you want to teach a request? </p>
+            <td th:if="not ${session.user == null} and not ${session.user.skpMember==true}"><p>Do you want to request a collaboration? </p>
+
             </td>
             <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><p>Do you want to see all available requests?</p></td>
             <td th:if="not ${session.user == null}"><p>Do you want to see all available skills?</p></td>
@@ -46,8 +46,8 @@
             <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><a  href="/statistics" class="color_text interlimeado">Statistics</a></td>
         </tr>
         <tr>
-            <td th:if="not ${session.user == null}"><p>Do you want go to your chats?</p></td>
-            <td th:if="not ${session.user == null} and not ${session.user.skpMember==true}"><p>Do you want go to your personal area?</p></td>
+            <td th:if="not ${session.user == null}"><p>Do you want to go to your chats?</p></td>
+            <td th:if="not ${session.user == null} and not ${session.user.skpMember==true}"><p>Do you want to go to your personal area?</p></td>
             <td th:if="not ${session.user == null} and ${session.user.skpMember==true}"><p>Do you want to administer the users?</p></td>
             <td th:if="not ${session.user == null} and ${session.user.skpMember==true}">
                 <p>Do you want to administer the</p>

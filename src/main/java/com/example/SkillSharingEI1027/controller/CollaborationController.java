@@ -43,14 +43,12 @@ class CollaborationValidator implements Validator{
 public class CollaborationController {
     private CollaborationDao collaborationDao;
     private OffeRequestDao offeRequestDao;
-    private ChatDao chatDao;
     private CollaborationService collaborationService;
 
 
     @Autowired
-    public void setOffeRequestDao(OffeRequestDao offeRequestDao, ChatDao chatDao,  CollaborationService collaborationService) {
+    public void setOffeRequestDao(OffeRequestDao offeRequestDao,  CollaborationService collaborationService) {
         this.offeRequestDao = offeRequestDao;
-        this.chatDao = chatDao;
         this.collaborationService=collaborationService;
     }
 
@@ -95,7 +93,7 @@ public class CollaborationController {
 
         }
 
-        Chat chat = conseguirChat(offeRequestAceptada.getStudent(),student);
+        Chat chat = collaborationService.conseguirChat(offeRequestAceptada.getStudent(), student);
 
         collaborationService.mensajeConfirmacion(chat, msgContent, student );
 
@@ -112,10 +110,12 @@ public class CollaborationController {
 
         Student student = (Student) session.getAttribute("user");
         Student student1 = conseguirOtroStudent(student, collaboration);
-        Chat chat = conseguirChat(student, student1);
+        Chat chat = collaborationService.conseguirChat(student, student1);
         String msgContent =" I have accepted your collaboration proposal on "+collaboration.getIdRequest().getSkill().getName()+". I hope to see you between "+collaboration.getIdRequest().getStartDate()+" and "+collaboration.getIdOffer().getEndDate();
         collaborationService.mensajeConfirmacion(chat,msgContent,student);
         collaborationDao.confirmCollaboration(collaboration);
+        session.setAttribute("correcto",true);
+
         return "redirect:/profile/";
     }
 
@@ -124,7 +124,7 @@ public class CollaborationController {
         Collaboration collaboration = collaborationDao.getCollaboration(idCollaboration);
         Student student = (Student) session.getAttribute("user");
         Student student1 = conseguirOtroStudent(student, collaboration);
-        Chat chat = conseguirChat(student, student1);
+        Chat chat = collaborationService.conseguirChat(student, student1);
         String msgContent;
         if (collaboration.getCollaborationState() == 0){
             msgContent = "Sorry I can't accept your collaboration proposal on "+collaboration.getIdRequest().getSkill().getName();
@@ -133,6 +133,7 @@ public class CollaborationController {
         }
         collaborationService.mensajeConfirmacion(chat,msgContent,student);
         collaborationDao.cancelCollaboration(collaboration);
+        session.setAttribute("correcto",true);
 
         return "redirect:/profile/";
     }
@@ -151,7 +152,17 @@ public class CollaborationController {
         if (bindingResult.hasErrors()){
             return "/collaboration/valorar/"+collaboration.getIdCollaboration();
         }
-        return "redirect:list";
+
+
+        collaborationDao.assessCollaboration(collaboration);
+        Student student = (Student) session.getAttribute("user");
+        Student student1 = conseguirOtroStudent(student, collaboration);
+        Chat chat = collaborationService.conseguirChat(student, student1);
+        String msgContent = "I have just evaluated our collaboration in "+collaboration.getIdRequest().getSkill().getName()+" that we did the other day!";
+        collaborationService.mensajeConfirmacion(chat,msgContent,student);
+        session.setAttribute("correcto",true);
+
+        return "redirect:/profile/";
     }
 
     private Student conseguirOtroStudent(Student student, Collaboration collaboration){
@@ -159,20 +170,6 @@ public class CollaborationController {
             return collaboration.getIdRequest().getStudent();
         else
             return collaboration.getIdOffer().getStudent();
-    }
-    private Chat conseguirChat(Student student1, Student student2){
-        Chat chat = chatDao.getChatEntreStudents(student1, student2);
-        if (chat == null){
-            String id=chatDao.createChat(student1, student2);
-            chat = chatDao.getChatConId(id);
-        }
-        if (chat.getUser1().equals(student1.getIdStudent())){
-            chat.setNewMsgParaStudent1(true);
-        } else if(chat.getUser2().equals(student1.getIdStudent())){
-            chat.setNewMsgParaStudent2(true);
-        }
-        chatDao.updateChat(chat);
-        return chat;
     }
 
     private OffeRequest crearContrarioA(OffeRequest offeRequestAceptada, Student student){

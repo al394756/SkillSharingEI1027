@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="*{session.user.name}"></title>
+    <title th:text="|*{session.user.name} -SkillSharing|"></title>
     <meta charset="UTF-8"/>
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
@@ -42,8 +42,11 @@
         </tr>
         </table>
     </div>
-
-    <p>Filter by: </p>
+    <div th:if="${#lists.isEmpty(misCollaborations)}">
+        <h1> You don't have any collaboration yet</h1>
+    </div>
+    <div th:unless="${#lists.isEmpty(misCollaborations)}">
+    <p class="color">Filter by: </p>
     <form  method="post" th:action="@{/profile/filtered}"  >
         <select type="text" th:onchange="this.form.submit()" th:value="${sorter}" name="sorter">
 
@@ -98,25 +101,26 @@
 
                 <label th:unless="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4">?</label>
             </td>
-            <td th:if="${collaboration.collaborationState}==0 and ((${collaboration.idRequest.student.idStudent} == ${session.user.idStudent} and ${collaboration.requestinicia} == false) or (${collaboration.idOffer.student.idStudent} == ${session.user.idStudent} and ${collaboration.requestinicia} == true))" class="colBan">
+            <td th:if="${collaboration.collaborationState}==0 and ((${collaboration.idRequest.student.idStudent} == ${session.user.idStudent} and
+            ${collaboration.requestinicia} == false) or (${collaboration.idOffer.student.idStudent} == ${session.user.idStudent} and ${collaboration.requestinicia} == true))" class="colBan">
                 <a th:href="@{/collaboration/confirm/{idCollaboration}(idCollaboration=${collaboration.idCollaboration})}">
-                    Confirm Collaboration
+                    Confirm
                 </a>
             </td>
             <td th:if="(${collaboration.collaborationState}==0 and not ((${collaboration.idRequest.student.idStudent} == ${session.user.idStudent} and ${collaboration.requestinicia} == false) or (${collaboration.idOffer.student.idStudent} == ${session.user.idStudent} and ${collaboration.requestinicia} == true))) or ${collaboration.collaborationState}==1" class="colBan">
                 <a th:href="@{/collaboration/cancel/{idCollaboration}(idCollaboration=${collaboration.idCollaboration})}">
-                    Cancel Collaboration
+                    Cancel
                 </a>
             </td>
             <td th:if="${collaboration.collaborationState}==2 and ${collaboration.idRequest.student.idStudent} == ${session.user.idStudent} " class="colBan">
                 <a th:href="@{/collaboration/valorar/{idCollaboration}(idCollaboration=${collaboration.idCollaboration})}">
-                    Assess Collaboration
+                    Assess
                 </a>
             </td>
         </tr>
         </tbody>
     </table>
-    </table>
+    </div>
     <div th:replace="fragments/confirmacion"></div>
 </main>
 </body>

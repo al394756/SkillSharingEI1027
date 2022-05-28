@@ -1,9 +1,6 @@
 package com.example.SkillSharingEI1027.services;
 
-import com.example.SkillSharingEI1027.dao.CollaborationDao;
-import com.example.SkillSharingEI1027.dao.MessageDao;
-import com.example.SkillSharingEI1027.dao.OffeRequestDao;
-import com.example.SkillSharingEI1027.dao.StudentDao;
+import com.example.SkillSharingEI1027.dao.*;
 import com.example.SkillSharingEI1027.modelo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +23,9 @@ public class CollaborationSvc implements CollaborationService {
 
     @Autowired
     MessageDao messageDao;
+
+    @Autowired
+    ChatDao chatDao;
 
 
     @Override
@@ -93,4 +93,20 @@ public class CollaborationSvc implements CollaborationService {
         msg.setContent(msgContent);
         messageDao.addMessage(msg);
     }
+
+    public Chat conseguirChat(Student student1, Student student2){
+        Chat chat = chatDao.getChatEntreStudents(student1, student2);
+        if (chat == null){
+            String id=chatDao.createChat(student1, student2);
+            chat = chatDao.getChatConId(id);
+        }
+        if (chat.getUser1().equals(student1.getIdStudent())){
+            chat.setNewMsgParaStudent1(true);
+        } else if(chat.getUser2().equals(student1.getIdStudent())){
+            chat.setNewMsgParaStudent2(true);
+        }
+        chatDao.updateChat(chat);
+        return chat;
+    }
+
 }

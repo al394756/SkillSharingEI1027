@@ -77,7 +77,7 @@ public class OffeRequestMethods <T> {
         offeRequest.setStudent((Student) session.getAttribute("user"));
 
         String type2= (String) session.getAttribute("type");
-        model.addAttribute("type2",type2);
+        session.setAttribute("type2",type2);
         String type;
         if (type2.equals("Offer")) type="Request";
         else type="Offer";
@@ -85,13 +85,14 @@ public class OffeRequestMethods <T> {
         List<OffeRequest> offeRequestList=offeRequestDao.getOffeRequestWithSkill(type,offeRequest.getSkill().getIdSkill(),offeRequest.getStartDate(), offeRequest.getStudent());
         if (offeRequestList.isEmpty()){
             offeRequestDao.add(offeRequest);
+            session.setAttribute("correcto",true);
             return "redirect:list";
         }
         session.setAttribute("skill",offeRequest.getSkill());
         session.setAttribute("offeRequest",offeRequest);
         session.setAttribute("offeRequestList",offeRequestList);
 
-        session.setAttribute("correcto", true);
+
 
 
         return "redirect:/"+type2.toLowerCase(Locale.ROOT)+"/listexisting";
@@ -102,17 +103,21 @@ public class OffeRequestMethods <T> {
         int count = 0;
         List<OffeRequest> offeRequestList= (List<OffeRequest>) session.getAttribute("offeRequestList");
         for (OffeRequest or: offeRequestList ) {
-            if (setMail.size()<3) {
-                setMail.add(or.getStudent().getEmail());
-            }
-            else
+            if (! setMail.contains(or.getStudent().getEmail())) {
+                if (count<3) {
+                    setMail.add(or.getStudent().getEmail());
+                    count--;
+                }
                 count++;
+            }
+
 
         }
-        setMail.add("and" + count + "more");
+        if (count > 0)
+            setMail.add(" and" + count + "more");
         model.addAttribute("mailList",setMail);
         model.addAttribute("type",session.getAttribute("type"));
-        //session.removeAttribute("type");
+        model.addAttribute("type2",session.getAttribute("type2"));
         model.addAttribute("skill",session.getAttribute("skill"));
         //session.removeAttribute("skill");
         model.addAttribute("list",offeRequestList);

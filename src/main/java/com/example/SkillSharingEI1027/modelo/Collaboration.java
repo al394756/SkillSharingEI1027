@@ -97,9 +97,9 @@ public class Collaboration implements Comparable<Collaboration>{
     @Override
     public int compareTo(Collaboration o) {
         if (this.collaborationState < o.getCollaborationState())
-            return -2;
-        if (this.getIdRequest().getStartDate().compareTo(o.getIdRequest().getStartDate()) < 0)
             return -1;
+        if (this.getIdRequest().getStartDate().compareTo(o.getIdRequest().getStartDate()) < 0)
+            return -2;
         return 1;
     }
 }

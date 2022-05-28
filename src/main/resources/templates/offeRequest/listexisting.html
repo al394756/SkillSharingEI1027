@@ -24,7 +24,7 @@
                 <table class="botones">
                     <tr>
                         <td><label class="botonConf" for="confirm"> Back </label></td>
-                        <td><label for="confirm2" >Accept</label></td>
+                        <td><label  class="botonConf" for="confirm2" >Accept</label></td>
                     </tr>
                 </table>
             </div>
@@ -33,9 +33,10 @@
             <input type="checkbox" class="check2" id="confirm2">
             <div class="corfrimacion3">
                 <p class="color_text" >An email has been sent to: </p>
-
+                <br>
                 <p th:each="mail : ${mailList}" class="color_text">
-                    <label th:text="${mail}"></label><br>
+                    <label th:text="${mail}"></label>
+                    <br>
                 </p>
                 <form action="#"
                       th:object="${offeRequest}" method="post">
