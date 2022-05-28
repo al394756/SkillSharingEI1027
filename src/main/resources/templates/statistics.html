@@ -11,6 +11,8 @@
 <body>
 <main class="centrado">
     <h1 class="titulo">Statistics</h1>
+    <h2 class="titulo">Skills</h2>
+    <div class="grid">
     <table>
         <caption>Percentage of different skills used</caption>
         <tr>
@@ -26,7 +28,8 @@
             <td th:text="${pOfDDistinctSkillsCollaboration}+'%'"></td>
         </tr>
     </table>
-    <br>
+    </div>
+    <div class="grid">
     <table>
         <caption>Percentage of most used skills in offers</caption>
         <tr class="color" th:each="skill: ${timesOfSkillUsedOffer}">
@@ -35,7 +38,9 @@
             <td th:text="${skill.twoDecimals()}+'%'"></td>
         </tr>
     </table>
+    </div>
     <br>
+    <div class="grid">
     <table>
         <caption>Percentage of most used skills in requests</caption>
         <tr class="color" th:each="skill: ${timesOfSkillUsedRequest}">
@@ -43,7 +48,8 @@
             <td th:text="${skill.twoDecimals()}+'%'"></td>
         </tr>
     </table>
-    <br>
+    </div>
+    <div class="grid">
     <table>
         <caption>Percentage of most used skills in collaborations</caption>
         <tr class="color" th:each="skill: ${timesOfSkillUsedCollaboration}">
@@ -51,7 +57,10 @@
             <td th:text="${skill.twoDecimals()}+'%'"></td>
         </tr>
     </table>
+    </div>
     <br>
+    <h2 class="titulo">Students</h2>
+    <div class="grid">
     <table>
         <caption>Percentage of students with more active offers</caption>
         <tr class="color" th:each="skill: ${timesMVPStudentOffer}">
@@ -60,7 +69,8 @@
             <td th:text="${skill.twoDecimals()}+'%'"></td>
         </tr>
     </table>
-    <br>
+    </div>
+    <div class="grid">
     <table>
         <caption>Percentage of students with more active requests</caption>
         <tr class="color" th:each="skill: ${timesMVPStudentRequest}">
@@ -68,9 +78,11 @@
             <td th:text="${skill.twoDecimals()}+'%'"></td>
         </tr>
     </table>
+    </div>
     <br>
+    <h2 class="titulo">Collaborations</h2>
     <table>
-        <caption>Percentage of students with more active collaborations</caption>
+        <caption>Percentage of complete collaborations</caption>
         <tr class="color" th:each="skill: ${timesMVPStudentCollaboration}">
             <th th:text="${skill.getKey()}"></th>
             <td th:text="${skill.twoDecimals()}+'%'"></td>
