@@ -33,6 +33,8 @@ public class OfferController {
         if (user!=null && !user.isActiveAccount()){
             return "welcome";
         }
+        session.setAttribute("backUrl","/offer/list");
+
         return offeRequestMethods.list(model,type, session);
     }
 

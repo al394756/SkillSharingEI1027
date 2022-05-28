@@ -83,6 +83,7 @@ background: red
  }
 
 .checconf{
+     cursor: pointer;
      top: 0;
      position: fixed;
      display: none;
@@ -171,6 +172,9 @@ background: red
      font-weight: bold;
      background: white;
      border: white;
+     cursor: pointer;
+
+
 }
 .botones{
      border-spacing: 1rem 0;

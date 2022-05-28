@@ -51,6 +51,7 @@ public class SkillController {
         if (user == null || !user.isActiveAccount()){
             return "welcome";
         }
+        session.setAttribute("backUrl", "/skill/list");
         model.addAttribute("skills", skillDao.getSkills());
         return "skill/list";
     }
@@ -68,19 +69,21 @@ public class SkillController {
     }
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("skill") Skill skill, BindingResult bindingResult){
+    public String processAddSubmit(@ModelAttribute("skill") Skill skill, BindingResult bindingResult, HttpSession session){
         SkillValidator skillValidator= new SkillValidator();
         skillValidator.validate(skill,bindingResult);
         if (bindingResult.hasErrors())
             return "skill/add";
         skillDao.addSkill(skill);
+        session.setAttribute("correcto", true);
         return "redirect:list";
     }
 
     //Métodos para borrar skills
     @RequestMapping(value="/delete/{idSkill}")
-    public String processDelete(@PathVariable String idSkill){
+    public String processDelete(@PathVariable String idSkill, HttpSession session){
         skillDao.deleteSkill(idSkill);
+        session.setAttribute("correcto", true);
         return "redirect:../list";
     }
 
@@ -102,6 +105,7 @@ public class SkillController {
         Skill skillCambiada = (Skill) session.getAttribute("skillVieja");
         skillCambiada.setDescription(skill.getDescription());
         skillDao.updateSkill(skillCambiada);
+        session.setAttribute("correcto", true);
         return "redirect:list";
     }
 }

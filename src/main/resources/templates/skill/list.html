@@ -38,13 +38,14 @@
           <label for="confirm"><img class="tamIcon" src="/imagenes/delete.png"></label>
 
           <div class="corfrimacion">
-            <p class="color_text" >Are you sure you want to cancel this skill</p>
+            <p class="color_text" >Are you sure you want to cancel this skill?</p>
             <table class="botones">
               <tr>
-                <td class="botonConf" for="confirm">Back</td>
+                <td><label class="botonConf" for="confirm">Back</label></td>
                 <td><a th:href="@{/skill/delete/{idSkill}(idSkill=${skill.idSkill})}"
                        role="button"><img class="tamIcon" src="/imagenes/delete.png"></a></td>
               </tr>
+
             </table>
           </div>
           <label class="fondoOscuro2"></label>
@@ -56,7 +57,7 @@
   <br>
   <a  href="/" class="add color_text" >Back</a>
   <a  th:if="${session.user.skpMember==true}"  href="add" class="add color_text" >Add</a>
-
+  <div th:replace="fragments/confirmacion"></div>
 </main>
 </body>
 </html>

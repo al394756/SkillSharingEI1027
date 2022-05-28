@@ -14,7 +14,9 @@
     <div>
         <div><h1 class="titulo centrado" th:text="${type}+'s'"></h1></div>
         <div th:object="${session}">
+            <a  href="/" class="add color_text" >Back</a>
             <a  href="add" class="add color_text" th:if="*{user!=null} and ${!session.user.isSkpMember()}">Add</a>
+
         </div>
     </div>
 
@@ -102,6 +104,7 @@
     <a  href="/" class="add color_text" >Back</a>
 
     <div th:replace="fragments/confirmacion"></div>
+
 </main>
 
 

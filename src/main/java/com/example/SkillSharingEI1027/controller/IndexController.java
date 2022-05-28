@@ -22,7 +22,7 @@ public class IndexController {
     @RequestMapping("/")
     public String indexPage(HttpSession session){
         session.setAttribute("today", LocalDate.now());
-//        collaborationDao.actualizaCollaborations(LocalDate.now());
+        collaborationDao.actualizaCollaborations();
         Student user = (Student)session.getAttribute("user");
         if ( user == null  || !user.isActiveAccount())
             return "welcome";
@@ -32,6 +32,8 @@ public class IndexController {
     @RequestMapping("/correctoNone")
     public String correctoNone(HttpSession session){
         session.setAttribute("correcto", false);
-        return "redirect:../list";
+        String backUrl = (String) session.getAttribute("backUrl");
+        session.removeAttribute("backUrl");
+        return "redirect:"+backUrl;
     }
 }

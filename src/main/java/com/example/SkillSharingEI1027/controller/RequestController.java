@@ -32,6 +32,7 @@ public class RequestController {
         if (user!=null && !user.isActiveAccount()){
             return "welcome";
         }
+        session.setAttribute("backUrl","/request/list");
 
         return offeRequestMethods.list(model,type,session);
     }

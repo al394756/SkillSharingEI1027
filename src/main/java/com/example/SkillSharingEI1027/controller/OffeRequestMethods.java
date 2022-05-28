@@ -89,10 +89,8 @@ public class OffeRequestMethods <T> {
         int count = 0;
         List<OffeRequest> offeRequestList= (List<OffeRequest>) session.getAttribute("offeRequestList");
         for (OffeRequest or: offeRequestList ) {
-            Student student=studentDao.getStudentUsingId(or.getStudent().getIdStudent());
-            or.setStudent(student);
             if (setMail.size()<3) {
-                setMail.add(student.getEmail());
+                setMail.add(or.getStudent().getEmail());
             }
             else
                 count++;
@@ -115,7 +113,6 @@ public class OffeRequestMethods <T> {
         offeRequestDao.add(offeRequest);
         //session.removeAttribute("offeRequest");
         session.setAttribute("correcto", true);
-        session.setAttribute("lastUrl", "/"+offeRequest.getUrl()+"/list");
         return "redirect:list";
     }
 

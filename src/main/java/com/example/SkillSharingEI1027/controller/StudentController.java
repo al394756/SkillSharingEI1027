@@ -195,6 +195,7 @@ public class StudentController {
         model.addAttribute("user", session.getAttribute("user"));
         model.addAttribute("sorter", new Sorter());
         model.addAttribute("comparator", new StudentComparatorById());
+        session.setAttribute("backUrl","/student/list");
         return "student/list";
     }
 
@@ -221,6 +222,8 @@ public class StudentController {
 
     @RequestMapping(value="/student/ban/{id}", method = RequestMethod.GET)
     public String banStudent(Model model, @PathVariable String id){
+
+
         model.addAttribute("student", studentDao.getStudentUsingId(id));
         return "student/ban";
     }
@@ -246,6 +249,7 @@ public class StudentController {
         chatDao.updateChat(chat);
         studentDao.cancelStudent(student);
         cancelarOfferRequestDe(student);
+        session.setAttribute("correcto", true);
         return "redirect:/";
     }
 
@@ -257,91 +261,19 @@ public class StudentController {
         for (Collaboration collaboration:collaborationDao.getCollaborationsActivasDe(student))
             collaborationDao.finalizeCollaboration(collaboration);
     }
-    @RequestMapping(value = "/profile")
-    public String profilePage(Model model, HttpSession session){
-        Student user = (Student) session.getAttribute("user");
 
-        if (user == null || !user.isActiveAccount()){
-            return "welcome";
-        }
-
-        List<Collaboration> list= collaborationDao.getCollaborationsDe(user);
-        model.addAttribute("sorter", "");
-
-
-        //list = conseguirDatosCollaborations(list);
-
-        model.addAttribute("misCollaborations", list);
-
-
-        return "profile";
-
-    }
-
-    @RequestMapping(value = "/profile/filtered")
-    public String profilePageFiltered(Model model, HttpSession session, @RequestParam("sorter") String sorter){
-        System.out.println(sorter);
-        Student user = (Student) session.getAttribute("user");
-
-        if (user == null || !user.isActiveAccount()){
-            return "welcome";
-        }
-
-        List<Collaboration> list = sorteredList(sorter, user);
-        System.out.println(list);
-
-        list = conseguirDatosCollaborations(list);
-
-        model.addAttribute("sorter",sorter);
-        model.addAttribute("misCollaborations", list);
-
-        return "profile";
-
-    }
-
-    private List<Collaboration> sorteredList(String sorter, Student user){
-        List<Collaboration> list=null;
-        switch (sorter) {
-            case "All":
-                list = collaborationDao.getCollaborationsDe(user);
-                break;
-            case "Unfinished":
-                list = collaborationDao.getCollaborationsActivasDe(user);
-                break;
-            case "Finished":
-                list = collaborationDao.getCollaborationsAcabadasDe(user);
-                break;
-        }
-        return list;
-        }
 
     @RequestMapping(value = "/student/unban/{id}", method = RequestMethod.GET)
-    public String unbanStudent(Model model, @PathVariable String id){
+    public String unbanStudent(Model model, @PathVariable String id, HttpSession session){
 
         Student student =studentDao.getStudentUsingId(id);
 
         student.setBanReason(null);
         studentDao.unbanStudent(student);
+        session.setAttribute("correcto", true);
         return "redirect:/";
         }
 
 
-    public List<Collaboration> conseguirDatosCollaborations(List<Collaboration> collaborations){
-        List<Collaboration> collabFinal = new LinkedList<>();
-        for (Collaboration c: collaborations){
-            OffeRequest offeRequest = offeRequestDao.getOffeRequest(c.getIdOffer().getId());
-            offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
-            offeRequest.setStudent(studentDao.getStudentUsingId(offeRequest.getStudent().getIdStudent()));
-            c.setIdOffer(offeRequest);
-
-            offeRequest =offeRequestDao.getOffeRequest(c.getIdRequest().getId());
-            offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
-            offeRequest.setStudent(studentDao.getStudentUsingId(offeRequest.getStudent().getIdStudent()));
-            c.setIdRequest(offeRequest);
-
-            collabFinal.add(c);
-        }
-        return collabFinal;
-    }
     }
 

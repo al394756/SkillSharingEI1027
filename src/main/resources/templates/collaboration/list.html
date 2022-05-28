@@ -39,12 +39,12 @@
 
             </td>
             <td>
-                <label th:if="${collaboration.collaborationState}==2"><label th:text="${collaboration.hours}"></label></label>
-                <label th:unless="${collaboration.collaborationState}==2">?</label>
+                <label th:if="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4"><label th:text="${collaboration.hours}"></label></label>
+                <label th:unless="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4">?</label>
             </td>
             <td>
-                <label th:if="${collaboration.collaborationState}==2"><label th:text="${collaboration.assessmentScore}"></label></label>
-                <label th:unless="${collaboration.collaborationState}==2">?</label>
+                <label th:if="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4"><label th:text="${collaboration.assessmentScore}"></label></label>
+                <label th:unless="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4">?</label>
             </td>
 
         </tr>

@@ -23,11 +23,14 @@
           </tr>
           <tr class="iz">
             <td>
-              <input type="text" th:field="*{name}" readonly/>
+              <label th:text=${skill.name}></label>
             </td>
 
             <td>
-              <input type="number" max="2" min="0" th:field="*{level}" readonly/>
+              <label th:if="${skill.level}==0"> Beginner</label>
+              <label th:if="${skill.level}==1"> Intermediate</label>
+              <label th:if="${skill.level}==2"> Expert</label>
+<!--              <input type="number" max="2" min="0" th:field="*{level}" readonly/>-->
             </td>
           </tr>
         </table>

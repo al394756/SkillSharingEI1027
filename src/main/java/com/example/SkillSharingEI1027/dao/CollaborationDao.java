@@ -106,6 +106,6 @@ public class CollaborationDao {
     }
 
     public void actualizaCollaborations(){
-        jdbcTemplate.update("UPDATE COLLABORATION SET collaborationState=2 WHERE collaborationState=1 AND idRequest IN (SELECT r.id FROM request as r WHERE CURRENT_DATE >= r.endDate) ");
+        jdbcTemplate.update("UPDATE COLLABORATION SET collaborationState=2 WHERE collaborationState=1 AND idRequest IN (SELECT r.id FROM request as r WHERE CURRENT_DATE >= r.startDate) ");
     }
 }
