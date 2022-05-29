@@ -23,7 +23,7 @@
     <br>
     <h3 th:if="${#lists.isEmpty(list)}" th:text="'There are not '+${type}+'s registered'"></h3>
 
-    <div class="filter" th:unless="${#lists.isEmpty(list)}">
+
         <p>Filter by: </p>
         <form  method="post" th:action="@{/__${url}__/list/idSkill}"  >
             <select class="filtro" type="text" th:onchange="this.form.submit()" th:value="${idSkill}" name="idSkill">
@@ -34,7 +34,7 @@
 
             </select>
         </form>
-    </div>
+
     <br>
     <div th:unless="${#lists.isEmpty(list)}">
         <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
