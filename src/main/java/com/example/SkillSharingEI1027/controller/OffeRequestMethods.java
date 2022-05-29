@@ -203,7 +203,8 @@ class OffeRequestValidator extends OffeRequestMethods implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         OffeRequest offeRequest=(OffeRequest) obj;
-        if (offeRequest.getSkill().getIdSkill().trim().equals("Select an option") || offeRequest.getStartDate()==null || offeRequest.getDescription().trim().equals("") || offeRequest.getEndDate()==null)
+
+        if (offeRequest.getSkill().getIdSkill().trim().equals("") || offeRequest.getStartDate()==null || offeRequest.getDescription().trim().equals("") || offeRequest.getEndDate()==null)
             errors.rejectValue("skill.idSkill", "compulsory", "All the fields must be introduced");
 
         if (offeRequest.getStartDate()!=null&& offeRequest.getEndDate()!=null &&offeRequest.getStartDate().compareTo(offeRequest.getEndDate())>0)

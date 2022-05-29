@@ -26,6 +26,16 @@ main{
      font-weight: bold;
      color: #7d9abb;
 }
+.littleEr{
+     font-weight: bold;
+     font-style: italic;
+     color: red;
+     font-size: 1.2rem;
+}
+.er{
+    font-size: 70%;
+    color: #FFC2C2;
+}
 
 .filtro{
     border-radius: 5px;
