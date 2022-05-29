@@ -60,13 +60,29 @@
                 <a class="add color_text" th:href="@{/student/ban/{id}(id=${student.idStudent})}">Ban</a></td>
             <td class="colBan" th:field="banReason" th:object="${session}"
                 th:if="not *{user == null} and *{user.skpMember} and not *{student.skpMember} and not *{student.activeAccount}">
-                <a class="add color_text" th:href="@{/student/unban/{id}(id=${student.idStudent})}">Unban</a></td>
+                <label from="confirm" class="add color_text" >Unban</label>
+                <input type="checkbox" class="check2" id="confirm">
+                <div class="corfrimacion2">
+                    <p class="color_text">Are you sure you want to ban this Student?</p>
+                    <table class="botones">
+                        <tr>
+                            <td><label class="ajustesSubmit colorWhite" for="confirm"> Back </label></td>
+                            <td><a class="sumit" type="submit" th:href="@{/student/unban/{id}(id=${student.idStudent})}">Ban Student</a></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <label class="fondoOscuro2"></label>
+            </td>
+
         </tr>
         </tbody>
     </table>
     <br>
     <a  href=".." class="add color_text" >Back</a>
     <div th:replace="fragments/confirmacion"></div>
+
+
 </main>
 </body>
 </html>

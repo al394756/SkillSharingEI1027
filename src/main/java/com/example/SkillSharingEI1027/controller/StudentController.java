@@ -11,6 +11,8 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+import java.nio.channels.SeekableByteChannel;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -221,9 +223,9 @@ public class StudentController {
     }
 
     @RequestMapping(value="/student/ban/{id}", method = RequestMethod.GET)
-    public String banStudent(Model model, @PathVariable String id){
+    public String banStudent(Model model, @PathVariable String id, HttpSession session){
 
-
+        session.setAttribute("student",studentDao.getStudentUsingId(id));
         model.addAttribute("student", studentDao.getStudentUsingId(id));
         return "student/ban";
     }
@@ -232,25 +234,29 @@ public class StudentController {
     public String processBanSubmit(@ModelAttribute("student") Student student, BindingResult bindingResult, HttpSession session){
 
         Student user = (Student) session.getAttribute("user");
+        Student antiguo = (Student) session.getAttribute("student");
+        antiguo.setBanReason(student.getBanReason());
         StudentValidator studentValidator= new StudentValidator();
-        studentValidator.validateBan(student, bindingResult, user);
+        studentValidator.validateBan(antiguo, bindingResult, user);
         if (bindingResult.hasErrors())
             return "student/ban";
 
-        String msg = "Our SKP: "+user.getName()+"("+user.getIdStudent()+") has banned you from this service because:\n"+student.getBanReason();
+
+        session.removeAttribute("student");
+        String msg = "Our SKP: "+user.getName()+"("+user.getIdStudent()+") has banned you from this service because:\n"+antiguo.getBanReason();
         student.setBanReason(msg);
-        Chat chat=chatDao.getChatEntreStudents(studentDao.getStudentUsingId("id000000"), student);
+        Chat chat=chatDao.getChatEntreStudents(studentDao.getStudentUsingId("id000000"), antiguo);
         String idChat;
-        if (chat==null) idChat = chatDao.createChat(studentDao.getStudentUsingId("id000000"), student);
+        if (chat==null) idChat = chatDao.createChat(studentDao.getStudentUsingId("id000000"), antiguo);
         else idChat=chat.getIdChat();
-        messageDao.banMessage(idChat, student);
+        messageDao.banMessage(idChat, antiguo);
         chat=chatDao.getChatConId(idChat);
         chat.setNewMsgParaStudent2(true);
         chatDao.updateChat(chat);
-        studentDao.cancelStudent(student);
-        cancelarOfferRequestDe(student);
+        studentDao.cancelStudent(antiguo);
+        cancelarOfferRequestDe(antiguo);
         session.setAttribute("correcto", true);
-        return "redirect:/";
+        return "redirect:/student/list";
     }
 
     private void cancelarOfferRequestDe(Student student){
@@ -271,7 +277,7 @@ public class StudentController {
         student.setBanReason(null);
         studentDao.unbanStudent(student);
         session.setAttribute("correcto", true);
-        return "redirect:/";
+        return "redirect:/student/list";
         }
 
 
