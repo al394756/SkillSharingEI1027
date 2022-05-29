@@ -151,8 +151,9 @@ public class CollaborationController {
         return "redirect:/profile/";
     }
 
-    @RequestMapping(value = "/valorar/{idCollaboration}")
+    @RequestMapping(value = "/valorar/{idCollaboration}",  method = RequestMethod.GET)
     public String valorarCollaboration(@PathVariable String idCollaboration, HttpSession session, Model model){
+        //System.out.println("AAAAAAAAAAAA");
         Collaboration collaboration = collaborationDao.getCollaboration(idCollaboration);
         model.addAttribute("collaboration", collaboration);
         session.setAttribute("collaborationAnt",collaboration);
@@ -160,18 +161,20 @@ public class CollaborationController {
     }
 
     @RequestMapping(value="/valorar", method = RequestMethod.POST)
-    public String processValorar(@ModelAttribute("collaboration") Collaboration collaboration, BindingResult bindingResult, HttpSession session){
+    public String processValorar(@ModelAttribute("collaboration") Collaboration collaboration, BindingResult bindingResult, HttpSession session, Model model){
         CollaborationValidator validator = new CollaborationValidator();
         validator.validate(collaboration,bindingResult);
+
         Collaboration collaborationNueva = (Collaboration) session.getAttribute("collaborationAnt");
         session.removeAttribute("collaborationAnt");
         collaborationNueva.setHours(collaboration.getHours());
         collaborationNueva.setAssessmentScore(collaboration.getAssessmentScore());
+
         if (bindingResult.hasErrors()){
-
-            return "redirect:/collaboration/valorar/"+collaborationNueva.getIdCollaboration();
+            session.setAttribute("collaborationAnt",collaborationNueva);
+            model.addAttribute("collaboration", collaborationNueva);
+            return "/collaboration/valorar";
         }
-
 
         collaborationDao.assessCollaboration(collaborationNueva);
         Student studentReq = (Student) session.getAttribute("user");
