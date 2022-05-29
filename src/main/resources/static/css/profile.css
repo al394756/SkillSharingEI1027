@@ -50,7 +50,14 @@ table{
     background: #7d9abb;
     border-radius: 5px;
 }
-
+.add{
+    width: 5rem;
+    height: 1.5rem;
+    border: white;
+    padding: 0.3rem 0.5rem;
+    border-radius: 5px;
+    background: #7d9abb;
+}
 .tablaColla tbody tr:nth-child(odd) {
     color: #7d9abb;
     background: #E8EEF6;

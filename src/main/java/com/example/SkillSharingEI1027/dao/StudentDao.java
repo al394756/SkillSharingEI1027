@@ -154,4 +154,8 @@ public class StudentDao {
         }
     }
 
+    public void actualizarPuntuacionStudent(Student student, float hours){
+        jdbcTemplate.update("UPDATE Student SET balanceHours=? WHERE idStudent=?", student.getBalanceHours()+hours,student.getIdStudent());
+    }
+
 }

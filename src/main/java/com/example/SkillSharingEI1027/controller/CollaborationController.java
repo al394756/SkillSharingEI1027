@@ -174,11 +174,13 @@ public class CollaborationController {
 
 
         collaborationDao.assessCollaboration(collaborationNueva);
-        Student student = (Student) session.getAttribute("user");
-        Student student1 = conseguirOtroStudent(student, collaborationNueva);
-        Chat chat = collaborationService.conseguirChat(student, student1);
+        Student studentReq = (Student) session.getAttribute("user");
+        Student studentOff = conseguirOtroStudent(studentReq, collaborationNueva);
+        studentReq = collaborationService.actualizarPuntuacionStudents(collaborationNueva);
+        session.setAttribute("user", studentReq);
+        Chat chat = collaborationService.conseguirChat(studentReq, studentOff);
         String msgContent = "I have just evaluated our collaboration in "+collaborationNueva.getIdRequest().getSkill().getName()+" that we did the other day!";
-        collaborationService.mensajeConfirmacion(chat,msgContent,student);
+        collaborationService.mensajeConfirmacion(chat,msgContent,studentReq);
         session.setAttribute("correcto",true);
 
         return "redirect:/profile/";

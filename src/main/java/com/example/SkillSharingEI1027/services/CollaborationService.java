@@ -14,4 +14,5 @@ public interface CollaborationService {
     Chat conseguirChat(Student student1, Student student2);
     List<Collaboration> sorteredList(String sorter, Student user);
     List<Collaboration> sorteredList(String sorter);
+    Student actualizarPuntuacionStudents(Collaboration collaboration);
 }

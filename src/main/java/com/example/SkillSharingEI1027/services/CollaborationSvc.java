@@ -138,4 +138,13 @@ public class CollaborationSvc implements CollaborationService {
         }
         return list;
     }
+
+    public Student actualizarPuntuacionStudents(Collaboration collaboration){
+        Student studentReq = collaboration.getIdRequest().getStudent();
+        Student studentOff = collaboration.getIdOffer().getStudent();
+        studentDao.actualizarPuntuacionStudent(studentReq, -collaboration.getHours());
+        studentDao.actualizarPuntuacionStudent(studentOff, collaboration.getHours());
+        return studentDao.getStudentUsingId(studentReq.getIdStudent());
+
+    }
 }

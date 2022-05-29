@@ -10,7 +10,7 @@ public class Student implements Comparable<Student>{
     private String password;
     private String degree;
     private int course;
-    private int balanceHours;
+    private float balanceHours;
     private boolean skpMember;
     private boolean activeAccount;
     private String banReason;
@@ -51,7 +51,7 @@ public class Student implements Comparable<Student>{
         return course;
     }
 
-    public int getBalanceHours() {
+    public float getBalanceHours() {
         return balanceHours;
     }
 
@@ -95,7 +95,7 @@ public class Student implements Comparable<Student>{
         this.course = course;
     }
 
-    public void setBalanceHours(int balanceHours) {
+    public void setBalanceHours(float balanceHours) {
         this.balanceHours = balanceHours;
     }
 
