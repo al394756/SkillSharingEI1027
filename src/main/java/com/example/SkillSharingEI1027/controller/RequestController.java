@@ -68,8 +68,8 @@ public class RequestController {
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)
-    public String processUpdateSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult, HttpSession session){
-        return offeRequestMethods.processUpdateSubmit(request,bindingResult, session);
+    public String processUpdateSubmit(@ModelAttribute("request") Request request, BindingResult bindingResult, HttpSession session, Model model){
+        return offeRequestMethods.processUpdateSubmit(request,bindingResult, session, model);
     }
 
     @RequestMapping(value = "/cancel/{id}")

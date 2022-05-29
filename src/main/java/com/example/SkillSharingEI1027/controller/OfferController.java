@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.model.IModel;
 
 import javax.servlet.http.HttpSession;
 
@@ -75,8 +76,8 @@ public class OfferController {
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)
-    public String processUpdateSubmit(@ModelAttribute("offer") Offer offer, BindingResult bindingResult, HttpSession session){
-        return offeRequestMethods.processUpdateSubmit(offer,bindingResult, session);
+    public String processUpdateSubmit(@ModelAttribute("offer") Offer offer, BindingResult bindingResult, HttpSession session, Model model){
+        return offeRequestMethods.processUpdateSubmit(offer,bindingResult, session, model);
     }
 
     @RequestMapping(value = "/cancel/{id}")

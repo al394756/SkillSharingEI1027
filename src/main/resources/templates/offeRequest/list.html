@@ -15,7 +15,7 @@
         <div><h1 class="titulo centrado" th:text="${type}+'s'"></h1></div>
         <div th:object="${session}">
             <a  href="/" class="add color_text" >Back</a>
-            <a  href="add" class="add color_text" th:if="*{user!=null} and ${!session.user.isSkpMember()}">Add</a>
+            <a  th:href="@{/{type}/add(type=${url})}" class="add color_text" th:if="*{user!=null} and ${!session.user.isSkpMember()}">Add</a>
 
         </div>
     </div>

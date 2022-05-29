@@ -12,6 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -72,7 +73,7 @@ public class OffeRequestMethods <T> {
         OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
         offeRequestValidator.validate(offeRequest,bindingResult);
         if (bindingResult.hasErrors())
-            return "redirect:/" + offeRequest.getUrl() + "/add";
+            return "/" + offeRequest.getUrl() + "/add";
 
         offeRequest.setStudent((Student) session.getAttribute("user"));
 
@@ -150,7 +151,7 @@ public class OffeRequestMethods <T> {
         return "offeRequest/update";
     }
 
-    public String processUpdateSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session){
+    public String processUpdateSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session, Model model){
         OffeRequest offeRequestAntigua = (OffeRequest) session.getAttribute("offeRequest");
         Skill skill = (Skill) session.getAttribute("skill");
         OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
@@ -161,13 +162,15 @@ public class OffeRequestMethods <T> {
         offeRequest.setStudent(offeRequestAntigua.getStudent());
         offeRequest.setSkill(skill);
         offeRequest.setStudent(offeRequest.getStudent());
-        session.removeAttribute("offeRequest");
-        session.removeAttribute("skill");
+
 
         offeRequestValidator.validateUpdate(offeRequest,bindingResult);
         if (bindingResult.hasErrors()) {
-            return "redirect:/"+offeRequest.getUrl() + "/update/"+offeRequest.getId();
+            model.addAttribute("offeRequest", offeRequest);
+            return "/offeRequest/update";
         }
+        session.removeAttribute("offeRequest");
+        session.removeAttribute("skill");
         offeRequestDao.update(offeRequest);
 
         session.setAttribute("correcto", true);
@@ -213,5 +216,8 @@ class OffeRequestValidator extends OffeRequestMethods implements Validator {
             errors.rejectValue("endDate","compulsory","End Date must be bigger than Start Date");
         if (offeRequest.getDescription().trim().equals(""))
             errors.rejectValue("description", "compulsory", "Introduce a description");
+        if (offeRequest.getEndDate().compareTo(LocalDate.now())<0)
+            errors.rejectValue("endDate","compulsary");
+
     }
 }

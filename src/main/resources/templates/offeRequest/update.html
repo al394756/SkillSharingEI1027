@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="'Edit '+${type}"></title>
+    <title th:text="'Edit '+${offeRequest.type}"></title>
     <meta charset="UTF-8" />
     <link type="text/css"  rel="stylesheet" th:href="@{../../css/skillsharing.css}"/>
     <link  type="text/css" rel="stylesheet" th:href="@{../../css/header.css}"/>
@@ -12,7 +12,7 @@
 <main>
     <div class="caja">
         <div class="caja-interno">
-            <h2 th:text="'Edit '+${type}"></h2>
+            <h2 th:text="'Edit '+${offeRequest.type}"></h2>
             <hr/>
             <form action="#" th:action="@{/__${offeRequest.url}__/update}"
                   th:object="${offeRequest}" method="post">
@@ -34,14 +34,20 @@
                     </tr>
 
                     <tr class="iz">
-                        <td><input type="date" id="startDate" th:field="*{startDate}"/>
-                            <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+                        <td><input type="date" id="startDate" th:field="*{startDate}" />
+
                         </td>
-                        <td><input type="date" id="endDate" th:field="*{endDate}"/>
-                            <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+                        <td><input type="date" id="endDate" th:field="*{endDate}" />
+
                         </td>
                     </tr>
-                    <h1 th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">Error</h1>
+                    <tr>
+
+                            <label class="er" th:field="*{startDate}" th:if="*{startDate}>*{endDate}">End date must be later than start date</label>
+                            <label class="er" th:field="*{startDate}" th:if="*{startDate}<=*{endDate} and *{endDate}<${session.today}">Dates must be later than current day</label>
+
+
+                    </tr>
                 </table>
                 <div class="hrdiv"><hr/></div>
 
@@ -54,7 +60,7 @@
                             <label class="ajustesSubmit sumit3" for="confirm"> Apply </label>
 
                             <div class="corfrimacion">
-                                <p class="color_text" th:text="'Are you sure you want to edit this '+${type}"></p>
+                                <p class="color_text" th:text="'Are you sure you want to edit this '+${offeRequest.type}"></p>
                                 <table class="botones">
                                     <tr>
                                         <td><label class="botonConf" for="confirm"> Back </label></td>
