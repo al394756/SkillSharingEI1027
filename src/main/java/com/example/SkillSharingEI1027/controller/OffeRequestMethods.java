@@ -2,13 +2,12 @@ package com.example.SkillSharingEI1027.controller;
 
 import com.example.SkillSharingEI1027.dao.OffeRequestDao;
 import com.example.SkillSharingEI1027.dao.SkillDao;
-import com.example.SkillSharingEI1027.dao.StudentDao;
 import com.example.SkillSharingEI1027.modelo.*;
 import com.example.SkillSharingEI1027.services.CollaborationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 
 import javax.servlet.http.HttpSession;
@@ -63,7 +62,6 @@ public class OffeRequestMethods <T> {
     }
 
     public String add(Model model,String type, HttpSession session) {
-        model.addAttribute("type",type);
         session.setAttribute("type",type);
         model.addAttribute("skills", skillDao.getSkills());
         return "offeRequest/add";
@@ -72,8 +70,18 @@ public class OffeRequestMethods <T> {
     public String processAddSubmit(OffeRequest offeRequest, BindingResult bindingResult, HttpSession session, Model model) {
         OffeRequestValidator offeRequestValidator=new OffeRequestValidator();
         offeRequestValidator.validate(offeRequest,bindingResult);
-        if (bindingResult.hasErrors())
-            return "/" + offeRequest.getUrl() + "/add";
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("skills", skillDao.getSkills());
+            model.addAttribute("offeRequest",offeRequest);
+            List<ObjectError> errors= bindingResult.getAllErrors();
+            List<String> desc = new LinkedList<>();
+            for (ObjectError error: errors){
+                desc.add(error.getDefaultMessage());
+            }
+            model.addAttribute("errors",desc);
+            return "/offeRequest/add";
+        }
 
         offeRequest.setStudent((Student) session.getAttribute("user"));
 
@@ -89,6 +97,7 @@ public class OffeRequestMethods <T> {
             session.setAttribute("correcto",true);
             return "redirect:list";
         }
+        offeRequest.setSkill(skillDao.getSkill(offeRequest.getSkill().getIdSkill()));
         session.setAttribute("skill",offeRequest.getSkill());
         session.setAttribute("offeRequest",offeRequest);
         session.setAttribute("offeRequestList",offeRequestList);
@@ -194,16 +203,16 @@ class OffeRequestValidator extends OffeRequestMethods implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         OffeRequest offeRequest=(OffeRequest) obj;
-        if (offeRequest.getSkill().getIdSkill().trim().equals("Select one option"))
-            errors.rejectValue("skill.idSkill", "compulsory", "Introduce a valid Skill");
-        if (offeRequest.getStartDate()==null)
-            errors.rejectValue("startDate","compulsory","Introduce a date");
-        if (offeRequest.getEndDate()==null)
-            errors.rejectValue("endDate","compulsory","Introduce a date");
-        else if (offeRequest.getStartDate()!=null&&offeRequest.getStartDate().compareTo(offeRequest.getEndDate())>0)
-            errors.rejectValue("endDate","compulsory","End Date must be bigger than Start Date");
-        if (offeRequest.getSkill().getIdSkill().trim().equals(""))
-            errors.rejectValue("description", "compulsory", "Introduce a description");
+        if (offeRequest.getSkill().getIdSkill().trim().equals("Select an option") || offeRequest.getStartDate()==null || offeRequest.getDescription().trim().equals("") || offeRequest.getEndDate()==null)
+            errors.rejectValue("skill.idSkill", "compulsory", "All the fields must be introduced");
+
+        if (offeRequest.getStartDate()!=null&& offeRequest.getEndDate()!=null &&offeRequest.getStartDate().compareTo(offeRequest.getEndDate())>0)
+            errors.rejectValue("endDate","compulsory","End Date must be later than Start Date");
+
+        if (offeRequest.getStartDate()!=null&& offeRequest.getEndDate()!=null && (offeRequest.getEndDate().compareTo(LocalDate.now())<0 || offeRequest.getStartDate().compareTo(LocalDate.now())<0))
+            errors.rejectValue("startDate","compulsory","Both dates must be later than current date");
+
+
     }
 
     public void validateUpdate(Object obj, Errors errors) {
@@ -216,8 +225,6 @@ class OffeRequestValidator extends OffeRequestMethods implements Validator {
             errors.rejectValue("endDate","compulsory","End Date must be bigger than Start Date");
         if (offeRequest.getDescription().trim().equals(""))
             errors.rejectValue("description", "compulsory", "Introduce a description");
-        if (offeRequest.getEndDate().compareTo(LocalDate.now())<0)
-            errors.rejectValue("endDate","compulsary");
 
     }
 }

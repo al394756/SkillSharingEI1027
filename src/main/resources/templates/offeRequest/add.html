@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="'Create '+${type}"></title>
+    <title th:text="'Create '+${session.type}"></title>
     <meta charset="UTF-8" />
     <link type="text/css"  rel="stylesheet" th:href="@{../../css/skillsharing.css}"/>
     <link  type="text/css" rel="stylesheet" th:href="@{../../css/header.css}"/>
@@ -13,9 +13,9 @@
 <main>
 <div class="caja">
     <div class="caja-interno">
-    <h2 th:text="'Create '+${type}"></h2>
+    <h2 th:text="'Create '+${session.type}"></h2>
         <hr/>
-    <form action="#" th:href="@{/{url}(url=${offeRequest.url})/add}"
+    <form th:href="@{/{url}(url=${offeRequest.url})/add}"
           th:object="${offeRequest}" method="post">
         <table>
             <tr class="iz">
@@ -24,14 +24,7 @@
             </tr>
             <tr class="iz">
                 <td>
-                    <select class="error" type="text" id="skill" th:field="*{skill.idSkill}"
-                             th:if="${#fields.hasErrors('skill.idSkill')}" >
-                        <option value="">Select an option</option>
-                        <option th:each="skill1:${skills}" th:value="${skill1.idSkill}"
-                                th:text="${skill1.name}"></option>
-                    </select>
-                    <select  type="text" th:field="*{skill.idSkill}"
-                             th:unless="${#fields.hasErrors('skill.idSkill')}" >
+                    <select  type="text" th:field="*{skill.idSkill}">
                         <option value="">Select an option</option>
                         <option th:each="skill1:${skills}" th:value="${skill1.idSkill}"
                                 th:text="${skill1.name}"></option>
@@ -66,11 +59,15 @@
         </table>
         <div class="hrdiv"><hr/></div>
         <table>
+            <tr th:each="error: ${errors}">
+                <td width="100%"> <p  class="er"  th:text="${error}"></p>
+                </td>
+            </tr>
             <tr>
                 <td><a th:href="@{/{type}/list(type=${offeRequest.url})}"><button class="sumit" type="button" >Back</button></a></td>
                 <td>
 
-                    <button class="sumit" type="submit" th:text="'Create a '+${type}"></button></a>
+                    <button class="sumit" type="submit" th:text="'Create a '+${session.type}"></button></a>
 
                 </td>
 
