@@ -15,28 +15,22 @@
         There are not Students registered
     </div>
     <div class="filter">
-        <table class="tablaFilt">
-            <tr>
-                <td>
-                    <p class="filterP">Sort by: </p>
-                </td>
-                <td>
-                    <form  action="#" th:action="@{/student/list/sorted}" th:object="${sorter}" >
-                        <select type="text" class="filtro" th:field="*{type}" th:onchange="this.form.submit()">
-                            <option value="Id">Registration Date</option>
-                            <option value="BalanceHours">Balance Hours</option>
-                        </select>
+        <p>Filter by: </p>
+        <form  action="#" th:action="@{/student/list/sorted}" th:object="${sorter}" >
+            <select type="text" class="filtro" th:field="*{type}" th:onchange="this.form.submit()">
+                <option value="Id">Registration Date</option>
+                <option value="BalanceHours">Balance Hours</option>
+            </select>
 
-                        <select class="filtro" type="text" th:field="*{texto}" th:onchange="this.form.submit()">
-                            <option value="BotToTop">↑</option>
-                            <option value="TopToBot">↓</option>
+            <select class="filtro" type="text" th:field="*{texto}" th:onchange="this.form.submit()">
+                <option value="BotToTop">↑</option>
+                <option value="TopToBot">↓</option>
 
-                        </select>
-                </td>
-            </tr>
+            </select>
         </form>
-        </table>
     </div>
+    <br>
+    <br>
 
     <table th:unless="${#lists.isEmpty(students)}" class="table table-striped">
         <thead>
