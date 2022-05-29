@@ -21,8 +21,13 @@ main{
 .filter{
     text-align: left;
     padding-left: 2rem
+
 }
 
+.filtro{
+    border-radius: 5px;
+    background: white;
+}
 
 .barras{
      display:inline-block;
@@ -46,6 +51,12 @@ main{
 .titulo{
     color: #7d9abb;
 }
+
+.filterP{
+     font-weight: bold;
+     color: #7d9abb;
+}
+
 .centrado{
     text-align: center;
     align-items: center;
@@ -179,6 +190,9 @@ background: red
      cursor: pointer;
 
 
+}
+.tablaFilt{
+    background: white;
 }
 .botones{
      border-spacing: 1rem 0;

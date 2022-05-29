@@ -19,21 +19,31 @@
 
         </div>
     </div>
-    <p>Filter by Skill: </p>
-    <form  method="post" th:action="@{/__${url}__/list/idSkill}"  >
-        <select type="text" th:onchange="this.form.submit()" th:value="${idSkill}" name="idSkill">
-            <option value="">Select skill</option>
-            <option value="all">All</option>
-            <option th:each="skill1:${skills}" th:value="${skill1.idSkill}" name="idSkill"
-                    th:text="${skill1.name}"></option>
-        </select>
-    </form>
 
     <div th:if="${#lists.isEmpty(list)}" th:text="'There are not '+${type}+'s registered'"></div>
 
 
     <div th:unless="${#lists.isEmpty(list)}">
+        <div>
+            <table>
+                <tr>
+                    <td>
+                    <p class="filterP">Filter by: </p>
+                    </td>
+                    <td>
+                        <form  method="post" th:action="@{/__${url}__/list/idSkill}"  >
+                            <select class="filtro" type="text" th:onchange="this.form.submit()" th:value="${idSkill}" name="idSkill">
+                                <option value="">Select skill</option>
+                                <option value="all">All</option>
+                                <option th:each="skill1:${skills}" th:value="${skill1.idSkill}" name="idSkill"
+                                        th:text="${skill1.name}"></option>
 
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="grid" th:each="offeRequest: ${#lists.sort(list,metodecomparador)}">
             <div class="caja color_text">
                 <div class="nombre"><label th:text="${offeRequest.skill.name}"></label></div>

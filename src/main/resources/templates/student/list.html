@@ -15,19 +15,19 @@
         There are not Students registered
     </div>
     <div class="filter">
-        <table>
+        <table class="tablaFilt">
             <tr>
                 <td>
-                    <p>Sort by: </p>
+                    <p class="filterP">Sort by: </p>
                 </td>
                 <td>
                     <form  action="#" th:action="@{/student/list/sorted}" th:object="${sorter}" >
-                        <select type="text" th:field="*{type}" th:onchange="this.form.submit()">
+                        <select type="text" class="filtro" th:field="*{type}" th:onchange="this.form.submit()">
                             <option value="Id">Registration Date</option>
                             <option value="BalanceHours">Balance Hours</option>
                         </select>
 
-                        <select type="text" th:field="*{texto}" th:onchange="this.form.submit()">
+                        <select class="filtro" type="text" th:field="*{texto}" th:onchange="this.form.submit()">
                             <option value="BotToTop">↑</option>
                             <option value="TopToBot">↓</option>
 

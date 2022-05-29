@@ -55,11 +55,11 @@
             <table>
                 <tr>
                     <td>
-                        <p class="color">Filter by: </p>
+                        <p class="filterP">Filter by: </p>
                     </td>
                     <td>
                         <form  method="post" th:action="@{/profile/filtered}"  >
-                            <select type="text" th:onchange="this.form.submit()" th:value="${sorter}" name="sorter">
+                            <select type="text" class="filtro" th:onchange="this.form.submit()" th:value="${sorter}" name="sorter">
 
                                 <option value="">Select an option</option>
                                 <option value="All">All</option>
