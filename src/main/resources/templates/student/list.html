@@ -14,26 +14,33 @@
     <div th:if="${#lists.isEmpty(students)}">
         There are not Students registered
     </div>
-    <p>Sort by: </p>
-    <form  action="#" th:action="@{/student/list/sorted}" th:object="${sorter}" >
-        <select type="text" th:field="*{type}" th:onchange="this.form.submit()">
+    <div class="filter">
+        <table>
+            <tr>
+                <td>
+                    <p>Sort by: </p>
+                </td>
+                <td>
+                    <form  action="#" th:action="@{/student/list/sorted}" th:object="${sorter}" >
+                        <select type="text" th:field="*{type}" th:onchange="this.form.submit()">
+                            <option value="Id">Registration Date</option>
+                            <option value="BalanceHours">Balance Hours</option>
+                        </select>
 
-            <option value="Id">Student Id</option>
-            <option value="BalanceHours">Balance Hours</option>
-        </select>
+                        <select type="text" th:field="*{texto}" th:onchange="this.form.submit()">
+                            <option value="BotToTop">↑</option>
+                            <option value="TopToBot">↓</option>
 
-        <select type="text" th:field="*{texto}" th:onchange="this.form.submit()">
-            <option value="BotToTop">↑</option>
-            <option value="TopToBot">↓</option>
-
-        </select>
-
-    </form>
+                        </select>
+                </td>
+            </tr>
+        </form>
+        </table>
+    </div>
 
     <table th:unless="${#lists.isEmpty(students)}" class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">Name</th>
             <th scope="col">DNI</th>
             <th scope="col">Email</th>
@@ -47,7 +54,6 @@
         <tbody>
 
         <tr th:each="student: ${#lists.sort(students, comparator)}">
-            <td th:text="${student.idStudent}"></td>
             <td th:text="${student.name}"></td>
             <td th:text="${student.dni}"></td>
             <td th:text="${student.email}"></td>

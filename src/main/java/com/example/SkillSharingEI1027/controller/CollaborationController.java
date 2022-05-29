@@ -11,10 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -63,6 +60,22 @@ public class CollaborationController {
         }
         List<Collaboration> collaborations = collaborationDao.getCollaborations();
         model.addAttribute("collaborations", collaborations);
+        model.addAttribute("sorter", "");
+
+
+        return "collaboration/list";
+    }
+
+    @RequestMapping("/list/filtered")
+    public String listCollaborationsFiltered(Model model, HttpSession session, @RequestParam("sorter") String sorter){
+        Student user = (Student) session.getAttribute("user");
+        if (user == null || !user.isActiveAccount()){
+            return "welcome";
+        }
+        List<Collaboration> collaborations = collaborationService.sorteredList(sorter);
+        model.addAttribute("collaborations", collaborations);
+        model.addAttribute("sorter", sorter);
+
 
         return "collaboration/list";
     }
@@ -154,14 +167,11 @@ public class CollaborationController {
         session.removeAttribute("collaborationAnt");
         collaborationNueva.setHours(collaboration.getHours());
         collaborationNueva.setAssessmentScore(collaboration.getAssessmentScore());
-        System.out.println("AAAAAAAAAA");
         if (bindingResult.hasErrors()){
-            System.out.println("BBBBBBB");
 
             return "redirect:/collaboration/valorar/"+collaborationNueva.getIdCollaboration();
         }
 
-        System.out.println("CCCCCCCC");
 
         collaborationDao.assessCollaboration(collaborationNueva);
         Student student = (Student) session.getAttribute("user");

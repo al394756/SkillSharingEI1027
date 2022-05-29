@@ -11,6 +11,27 @@
 <body>
 <main class="centrado">
     <h1 class="titulo">List of Collaborations</h1>
+
+    <div class="filter">
+        <table>
+            <tr>
+                <td>
+                    <p class="color">Filter by: </p>
+                </td>
+                <td>
+                    <form  method="post" th:action="@{/collaboration/list/filtered}"  >
+                        <select type="text" th:onchange="this.form.submit()" th:value="${sorter}" name="sorter">
+
+                            <option value="">Select an option</option>
+                            <option value="All">All</option>
+                            <option value="Unfinished">Unfinished Collaborations</option>
+                            <option value="Finished">Finished Collaborations</option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div th:if="${#lists.isEmpty(collaborations)}" th:text="'There are not collaborations registered'"></div>
     <table th:unless="${#lists.isEmpty(collaborations)}">
         <thead>
@@ -23,9 +44,10 @@
             <th><label>Score</label></th>
 
         </tr>
+
         </thead>
         <tbody>
-        <tr class="color" th:each="collaboration: ${collaborations}">
+        <tr class="color" th:each="collaboration: ${#lists.sort(collaborations,metodecomparador)}">
             <td> <label th:text="${collaboration.idOffer.student.name}"></label></td>
             <td> <label th:text="${collaboration.idRequest.student.name}"> </label></td>
             <td> <label th:text="${collaboration.idRequest.skill.name}"></label></td>
@@ -39,11 +61,13 @@
 
             </td>
             <td>
-                <label th:if="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4"><label th:text="${collaboration.hours}"></label></label>
+                <label th:if="${collaboration.collaborationState}==3"><label th:text="${collaboration.hours}"></label></label>
+                <label th:if="${collaboration.collaborationState}==4">N/A</label>
                 <label th:unless="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4">?</label>
             </td>
             <td>
-                <label th:if="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4"><label th:text="${collaboration.assessmentScore}"></label></label>
+                <label th:if="${collaboration.collaborationState}==3"><label th:text="${collaboration.assessmentScore}"></label></label>
+                <label th:if="${collaboration.collaborationState}==4">N/A</label>
                 <label th:unless="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4">?</label>
             </td>
 

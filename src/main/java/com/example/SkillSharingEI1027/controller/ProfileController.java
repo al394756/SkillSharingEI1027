@@ -3,6 +3,7 @@ package com.example.SkillSharingEI1027.controller;
 import com.example.SkillSharingEI1027.dao.CollaborationDao;
 import com.example.SkillSharingEI1027.modelo.Collaboration;
 import com.example.SkillSharingEI1027.modelo.Student;
+import com.example.SkillSharingEI1027.services.CollaborationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ import java.util.List;
 public class ProfileController {
     @Autowired
     private CollaborationDao collaborationDao;
+    @Autowired
+    private CollaborationService collaborationService;
 
 
 
@@ -31,7 +34,6 @@ public class ProfileController {
         model.addAttribute("sorter", "");
 
 
-        //list = conseguirDatosCollaborations(list);
 
         model.addAttribute("misCollaborations", list);
 
@@ -49,8 +51,7 @@ public class ProfileController {
             return "welcome";
         }
 
-        List<Collaboration> list = sorteredList(sorter, user);
-        System.out.println(list);
+        List<Collaboration> list = collaborationService.sorteredList(sorter, user);
 
 
         model.addAttribute("sorter",sorter);
@@ -60,19 +61,5 @@ public class ProfileController {
 
     }
 
-    private List<Collaboration> sorteredList(String sorter, Student user){
-        List<Collaboration> list=null;
-        switch (sorter) {
-            case "All":
-                list = collaborationDao.getCollaborationsDe(user);
-                break;
-            case "Unfinished":
-                list = collaborationDao.getCollaborationsActivasDe(user);
-                break;
-            case "Finished":
-                list = collaborationDao.getCollaborationsAcabadasDe(user);
-                break;
-        }
-        return list;
-    }
+
 }

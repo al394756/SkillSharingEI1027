@@ -108,5 +108,34 @@ public class CollaborationSvc implements CollaborationService {
         chatDao.updateChat(chat);
         return chat;
     }
-
+    public List<Collaboration> sorteredList(String sorter, Student user){
+        List<Collaboration> list=null;
+        switch (sorter) {
+            case "All":
+                list = collaborationDao.getCollaborationsDe(user);
+                break;
+            case "Unfinished":
+                list = collaborationDao.getCollaborationsActivasDe(user);
+                break;
+            case "Finished":
+                list = collaborationDao.getCollaborationsAcabadasDe(user);
+                break;
+        }
+        return list;
+    }
+    public List<Collaboration> sorteredList(String sorter){
+        List<Collaboration> list=null;
+        switch (sorter) {
+            case "All":
+                list = collaborationDao.getCollaborations();
+                break;
+            case "Unfinished":
+                list = collaborationDao.getCollaborationsActivas();
+                break;
+            case "Finished":
+                list = collaborationDao.getCollaborationsAcabadas();
+                break;
+        }
+        return list;
+    }
 }

@@ -46,23 +46,31 @@
         <h1> You don't have any collaboration yet</h1>
     </div>
     <div th:unless="${#lists.isEmpty(misCollaborations)}">
-    <p class="color">Filter by: </p>
-    <form  method="post" th:action="@{/profile/filtered}"  >
-        <select type="text" th:onchange="this.form.submit()" th:value="${sorter}" name="sorter">
 
-            <option value="">Select an option</option>
-            <option value="All">All</option>
-            <option value="Unfinished">Unfinished Collaborations</option>
-            <option value="Finished">Finished Collaborations</option>
-
-        </select>
-
-
-    </form>
     <h1 th:if="${sorter}=='' or ${sorter}==All">My collaborations</h1>
     <h1 th:if="${sorter}!=null and ${sorter}==Finished">My Finished collaborations</h1>
     <h1 th:if="${sorter}!=null and ${sorter}==Unfinished">My Unfinished collaborations</h1>
 
+        <div class="filter">
+            <table>
+                <tr>
+                    <td>
+                        <p class="color">Filter by: </p>
+                    </td>
+                    <td>
+                        <form  method="post" th:action="@{/profile/filtered}"  >
+                            <select type="text" th:onchange="this.form.submit()" th:value="${sorter}" name="sorter">
+
+                                <option value="">Select an option</option>
+                                <option value="All">All</option>
+                                <option value="Unfinished">Unfinished Collaborations</option>
+                                <option value="Finished">Finished Collaborations</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
     <table class="tablaColla">
         <thead>
         <tr>
@@ -98,7 +106,6 @@
             <td>
                 <label th:if="${collaboration.collaborationState}==3"><label th:text="${collaboration.assessmentScore}"></label></label>
                 <label th:if="${collaboration.collaborationState}==4">N/A</label>
-
                 <label th:unless="${collaboration.collaborationState}==3 or ${collaboration.collaborationState}==4">?</label>
             </td>
             <td th:if="${collaboration.collaborationState}==0 and ((${collaboration.idRequest.student.idStudent} == ${session.user.idStudent} and

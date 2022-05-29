@@ -12,4 +12,6 @@ public interface CollaborationService {
     List<OffeRequest> giveOffeRequestNoAceptadas(Student student, String type, String idSkill);
     void mensajeConfirmacion(Chat chat, String msgContent, Student student);
     Chat conseguirChat(Student student1, Student student2);
+    List<Collaboration> sorteredList(String sorter, Student user);
+    List<Collaboration> sorteredList(String sorter);
 }

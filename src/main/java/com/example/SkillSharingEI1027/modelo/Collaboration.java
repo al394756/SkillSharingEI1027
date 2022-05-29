@@ -1,5 +1,7 @@
 package com.example.SkillSharingEI1027.modelo;
 
+import java.util.Comparator;
+
 public class Collaboration implements Comparable<Collaboration>{
 
     private String idCollaboration;
@@ -96,10 +98,7 @@ public class Collaboration implements Comparable<Collaboration>{
 
     @Override
     public int compareTo(Collaboration o) {
-        if (this.collaborationState < o.getCollaborationState())
-            return -1;
-        if (this.getIdRequest().getStartDate().compareTo(o.getIdRequest().getStartDate()) < 0)
-            return -2;
-        return 1;
+        return Comparator.comparing(Collaboration::getCollaborationState).thenComparing(Collaboration::getIdRequest).compare(this,o);
+
     }
 }
