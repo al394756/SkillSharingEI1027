@@ -41,8 +41,10 @@
                             <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
                         </td>
                     </tr>
+                    <h1 th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">Error</h1>
                 </table>
                 <div class="hrdiv"><hr/></div>
+
                 <table>
                     <tr>
                         <td><a th:href="@{/{type}/list(type=${offeRequest.url})}"><button class="sumit" type="button" >Back</button></a></td>

@@ -22,10 +22,6 @@
             <td><input type="text" class="fecha" th:field="*{name}" readonly="readonly"/></td>
         </tr>
         <tr>
-            <td><label>id:</label></td>
-            <td><input type="text" class="fecha" th:field="*{idStudent}" readonly="readonly"/></td>
-        </tr>
-        <tr>
             <td><label>Reason:</label></td>
             <td><input type="text" class="descripcion" th:field="*{banReason}" /></td>
             <td th:if="${#fields.hasErrors('banReason')}" th:errors="*{banReason}"></td>
@@ -35,7 +31,7 @@
         <hr>
         <a href="/student/list"><button class="sumit" type="button" >Back</button></a>
         <input type="checkbox" class="checconf" id="confirm">
-        <label class="ajustesSubmit sumit4" for="confirm">Ban Student</label>
+        <label type="button" class="ajustesSubmit sumit2" for="confirm">Ban Student</label>
 
 
 
