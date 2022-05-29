@@ -98,7 +98,7 @@ public class CollaborationDao {
     }
 
     public void assessCollaboration(Collaboration collaboration){
-        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=3, hours=?, assessmentScore=? WHERE idCollabortion=?", collaboration.getHours(), collaboration.getAssessmentScore(), collaboration.getIdCollaboration());
+        jdbcTemplate.update("UPDATE Collaboration SET collaborationState=3, hours=?, assessmentScore=? WHERE idCollaboration=?", collaboration.getHours(), collaboration.getAssessmentScore(), collaboration.getIdCollaboration());
     }
 
     public List<Collaboration> getCollaborationsDe(Student student){

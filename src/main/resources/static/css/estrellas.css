@@ -4,9 +4,6 @@
     height: 50px;
 }
 
-#form p {
-    text-align: center;
-}
 
 #form label {
     font-size: 20px;
@@ -16,7 +13,12 @@ input[type="radio"] {
     display: none;
 }
 
-label {
+.nombreAutor{
+    font-size: 13px;
+    font-style: italic;
+}
+
+.estrella{
     color: grey;
 }
 
@@ -25,8 +27,8 @@ label {
     unicode-bidi: bidi-override;
 }
 
-label:hover,
-label:hover ~ label {
+label.estrella:hover,
+label.estrella:hover ~ label {
     color: orange;
 }
 

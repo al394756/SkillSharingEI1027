@@ -33,7 +33,7 @@ class CollaborationValidator implements Validator{
             errors.rejectValue("hours","compulsory","Introduce how long the collaboration lasted");
         }
         if (collaboration.getAssessmentScore()==0 || collaboration.getAssessmentScore() > 5){
-            errors.rejectValue("assessmentscore","compulsory","Introduce your valoration of collaboration");
+            errors.rejectValue("assessmentScore","compulsory","Introduce your valoration of collaboration");
         }
 
     }
@@ -142,6 +142,7 @@ public class CollaborationController {
     public String valorarCollaboration(@PathVariable String idCollaboration, HttpSession session, Model model){
         Collaboration collaboration = collaborationDao.getCollaboration(idCollaboration);
         model.addAttribute("collaboration", collaboration);
+        session.setAttribute("collaborationAnt",collaboration);
         return "/collaboration/valorar";
     }
 
@@ -149,16 +150,24 @@ public class CollaborationController {
     public String processValorar(@ModelAttribute("collaboration") Collaboration collaboration, BindingResult bindingResult, HttpSession session){
         CollaborationValidator validator = new CollaborationValidator();
         validator.validate(collaboration,bindingResult);
+        Collaboration collaborationNueva = (Collaboration) session.getAttribute("collaborationAnt");
+        session.removeAttribute("collaborationAnt");
+        collaborationNueva.setHours(collaboration.getHours());
+        collaborationNueva.setAssessmentScore(collaboration.getAssessmentScore());
+        System.out.println("AAAAAAAAAA");
         if (bindingResult.hasErrors()){
-            return "/collaboration/valorar/"+collaboration.getIdCollaboration();
+            System.out.println("BBBBBBB");
+
+            return "redirect:/collaboration/valorar/"+collaborationNueva.getIdCollaboration();
         }
 
+        System.out.println("CCCCCCCC");
 
-        collaborationDao.assessCollaboration(collaboration);
+        collaborationDao.assessCollaboration(collaborationNueva);
         Student student = (Student) session.getAttribute("user");
-        Student student1 = conseguirOtroStudent(student, collaboration);
+        Student student1 = conseguirOtroStudent(student, collaborationNueva);
         Chat chat = collaborationService.conseguirChat(student, student1);
-        String msgContent = "I have just evaluated our collaboration in "+collaboration.getIdRequest().getSkill().getName()+" that we did the other day!";
+        String msgContent = "I have just evaluated our collaboration in "+collaborationNueva.getIdRequest().getSkill().getName()+" that we did the other day!";
         collaborationService.mensajeConfirmacion(chat,msgContent,student);
         session.setAttribute("correcto",true);
 

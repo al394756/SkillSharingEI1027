@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Crear nueva skill</title>
+    <title>Assess Collaboration -SkillSharing</title>
     <meta charset="UTF-8" />
     <link href="../static/css/skillsharing.css" rel="stylesheet" th:href="@{/css/skillsharing.css}"/>
     <link href="../static/css/header.css" rel="stylesheet" th:href="@{/css/header.css}"/>
@@ -14,6 +14,7 @@
     <div class="caja">
         <div class="caja-interno">
             <h2 th:text="${collaboration.getIdRequest().getSkill().getName()}"></h2>
+            <div class="nombreAutor"><label th:text="'By '+${collaboration.getIdOffer().student.name}"></label></div>
             <hr/>
             <form action="#" th:action="@{/collaboration/valorar}"
                   th:object="${collaboration}" method="post">
@@ -41,7 +42,7 @@
                             <input type="text" th:value="${collaboration.getIdOffer().getStudent().getName()}" readonly>
                         </td>
                         <td>
-                            <select class="rellena2" th:unless="${#fields.hasErrors('hours')}" type="number">
+                            <select class="rellena2" th:unless="${#fields.hasErrors('hours')}" type="number" th:field="*{hours}">
                                 <option value="0">Select the duration</option>
                                 <option value="1">1h</option>
                                 <option value="1.5">1.5h</option>
@@ -54,8 +55,8 @@
                                 <option value="5">5h</option>
                                 <option value="6">+6h</option>
                             </select>
-                            <select class="error2" th:if="${#fields.hasErrors('hours')}" type="number">
-                                <option value="0">select the duration</option>
+                            <select class="error2" th:if="${#fields.hasErrors('hours')}" type="number" th:field="*{hours}">
+                                <option value="0">Select the duration</option>
                                 <option value="1">1h</option>
                                 <option value="1.5">1.5h</option>
                                 <option value="2">2h</option>
@@ -73,39 +74,38 @@
                 </table>
                 <table>
                     <tr class="iz">
-                        <th><label>Assess:</label></th>
+                        <th><label>Valoration:</label></th>
                     </tr>
                     <tr class="iz">
                         <td>
-                            <form>
-                                <p class="clasificacion">
-                                    <input id="radio1" type="radio" name="estrellas" value="5">
-                                    <label for="radio1">★</label>
-                                    <input id="radio2" type="radio" name="estrellas" value="4">
-                                    <label for="radio2">★</label>
-                                    <input id="radio3" type="radio" name="estrellas" value="3">
-                                    <label for="radio3">★</label>
-                                    <input id="radio4" type="radio" name="estrellas" value="2">
-                                    <label for="radio4">★</label>
-                                    <input id="radio5" type="radio" name="estrellas" value="1">
-                                    <label for="radio5">★</label>
-                                </p>
-                            </form>
+                                <label class="clasificacion" >
+                                    <input id="radio1" type="radio" name="estrellas" value="5" th:field="*{assessmentScore}">
+                                    <label class="estrella" for="radio1">★</label>
+                                    <input id="radio2" type="radio" name="estrellas" value="4" th:field="*{assessmentScore}">
+                                    <label class="estrella" for="radio2">★</label>
+                                    <input id="radio3" type="radio" name="estrellas" value="3" th:field="*{assessmentScore}">
+                                    <label class="estrella" for="radio3">★</label>
+                                    <input id="radio4" type="radio" name="estrellas" value="2" th:field="*{assessmentScore}">
+                                    <label class="estrella" for="radio4">★</label>
+                                    <input id="radio5" type="radio" name="estrellas" value="1" th:field="*{assessmentScore}">
+                                    <label class="estrella" for="radio5">★</label>
+                                </label>
                         </td>
+                        <td><label th:if="${#fields.hasErrors('assessmentScore')}"></label></td>
                         
                     </tr>
                 </table>
                 <div class="hrdiv"><hr/></div>
                 <a href="/skill/list"><button class="sumit" type="button" >Back</button></a>
                 <input type="checkbox" class="checconf" id="confirm">
-                <label class="ajustesSubmit sumit4 " for="confirm"> Update Skill </label>
+                <label class="ajustesSubmit sumit4 " for="confirm"> Assess Collaboration </label>
 
                 <div class="corfrimacion">
-                    <p class="color_text">Are you sure you want to edit this Skill?</p>
+                    <p class="color_text">Are you sure you want to assess this colaboration?</p>
                     <table class="botones">
                         <tr>
                             <td><label class="botonConf" for="confirm"> Back </label></td>
-                            <td><button class="sumit" type="submit">Apply</button></td>
+                            <td><button class="sumit" type="submit">Confirm</button></td>
                         </tr>
                     </table>
                 </div>
