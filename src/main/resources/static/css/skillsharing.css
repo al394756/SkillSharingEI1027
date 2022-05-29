@@ -198,8 +198,7 @@ background: red
      background: white;
      border: white;
      cursor: pointer;
-
-
+     text-decoration: none;
 }
 .tablaFilt{
     background: white;
