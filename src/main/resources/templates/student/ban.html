@@ -10,9 +10,10 @@
 <div th:replace="fragments/header" ></div>
 <body>
 <main class="centrado">
+    <form action="#" th:action="@{/student/ban}"
+          th:object="${student}" method="post">
     <div class="caja color_text">
-        <form action="#" th:action="@{/student/ban}"
-              th:object="${student}" method="post">
+
             <div class="caja-interno">
             <div class="nombre"><h2 th:text="'Ban '+${student.name}"></h2></div>
             <hr>
@@ -36,7 +37,7 @@
 
             </div>
 
-        </form>
+
     </div>
     <input type="checkbox" class="check2" id="confirm">
     <div class="corfrimacion2">
@@ -50,6 +51,7 @@
 
     </div>
     <label class="fondoOscuro2"></label>
+    </form>
 </main>
 </body>
 </html>
