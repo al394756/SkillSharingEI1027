@@ -19,9 +19,12 @@ main{
 }
 
 .filter{
-    text-align: left;
-    padding-left: 2rem
-
+    display: inline-block;
+}
+.filter *{
+     display: inline;
+     font-weight: bold;
+     color: #7d9abb;
 }
 
 .filtro{
@@ -52,10 +55,7 @@ main{
     color: #7d9abb;
 }
 
-.filterP{
-     font-weight: bold;
-     color: #7d9abb;
-}
+
 
 .centrado{
     text-align: center;

@@ -51,7 +51,13 @@ table{
     background: #7d9abb;
     border-radius: 5px;
 }
+.tablaColla td{
+    padding: 0.25rem 0.35rem;
+    border-radius: 5px;
+}
 .add{
+    font-weight: bold;
+    color: white;
     width: 5rem;
     height: 1.5rem;
     border: white;
@@ -62,6 +68,7 @@ table{
 .tablaColla tbody tr:nth-child(odd) {
     color: #7d9abb;
     background: #E8EEF6;
+    padding: 0.5rem;
 }
 .tablaColla tbody tr:nth-child(even) {
     background: #DCE4EE;
@@ -72,4 +79,8 @@ table{
 a{
     color: #7d9abb;
     text-decoration: none;
+}
+
+.colBan{
+    background: #F6FAFF;
 }

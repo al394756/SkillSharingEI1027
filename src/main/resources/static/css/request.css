@@ -1,3 +1,6 @@
+h3{
+    color: #7d9abb;
+}
 
 .add{
     width: 5rem;
@@ -42,7 +45,7 @@ hr{
 }
 
 main {
-    padding-top: 2rem;
+    padding-top: 3rem;
 }
 .fecha{
     font-weight: bold;
