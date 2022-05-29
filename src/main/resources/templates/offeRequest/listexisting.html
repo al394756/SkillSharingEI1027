@@ -31,16 +31,19 @@
 
 <!--            segundo check-->
             <input type="checkbox" class="check2" id="confirm2">
-            <div class="corfrimacion3">
-                <p class="color_text" >An email has been sent to: </p>
-                <br>
-                <p th:each="mail : ${mailList}" class="color_text">
-                    <label th:text="${mail}"></label>
+            <div class="corfrimacion4">
+                <form action="#" th:object="${offeRequest}" method="post">
+                    <p class="color_text" >An email has been sent to:</p>
+                    <table>
+                        <tr>
+                            <td th:each="mail : ${mailList}">
+                                <label  class="color_text" th:text="${mail}+' '"></label>
+                            </td>
+                        </tr>
+                    </table>
+
                     <br>
-                </p>
-                <form action="#"
-                      th:object="${offeRequest}" method="post">
-                    <button class="sumit" type="submit">Accept</button>
+                    <button class="ajustesSubmit colorWhite" type="submit">Accept</button>
                 </form>
             </div>
 
