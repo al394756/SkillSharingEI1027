@@ -11,40 +11,45 @@
 <body>
 <main class="centrado">
     <div class="caja color_text">
-<form action="#" th:action="@{/student/ban}"
-      th:object="${student}" method="post">
-    <div class="caja-interno">
-    <div class="nombre"><h2 th:text="'Ban '+${student.name}"></h2></div>
-    <hr>
-    <table>
-        <tr>
-            <td><label>Name:</label></td>
-            <td><input type="text" class="fecha" th:field="*{name}" readonly="readonly"/></td>
-        </tr>
-        <tr>
-            <td><label>Reason:</label></td>
-            <td><input type="text" class="descripcion" th:field="*{banReason}" /></td>
-            <td th:if="${#fields.hasErrors('banReason')}" th:errors="*{banReason}"></td>
-        </tr>
-    </table>
+        <form action="#" th:action="@{/student/ban}"
+              th:object="${student}" method="post">
+            <div class="caja-interno">
+            <div class="nombre"><h2 th:text="'Ban '+${student.name}"></h2></div>
+            <hr>
+            <table>
+                <tr>
+                    <td><label>Name:</label></td>
+                    <td><input type="text" class="fecha" th:field="*{name}" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                    <td><label>Reason:</label></td>
+                    <td><input type="text" class="descripcion" th:field="*{banReason}" /></td>
+                    <td th:if="${#fields.hasErrors('banReason')}" th:errors="*{banReason}"></td>
+                </tr>
+            </table>
 
-        <hr>
-        <a href="/student/list"><button class="sumit" type="button" >Back</button></a>
-        <input type="checkbox" class="checconf" id="confirm">
-        <label type="button" for="confirm"><button class="sumit">Ban Student</button></label>
+                <hr>
+                <a href="/student/list"><button class="sumit" type="button" >Back</button></a>
 
+                <label for="confirm" class="ajustesSubmit sumit3 colorWhite">Ban Student</label>
+
+
+            </div>
+
+        </form>
     </div>
-    <div class="corfrimacion">
+    <input type="checkbox" class="check2" id="confirm">
+    <div class="corfrimacion2">
         <p class="color_text">Are you sure you want to ban this Student?</p>
         <table class="botones">
             <tr>
-                <td><label class="botonConf" for="confirm"> Back </label></td>
+                <td><label class="ajustesSubmit colorWhite" for="confirm"> Back </label></td>
                 <td><button class="sumit" type="submit">Ban Student</button></td>
             </tr>
         </table>
+
     </div>
-</form>
-    </div>
+    <label class="fondoOscuro2"></label>
 </main>
 </body>
 </html>
