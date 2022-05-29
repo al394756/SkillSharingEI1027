@@ -45,7 +45,7 @@
     <div th:if="${#lists.isEmpty(misCollaborations)}">
         <h1> You don't have any collaboration yet</h1>
     </div>
-    <div th:unless="${#lists.isEmpty(misCollaborations)}">
+
 
     <h1 th:if="${sorter}=='' or ${sorter}==All">My collaborations</h1>
     <h1 th:if="${sorter}!=null and ${sorter}==Finished">My Finished collaborations</h1>
@@ -63,6 +63,7 @@
                 </select>
             </form>
         </div>
+    <div th:unless="${#lists.isEmpty(misCollaborations)}">
     <table class="tablaColla">
         <thead>
         <tr>
