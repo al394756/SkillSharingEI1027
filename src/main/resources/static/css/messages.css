@@ -1,5 +1,6 @@
 
 main{
+    margin: auto;
     text-align: center;
 }
 
@@ -155,4 +156,8 @@ main{
 }
 .msg-self .timestamp {
     text-align: right;
+}
+
+.aaaaa{
+    padding-top: 3rem;
 }
