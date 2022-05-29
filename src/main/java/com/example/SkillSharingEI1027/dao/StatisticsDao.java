@@ -63,12 +63,4 @@ public class StatisticsDao {
             return new ArrayList<>();
         }
     }
-
-    public List<String> bestCollaborations(){
-        try{
-            return jdbcTemplate.queryForList("select idCollaboration from collaboration where assessmentscore in (select max(assessmentscore) from collaboration)",String.class);
-        } catch (EmptyResultDataAccessException e){
-            return new ArrayList<>();
-        }
-    }
 }
