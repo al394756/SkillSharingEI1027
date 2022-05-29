@@ -1,8 +1,8 @@
 .caja{
     border-radius: 20px;
     background: #7d9abb;
-    width: 22rem;
-    height: 21.5rem;
+    width: 23rem;
+    height: 21.8rem;
     margin: 0 auto;
     box-shadow: 0 0 0.7rem #333333;
 }
@@ -10,7 +10,7 @@
     margin: auto;
     padding: 0 2rem;
     padding-bottom: 2rem;
-    padding-top: 0.5rem;
+    padding-top: 0.1rem;
     text-align: center;
 }
 main{
@@ -111,4 +111,9 @@ hr{
 
 .read:hover{
     background: white;
+}
+.per{
+    line-height: 0.9rem;
+    margin: auto;
+    padding: 0;
 }

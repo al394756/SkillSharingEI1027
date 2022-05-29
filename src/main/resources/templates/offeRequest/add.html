@@ -57,12 +57,14 @@
                 </td>
             </tr>
         </table>
-        <div class="hrdiv"><hr/></div>
-        <table>
-            <tr th:each="error: ${errors}">
-                <td width="100%"> <p  class="er"  th:text="${error}"></p>
-                </td>
+        <table th:unless="${errors}==null">
+            <tr>
+                <td th:each="error: ${errors}"> <p  class="er per"  th:text="${error}"></p></td>
             </tr>
+        </table>
+        <div class="hrdiv" th:if="${errors}==null"><hr/></div>
+        <div th:unless="${errors}==null"><hr/></div>
+        <table>
             <tr>
                 <td><a th:href="@{/{type}/list(type=${offeRequest.url})}"><button class="sumit" type="button" >Back</button></a></td>
                 <td>
